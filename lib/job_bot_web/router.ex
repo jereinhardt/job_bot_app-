@@ -19,8 +19,9 @@ defmodule JobBotWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", JobBotWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", JobBotWeb do
+    pipe_through :api
+
+    resources "/listings", ListingController
+  end
 end
