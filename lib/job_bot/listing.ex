@@ -2,7 +2,6 @@ defmodule JobBot.Listing do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "listings" do
     field :application_url, :string
     field :applied_at, :naive_datetime
