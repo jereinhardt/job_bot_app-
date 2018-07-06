@@ -4,12 +4,6 @@ defmodule JobBot.Source do
   def all do
     [
       %__MODULE__{
-        applier: JobBot.ElixirJobsApplier,
-        name: "Elixir Jobs",
-        scraper: JobBot.ElixirJobsScraper,
-        credentials: %{}
-      },
-      %__MODULE__{
         applier: JobBot.StackOverflowApplier,
         name: "Stack Overflow",
         scraper: JobBot.StackOverflowScraper,
@@ -45,7 +39,7 @@ defmodule JobBot.Source do
       |> atomize_keys()
       |> constantize_scraper()
       |> constantize_applier()
-      |> __MODULE__.__struct__()
+      |> __struct__()
   end
 
   defp atomize_keys(map) do

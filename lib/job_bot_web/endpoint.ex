@@ -1,5 +1,5 @@
 defmodule JobBotWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :job_bot_app
+  use Phoenix.Endpoint, otp_app: :job_bot
 
   socket "/socket", JobBotWeb.UserSocket
 
@@ -8,7 +8,7 @@ defmodule JobBotWeb.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :job_bot_app, gzip: false,
+    at: "/", from: :job_bot, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,7 +35,7 @@ defmodule JobBotWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_job_bot_app_key",
+    key: "_job_bot_key",
     signing_salt: "f23/Uhj4"
 
   plug JobBotWeb.Router

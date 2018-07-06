@@ -28,7 +28,7 @@ defmodule JobBotWeb do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/job_bot_app_web/templates",
+      use Phoenix.View, root: "lib/job_bot_web/templates",
                         namespace: JobBotWeb
 
       # Import convenience functions from controllers

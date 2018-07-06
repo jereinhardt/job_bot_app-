@@ -20,5 +20,5 @@ defmodule JobBotWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :job_bot_app
+  use Gettext, otp_app: :job_bot
 end

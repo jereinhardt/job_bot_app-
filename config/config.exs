@@ -6,12 +6,12 @@
 use Mix.Config
 
 # General application configuration
-config :job_bot_app,
+config :job_bot,
   namespace: JobBot,
   ecto_repos: [JobBot.Repo]
 
 # Configures the endpoint
-config :job_bot_app, JobBotWeb.Endpoint,
+config :job_bot, JobBotWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "h7swLtSL9xEbyJfXy6Isgr9w3OKeZJIfSkm9G6x0XuvFKHXpCPsgvM99zWPlg5La",
   render_errors: [view: JobBotWeb.ErrorView, accepts: ~w(html json)],

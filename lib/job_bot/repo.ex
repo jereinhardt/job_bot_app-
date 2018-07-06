@@ -1,5 +1,5 @@
 defmodule JobBot.Repo do
-  use Ecto.Repo, otp_app: :job_bot_app
+  use Ecto.Repo, otp_app: :job_bot
 
   @doc """
   Dynamically loads the repository url from the
