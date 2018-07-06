@@ -1,5 +1,8 @@
 defmodule JobBot.Source do
-  defstruct name: nil, scraper: nil, applier: nil, credentials: %{}
+  defstruct name: nil,
+    scraper: nil,
+    applier: nil,
+    credentials: %{}
 
   def all do
     [

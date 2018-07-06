@@ -23,5 +23,6 @@ defmodule JobBotWeb.Router do
     pipe_through :api
 
     resources "/listings", ListingController
+    resources "/sources", SourceController, only: [:index]
   end
 end
