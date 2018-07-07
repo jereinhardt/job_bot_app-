@@ -24,6 +24,10 @@ export default class Form extends React.Component {
         />
       );
     }.bind(this));
+    const moveForward = (event) => {
+      event.preventDefault();
+      this.props.moveForward();
+    }
 
     return(
       <div>
@@ -31,6 +35,7 @@ export default class Form extends React.Component {
         <ul>
           {sourceNodes}
         </ul>
+        <button onClick={(e) => moveForward(e)}>Continue</button>
       </div> 
     );
   }

@@ -113,6 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/form.js */ "./js/components/form.js");
+/* harmony import */ var _components_step_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/step.js */ "./js/components/step.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -120,6 +121,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -135,8 +137,11 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      sources: _this.getSources()
+      sources: _this.getSources(),
+      activeStep: 1
     };
+
+    _this.totalSteps = 1;
 
     window.state = _this.state;
     return _this;
@@ -153,12 +158,32 @@ var App = function (_React$Component) {
       this.setState({ sources: sources });
     }
   }, {
+    key: "moveForward",
+    value: function moveForward() {
+      if (this.state.activeStep < this.totalSteps) {
+        this.setState({ activeStep: this.state.activeStep + 1 });
+      }
+    }
+  }, {
+    key: "moveBackward",
+    value: function moveBackward() {
+      if (this.state.activeStep > 1) {
+        this.setState({ activeStep: this.state.activeStep - 1 });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_form_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        sources: this.state.sources,
-        updateSource: this.updateSource.bind(this)
-      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        _components_step_js__WEBPACK_IMPORTED_MODULE_4__["default"],
+        { activeStep: this.state.activeStep, step: 1 },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_form_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          sources: this.state.sources,
+          updateSource: this.updateSource.bind(this),
+          moveForward: this.moveForward.bind(this),
+          moveBackward: this.moveBackward.bind(this)
+        })
+      );
     }
   }, {
     key: "getSources",
@@ -231,6 +256,8 @@ var Form = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var sourceNodes = this.props.sources.map(function (source) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_source_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: source.name,
@@ -238,6 +265,10 @@ var Form = function (_React$Component) {
           updateSource: this.props.updateSource
         });
       }.bind(this));
+      var moveForward = function moveForward(event) {
+        event.preventDefault();
+        _this2.props.moveForward();
+      };
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "div",
@@ -251,6 +282,13 @@ var Form = function (_React$Component) {
           "ul",
           null,
           sourceNodes
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "button",
+          { onClick: function onClick(e) {
+              return moveForward(e);
+            } },
+          "Continue"
         )
       );
     }
@@ -471,6 +509,61 @@ var SourceCredentialsForm = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (SourceCredentialsForm);
+
+/***/ }),
+
+/***/ "./js/components/step.js":
+/*!*******************************!*\
+  !*** ./js/components/step.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Step = function (_React$Component) {
+  _inherits(Step, _React$Component);
+
+  function Step(props) {
+    _classCallCheck(this, Step);
+
+    return _possibleConstructorReturn(this, (Step.__proto__ || Object.getPrototypeOf(Step)).call(this, props));
+  }
+
+  _createClass(Step, [{
+    key: "render",
+    value: function render() {
+      var className = void 0;
+      if (this.props.activeStep == this.props.step) {
+        className = "step active";
+      } else {
+        className = "step";
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: className },
+        this.props.children
+      );
+    }
+  }]);
+
+  return Step;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Step);
 
 /***/ }),
 
