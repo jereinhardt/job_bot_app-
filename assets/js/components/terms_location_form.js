@@ -12,7 +12,8 @@ export default class TermsLocationForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.updateData(this.state)
+    this.props.updateData(this.state);
+    this.props.moveForward();
   }
 
   handleTermsChange(event) {

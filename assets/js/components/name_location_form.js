@@ -12,8 +12,7 @@ export default class NameLocationForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.updateName(this.state.name);
-    this.props.updateApplicantLocation(this.state.applicantLocation);
+    this.props.updateData(this.state);
     this.props.moveForward();
   }
 

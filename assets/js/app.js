@@ -19,7 +19,7 @@ export default class App extends React.Component {
       location: ""
     };
 
-    this.totalSteps = 2;
+    this.totalSteps = 3;
 
     window.state = this.state;
   }
@@ -64,8 +64,7 @@ export default class App extends React.Component {
             moveForward={this.moveForward.bind(this)}
             name={this.state.name}
             applicantLocation={this.state.applicantLocation}
-            updateName={this.updateName.bind(this)}
-            updateApplicantLocation={this.updateApplicantLocation.bind(this)}       
+            updateData={this.updateData.bind(this)}       
           />
         </Step>
         <Step activeStep={this.state.activeStep} step={2}>

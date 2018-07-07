@@ -149,7 +149,7 @@ var App = function (_React$Component) {
       location: ""
     };
 
-    _this.totalSteps = 2;
+    _this.totalSteps = 3;
 
     window.state = _this.state;
     return _this;
@@ -208,8 +208,7 @@ var App = function (_React$Component) {
             moveForward: this.moveForward.bind(this),
             name: this.state.name,
             applicantLocation: this.state.applicantLocation,
-            updateName: this.updateName.bind(this),
-            updateApplicantLocation: this.updateApplicantLocation.bind(this)
+            updateData: this.updateData.bind(this)
           })
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -302,8 +301,7 @@ var NameLocationForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.updateName(this.state.name);
-      this.props.updateApplicantLocation(this.state.applicantLocation);
+      this.props.updateData(this.state);
       this.props.moveForward();
     }
   }, {
@@ -770,6 +768,7 @@ var TermsLocationForm = function (_React$Component) {
     value: function handleSubmit(event) {
       event.preventDefault();
       this.props.updateData(this.state);
+      this.props.moveForward();
     }
   }, {
     key: "handleTermsChange",
