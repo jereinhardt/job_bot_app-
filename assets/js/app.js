@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import $ from "jquery";
-import Form from "./components/form.js";
+import NameLocationForm from "./components/name_location_form.js";
+import SourcesForm from "./components/sources_form.js";
 import Step from "./components/step.js"
 
 export default class App extends React.Component {
@@ -13,7 +14,7 @@ export default class App extends React.Component {
       activeStep: 1
     };
 
-    this.totalSteps = 1;
+    this.totalSteps = 2;
 
     window.state = this.state;
   }
@@ -23,6 +24,14 @@ export default class App extends React.Component {
     const i = this.state.sources.find((s) => s.name == source.name);
     sources[i] = Object.assign(source, attrs);
     this.setState({sources: sources});
+  }
+
+  updateName(name) {
+    this.setState({name: name});
+  }
+
+  updateApplicantLocation(location) {
+    this.setState({applicantLocation: location});
   }
 
   moveForward() {
@@ -39,14 +48,25 @@ export default class App extends React.Component {
 
   render() {
     return(
-      <Step activeStep={this.state.activeStep} step={1}>
-        <Form 
-          sources={this.state.sources}
-          updateSource={this.updateSource.bind(this)}
-          moveForward={this.moveForward.bind(this)}
-          moveBackward={this.moveBackward.bind(this)}
-        />
-      </Step>
+      <div className="steps-conatiner">
+        <Step activeStep={this.state.activeStep} step={1}>
+          <NameLocationForm 
+            moveForward={this.moveForward.bind(this)}
+            name={this.state.name}
+            applicantLocation={this.state.applicantLocation}
+            updateName={this.updateName.bind(this)}
+            updateApplicantLocation={this.updateApplicantLocation.bind(this)}       
+          />
+        </Step>
+        <Step activeStep={this.state.activeStep} step={2}>
+          <SourcesForm 
+            sources={this.state.sources}
+            updateSource={this.updateSource.bind(this)}
+            moveForward={this.moveForward.bind(this)}
+            moveBackward={this.moveBackward.bind(this)}
+          />
+        </Step>
+      </div>
     );
   }
 

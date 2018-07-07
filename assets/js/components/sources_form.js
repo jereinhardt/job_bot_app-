@@ -1,7 +1,7 @@
 import React from "react";
 import Source from "./source.js";
 
-export default class Form extends React.Component {
+export default class SourcesForm extends React.Component {
   constructor(props) {    
     super(props);
   }

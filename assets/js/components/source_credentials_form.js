@@ -3,6 +3,11 @@ import React from "react";
 export default class SourceCredentialsForm extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      email: undefined,
+      password: undefined
+    }
   }
 
   handleSubmit(event) {
