@@ -115,6 +115,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_name_location_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/name_location_form.js */ "./js/components/name_location_form.js");
 /* harmony import */ var _components_sources_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/sources_form.js */ "./js/components/sources_form.js");
 /* harmony import */ var _components_step_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/step.js */ "./js/components/step.js");
+/* harmony import */ var _components_terms_location_form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/terms_location_form.js */ "./js/components/terms_location_form.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -122,6 +123,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -140,7 +142,11 @@ var App = function (_React$Component) {
 
     _this.state = {
       sources: _this.getSources(),
-      activeStep: 1
+      activeStep: 1,
+      name: "",
+      applicantLocation: "",
+      terms: "",
+      location: ""
     };
 
     _this.totalSteps = 2;
@@ -158,6 +164,12 @@ var App = function (_React$Component) {
       });
       sources[i] = Object.assign(source, attrs);
       this.setState({ sources: sources });
+    }
+  }, {
+    key: "updateData",
+    value: function updateData(attrs) {
+      var newState = Object.assign(this.state, attrs);
+      this.setState(newState);
     }
   }, {
     key: "updateName",
@@ -206,6 +218,17 @@ var App = function (_React$Component) {
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_sources_form_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
             sources: this.state.sources,
             updateSource: this.updateSource.bind(this),
+            moveForward: this.moveForward.bind(this),
+            moveBackward: this.moveBackward.bind(this)
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          _components_step_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+          { activeStep: this.state.activeStep, step: 3 },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_terms_location_form_js__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            terms: this.state.terms,
+            location: this.state.location,
+            updateData: this.updateData.bind(this),
             moveForward: this.moveForward.bind(this),
             moveBackward: this.moveBackward.bind(this)
           })
@@ -269,8 +292,8 @@ var NameLocationForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (NameLocationForm.__proto__ || Object.getPrototypeOf(NameLocationForm)).call(this, props));
 
     _this.state = {
-      name: _this.props.name || "",
-      applicantLocation: _this.props.applicantLocation || ""
+      name: _this.props.name,
+      applicantLocation: _this.props.applicantLocation
     };
     return _this;
   }
@@ -703,6 +726,110 @@ var Step = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Step);
+
+/***/ }),
+
+/***/ "./js/components/terms_location_form.js":
+/*!**********************************************!*\
+  !*** ./js/components/terms_location_form.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var TermsLocationForm = function (_React$Component) {
+  _inherits(TermsLocationForm, _React$Component);
+
+  function TermsLocationForm(props) {
+    _classCallCheck(this, TermsLocationForm);
+
+    var _this = _possibleConstructorReturn(this, (TermsLocationForm.__proto__ || Object.getPrototypeOf(TermsLocationForm)).call(this, props));
+
+    _this.state = {
+      terms: _this.props.terms,
+      location: _this.props.location
+    };
+    return _this;
+  }
+
+  _createClass(TermsLocationForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      this.props.updateData(this.state);
+    }
+  }, {
+    key: "handleTermsChange",
+    value: function handleTermsChange(event) {
+      event.persist();
+      this.setState({ terms: event.target.value });
+    }
+  }, {
+    key: "handleLocationChange",
+    value: function handleLocationChange(event) {
+      event.persist();
+      this.setState({ location: event.target.value });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "form",
+        { onSubmit: function onSubmit(e) {
+            return _this2.handleSubmit(e);
+          } },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "label",
+          { htmlFor: "terms" },
+          "What kind of job are you looking for?"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          name: "terms",
+          value: this.state.terms,
+          placeholder: "What kind of job are you looking for?",
+          onChange: function onChange(e) {
+            return _this2.handleTermsChange(e);
+          }
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "label",
+          { htmlFor: "location" },
+          "Where are you looking for a job? (optional)"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          name: "location",
+          value: this.state.location,
+          placeholder: "Where are you looking? (optional)",
+          onChange: function onChange(e) {
+            return _this2.handleLocationChange(e);
+          }
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue" })
+      );
+    }
+  }]);
+
+  return TermsLocationForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (TermsLocationForm);
 
 /***/ }),
 

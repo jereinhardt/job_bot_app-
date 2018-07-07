@@ -4,6 +4,7 @@ import $ from "jquery";
 import NameLocationForm from "./components/name_location_form.js";
 import SourcesForm from "./components/sources_form.js";
 import Step from "./components/step.js"
+import TermsLocationForm from "./components/terms_location_form.js";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,7 +12,11 @@ export default class App extends React.Component {
 
     this.state = {
       sources: this.getSources(),
-      activeStep: 1
+      activeStep: 1,
+      name: "",
+      applicantLocation: "",
+      terms: "",
+      location: ""
     };
 
     this.totalSteps = 2;
@@ -24,6 +29,11 @@ export default class App extends React.Component {
     const i = this.state.sources.find((s) => s.name == source.name);
     sources[i] = Object.assign(source, attrs);
     this.setState({sources: sources});
+  }
+
+  updateData(attrs) {
+    const newState = Object.assign(this.state, attrs);
+    this.setState(newState);
   }
 
   updateName(name) {
@@ -62,6 +72,15 @@ export default class App extends React.Component {
           <SourcesForm 
             sources={this.state.sources}
             updateSource={this.updateSource.bind(this)}
+            moveForward={this.moveForward.bind(this)}
+            moveBackward={this.moveBackward.bind(this)}
+          />
+        </Step>
+        <Step activeStep={this.state.activeStep} step={3}>
+          <TermsLocationForm
+            terms={this.state.terms}
+            location={this.state.location}
+            updateData={this.updateData.bind(this)}
             moveForward={this.moveForward.bind(this)}
             moveBackward={this.moveBackward.bind(this)}
           />

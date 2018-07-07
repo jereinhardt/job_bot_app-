@@ -5,8 +5,8 @@ export default class NameLocationForm extends React.Component {
     super(props);
 
     this.state = {
-      name: this.props.name || "",
-      applicantLocation: this.props.applicantLocation || ""
+      name: this.props.name,
+      applicantLocation: this.props.applicantLocation
     }
   }
 
