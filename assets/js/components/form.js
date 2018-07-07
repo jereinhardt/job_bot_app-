@@ -1,12 +1,9 @@
 import React from "react";
+import Source from "./source.js";
 
 export default class Form extends React.Component {
   constructor(props) {    
     super(props);
-
-    this.state = {
-      sources: props.sources
-    };
   }
 
   toggleSource(source) {
@@ -17,30 +14,24 @@ export default class Form extends React.Component {
     }
   }
 
-  sourceOptionNodes() {
-    return this.props.sources.map(function(source) {
-      const className = source.selected ? "source selected" : "source"
-      const text = source.selected ? "source selected" : "source"
-      return (
-        <li 
+  render() {
+    const sourceNodes = this.props.sources.map(function(source) {
+      return(
+        <Source
           key={source.name}
-          onClick={() => this.toggleSource(source)}
-          className={className}
-        >
-          {source.name} {text}
-        </li>
+          source={source} 
+          updateSource={this.props.updateSource} 
+        />
       );
     }.bind(this));
-  }
 
-  render() {
     return(
-      <form action="/apply" method="POST">
+      <div>
         <h2>This is the Form</h2>
         <ul>
-          {this.sourceOptionNodes()}
+          {sourceNodes}
         </ul>
-      </form> 
+      </div> 
     );
   }
 }

@@ -137,6 +137,8 @@ var App = function (_React$Component) {
     _this.state = {
       sources: _this.getSources()
     };
+
+    window.state = _this.state;
     return _this;
   }
 
@@ -196,6 +198,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _source_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./source.js */ "./js/components/source.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -206,18 +209,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var Form = function (_React$Component) {
   _inherits(Form, _React$Component);
 
   function Form(props) {
     _classCallCheck(this, Form);
 
-    var _this = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
-
-    _this.state = {
-      sources: props.sources
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
   }
 
   _createClass(Form, [{
@@ -230,34 +229,19 @@ var Form = function (_React$Component) {
       }
     }
   }, {
-    key: "sourceOptionNodes",
-    value: function sourceOptionNodes() {
-      return this.props.sources.map(function (source) {
-        var _this2 = this;
-
-        var className = source.selected ? "source selected" : "source";
-        var text = source.selected ? "source selected" : "source";
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "li",
-          {
-            key: source.name,
-            onClick: function onClick() {
-              return _this2.toggleSource(source);
-            },
-            className: className
-          },
-          source.name,
-          " ",
-          text
-        );
-      }.bind(this));
-    }
-  }, {
     key: "render",
     value: function render() {
+      var sourceNodes = this.props.sources.map(function (source) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_source_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: source.name,
+          source: source,
+          updateSource: this.props.updateSource
+        });
+      }.bind(this));
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "form",
-        { action: "/apply", method: "POST" },
+        "div",
+        null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "h2",
           null,
@@ -266,7 +250,7 @@ var Form = function (_React$Component) {
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "ul",
           null,
-          this.sourceOptionNodes()
+          sourceNodes
         )
       );
     }
@@ -276,6 +260,217 @@ var Form = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Form);
+
+/***/ }),
+
+/***/ "./js/components/source.js":
+/*!*********************************!*\
+  !*** ./js/components/source.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _source_credentials_form_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./source_credentials_form.js */ "./js/components/source_credentials_form.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var Source = function (_React$Component) {
+  _inherits(Source, _React$Component);
+
+  function Source(props) {
+    _classCallCheck(this, Source);
+
+    var _this = _possibleConstructorReturn(this, (Source.__proto__ || Object.getPrototypeOf(Source)).call(this, props));
+
+    _this.state = {
+      toggled: false
+    };
+    return _this;
+  }
+
+  _createClass(Source, [{
+    key: "toggleSource",
+    value: function toggleSource(source) {
+      if (source.selected) {
+        this.props.updateSource(source, { selected: false });
+      } else {
+        this.props.updateSource(source, { selected: true });
+      }
+    }
+  }, {
+    key: "toggleSourceForm",
+    value: function toggleSourceForm() {
+      this.setState({ toggled: true });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var source = this.props.source;
+      var className = source.selected ? "source selected" : "source";
+
+      var text = source.selected ? "selected" : "";
+
+      if (source.credentials == null) {
+        return this._renderSourceWithoutCredentials(className, text);
+      } else {
+        return this._renderSourceWithCredentials(className, text);
+      }
+    }
+  }, {
+    key: "_renderSourceWithoutCredentials",
+    value: function _renderSourceWithoutCredentials(className, text) {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "li",
+        {
+          onClick: function onClick() {
+            return _this2.toggleSource(_this2.props.source);
+          },
+          className: className
+        },
+        this.props.source.name,
+        " ",
+        text
+      );
+    }
+  }, {
+    key: "_renderSourceWithCredentials",
+    value: function _renderSourceWithCredentials(className, text) {
+      var _this3 = this;
+
+      var updateSource = function updateSource(source, attrs) {
+        _this3.setState({ toggled: false });
+        _this3.props.updateSource(source, attrs);
+      };
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "li",
+        { onClick: this.toggleSourceForm.bind(this), className: className },
+        this.props.source.name,
+        " ",
+        text,
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_source_credentials_form_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          toggled: this.state.toggled,
+          source: this.props.source,
+          updateSource: updateSource
+        })
+      );
+    }
+  }]);
+
+  return Source;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Source);
+
+/***/ }),
+
+/***/ "./js/components/source_credentials_form.js":
+/*!**************************************************!*\
+  !*** ./js/components/source_credentials_form.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SourceCredentialsForm = function (_React$Component) {
+  _inherits(SourceCredentialsForm, _React$Component);
+
+  function SourceCredentialsForm(props) {
+    _classCallCheck(this, SourceCredentialsForm);
+
+    return _possibleConstructorReturn(this, (SourceCredentialsForm.__proto__ || Object.getPrototypeOf(SourceCredentialsForm)).call(this, props));
+  }
+
+  _createClass(SourceCredentialsForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      var attrs = Object.assign({ credentials: this.state }, { selected: true });
+      this.props.updateSource(this.props.source, attrs);
+    }
+  }, {
+    key: "updateEmail",
+    value: function updateEmail(event) {
+      event.persist();
+      this.setState({ email: event.target.value });
+    }
+  }, {
+    key: "updatePassword",
+    value: function updatePassword(event) {
+      event.persist();
+      this.setState({ password: event.target.value });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var className = this.props.toggled ? "toggled" : "";
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "form",
+        { className: className, onSubmit: function onSubmit(e) {
+            return _this2.handleSubmit(e);
+          } },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "label",
+          { htmlFor: "email" },
+          "Email or Username"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          name: "email",
+          type: "text",
+          onChange: function onChange(e) {
+            return _this2.updateEmail(e);
+          }
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "label",
+          { htmlFor: "password" },
+          "Password"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          name: "password",
+          type: "password",
+          onChange: function onChange(e) {
+            return _this2.updatePassword(e);
+          }
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "submit" })
+      );
+    }
+  }]);
+
+  return SourceCredentialsForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (SourceCredentialsForm);
 
 /***/ }),
 

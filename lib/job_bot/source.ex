@@ -16,7 +16,7 @@ defmodule JobBot.Source do
         applier: JobBot.WeWorkRemotelyApplier,
         name: "We Work Remotely",
         scraper: JobBot.WeWorkRemotelyScraper,
-        credentials: %{}
+        credentials: nil
       },
       %__MODULE__{
         applier: JobBot.GithubJobsApplier,

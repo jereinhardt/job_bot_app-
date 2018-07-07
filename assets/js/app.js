@@ -10,6 +10,8 @@ export default class App extends React.Component {
     this.state = {
       sources: this.getSources()
     };
+
+    window.state = this.state;
   }
 
   updateSource(source, attrs) {
