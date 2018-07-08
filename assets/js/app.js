@@ -5,6 +5,7 @@ import NameLocationForm from "./components/name_location_form.js";
 import SourcesForm from "./components/sources_form.js";
 import Step from "./components/step.js"
 import TermsLocationForm from "./components/terms_location_form.js";
+import AutoapplyForm from "./components/autoapply_form.js";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,10 +17,11 @@ export default class App extends React.Component {
       name: "",
       applicantLocation: "",
       terms: "",
-      location: ""
+      location: "",
+      autoapply: false
     };
 
-    this.totalSteps = 3;
+    this.totalSteps = 4;
 
     window.state = this.state;
   }
@@ -34,14 +36,6 @@ export default class App extends React.Component {
   updateData(attrs) {
     const newState = Object.assign(this.state, attrs);
     this.setState(newState);
-  }
-
-  updateName(name) {
-    this.setState({name: name});
-  }
-
-  updateApplicantLocation(location) {
-    this.setState({applicantLocation: location});
   }
 
   moveForward() {
@@ -79,6 +73,14 @@ export default class App extends React.Component {
           <TermsLocationForm
             terms={this.state.terms}
             location={this.state.location}
+            updateData={this.updateData.bind(this)}
+            moveForward={this.moveForward.bind(this)}
+            moveBackward={this.moveBackward.bind(this)}
+          />
+        </Step>
+        <Step activeStep={this.state.activeStep} step={4}>
+          <AutoapplyForm
+            autoapply={this.state.autoapply}
             updateData={this.updateData.bind(this)}
             moveForward={this.moveForward.bind(this)}
             moveBackward={this.moveBackward.bind(this)}

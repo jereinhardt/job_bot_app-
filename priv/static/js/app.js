@@ -116,6 +116,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_sources_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/sources_form.js */ "./js/components/sources_form.js");
 /* harmony import */ var _components_step_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/step.js */ "./js/components/step.js");
 /* harmony import */ var _components_terms_location_form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/terms_location_form.js */ "./js/components/terms_location_form.js");
+/* harmony import */ var _components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/autoapply_form.js */ "./js/components/autoapply_form.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -123,6 +124,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -146,10 +148,11 @@ var App = function (_React$Component) {
       name: "",
       applicantLocation: "",
       terms: "",
-      location: ""
+      location: "",
+      autoapply: false
     };
 
-    _this.totalSteps = 3;
+    _this.totalSteps = 4;
 
     window.state = _this.state;
     return _this;
@@ -170,16 +173,6 @@ var App = function (_React$Component) {
     value: function updateData(attrs) {
       var newState = Object.assign(this.state, attrs);
       this.setState(newState);
-    }
-  }, {
-    key: "updateName",
-    value: function updateName(name) {
-      this.setState({ name: name });
-    }
-  }, {
-    key: "updateApplicantLocation",
-    value: function updateApplicantLocation(location) {
-      this.setState({ applicantLocation: location });
     }
   }, {
     key: "moveForward",
@@ -231,6 +224,16 @@ var App = function (_React$Component) {
             moveForward: this.moveForward.bind(this),
             moveBackward: this.moveBackward.bind(this)
           })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          _components_step_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+          { activeStep: this.state.activeStep, step: 4 },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            autoapply: this.state.autoapply,
+            updateData: this.updateData.bind(this),
+            moveForward: this.moveForward.bind(this),
+            moveBackward: this.moveBackward.bind(this)
+          })
         )
       );
     }
@@ -258,6 +261,90 @@ var App = function (_React$Component) {
 
 
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.getElementById("app"));
+
+/***/ }),
+
+/***/ "./js/components/autoapply_form.js":
+/*!*****************************************!*\
+  !*** ./js/components/autoapply_form.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var AutoapplyForm = function (_React$Component) {
+  _inherits(AutoapplyForm, _React$Component);
+
+  function AutoapplyForm(props) {
+    _classCallCheck(this, AutoapplyForm);
+
+    var _this = _possibleConstructorReturn(this, (AutoapplyForm.__proto__ || Object.getPrototypeOf(AutoapplyForm)).call(this, props));
+
+    _this.state = { autoapply: _this.props.autoapply };
+    return _this;
+  }
+
+  _createClass(AutoapplyForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      this.props.updateData(this.state);
+      this.props.moveForward();
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(event) {
+      event.persist();
+      this.setState({ autoapply: event.target.value });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "form",
+        { onSubmit: function onSubmit(e) {
+            return _this2.handleSubmit(e);
+          } },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          null,
+          "Would you like us to automatically apply as they are found on your behalf?"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "label",
+          null,
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "checkbox",
+            value: this.state.autoapply,
+            onChange: function onChange(e) {
+              return _this2.handleChange(e);
+            }
+          }),
+          "Yes."
+        )
+      );
+    }
+  }]);
+
+  return AutoapplyForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (AutoapplyForm);
 
 /***/ }),
 
