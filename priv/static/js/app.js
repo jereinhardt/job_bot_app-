@@ -117,6 +117,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _containers_steps_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./containers/steps_controller.js */ "./js/containers/steps_controller.js");
 /* harmony import */ var _components_terms_location_form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/terms_location_form.js */ "./js/components/terms_location_form.js");
 /* harmony import */ var _components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/autoapply_form.js */ "./js/components/autoapply_form.js");
+/* harmony import */ var _components_email_form_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/email_form.js */ "./js/components/email_form.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -124,6 +125,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -149,7 +151,8 @@ var App = function (_React$Component) {
       applicantLocation: "",
       terms: "",
       location: "",
-      autoapply: false
+      autoapply: false,
+      email: { username: "", password: "" }
     };
 
     window.state = _this.state;
@@ -197,6 +200,10 @@ var App = function (_React$Component) {
           }),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
             autoapply: this.state.autoapply,
+            updateData: this.updateData.bind(this)
+          }),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_email_form_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            email: this.state.email,
             updateData: this.updateData.bind(this)
           })
         )
@@ -310,6 +317,107 @@ var AutoapplyForm = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (AutoapplyForm);
+
+/***/ }),
+
+/***/ "./js/components/email_form.js":
+/*!*************************************!*\
+  !*** ./js/components/email_form.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var EmailForm = function (_React$Component) {
+  _inherits(EmailForm, _React$Component);
+
+  function EmailForm(props) {
+    _classCallCheck(this, EmailForm);
+
+    var _this = _possibleConstructorReturn(this, (EmailForm.__proto__ || Object.getPrototypeOf(EmailForm)).call(this, props));
+
+    _this.state = _this.props.email;
+    return _this;
+  }
+
+  _createClass(EmailForm, [{
+    key: "handleUsernameChange",
+    value: function handleUsernameChange(event) {
+      event.persist();
+      this.setState(username);
+    }
+  }, {
+    key: "handlePasswordChange",
+    value: function handlePasswordChange(event) {
+      event.persist();
+      this.setState(password);
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      this.props.updateData({ email: this.state });
+      this.props.moveForward();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "form",
+        { onSubmit: function onSubmit(e) {
+            return _this2.handleSubmit(e);
+          } },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "label",
+          { htmlFor: "username" },
+          "Email"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          name: "username",
+          placeholder: "enter your email",
+          value: this.state.username,
+          onChange: function onChange(e) {
+            return _this2.handleUsernameChange(e);
+          }
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "label",
+          { htmlFor: "emailPassword" },
+          "Password"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "password",
+          name: "emailPassword",
+          value: this.state.password,
+          onChange: function onChange(e) {
+            return _this2.handlePasswordChange(e);
+          }
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue" })
+      );
+    }
+  }]);
+
+  return EmailForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (EmailForm);
 
 /***/ }),
 
