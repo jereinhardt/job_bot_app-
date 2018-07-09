@@ -17,6 +17,7 @@ defmodule JobBotWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    resources "/uploads", UploadController, only: [:create]
   end
 
   scope "/api", JobBotWeb do

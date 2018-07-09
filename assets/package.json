@@ -26,5 +26,8 @@
     "deploy": "webpack --mode production",
     "start": "yarn run watch",
     "watch": "webpack --mode development --watch-stdin"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }

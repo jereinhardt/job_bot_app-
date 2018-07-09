@@ -7,6 +7,7 @@ import StepsController from "./containers/steps_controller.js";
 import TermsLocationForm from "./components/terms_location_form.js";
 import AutoapplyForm from "./components/autoapply_form.js";
 import EmailForm from "./components/email_form.js";
+import ResumeForm from "./components/resume_form.js";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -20,7 +21,8 @@ export default class App extends React.Component {
       terms: "",
       location: "",
       autoapply: false,
-      email: {username: "", password: ""}
+      email: {username: "", password: ""},
+      resumePath: ""
     };
 
     window.state = this.state;
@@ -62,6 +64,10 @@ export default class App extends React.Component {
           />
           <EmailForm
             email={this.state.email}
+            updateData={this.updateData.bind(this)}
+          />
+          <ResumeForm
+            resumePath={this.state.resumePath}
             updateData={this.updateData.bind(this)}
           />
         </StepsController>
