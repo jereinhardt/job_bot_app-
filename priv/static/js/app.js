@@ -119,6 +119,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/autoapply_form.js */ "./js/components/autoapply_form.js");
 /* harmony import */ var _components_email_form_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/email_form.js */ "./js/components/email_form.js");
 /* harmony import */ var _components_resume_form_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/resume_form.js */ "./js/components/resume_form.js");
+/* harmony import */ var _components_confirmation_page_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/confirmation_page.js */ "./js/components/confirmation_page.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -126,6 +127,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -157,6 +159,9 @@ var App = function (_React$Component) {
       email: { username: "", password: "" },
       resumePath: ""
     };
+
+    _this.updateSource = _this.updateSource.bind(_this);
+    _this.updateData = _this.updateData.bind(_this);
 
     window.state = _this.state;
     return _this;
@@ -190,28 +195,31 @@ var App = function (_React$Component) {
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_name_location_form_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
             name: this.state.name,
             applicantLocation: this.state.applicantLocation,
-            updateData: this.updateData.bind(this)
+            updateData: this.updateData
           }),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_sources_form_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
             sources: this.state.sources,
-            updateSource: this.updateSource.bind(this)
+            updateSource: this.updateSource
           }),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_terms_location_form_js__WEBPACK_IMPORTED_MODULE_6__["default"], {
             terms: this.state.terms,
             location: this.state.location,
-            updateData: this.updateData.bind(this)
+            updateData: this.updateData
           }),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
             autoapply: this.state.autoapply,
-            updateData: this.updateData.bind(this)
+            updateData: this.updateData
           }),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_email_form_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
             email: this.state.email,
-            updateData: this.updateData.bind(this)
+            updateData: this.updateData
           }),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_resume_form_js__WEBPACK_IMPORTED_MODULE_9__["default"], {
             resumePath: this.state.resumePath,
-            updateData: this.updateData.bind(this)
+            updateData: this.updateData
+          }),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_confirmation_page_js__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            data: this.state
           })
         )
       );
@@ -315,7 +323,8 @@ var AutoapplyForm = function (_React$Component) {
             }
           }),
           "Yes."
-        )
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue" })
       );
     }
   }]);
@@ -324,6 +333,133 @@ var AutoapplyForm = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (AutoapplyForm);
+
+/***/ }),
+
+/***/ "./js/components/confirmation_page.js":
+/*!********************************************!*\
+  !*** ./js/components/confirmation_page.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var ConfirmationPage = function (_React$Component) {
+  _inherits(ConfirmationPage, _React$Component);
+
+  function ConfirmationPage() {
+    _classCallCheck(this, ConfirmationPage);
+
+    return _possibleConstructorReturn(this, (ConfirmationPage.__proto__ || Object.getPrototypeOf(ConfirmationPage)).apply(this, arguments));
+  }
+
+  _createClass(ConfirmationPage, [{
+    key: "render",
+    value: function render() {
+      var data = this.props.data;
+
+      var sourceNodes = data.sources.filter(function (source) {
+        return source.selected;
+      }).map(function (source) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "li",
+          { key: source.name },
+          source.name
+        );
+      });
+      var location = data.location == "" ? "Anywhere" : data.location;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "section",
+        { className: "data-summary" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "h3",
+          { className: "data-summary--heading" },
+          "Does this look right?"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "section",
+          { className: "data-summary--section name-location" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "h5",
+            null,
+            "Your Name"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "p",
+            { className: "data-summary--info" },
+            data.name
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "h5",
+            null,
+            "Your Location"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "p",
+            { className: "data-summary--info" },
+            data.applicantLocation
+          )
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "section",
+          { className: "data-summary--section search-info" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "h5",
+            null,
+            "What You're Looking For"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "p",
+            { className: "data-summary--info" },
+            data.terms
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "h5",
+            null,
+            "Where You're Looking"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "p",
+            { className: "data-summary--info" },
+            location
+          )
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "section",
+          { className: "data-summary--section sources" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "h5",
+            null,
+            "Sources"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "ul",
+            { className: "data-summary--sources-list" },
+            sourceNodes
+          )
+        )
+      );
+    }
+  }]);
+
+  return ConfirmationPage;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ConfirmationPage);
 
 /***/ }),
 

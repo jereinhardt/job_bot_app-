@@ -32,6 +32,8 @@ export default class AutoapplyForm extends React.Component {
           />
           Yes.
         </label>
+
+        <input type="submit" value="continue" />
       </form>
     );
   }

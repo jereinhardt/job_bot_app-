@@ -8,6 +8,7 @@ import TermsLocationForm from "./components/terms_location_form.js";
 import AutoapplyForm from "./components/autoapply_form.js";
 import EmailForm from "./components/email_form.js";
 import ResumeForm from "./components/resume_form.js";
+import ConfirmationPage from "./components/confirmation_page.js";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,6 +25,9 @@ export default class App extends React.Component {
       email: {username: "", password: ""},
       resumePath: ""
     };
+
+    this.updateSource = this.updateSource.bind(this);
+    this.updateData = this.updateData.bind(this);
 
     window.state = this.state;
   }
@@ -47,28 +51,31 @@ export default class App extends React.Component {
           <NameLocationForm 
             name={this.state.name}
             applicantLocation={this.state.applicantLocation}
-            updateData={this.updateData.bind(this)}       
+            updateData={this.updateData}       
           />
           <SourcesForm 
             sources={this.state.sources}
-            updateSource={this.updateSource.bind(this)}
+            updateSource={this.updateSource}
           />
           <TermsLocationForm
             terms={this.state.terms}
             location={this.state.location}
-            updateData={this.updateData.bind(this)}
+            updateData={this.updateData}
           />
           <AutoapplyForm
             autoapply={this.state.autoapply}
-            updateData={this.updateData.bind(this)}
+            updateData={this.updateData}
           />
           <EmailForm
             email={this.state.email}
-            updateData={this.updateData.bind(this)}
+            updateData={this.updateData}
           />
           <ResumeForm
             resumePath={this.state.resumePath}
-            updateData={this.updateData.bind(this)}
+            updateData={this.updateData}
+          />
+          <ConfirmationPage
+            data={this.state}
           />
         </StepsController>
       </div>
