@@ -288,8 +288,9 @@ var AutoapplyForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
+      var steps = this.state.autoapply ? 1 : 3;
       this.props.updateData(this.state);
-      this.props.moveForward();
+      this.props.moveForward(steps);
     }
   }, {
     key: "handleChange",
@@ -367,8 +368,16 @@ var ConfirmationPage = function (_React$Component) {
   }
 
   _createClass(ConfirmationPage, [{
+    key: "handleBack",
+    value: function handleBack() {
+      var steps = this.props.data.autoapply ? 1 : 3;
+      this.props.moveBackward(steps);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var data = this.props.data;
 
       var sourceNodes = data.sources.filter(function (source) {
@@ -451,6 +460,13 @@ var ConfirmationPage = function (_React$Component) {
             { className: "data-summary--sources-list" },
             sourceNodes
           )
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.handleBack();
+            } },
+          "Go Back"
         )
       );
     }

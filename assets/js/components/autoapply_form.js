@@ -9,8 +9,9 @@ export default class AutoapplyForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const steps = this.state.autoapply ? 1 : 3;
     this.props.updateData(this.state);
-    this.props.moveForward();
+    this.props.moveForward(steps);
   }
 
   handleChange(event) {
