@@ -162,12 +162,38 @@ var App = function (_React$Component) {
 
     _this.updateSource = _this.updateSource.bind(_this);
     _this.updateData = _this.updateData.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
 
     window.state = _this.state;
     return _this;
   }
 
   _createClass(App, [{
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var sources = this.state.sources.filter(function (source) {
+        return source.selected;
+      }).map(function (_ref) {
+        var name = _ref.name,
+            scraper = _ref.scraper,
+            applier = _ref.applier,
+            credentials = _ref.credentials;
+        return { name: name, scraper: scraper, applier: applier, credentials: credentials };
+      });
+      var data = {
+        sources: sources,
+        name: this.state.name,
+        applicant_location: this.state.applicantLocation,
+        terms: this.state.terms,
+        location: this.state.location,
+        autoapply: this.state.autoapply,
+        email: this.state.email,
+        resume_path: this.state.resumePath
+      };
+
+      // submit data to api endpoint
+    }
+  }, {
     key: "updateSource",
     value: function updateSource(source, attrs) {
       var sources = this.state.sources;
@@ -219,7 +245,8 @@ var App = function (_React$Component) {
             updateData: this.updateData
           }),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_confirmation_page_js__WEBPACK_IMPORTED_MODULE_10__["default"], {
-            data: this.state
+            data: this.state,
+            handleSubmit: this.handleSubmit
           })
         )
       );
@@ -467,6 +494,13 @@ var ConfirmationPage = function (_React$Component) {
               return _this2.handleBack();
             } },
           "Go Back"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.props.handleSubmit();
+            } },
+          "Confirm"
         )
       );
     }

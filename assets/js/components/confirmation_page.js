@@ -39,6 +39,7 @@ export default class ConfirmationPage extends React.Component {
         </section>
 
         <button onClick={() => this.handleBack()}>Go Back</button>
+        <button onClick={() => this.props.handleSubmit()}>Confirm</button>
       </section>
     );
   }

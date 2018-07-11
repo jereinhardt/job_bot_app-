@@ -28,8 +28,27 @@ export default class App extends React.Component {
 
     this.updateSource = this.updateSource.bind(this);
     this.updateData = this.updateData.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     window.state = this.state;
+  }
+
+  handleSubmit() {
+    const sources = this.state.sources.
+      filter(source => source.selected).
+      map(({ name, scraper, applier, credentials }) => ({ name, scraper, applier, credentials }));
+    const data = {
+      sources: sources,
+      name: this.state.name,
+      applicant_location: this.state.applicantLocation,
+      terms: this.state.terms,
+      location: this.state.location,
+      autoapply: this.state.autoapply,
+      email: this.state.email,
+      resume_path: this.state.resumePath
+    };
+
+    // submit data to api endpoint
   }
 
   updateSource(source, attrs) {
@@ -76,6 +95,7 @@ export default class App extends React.Component {
           />
           <ConfirmationPage
             data={this.state}
+            handleSubmit={this.handleSubmit}
           />
         </StepsController>
       </div>
