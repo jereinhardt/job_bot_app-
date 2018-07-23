@@ -39,10 +39,14 @@ defmodule JobBot.Source do
 
   def from_map(map) do
     map
-      |> atomize_keys()
-      |> constantize_scraper()
-      |> constantize_applier()
-      |> __struct__()
+    |> atomize_keys()
+    |> constantize_scraper()
+    |> constantize_applier()
+    |> __struct__()
+  end
+
+  def find_by_name(name) do
+    all() |> Enum.find(& &1.name == name)
   end
 
   defp atomize_keys(map) do

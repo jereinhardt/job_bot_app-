@@ -14,6 +14,7 @@ defmodule JobBot.Application do
       supervisor(JobBotWeb.Endpoint, []),
       # Start your own worker by calling: JobBot.Worker.start_link(arg1, arg2, arg3)
       # worker(JobBot.Worker, [arg1, arg2, arg3]),
+      worker(JobBot.WorkerRegistry, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
