@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import $ from "jquery";
+import { Socket } from "phoenix";
 import NameLocationForm from "./components/name_location_form.js";
 import SourcesForm from "./components/sources_form.js";
 import StepsController from "./containers/steps_controller.js";
@@ -23,7 +24,8 @@ export default class App extends React.Component {
       location: "",
       autoapply: false,
       email: {username: "", password: ""},
-      resumePath: ""
+      resumePath: "",
+      userId: $("#app").data("js-user-id")
     };
 
     this.updateSource = this.updateSource.bind(this);
@@ -31,6 +33,28 @@ export default class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     window.state = this.state;
+  }
+
+  componentDidMount() {
+    const $app = $("#app");
+    const userId = $app.data("js-user-id");
+    const userToken = $app.data("js-user-token");
+
+    let socket = new Socket("/socket", {params: {token: userToken}});
+    socket.connect();
+    let channel = socket.channel(`users:${userId}`, {});
+    channel.join().
+      receive("ok", resp => {
+        this.setState({listings: resp.listings});
+      }).
+      receive("error", resp => { 
+        console.error("failed to connect to channel", resp)
+      });
+
+    channel.on("new_listing", payload => {
+      const listings = this.state.listings.concat(payload.listing);
+      this.setState({listings: listings});
+    });
   }
 
   handleSubmit() {
@@ -45,8 +69,11 @@ export default class App extends React.Component {
       location: this.state.location,
       autoapply: this.state.autoapply,
       email: this.state.email,
-      resume_path: this.state.resumePath
+      resume_path: this.state.resumePath,
+      user_id: this.state.userId
     };
+
+    console.log(data);
 
     // submit data to api endpoint
   }

@@ -15,7 +15,13 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      phoenix: path.resolve(
+        __dirname,
+        "../deps/phoenix/assets/js/phoenix.js"
+      )
+    }
   },
   module: {
     rules: [{

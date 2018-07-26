@@ -7,6 +7,8 @@ defmodule JobBotWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_user_id_cookie
+    plug :put_user_token
   end
 
   pipeline :api do
@@ -25,5 +27,28 @@ defmodule JobBotWeb.Router do
 
     resources "/listings", ListingController
     resources "/sources", SourceController, only: [:index]
+  end
+
+  defp put_user_id_cookie(conn, _params) do
+    if conn.cookies["user_id"] do
+      conn
+    else
+      user_id = :crypto.strong_rand_bytes(10)
+        |> Base.url_encode64()
+        |> binary_part(0, 10)
+      put_resp_cookie(conn, "user_id", user_id, max_age: 1_209_600)
+    end
+  end
+
+  defp put_user_token(conn, _params) do
+    unless conn.assigns[:user_id] do
+      user_id = conn.cookies["user_id"] || conn.cookies["user_id"][:value]
+      token = Phoenix.Token.sign(conn, "user socket", user_id)
+      conn
+        |> assign(:user_token, token)
+        |> assign(:user_id, user_id)
+    else
+      conn
+    end
   end
 end
