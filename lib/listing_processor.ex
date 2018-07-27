@@ -1,18 +1,15 @@
 defmodule JobBot.ListingProcessor do
-  use GenServer
-
   require Logger
 
-  def start_link(_) do
-    GenServer.start_link(__MODULE__, [], name: __MODULE__)
+  def process(user_id, {:ok, listing}) do
+    JobBotWeb.Endpoint.broadcast(
+      "users:#{user_id}",
+      "new_listing",
+      %{"listing" => listing}
+    )
   end
 
-  def init(_), do: {:ok, []}
-
-  def process({:ok, listing}) do
-  end
-
-  def process({:error, message}) do
+  def process(_user_id, {:error, message}) do
     Logger.info IO.ANSI.red <> message <> IO.ANSI.reset
   end
 end

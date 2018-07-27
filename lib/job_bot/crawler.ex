@@ -75,9 +75,9 @@ defmodule JobBot.Crawler do
         then schedules the next crawl job.
       """
       def handle_info(:crawl_next, [url|state]) do
-        listing = crawl_url_for_listing(url)
-        # do something with the listing
+        crawl_url_for_listing(url) |> process_listing()
         schedule_next_crawl()
+        
         {:noreply, state}
       end
 
@@ -110,6 +110,18 @@ defmodule JobBot.Crawler do
       def ref(user_id), do: {:global, {__MODULE__, user_id}}
       
       defp user_id, do: JobBot.Registry.user_id(self())
+
+      defp process_listing({:ok, listing}) do
+        JobBotWeb.Endpoint.broadcast(
+          "users:#{user_id()}",
+          "new_listing",
+          %{"listing" => listing}
+        )
+      end
+
+      defp process_listing({:error, message}) do
+        Logger.info IO.ANSI.red <> message <> IO.ANSI.reset
+      end
     end
   end
 end
