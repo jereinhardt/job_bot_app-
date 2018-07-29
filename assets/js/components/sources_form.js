@@ -4,6 +4,11 @@ import Source from "./source.js";
 export default class SourcesForm extends React.Component {
   constructor(props) {    
     super(props);
+
+    this.state = {
+      errorClass: "",
+      errorMessage: ""
+    };
   }
 
   toggleSource(source) {
@@ -12,6 +17,26 @@ export default class SourcesForm extends React.Component {
     } else {
       this.props.updateSource(source, {selected: true});
     }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    if ( this._hasOneSelectedSource() ) {
+      this.setState({
+        errorClass: "",
+        errorMessage: ""        
+      });
+      this.props.moveForward();
+    } else {
+      this.setState({
+        errorClass: "has-error",
+        errorMessage: "Please select at least one job board"
+      });
+    }
+  }
+
+  _hasOneSelectedSource() {
+    return this.props.sources.some((source) => source.selected);
   }
 
   render() {
@@ -24,10 +49,6 @@ export default class SourcesForm extends React.Component {
         />
       );
     }.bind(this));
-    const moveForward = (event) => {
-      event.preventDefault();
-      this.props.moveForward();
-    }
 
     return(
       <div>
@@ -35,7 +56,10 @@ export default class SourcesForm extends React.Component {
         <ul>
           {sourceNodes}
         </ul>
-        <button onClick={(e) => moveForward(e)}>Continue</button>
+        <span className={`input-error-message ${this.state.errorClass}`}>
+          {this.state.errorMessage}
+        </span>
+        <button onClick={(e) => this.handleSubmit(e)}>Continue</button>
       </div> 
     );
   }

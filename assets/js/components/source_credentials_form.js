@@ -1,4 +1,5 @@
 import React from "react";
+import Validator from "../containers/validator.js";
 
 export default class SourceCredentialsForm extends React.Component {
   constructor(props) {
@@ -8,12 +9,20 @@ export default class SourceCredentialsForm extends React.Component {
       email: undefined,
       password: undefined
     }
+
+    const validations = [
+      {id: "email", validate: ["presence"]},
+      {id: "password", validate: ["presence"]}
+    ];
+    this.validator = new Validator(this, validations);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const attrs = Object.assign({credentials: this.state}, {selected: true});
-    this.props.updateSource(this.props.source, attrs);
+    if ( !this.validator.hasInvalidFields() ) {
+      const attrs = Object.assign({credentials: this.state}, {selected: true});
+      this.props.updateSource(this.props.source, attrs);
+    }
   }
 
   updateEmail(event) {
@@ -28,21 +37,36 @@ export default class SourceCredentialsForm extends React.Component {
 
   render() {
     const className = this.props.toggled ? "toggled" : ""
+    const emailErrorClass = this.validator.errorClassFor("email");
+    const passwordErrorClass = this.validator.errorClassFor("password");
+
     return(
       <form className={className} onSubmit={(e) => this.handleSubmit(e)}>
-        <label htmlFor="email">Email or Username</label>
+        <label htmlFor="email" className={emailErrorClass}>
+          Email or Username
+        </label>
         <input
           name="email"
           type="text"
           onChange={(e) => this.updateEmail(e)}
+          className={emailErrorClass}
         />
+        <span className={`input-error-message ${emailErrorClass}`}>
+          {this.validator.errorMessageFor("email")}
+        </span>
 
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className={passwordErrorClass}>
+          Password
+        </label>
         <input
           name="password"
           type="password"
           onChange={(e) => this.updatePassword(e)}
+          className={passwordErrorClass}
         />
+        <span className={`input-error-message ${passwordErrorClass}`}>
+          {this.validator.errorMessageFor("password")}
+        </span>
 
         <input type="submit" value="submit" />
       </form>

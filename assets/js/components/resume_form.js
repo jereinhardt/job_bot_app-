@@ -1,4 +1,5 @@
 import React from "react";
+import Validator from "../containers/validator.js";
 import { post } from "axios";
 
 export default class ResumeForm extends React.Component {
@@ -6,6 +7,11 @@ export default class ResumeForm extends React.Component {
     super(props);
 
     this.state = {resumePath: this.props.resumePath};
+
+    this.validator = new Validator(
+      this,
+      [{id: "resumePath", validate: ["presence"]}]
+    );
   }
 
   handleChange(event) {
@@ -21,21 +27,35 @@ export default class ResumeForm extends React.Component {
 
     post(url, formData, config).then((res) => {
       const path = JSON.parse(res.data).path;
-      this.setState({resumePath: path});
+      this.props.updateData({resumePath: path});
     })
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.updateData(this.state);
-    this.props.moveForward();
+    if ( !this.validator.hasInvalidFields() ) {
+      this.props.updateData(this.state);
+      this.props.moveForward();
+    }
   }
 
   render() {
+    const errorClass = this.validator.errorClassFor("resumePath");
+
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <label htmlFor="resume">Please upload your most recent recume</label>
-        <input name="resume" type="file" onChange={(e) => this.handleChange(e)} />
+        <label htmlFor="resume" className={errorClass}>
+          Please upload your most recent recume
+        </label>
+        <input
+          name="resume"
+          type="file"
+          onChange={(e) => this.handleChange(e)}
+          className={errorClass}
+        />
+        <span className={`input-error-message ${errorClass}`}>
+          {this.validator.errorMessageFor("resumePath")}
+        </span>
 
         <input type="submit" value="Continue" />
       </form>

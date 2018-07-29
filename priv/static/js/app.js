@@ -1719,6 +1719,7 @@ var ConfirmationPage = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1726,6 +1727,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -1738,6 +1740,9 @@ var EmailForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (EmailForm.__proto__ || Object.getPrototypeOf(EmailForm)).call(this, props));
 
     _this.state = _this.props.email;
+
+    var validations = [{ id: "username", validate: ["presence", "email"] }, { id: "password", validate: ["presence"] }];
+    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
     return _this;
   }
 
@@ -1745,26 +1750,30 @@ var EmailForm = function (_React$Component) {
     key: "handleUsernameChange",
     value: function handleUsernameChange(event) {
       event.persist();
-      this.setState(username);
+      this.setState({ username: event.target.value });
     }
   }, {
     key: "handlePasswordChange",
     value: function handlePasswordChange(event) {
       event.persist();
-      this.setState(password);
+      this.setState({ password: event.target.value });
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.updateData({ email: this.state });
-      this.props.moveForward();
+      if (!this.validator.hasInvalidFields()) {
+        this.props.updateData({ email: this.state });
+        this.props.moveForward();
+      }
     }
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
+      var usernameError = this.validator.errorClassFor("username");
+      var passwordError = this.validator.errorClassFor("password");
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
         { onSubmit: function onSubmit(e) {
@@ -1772,7 +1781,10 @@ var EmailForm = function (_React$Component) {
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "username" },
+          {
+            htmlFor: "username",
+            className: usernameError
+          },
           "Email"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -1782,11 +1794,22 @@ var EmailForm = function (_React$Component) {
           value: this.state.username,
           onChange: function onChange(e) {
             return _this2.handleUsernameChange(e);
-          }
+          },
+          className: usernameError
         }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          {
+            className: "input-error-message " + usernameError
+          },
+          this.validator.errorMessageFor("username")
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "emailPassword" },
+          {
+            htmlFor: "emailPassword",
+            className: passwordError
+          },
           "Password"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -1795,8 +1818,16 @@ var EmailForm = function (_React$Component) {
           value: this.state.password,
           onChange: function onChange(e) {
             return _this2.handlePasswordChange(e);
-          }
+          },
+          className: passwordError
         }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          {
+            className: "input-error-message " + passwordError
+          },
+          this.validator.errorMessageFor("password")
+        ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue" })
       );
     }
@@ -1820,6 +1851,7 @@ var EmailForm = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1827,6 +1859,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -1842,6 +1875,9 @@ var NameLocationForm = function (_React$Component) {
       name: _this.props.name,
       applicantLocation: _this.props.applicantLocation
     };
+
+    var validations = [{ id: "name", validate: ["presence"] }, { id: "applicantLocation", validate: ["presence"] }];
+    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
     return _this;
   }
 
@@ -1849,8 +1885,10 @@ var NameLocationForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.updateData(this.state);
-      this.props.moveForward();
+      if (!this.validator.hasInvalidFields()) {
+        this.props.updateData(this.state);
+        this.props.moveForward();
+      }
     }
   }, {
     key: "handleNameChange",
@@ -1869,6 +1907,9 @@ var NameLocationForm = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var nameError = this.validator.errorClassFor("name");
+      var locationError = this.validator.errorClassFor("applicantLocation");
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
         { onSubmit: function onSubmit(e) {
@@ -1876,7 +1917,10 @@ var NameLocationForm = function (_React$Component) {
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "name" },
+          {
+            htmlFor: "name",
+            className: nameError
+          },
           "Name"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -1886,11 +1930,22 @@ var NameLocationForm = function (_React$Component) {
           placeholder: "Enter your full name",
           onChange: function onChange(e) {
             return _this2.handleNameChange(e);
-          }
+          },
+          className: nameError
         }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          {
+            className: "input-error-message " + nameError
+          },
+          this.validator.errorMessageFor("name")
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "applicantLocation" },
+          {
+            htmlFor: "applicantLocation",
+            className: locationError
+          },
           "Location"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -1900,8 +1955,14 @@ var NameLocationForm = function (_React$Component) {
           placeholder: "Enter your Location",
           onChange: function onChange(e) {
             return _this2.handleLocationChange(e);
-          }
+          },
+          className: locationError
         }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          { className: "input-error-message " + locationError },
+          this.validator.errorMessageFor("applicantLocation")
+        ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Continue" })
       );
     }
@@ -1925,8 +1986,9 @@ var NameLocationForm = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1934,6 +1996,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -1947,6 +2010,8 @@ var ResumeForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ResumeForm.__proto__ || Object.getPrototypeOf(ResumeForm)).call(this, props));
 
     _this.state = { resumePath: _this.props.resumePath };
+
+    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, [{ id: "resumePath", validate: ["presence"] }]);
     return _this;
   }
 
@@ -1965,22 +2030,26 @@ var ResumeForm = function (_React$Component) {
         headers: { "content-type": "multipart/form-data" }
       };
 
-      Object(axios__WEBPACK_IMPORTED_MODULE_1__["post"])(url, formData, config).then(function (res) {
+      Object(axios__WEBPACK_IMPORTED_MODULE_2__["post"])(url, formData, config).then(function (res) {
         var path = JSON.parse(res.data).path;
-        _this2.setState({ resumePath: path });
+        _this2.props.updateData({ resumePath: path });
       });
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.updateData(this.state);
-      this.props.moveForward();
+      if (!this.validator.hasInvalidFields()) {
+        this.props.updateData(this.state);
+        this.props.moveForward();
+      }
     }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
+
+      var errorClass = this.validator.errorClassFor("resumePath");
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
@@ -1989,12 +2058,22 @@ var ResumeForm = function (_React$Component) {
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "resume" },
+          { htmlFor: "resume", className: errorClass },
           "Please upload your most recent recume"
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: "resume", type: "file", onChange: function onChange(e) {
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          name: "resume",
+          type: "file",
+          onChange: function onChange(e) {
             return _this3.handleChange(e);
-          } }),
+          },
+          className: errorClass
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          { className: "input-error-message " + errorClass },
+          this.validator.errorMessageFor("resumePath")
+        ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Continue" })
       );
     }
@@ -2134,6 +2213,7 @@ var Source = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2141,6 +2221,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2156,6 +2237,9 @@ var SourceCredentialsForm = function (_React$Component) {
       email: undefined,
       password: undefined
     };
+
+    var validations = [{ id: "email", validate: ["presence"] }, { id: "password", validate: ["presence"] }];
+    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
     return _this;
   }
 
@@ -2163,8 +2247,10 @@ var SourceCredentialsForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      var attrs = Object.assign({ credentials: this.state }, { selected: true });
-      this.props.updateSource(this.props.source, attrs);
+      if (!this.validator.hasInvalidFields()) {
+        var attrs = Object.assign({ credentials: this.state }, { selected: true });
+        this.props.updateSource(this.props.source, attrs);
+      }
     }
   }, {
     key: "updateEmail",
@@ -2184,6 +2270,9 @@ var SourceCredentialsForm = function (_React$Component) {
       var _this2 = this;
 
       var className = this.props.toggled ? "toggled" : "";
+      var emailErrorClass = this.validator.errorClassFor("email");
+      var passwordErrorClass = this.validator.errorClassFor("password");
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
         { className: className, onSubmit: function onSubmit(e) {
@@ -2191,7 +2280,7 @@ var SourceCredentialsForm = function (_React$Component) {
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "email" },
+          { htmlFor: "email", className: emailErrorClass },
           "Email or Username"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -2199,11 +2288,17 @@ var SourceCredentialsForm = function (_React$Component) {
           type: "text",
           onChange: function onChange(e) {
             return _this2.updateEmail(e);
-          }
+          },
+          className: emailErrorClass
         }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          { className: "input-error-message " + emailErrorClass },
+          this.validator.errorMessageFor("email")
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "password" },
+          { htmlFor: "password", className: passwordErrorClass },
           "Password"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -2211,8 +2306,14 @@ var SourceCredentialsForm = function (_React$Component) {
           type: "password",
           onChange: function onChange(e) {
             return _this2.updatePassword(e);
-          }
+          },
+          className: passwordErrorClass
         }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          { className: "input-error-message " + passwordErrorClass },
+          this.validator.errorMessageFor("password")
+        ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "submit" })
       );
     }
@@ -2254,7 +2355,13 @@ var SourcesForm = function (_React$Component) {
   function SourcesForm(props) {
     _classCallCheck(this, SourcesForm);
 
-    return _possibleConstructorReturn(this, (SourcesForm.__proto__ || Object.getPrototypeOf(SourcesForm)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (SourcesForm.__proto__ || Object.getPrototypeOf(SourcesForm)).call(this, props));
+
+    _this.state = {
+      errorClass: "",
+      errorMessage: ""
+    };
+    return _this;
   }
 
   _createClass(SourcesForm, [{
@@ -2265,6 +2372,30 @@ var SourcesForm = function (_React$Component) {
       } else {
         this.props.updateSource(source, { selected: true });
       }
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      if (this._hasOneSelectedSource()) {
+        this.setState({
+          errorClass: "",
+          errorMessage: ""
+        });
+        this.props.moveForward();
+      } else {
+        this.setState({
+          errorClass: "has-error",
+          errorMessage: "Please select at least one job board"
+        });
+      }
+    }
+  }, {
+    key: "_hasOneSelectedSource",
+    value: function _hasOneSelectedSource() {
+      return this.props.sources.some(function (source) {
+        return source.selected;
+      });
     }
   }, {
     key: "render",
@@ -2278,10 +2409,6 @@ var SourcesForm = function (_React$Component) {
           updateSource: this.props.updateSource
         });
       }.bind(this));
-      var moveForward = function moveForward(event) {
-        event.preventDefault();
-        _this2.props.moveForward();
-      };
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "div",
@@ -2297,9 +2424,14 @@ var SourcesForm = function (_React$Component) {
           sourceNodes
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          { className: "input-error-message " + this.state.errorClass },
+          this.state.errorMessage
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "button",
           { onClick: function onClick(e) {
-              return moveForward(e);
+              return _this2.handleSubmit(e);
             } },
           "Continue"
         )
@@ -2325,6 +2457,7 @@ var SourcesForm = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2332,6 +2465,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2347,6 +2481,9 @@ var TermsLocationForm = function (_React$Component) {
       terms: _this.props.terms,
       location: _this.props.location
     };
+
+    var validations = [{ id: "terms", validate: ["presence"] }];
+    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
     return _this;
   }
 
@@ -2354,8 +2491,10 @@ var TermsLocationForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.updateData(this.state);
-      this.props.moveForward();
+      if (!this.validator.hasInvalidFields()) {
+        this.props.updateData(this.state);
+        this.props.moveForward();
+      }
     }
   }, {
     key: "handleTermsChange",
@@ -2374,6 +2513,8 @@ var TermsLocationForm = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var termsError = this.validator.errorClassFor("terms");
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
         { onSubmit: function onSubmit(e) {
@@ -2381,7 +2522,7 @@ var TermsLocationForm = function (_React$Component) {
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "terms" },
+          { htmlFor: "terms", className: termsError },
           "What kind of job are you looking for?"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -2391,8 +2532,14 @@ var TermsLocationForm = function (_React$Component) {
           placeholder: "What kind of job are you looking for?",
           onChange: function onChange(e) {
             return _this2.handleTermsChange(e);
-          }
+          },
+          className: termsError
         }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "span",
+          { className: "input-error-message " + termsError },
+          this.validator.errorMessageFor("terms")
+        ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
           { htmlFor: "location" },
@@ -2573,6 +2720,134 @@ var StepsController = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (StepsController);
+
+/***/ }),
+
+/***/ "./js/containers/validator.js":
+/*!************************************!*\
+  !*** ./js/containers/validator.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// import React from "react";
+
+var Validator = function () {
+  function Validator(component, validations) {
+    _classCallCheck(this, Validator);
+
+    this.component = component;
+    this.validations = validations;
+    this.errors = [];
+  }
+
+  _createClass(Validator, [{
+    key: "hasInvalidFields",
+    value: function hasInvalidFields() {
+      var _this = this;
+
+      this.errors = [];
+      var invalidProperties = this.validations.filter(function (validation) {
+        return _this._inputIsInvalid(validation);
+      });
+      if (invalidProperties.length > 0) {
+        this.errors = invalidProperties.map(function (_ref) {
+          var id = _ref.id,
+              validate = _ref.validate;
+
+          var value = _this.component.state[id];
+          var errorProperty = validate.find(function (validation) {
+            return _this._inputIsInvalidFor(value, validation);
+          });
+          return { id: id, message: _this._errorMessageFor(errorProperty) };
+        });
+        this.component.forceUpdate();
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "errorClassFor",
+    value: function errorClassFor(name) {
+      var title = this.errors.some(function (_ref2) {
+        var id = _ref2.id;
+        return id == name;
+      }) ? "has-error" : "";
+      return title;
+    }
+  }, {
+    key: "errorMessageFor",
+    value: function errorMessageFor(name) {
+      var validation = this.errors.find(function (_ref3) {
+        var id = _ref3.id;
+        return id == name;
+      });
+      if (validation) {
+        return validation.message;
+      } else {
+        return "";
+      }
+    }
+  }, {
+    key: "_inputIsInvalid",
+    value: function _inputIsInvalid(_ref4) {
+      var _this2 = this;
+
+      var id = _ref4.id,
+          validate = _ref4.validate;
+
+      var value = this.component.state[id];
+      return validate.some(function (validation) {
+        return _this2._inputIsInvalidFor(value, validation);
+      });
+    }
+  }, {
+    key: "_inputIsInvalidFor",
+    value: function _inputIsInvalidFor(value, validation) {
+      return this._validations()[validation](value);
+    }
+  }, {
+    key: "_validations",
+    value: function _validations() {
+      return {
+        "presence": this._invalidPresence,
+        "email": this._invalidEmail
+      };
+    }
+  }, {
+    key: "_invalidPresence",
+    value: function _invalidPresence(value) {
+      return value == "" || value == undefined;
+    }
+  }, {
+    key: "_invalidEmail",
+    value: function _invalidEmail(value) {
+      var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return !regex.test(String(value).toLowerCase());
+    }
+  }, {
+    key: "_errorMessageFor",
+    value: function _errorMessageFor(validation) {
+      var messages = {
+        "presence": "Cannot be blank",
+        "email": "Must be a valid email address"
+      };
+
+      return messages[validation];
+    }
+  }]);
+
+  return Validator;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Validator);
 
 /***/ }),
 

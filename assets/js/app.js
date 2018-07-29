@@ -130,7 +130,7 @@ export default class App extends React.Component {
   }
 
   getSources() {
-    let sources
+    let sources;
     $.ajax({
       url: "/api/sources",
       type: "get",
