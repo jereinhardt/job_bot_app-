@@ -1,6 +1,6 @@
 defmodule JobBot.Source do
   defstruct name: nil,
-    scraper: nil,
+    crawler: nil,
     applier: nil,
     credentials: %{}
 
@@ -9,29 +9,29 @@ defmodule JobBot.Source do
       %__MODULE__{
         applier: JobBot.StackOverflowApplier,
         name: "Stack Overflow",
-        scraper: JobBot.StackOverflowScraper,
+        crawler: JobBot.StackOverflowScraper,
         credentials: %{}
       },
       %__MODULE__{
         applier: JobBot.WeWorkRemotelyApplier,
         name: "We Work Remotely",
-        scraper: JobBot.WeWorkRemotelyScraper,
+        crawler: JobBot.WeWorkRemotelyScraper,
         credentials: nil
       },
       %__MODULE__{
         applier: JobBot.GithubJobsApplier,
         name: "Github Jobs",
-        scraper: JobBot.GithubJobsScraper,
+        crawler: JobBot.GithubJobsScraper,
         credentials: %{}
       },
       %__MODULE__{
         name: "Zip Recruiter",
-        scraper: JobBot.ZipRecruiterScraper,
+        crawler: JobBot.ZipRecruiterScraper,
         credentials: %{}
       },
       %__MODULE__{
         name: "AngelList",
-        scraper: JobBot.AngelListScraper,
+        crawler: JobBot.AngelListScraper,
         credentials: %{}
       }
     ]
@@ -40,7 +40,7 @@ defmodule JobBot.Source do
   def from_map(map) do
     map
     |> atomize_keys()
-    |> constantize_scraper()
+    |> constantize_crawler()
     |> constantize_applier()
     |> __struct__()
   end
@@ -53,9 +53,9 @@ defmodule JobBot.Source do
     for {k, v} <- map, into: %{}, do: {String.to_atom(k), v}
   end
 
-  defp constantize_scraper(map) do
-    scraper = String.to_atom(map[:scraper])
-    Map.put(map, :scraper, scraper)
+  defp constantize_crawler(map) do
+    crawler = String.to_atom(map[:crawler])
+    Map.put(map, :crawler, crawler)
   end
 
   defp constantize_applier(map) do
