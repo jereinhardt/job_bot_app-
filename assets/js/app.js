@@ -10,6 +10,7 @@ import AutoapplyForm from "./components/autoapply_form.js";
 import EmailForm from "./components/email_form.js";
 import ResumeForm from "./components/resume_form.js";
 import ConfirmationPage from "./components/confirmation_page.js";
+import ListingsList from "./components/listings_list.js"
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,7 +26,8 @@ export default class App extends React.Component {
       autoapply: false,
       email: {username: "", password: ""},
       resumePath: "",
-      userId: $("#app").data("js-user-id")
+      userId: $("#app").data("js-user-id"),
+      listings: []
     };
 
     this.updateSource = this.updateSource.bind(this);
@@ -45,6 +47,7 @@ export default class App extends React.Component {
     let channel = socket.channel(`users:${userId}`, {});
     channel.join().
       receive("ok", resp => {
+        let listings = this.state.listings;
         this.setState({listings: resp.listings});
       }).
       receive("error", resp => { 
@@ -125,6 +128,7 @@ export default class App extends React.Component {
             handleSubmit={this.handleSubmit}
           />
         </StepsController>
+        <ListingsList listings={this.state.listings} />
       </div>
     );
   }

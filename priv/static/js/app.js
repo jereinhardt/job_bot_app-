@@ -1287,6 +1287,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_email_form_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/email_form.js */ "./js/components/email_form.js");
 /* harmony import */ var _components_resume_form_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/resume_form.js */ "./js/components/resume_form.js");
 /* harmony import */ var _components_confirmation_page_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/confirmation_page.js */ "./js/components/confirmation_page.js");
+/* harmony import */ var _components_listings_list_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/listings_list.js */ "./js/components/listings_list.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1294,6 +1295,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -1326,7 +1328,8 @@ var App = function (_React$Component) {
       autoapply: false,
       email: { username: "", password: "" },
       resumePath: "",
-      userId: jquery__WEBPACK_IMPORTED_MODULE_2___default()("#app").data("js-user-id")
+      userId: jquery__WEBPACK_IMPORTED_MODULE_2___default()("#app").data("js-user-id"),
+      listings: []
     };
 
     _this.updateSource = _this.updateSource.bind(_this);
@@ -1350,6 +1353,7 @@ var App = function (_React$Component) {
       socket.connect();
       var channel = socket.channel("users:" + userId, {});
       channel.join().receive("ok", function (resp) {
+        var listings = _this2.state.listings;
         _this2.setState({ listings: resp.listings });
       }).receive("error", function (resp) {
         console.error("failed to connect to channel", resp);
@@ -1443,7 +1447,8 @@ var App = function (_React$Component) {
             data: this.state,
             handleSubmit: this.handleSubmit
           })
-        )
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_listings_list_js__WEBPACK_IMPORTED_MODULE_12__["default"], { listings: this.state.listings })
       );
     }
   }, {
@@ -1837,6 +1842,114 @@ var EmailForm = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (EmailForm);
+
+/***/ }),
+
+/***/ "./js/components/listing.js":
+/*!**********************************!*\
+  !*** ./js/components/listing.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Listing = function (_React$Component) {
+  _inherits(Listing, _React$Component);
+
+  function Listing() {
+    _classCallCheck(this, Listing);
+
+    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+  }
+
+  _createClass(Listing, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "li",
+        { className: "listing" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "listing--title" },
+          this.props.title
+        )
+      );
+    }
+  }]);
+
+  return Listing;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Listing);
+
+/***/ }),
+
+/***/ "./js/components/listings_list.js":
+/*!****************************************!*\
+  !*** ./js/components/listings_list.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _listing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listing.js */ "./js/components/listing.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var ListingsList = function (_React$Component) {
+  _inherits(ListingsList, _React$Component);
+
+  function ListingsList() {
+    _classCallCheck(this, ListingsList);
+
+    return _possibleConstructorReturn(this, (ListingsList.__proto__ || Object.getPrototypeOf(ListingsList)).apply(this, arguments));
+  }
+
+  _createClass(ListingsList, [{
+    key: "render",
+    value: function render() {
+      var listingNodes = this.props.listings.map(function (listing) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_js__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, listing, { key: listing.updated_at }));
+      });
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "ul",
+        { className: "listings--list" },
+        listingNodes
+      );
+    }
+  }]);
+
+  return ListingsList;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ListingsList);
 
 /***/ }),
 
