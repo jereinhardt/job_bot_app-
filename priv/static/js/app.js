@@ -1336,7 +1336,7 @@ var App = function (_React$Component) {
     _this.updateData = _this.updateData.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
 
-    window.state = _this.state;
+    window.app = _this;
     return _this;
   }
 
@@ -2144,8 +2144,8 @@ var ResumeForm = function (_React$Component) {
       };
 
       Object(axios__WEBPACK_IMPORTED_MODULE_2__["post"])(url, formData, config).then(function (res) {
-        var path = JSON.parse(res.data).path;
-        _this2.props.updateData({ resumePath: path });
+        var path = res.data.path;
+        _this2.setState({ resumePath: path });
       });
     }
   }, {
@@ -2171,11 +2171,11 @@ var ResumeForm = function (_React$Component) {
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "label",
-          { htmlFor: "resume", className: errorClass },
+          { htmlFor: "resumePath", className: errorClass },
           "Please upload your most recent recume"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          name: "resume",
+          name: "resumePath",
           type: "file",
           onChange: function onChange(e) {
             return _this3.handleChange(e);

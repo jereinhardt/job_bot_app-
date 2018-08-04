@@ -21,7 +21,7 @@ defmodule JobBot.CrawlerSupervisor do
     JobBot.UserRegistry.register(user_id, data)
 
     opts
-    |> Keyword.get(:sources)
+    |> Keyword.get(:sources, [])
     |> Enum.each(fn (source) ->
       worker_opts = Enum.into(opts, credentials: source.credentials)
       child = worker(source.crawler, worker_opts, restart: :temporary)

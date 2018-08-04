@@ -7,10 +7,11 @@ defmodule JobBotWeb.UploadController do
     string = :crypto.strong_rand_bytes(10)
       |> Base.url_encode64
       |> binary_part(0, 10)
-    with {:ok, path} <- JobBotWeb.Upload.store({file, %{id: string}}),
-      {:ok, data} <- Poison.encode(%{path: "#{@tmp_folder}/#{string}/#{path}"})
-    do
-      render conn, "create.json", file: data
-    end
+    {:ok, path} = JobBotWeb.Upload.store({file, %{id: string}})
+    render(
+      conn,
+      "create.json",
+      file: %{path: "#{@tmp_folder}/#{string}/#{path}"}
+    )
   end
 end

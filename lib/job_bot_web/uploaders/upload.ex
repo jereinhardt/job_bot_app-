@@ -1,6 +1,8 @@
 defmodule JobBotWeb.Upload do
   use Arc.Definition
 
+  require Logger
+
   # Include ecto support (requires package arc_ecto installed):
   # use Arc.Ecto.Definition
 
@@ -47,4 +49,17 @@ defmodule JobBotWeb.Upload do
   # def s3_object_headers(version, {file, scope}) do
   #   [content_type: MIME.from_path(file.file_name)]
   # end
+
+  def delete(nil), do: :ok
+  def delete(path) do
+    dir_path = path
+      |> String.split("/")
+      |> Enum.take(4)
+      |> Enum.join("/")
+    case File.rm_rf(dir_path) do
+      {:ok, _} -> :ok
+      {:error, reason, _} -> 
+        Logger.info("Could not delete file at #{dir_path}. Reason: #{reason}")
+    end
+  end
 end

@@ -25,8 +25,8 @@ defmodule JobBotWeb.Router do
   scope "/api", JobBotWeb do
     pipe_through :api
 
-    resources "/listings", ListingController
     resources "/sources", SourceController, only: [:index]
+    resources "/job_searches", JobSearchesController, only: [:create]
   end
 
   defp put_user_id_cookie(conn, _params) do

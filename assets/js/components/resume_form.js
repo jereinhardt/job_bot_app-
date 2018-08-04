@@ -26,8 +26,8 @@ export default class ResumeForm extends React.Component {
     }
 
     post(url, formData, config).then((res) => {
-      const path = JSON.parse(res.data).path;
-      this.props.updateData({resumePath: path});
+      const path = res.data.path;
+      this.setState({resumePath: path});
     })
   }
 
@@ -44,11 +44,11 @@ export default class ResumeForm extends React.Component {
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <label htmlFor="resume" className={errorClass}>
+        <label htmlFor="resumePath" className={errorClass}>
           Please upload your most recent recume
         </label>
         <input
-          name="resume"
+          name="resumePath"
           type="file"
           onChange={(e) => this.handleChange(e)}
           className={errorClass}

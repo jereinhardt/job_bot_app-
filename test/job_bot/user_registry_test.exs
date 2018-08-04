@@ -1,6 +1,8 @@
 defmodule JobBot.UserRegistryTest do
   use ExUnit.Case, async: true
 
+  import Mock
+
   setup do
     Agent.update(JobBot.UserRegistry, fn (_) -> %{} end)
     :ok
@@ -24,5 +26,16 @@ defmodule JobBot.UserRegistryTest do
     registry = Agent.get(JobBot.UserRegistry, & &1)
 
     assert registry == %{}
+  end
+
+  test "unregister/1 deletes their reumse" do
+    with_mock(JobBotWeb.Upload, [delete: fn(_path) -> nil end]) do
+      user_id = 1
+      resume_path = "uploads/tmp/resumes/test/resume.pdf"
+      JobBot.UserRegistry.register(user_id, [resume_path: resume_path])
+      JobBot.UserRegistry.unregister(user_id)
+
+      assert called JobBotWeb.Upload.delete(resume_path)
+    end
   end
 end

@@ -34,7 +34,7 @@ export default class App extends React.Component {
     this.updateData = this.updateData.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
-    window.state = this.state;
+    window.app = this;
   }
 
   componentDidMount() {
