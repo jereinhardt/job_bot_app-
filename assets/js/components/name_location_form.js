@@ -41,46 +41,55 @@ export default class NameLocationForm extends React.Component {
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <label 
-          htmlFor="name"
-          className={nameError}
-        >
-          Name
-        </label>
-        <input
-          type="text"
-          name="name"
-          value={this.state.name}
-          placeholder="Enter your full name"
-          onChange={(e) => this.handleNameChange(e)}
-          className={nameError}
-        />
-        <span
-          className={`input-error-message ${nameError}`}
-        >
-          {this.validator.errorMessageFor("name")}
-        </span>
+        <div className="field">
+          <label
+            htmlFor="name"
+            className={`label ${nameError}`}
+          >
+            Name
+          </label>
+          <div className="control">
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              placeholder="Enter your full name"
+              onChange={(e) => this.handleNameChange(e)}
+              className={`input ${nameError}`}
+            />
+            <p className={`input-error-message is-danger ${nameError}`}>
+              {this.validator.errorMessageFor("name")}
+            </p>
+          </div>
+        </div>
 
+        <div className="field">
+          <label 
+            htmlFor="applicantLocation"
+            className={`label ${locationError}`}
+          >
+            Location
+          </label>
+          <div className="control">
+            <input
+              type="text"
+              name="applicantLocation"
+              value={this.state.applicantLocation}
+              placeholder="Enter your Location"
+              onChange={(e) => this.handleLocationChange(e)}
+              className={`input ${locationError}`}
+            />
+            <p className={`input-error-message is-danger ${locationError}`}>
+              {this.validator.errorMessageFor("applicantLocation")}
+            </p>
+          </div>
+        </div>
 
-        <label 
-          htmlFor="applicantLocation"
-          className={locationError}
-        >
-          Location
-        </label>
-        <input
-          type="text"
-          name="applicantLocation"
-          value={this.state.applicantLocation}
-          placeholder="Enter your Location"
-          onChange={(e) => this.handleLocationChange(e)}
-          className={locationError}
-        />
-        <span className={`input-error-message ${locationError}`}>
-          {this.validator.errorMessageFor("applicantLocation")}
-        </span>
-
-        <input type="submit" value="Continue" />
+        <div className="field">
+          <div className="control">
+            <input type="submit" value="Continue" className="button is-link"/>
+          </div>
+        </div>
       </form>
     )
   }

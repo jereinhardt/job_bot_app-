@@ -1,1 +1,17 @@
 @import "~bulma/bulma.sass";
+
+.input-error-message {
+  @extend .help;
+
+  display: none;
+
+  &.has-error {
+    display: block;
+  }
+}
+
+.input {
+  &.has-error {
+    @extend .input.is-danger;
+  }
+}

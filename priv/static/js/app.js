@@ -1542,18 +1542,40 @@ var AutoapplyForm = function (_React$Component) {
           "Would you like us to automatically apply as they are found on your behalf?"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          null,
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            type: "checkbox",
-            value: this.state.autoapply,
-            onChange: function onChange(e) {
-              return _this2.handleChange(e);
-            }
-          }),
-          "Yes."
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { className: "checkbox" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              type: "checkbox",
+              value: this.state.autoapply,
+              onChange: function onChange(e) {
+                return _this2.handleChange(e);
+              }
+            }),
+            "Yes."
+          )
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue" })
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "button",
+              {
+                className: "button is-link",
+                onClick: function onClick(e) {
+                  return _this2.props.moveBackward;
+                }
+              },
+              "Go Back"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue", className: "button is-link" })
+          )
+        )
       );
     }
   }]);
@@ -1597,7 +1619,7 @@ var ConfirmationPage = function (_React$Component) {
 
   _createClass(ConfirmationPage, [{
     key: "handleBack",
-    value: function handleBack() {
+    value: function handleBack(e) {
       var steps = this.props.data.autoapply ? 1 : 3;
       this.props.moveBackward(steps);
     }
@@ -1690,18 +1712,32 @@ var ConfirmationPage = function (_React$Component) {
           )
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "button",
-          { onClick: function onClick() {
-              return _this2.handleBack();
-            } },
-          "Go Back"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "button",
-          { onClick: function onClick() {
-              return _this2.props.handleSubmit();
-            } },
-          "Confirm"
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "button",
+              {
+                onClick: function onClick() {
+                  return _this2.handleBack();
+                },
+                className: "button is-link"
+              },
+              "Go Back"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "button",
+              {
+                onClick: function onClick() {
+                  return _this2.props.handleSubmit();
+                },
+                className: "button is-link"
+              },
+              "Confirm"
+            )
+          )
         )
       );
     }
@@ -1786,55 +1822,82 @@ var EmailForm = function (_React$Component) {
             return _this2.handleSubmit(e);
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          {
-            htmlFor: "username",
-            className: usernameError
-          },
-          "Email"
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            {
+              htmlFor: "username",
+              className: "label " + usernameError
+            },
+            "Email"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              type: "text",
+              name: "username",
+              placeholder: "enter your email",
+              value: this.state.username,
+              onChange: function onChange(e) {
+                return _this2.handleUsernameChange(e);
+              },
+              className: "input " + usernameError
+            }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              { className: "input-error-message is-danger " + usernameError },
+              this.validator.errorMessageFor("username")
+            )
+          )
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "text",
-          name: "username",
-          placeholder: "enter your email",
-          value: this.state.username,
-          onChange: function onChange(e) {
-            return _this2.handleUsernameChange(e);
-          },
-          className: usernameError
-        }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          {
-            className: "input-error-message " + usernameError
-          },
-          this.validator.errorMessageFor("username")
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { htmlFor: "emailPassword", className: "label " + passwordError },
+            "Password"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              type: "password",
+              name: "emailPassword",
+              value: this.state.password,
+              onChange: function onChange(e) {
+                return _this2.handlePasswordChange(e);
+              },
+              className: "input " + passwordError
+            }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              { className: "input-error-message is-danger " + passwordError },
+              this.validator.errorMessageFor("password")
+            )
+          )
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          {
-            htmlFor: "emailPassword",
-            className: passwordError
-          },
-          "Password"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "password",
-          name: "emailPassword",
-          value: this.state.password,
-          onChange: function onChange(e) {
-            return _this2.handlePasswordChange(e);
-          },
-          className: passwordError
-        }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          {
-            className: "input-error-message " + passwordError
-          },
-          this.validator.errorMessageFor("password")
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue" })
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "button",
+              {
+                className: "button is-link",
+                onClick: function onClick(e) {
+                  return _this2.props.moveBackward();
+                }
+              },
+              "Go Back"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue", className: "button is-link" })
+          )
+        )
       );
     }
   }]);
@@ -2030,54 +2093,76 @@ var NameLocationForm = function (_React$Component) {
             return _this2.handleSubmit(e);
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          {
-            htmlFor: "name",
-            className: nameError
-          },
-          "Name"
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            {
+              htmlFor: "name",
+              className: "label " + nameError
+            },
+            "Name"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              type: "text",
+              name: "name",
+              value: this.state.name,
+              placeholder: "Enter your full name",
+              onChange: function onChange(e) {
+                return _this2.handleNameChange(e);
+              },
+              className: "input " + nameError
+            }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              { className: "input-error-message is-danger " + nameError },
+              this.validator.errorMessageFor("name")
+            )
+          )
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "text",
-          name: "name",
-          value: this.state.name,
-          placeholder: "Enter your full name",
-          onChange: function onChange(e) {
-            return _this2.handleNameChange(e);
-          },
-          className: nameError
-        }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          {
-            className: "input-error-message " + nameError
-          },
-          this.validator.errorMessageFor("name")
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            {
+              htmlFor: "applicantLocation",
+              className: "label " + locationError
+            },
+            "Location"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              type: "text",
+              name: "applicantLocation",
+              value: this.state.applicantLocation,
+              placeholder: "Enter your Location",
+              onChange: function onChange(e) {
+                return _this2.handleLocationChange(e);
+              },
+              className: "input " + locationError
+            }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              { className: "input-error-message is-danger " + locationError },
+              this.validator.errorMessageFor("applicantLocation")
+            )
+          )
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          {
-            htmlFor: "applicantLocation",
-            className: locationError
-          },
-          "Location"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "text",
-          name: "applicantLocation",
-          value: this.state.applicantLocation,
-          placeholder: "Enter your Location",
-          onChange: function onChange(e) {
-            return _this2.handleLocationChange(e);
-          },
-          className: locationError
-        }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          { className: "input-error-message " + locationError },
-          this.validator.errorMessageFor("applicantLocation")
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Continue" })
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Continue", className: "button is-link" })
+          )
+        )
       );
     }
   }]);
@@ -2171,24 +2256,58 @@ var ResumeForm = function (_React$Component) {
             return _this3.handleSubmit(e);
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          { htmlFor: "resumePath", className: errorClass },
-          "Please upload your most recent recume"
+          "p",
+          null,
+          "Please upload your most recent resume"
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          name: "resumePath",
-          type: "file",
-          onChange: function onChange(e) {
-            return _this3.handleChange(e);
-          },
-          className: errorClass
-        }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          { className: "input-error-message " + errorClass },
-          this.validator.errorMessageFor("resumePath")
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "file" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "label",
+              { htmlFor: "resumePath", className: "file-label " + errorClass },
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+                name: "resumePath",
+                type: "file",
+                onChange: function onChange(e) {
+                  return _this3.handleChange(e);
+                },
+                className: "file-input " + errorClass
+              }),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "span",
+                { className: "file-cta" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "span",
+                  { className: "file-icon" },
+                  react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", { className: "fas fa-upload" })
+                ),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "span",
+                  { className: "file-label" },
+                  "Upload Your Resume"
+                )
+              ),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "p",
+                { className: "input-error-message is-danger " + errorClass },
+                this.validator.errorMessageFor("resumePath")
+              )
+            )
+          )
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Continue" })
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "Continue", className: "button is-link" })
+          )
+        )
       );
     }
   }]);
@@ -2297,8 +2416,11 @@ var Source = function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "li",
         { onClick: this.toggleSourceForm.bind(this), className: className },
-        this.props.source.name,
-        " ",
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "h4",
+          { className: "subtitle is-4" },
+          this.props.source.name
+        ),
         text,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_source_credentials_form_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
           toggled: this.state.toggled,
@@ -2393,42 +2515,66 @@ var SourceCredentialsForm = function (_React$Component) {
             return _this2.handleSubmit(e);
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          { htmlFor: "email", className: emailErrorClass },
-          "Email or Username"
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { htmlFor: "email", className: "label " + emailErrorClass },
+            "Email or Username"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              name: "email",
+              type: "text",
+              onChange: function onChange(e) {
+                return _this2.updateEmail(e);
+              },
+              className: "input " + emailErrorClass
+            }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              { className: "input-error-message is-danger " + emailErrorClass },
+              this.validator.errorMessageFor("email")
+            )
+          )
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          name: "email",
-          type: "text",
-          onChange: function onChange(e) {
-            return _this2.updateEmail(e);
-          },
-          className: emailErrorClass
-        }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          { className: "input-error-message " + emailErrorClass },
-          this.validator.errorMessageFor("email")
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { htmlFor: "password", className: "label " + passwordErrorClass },
+            "Password"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              name: "password",
+              type: "password",
+              onChange: function onChange(e) {
+                return _this2.updatePassword(e);
+              },
+              className: "input " + passwordErrorClass
+            }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              { className: "input-error-message " + passwordErrorClass },
+              this.validator.errorMessageFor("password")
+            )
+          )
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          { htmlFor: "password", className: passwordErrorClass },
-          "Password"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          name: "password",
-          type: "password",
-          onChange: function onChange(e) {
-            return _this2.updatePassword(e);
-          },
-          className: passwordErrorClass
-        }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          { className: "input-error-message " + passwordErrorClass },
-          this.validator.errorMessageFor("password")
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "submit" })
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "submit", className: "button is-link" })
+          )
+        )
       );
     }
   }]);
@@ -2544,9 +2690,22 @@ var SourcesForm = function (_React$Component) {
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "button",
-          { onClick: function onClick(e) {
+          {
+            onClick: function onClick(_e) {
+              return _this2.props.moveBackward();
+            },
+            className: "button is-link"
+          },
+          "Go Back"
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "button",
+          {
+            onClick: function onClick(e) {
               return _this2.handleSubmit(e);
-            } },
+            },
+            className: "button is-link"
+          },
           "Continue"
         )
       );
@@ -2635,40 +2794,74 @@ var TermsLocationForm = function (_React$Component) {
             return _this2.handleSubmit(e);
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          { htmlFor: "terms", className: termsError },
-          "What kind of job are you looking for?"
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { htmlFor: "terms", className: "label " + termsError },
+            "What kind of job are you looking for?"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              type: "text",
+              name: "terms",
+              value: this.state.terms,
+              placeholder: "What kind of job are you looking for?",
+              onChange: function onChange(e) {
+                return _this2.handleTermsChange(e);
+              },
+              className: "input " + termsError
+            }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              { className: "input-error-message is-danger " + termsError },
+              this.validator.errorMessageFor("terms")
+            )
+          )
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "text",
-          name: "terms",
-          value: this.state.terms,
-          placeholder: "What kind of job are you looking for?",
-          onChange: function onChange(e) {
-            return _this2.handleTermsChange(e);
-          },
-          className: termsError
-        }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "span",
-          { className: "input-error-message " + termsError },
-          this.validator.errorMessageFor("terms")
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            {
+              htmlFor: "location",
+              className: "label"
+            },
+            "Where are you looking for a job? (optional)"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "text",
+            name: "location",
+            value: this.state.location,
+            placeholder: "Where are you looking? (optional)",
+            onChange: function onChange(e) {
+              return _this2.handleLocationChange(e);
+            },
+            className: "input"
+          })
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "label",
-          { htmlFor: "location" },
-          "Where are you looking for a job? (optional)"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "text",
-          name: "location",
-          value: this.state.location,
-          placeholder: "Where are you looking? (optional)",
-          onChange: function onChange(e) {
-            return _this2.handleLocationChange(e);
-          }
-        }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue" })
+          "div",
+          { className: "field" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "control" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "button",
+              {
+                className: "button is-link",
+                onClick: function onClick(e) {
+                  return _this2.props.moveBackward;
+                }
+              },
+              "Go Back"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "submit", value: "continue", className: "button is-link" })
+          )
+        )
       );
     }
   }]);

@@ -37,31 +37,53 @@ export default class TermsLocationForm extends React.Component {
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <label htmlFor="terms" className={termsError}>
-          What kind of job are you looking for?
-        </label>
-        <input
-          type="text"
-          name="terms"
-          value={this.state.terms}
-          placeholder="What kind of job are you looking for?"
-          onChange={(e) => this.handleTermsChange(e)}
-          className={termsError}
-        />
-        <span className={`input-error-message ${termsError}`}>
-          {this.validator.errorMessageFor("terms")}
-        </span>
+        <div className="field">
+          <label htmlFor="terms" className={`label ${termsError}`}>
+            What kind of job are you looking for?
+          </label>
+          <div className="control">
+            <input
+              type="text"
+              name="terms"
+              value={this.state.terms}
+              placeholder="What kind of job are you looking for?"
+              onChange={(e) => this.handleTermsChange(e)}
+              className={`input ${termsError}`}
+            />
+            <p className={`input-error-message is-danger ${termsError}`}>
+              {this.validator.errorMessageFor("terms")}
+            </p>
+          </div>
+        </div>
 
-        <label htmlFor="location">Where are you looking for a job? (optional)</label>
-        <input
-          type="text"
-          name="location"
-          value={this.state.location}
-          placeholder="Where are you looking? (optional)"
-          onChange={(e) => this.handleLocationChange(e)}
-        />
+        <div className="field">
+          <label 
+            htmlFor="location"
+            className="label"
+          >
+            Where are you looking for a job? (optional)
+          </label>
+          <input
+            type="text"
+            name="location"
+            value={this.state.location}
+            placeholder="Where are you looking? (optional)"
+            onChange={(e) => this.handleLocationChange(e)}
+            className="input"
+          />
+        </div>
 
-        <input type="submit" value="continue" />
+        <div className="field">
+          <div className="control">
+            <button
+              className="button is-link"
+              onClick={(e) => this.props.moveBackward}
+            >
+              Go Back
+            </button>
+            <input type="submit" value="continue" className="button is-link"/>
+          </div>
+        </div>
       </form>
     );
   }

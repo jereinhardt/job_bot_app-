@@ -1,7 +1,7 @@
 import React from "react";
 
 export default class ConfirmationPage extends React.Component {
-  handleBack() {
+  handleBack(e) {
     const steps = this.props.data.autoapply ? 1 : 3;
     this.props.moveBackward(steps)
   }
@@ -38,8 +38,22 @@ export default class ConfirmationPage extends React.Component {
           </ul>
         </section>
 
-        <button onClick={() => this.handleBack()}>Go Back</button>
-        <button onClick={() => this.props.handleSubmit()}>Confirm</button>
+        <div className="field">
+          <div className="control">
+            <button
+              onClick={() => this.handleBack()}
+              className="button is-link"
+            >
+              Go Back
+            </button>
+            <button
+              onClick={() => this.props.handleSubmit()}
+              className="button is-link"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
       </section>
     );
   }

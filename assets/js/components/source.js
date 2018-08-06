@@ -54,7 +54,10 @@ export default class Source extends React.Component {
 
     return(
       <li onClick={this.toggleSourceForm.bind(this)} className={className}>
-        {this.props.source.name } {text}
+        <h4 className="subtitle is-4">
+          {this.props.source.name}
+        </h4>
+        {text}
 
         <SourceCredentialsForm
           toggled={this.state.toggled}

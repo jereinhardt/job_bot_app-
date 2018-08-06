@@ -2662,11 +2662,11 @@ a.box:active {
     .textarea.is-warning.is-active {
       box-shadow: 0 0 0 0.125em rgba(255, 221, 87, 0.25); }
   /* line 78, node_modules/bulma/sass/elements/form.sass */
-  .input.is-danger,
+  .input.is-danger, .input.has-error,
   .textarea.is-danger {
     border-color: #ff3860; }
     /* line 80, node_modules/bulma/sass/elements/form.sass */
-    .input.is-danger:focus, .input.is-danger.is-focused, .input.is-danger:active, .input.is-danger.is-active,
+    .input.is-danger:focus, .input.has-error:focus, .input.is-danger.is-focused, .is-focused.input.has-error, .input.is-danger:active, .input.has-error:active, .input.is-danger.is-active, .is-active.input.has-error,
     .textarea.is-danger:focus,
     .textarea.is-danger.is-focused,
     .textarea.is-danger:active,
@@ -3374,39 +3374,39 @@ a.box:active {
     font-size: 1.5rem; }
 
 /* line 411, node_modules/bulma/sass/elements/form.sass */
-.help {
+.help, .input-error-message {
   display: block;
   font-size: 0.75rem;
   margin-top: 0.25rem; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-white {
+  .help.is-white, .is-white.input-error-message {
     color: white; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-black {
+  .help.is-black, .is-black.input-error-message {
     color: #0a0a0a; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-light {
+  .help.is-light, .is-light.input-error-message {
     color: whitesmoke; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-dark {
+  .help.is-dark, .is-dark.input-error-message {
     color: #363636; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-primary {
+  .help.is-primary, .is-primary.input-error-message {
     color: #00d1b2; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-link {
+  .help.is-link, .is-link.input-error-message {
     color: #3273dc; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-info {
+  .help.is-info, .is-info.input-error-message {
     color: #209cee; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-success {
+  .help.is-success, .is-success.input-error-message {
     color: #23d160; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-warning {
+  .help.is-warning, .is-warning.input-error-message {
     color: #ffdd57; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-danger {
+  .help.is-danger, .is-danger.input-error-message {
     color: #ff3860; }
 
 /* line 423, node_modules/bulma/sass/elements/form.sass */
@@ -8337,5 +8337,12 @@ label.panel-block {
 .footer {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
+
+/* line 3, stdin */
+.input-error-message {
+  display: none; }
+  /* line 8, stdin */
+  .input-error-message.has-error {
+    display: block; }
 
 /*# sourceMappingURL=app.css.map*/

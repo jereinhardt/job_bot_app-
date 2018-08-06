@@ -25,16 +25,28 @@ export default class AutoapplyForm extends React.Component {
         <div>
           Would you like us to automatically apply as they are found on your behalf?
         </div>
-        <label>
-          <input 
-            type="checkbox"
-            value={this.state.autoapply}
-            onChange={(e) => this.handleChange(e)}
-          />
-          Yes.
-        </label>
+        <div className="field">
+          <label className="checkbox">
+            <input 
+              type="checkbox"
+              value={this.state.autoapply}
+              onChange={(e) => this.handleChange(e)}
+            />
+            Yes.
+          </label>
+        </div>
 
-        <input type="submit" value="continue" />
+        <div className="field">
+          <div className="control">
+            <button
+              className="button is-link"
+              onClick={(e) => this.props.moveBackward}
+            >
+              Go Back
+            </button>
+            <input type="submit" value="continue" className="button is-link"/>
+          </div>
+        </div>
       </form>
     );
   }

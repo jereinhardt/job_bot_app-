@@ -59,7 +59,18 @@ export default class SourcesForm extends React.Component {
         <span className={`input-error-message ${this.state.errorClass}`}>
           {this.state.errorMessage}
         </span>
-        <button onClick={(e) => this.handleSubmit(e)}>Continue</button>
+        <button 
+          onClick={(_e) => this.props.moveBackward()}
+          className="button is-link"
+        >
+          Go Back
+        </button>
+        <button
+          onClick={(e) => this.handleSubmit(e)}
+          className="button is-link"
+        >
+          Continue
+        </button>
       </div> 
     );
   }

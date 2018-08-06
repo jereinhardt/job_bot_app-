@@ -37,46 +37,57 @@ export default class EmailForm extends React.Component {
     const passwordError = this.validator.errorClassFor("password");
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <label
-          htmlFor="username"
-          className={usernameError}
-        >
-          Email
-        </label>
-        <input
-          type="text"
-          name="username"
-          placeholder="enter your email"
-          value={this.state.username}
-          onChange={(e) => this.handleUsernameChange(e)}
-          className={usernameError}
-        />
-        <span
-          className={`input-error-message ${usernameError}`}
-        >
-          {this.validator.errorMessageFor("username")}
-        </span>
+        <div className="field">
+          <label
+            htmlFor="username"
+            className={`label ${usernameError}`}
+          >
+            Email
+          </label>
+          <div className="control">
+            <input
+              type="text"
+              name="username"
+              placeholder="enter your email"
+              value={this.state.username}
+              onChange={(e) => this.handleUsernameChange(e)}
+              className={`input ${usernameError}`}
+            />
+            <p className={`input-error-message is-danger ${usernameError}`}>
+              {this.validator.errorMessageFor("username")}
+            </p>
+          </div>
+        </div>
 
-        <label
-          htmlFor="emailPassword"
-          className={passwordError}
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          name="emailPassword"
-          value={this.state.password}
-          onChange={(e) => this.handlePasswordChange(e)}
-          className={passwordError}
-        />
-        <span 
-          className={`input-error-message ${passwordError}`}
-        >
-          {this.validator.errorMessageFor("password")}
-        </span>
+        <div className="field">
+          <label htmlFor="emailPassword" className={`label ${passwordError}`}>
+            Password
+          </label>
+          <div className="control">
+            <input
+              type="password"
+              name="emailPassword"
+              value={this.state.password}
+              onChange={(e) => this.handlePasswordChange(e)}
+              className={`input ${passwordError}`}
+            />
+            <p className={`input-error-message is-danger ${passwordError}`}>
+              {this.validator.errorMessageFor("password")}
+            </p>
+          </div>
+        </div>
 
-        <input type="submit" value="continue" />
+        <div className="field">
+          <div className="control">
+            <button
+              className="button is-link"
+              onClick={(e) => this.props.moveBackward()}
+            >
+              Go Back
+            </button>
+            <input type="submit" value="continue" className="button is-link"/>
+          </div>
+        </div>
       </form>
     );
   }  

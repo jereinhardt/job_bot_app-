@@ -44,21 +44,35 @@ export default class ResumeForm extends React.Component {
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <label htmlFor="resumePath" className={errorClass}>
-          Please upload your most recent recume
-        </label>
-        <input
-          name="resumePath"
-          type="file"
-          onChange={(e) => this.handleChange(e)}
-          className={errorClass}
-        />
-        <span className={`input-error-message ${errorClass}`}>
-          {this.validator.errorMessageFor("resumePath")}
-        </span>
+        <p>Please upload your most recent resume</p>
+        <div className="field">
+          <div className="file">
+            <label htmlFor="resumePath" className={`file-label ${errorClass}`}>
+              <input
+                name="resumePath"
+                type="file"
+                onChange={(e) => this.handleChange(e)}
+                className={`file-input ${errorClass}`}
+              />
+              <span className="file-cta">
+                <span className="file-icon">
+                  <i className="fas fa-upload"></i>
+                </span>
+                <span className="file-label">Upload Your Resume</span>
+              </span>
+              <p className={`input-error-message is-danger ${errorClass}`}>
+                {this.validator.errorMessageFor("resumePath")}
+              </p>
+            </label>
+          </div>
+        </div>
 
-        <input type="submit" value="Continue" />
-      </form>
+        <div className="field">
+          <div className="control">
+            <input type="submit" value="Continue" className="button is-link"/>
+          </div>
+        </div>  
+    </form>
     )
   }
 }

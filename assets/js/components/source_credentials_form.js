@@ -42,33 +42,44 @@ export default class SourceCredentialsForm extends React.Component {
 
     return(
       <form className={className} onSubmit={(e) => this.handleSubmit(e)}>
-        <label htmlFor="email" className={emailErrorClass}>
-          Email or Username
-        </label>
-        <input
-          name="email"
-          type="text"
-          onChange={(e) => this.updateEmail(e)}
-          className={emailErrorClass}
-        />
-        <span className={`input-error-message ${emailErrorClass}`}>
-          {this.validator.errorMessageFor("email")}
-        </span>
+        <div className="field">
+          <label htmlFor="email" className={`label ${emailErrorClass}`}>
+            Email or Username
+          </label>
+          <div className="control">
+            <input
+              name="email"
+              type="text"
+              onChange={(e) => this.updateEmail(e)}
+              className={`input ${emailErrorClass}`}
+            />
+            <p className={`input-error-message is-danger ${emailErrorClass}`}>
+              {this.validator.errorMessageFor("email")}
+            </p>
+          </div>
+        </div>
 
-        <label htmlFor="password" className={passwordErrorClass}>
-          Password
-        </label>
-        <input
-          name="password"
-          type="password"
-          onChange={(e) => this.updatePassword(e)}
-          className={passwordErrorClass}
-        />
-        <span className={`input-error-message ${passwordErrorClass}`}>
-          {this.validator.errorMessageFor("password")}
-        </span>
-
-        <input type="submit" value="submit" />
+        <div className="field">
+          <label htmlFor="password" className={`label ${passwordErrorClass}`}>
+            Password
+          </label>
+          <div className="control">
+            <input
+              name="password"
+              type="password"
+              onChange={(e) => this.updatePassword(e)}
+              className={`input ${passwordErrorClass}`}
+            />
+            <p className={`input-error-message ${passwordErrorClass}`}>
+              {this.validator.errorMessageFor("password")}
+            </p>
+          </div>
+        </div>
+        <div className="field">
+          <div className="control">
+            <input type="submit" value="submit" className="button is-link"/>
+          </div>
+        </div>
       </form>
     );
   }

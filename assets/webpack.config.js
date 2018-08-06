@@ -35,7 +35,6 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               includePaths: [
-                "./node_modules/bulma/scss/bulma.scss"
                 // add SASS dependencies here
               ],
               sourceComments: !isProduction
@@ -49,6 +48,9 @@ module.exports = {
       use: [
         { loader: 'babel-loader' }
       ]
+    }, {
+      test: /\.(otf|eot|svg|ttf|woff)$/,
+      use: [{ loader: "url-loader?limit=8192" }]
     }]
   },
   plugins: [
