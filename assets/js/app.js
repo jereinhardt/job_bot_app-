@@ -27,7 +27,8 @@ export default class App extends React.Component {
       email: {username: "", password: ""},
       resumePath: "",
       userId: $("#app").data("js-user-id"),
-      listings: []
+      listings: [],
+      submitted: false
     };
 
     this.updateSource = this.updateSource.bind(this);
@@ -77,6 +78,7 @@ export default class App extends React.Component {
     };
 
     console.log(data);
+
 
     // submit data to api endpoint
   }

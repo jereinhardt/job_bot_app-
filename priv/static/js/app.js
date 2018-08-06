@@ -1329,7 +1329,8 @@ var App = function (_React$Component) {
       email: { username: "", password: "" },
       resumePath: "",
       userId: jquery__WEBPACK_IMPORTED_MODULE_2___default()("#app").data("js-user-id"),
-      listings: []
+      listings: [],
+      submitted: false
     };
 
     _this.updateSource = _this.updateSource.bind(_this);

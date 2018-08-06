@@ -35,6 +35,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               includePaths: [
+                "./node_modules/bulma/scss/bulma.scss"
                 // add SASS dependencies here
               ],
               sourceComments: !isProduction
