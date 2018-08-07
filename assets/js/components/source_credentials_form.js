@@ -41,7 +41,7 @@ export default class SourceCredentialsForm extends React.Component {
     const passwordErrorClass = this.validator.errorClassFor("password");
 
     return(
-      <form className={className} onSubmit={(e) => this.handleSubmit(e)}>
+      <form className={`source__form ${className}`} onSubmit={(e) => this.handleSubmit(e)}>
         <div className="field">
           <label htmlFor="email" className={`label ${emailErrorClass}`}>
             Email or Username

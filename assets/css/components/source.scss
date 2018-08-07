@@ -1,0 +1,73 @@
+$checkbox-width: 30px;
+$checkbox-background: $green;
+$checkbox-border: lighten($checkbox-background, 10%);
+
+.source {
+  padding-bottom: $large-spacing;
+  padding-left: $checkbox-width + 15px;
+  position: relative;
+
+
+
+  &__checkbox {
+    background: lighten($grey-light, 20%);
+    color: $color-white;
+    height: $checkbox-width;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+    width: $checkbox-width;
+
+    &::before {
+      font-family: "FontAwesome";
+      font-size: 22px;
+      line-height: 26px;
+      text-align: center;      
+    }
+
+    .selected & {
+      background: $checkbox-background;
+      box-shadow: inset 0 0 6px 2px $checkbox-border;
+
+      &::before {
+        content: "\f00c";
+      }      
+    }
+
+    .form-toggled & {
+      &::before {
+        content: "\f068";
+      }
+    }
+  }
+
+  &__title {
+    @extend .subtitle.is-4;
+  }
+
+  &__form {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.7s ease-in-out;
+
+    &.toggled {
+      max-height: 300px;
+    }
+  }
+
+  &__form--close-toggle {
+    background: inherit;
+    border: 0;
+    margin-left: 5px;
+
+
+    &::before {
+      color: $red;
+      content: "\F00D";
+      font-family: "FontAwesome";
+      font-size: 26px;
+    }
+  }
+}

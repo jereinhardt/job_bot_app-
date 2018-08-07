@@ -1416,38 +1416,47 @@ var App = function (_React$Component) {
         "div",
         { className: "main-app" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          _containers_steps_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"],
-          null,
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_name_location_form_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            name: this.state.name,
-            applicantLocation: this.state.applicantLocation,
-            updateData: this.updateData
-          }),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_sources_form_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            sources: this.state.sources,
-            updateSource: this.updateSource
-          }),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_terms_location_form_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            terms: this.state.terms,
-            location: this.state.location,
-            updateData: this.updateData
-          }),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            autoapply: this.state.autoapply,
-            updateData: this.updateData
-          }),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_email_form_js__WEBPACK_IMPORTED_MODULE_9__["default"], {
-            email: this.state.email,
-            updateData: this.updateData
-          }),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_resume_form_js__WEBPACK_IMPORTED_MODULE_10__["default"], {
-            resumePath: this.state.resumePath,
-            updateData: this.updateData
-          }),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_confirmation_page_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            data: this.state,
-            handleSubmit: this.handleSubmit
-          })
+          "div",
+          { className: "modal is-active" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "modal-background" }),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "modal-content" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              _containers_steps_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"],
+              null,
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_name_location_form_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                name: this.state.name,
+                applicantLocation: this.state.applicantLocation,
+                updateData: this.updateData
+              }),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_sources_form_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                sources: this.state.sources,
+                updateSource: this.updateSource
+              }),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_terms_location_form_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                terms: this.state.terms,
+                location: this.state.location,
+                updateData: this.updateData
+              }),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_autoapply_form_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                autoapply: this.state.autoapply,
+                updateData: this.updateData
+              }),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_email_form_js__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                email: this.state.email,
+                updateData: this.updateData
+              }),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_resume_form_js__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                resumePath: this.state.resumePath,
+                updateData: this.updateData
+              }),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_confirmation_page_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                data: this.state,
+                handleSubmit: this.handleSubmit
+              })
+            )
+          )
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_listings_list_js__WEBPACK_IMPORTED_MODULE_12__["default"], { listings: this.state.listings })
       );
@@ -2354,12 +2363,17 @@ var Source = function (_React$Component) {
     _this.state = {
       toggled: false
     };
+
+    _this.toggleSourceForm = _this.toggleSourceForm.bind(_this);
+    _this.toggleSourceFormClose = _this.toggleSourceFormClose.bind(_this);
+    _this.deselectSource = _this.deselectSource.bind(_this);
     return _this;
   }
 
   _createClass(Source, [{
     key: "toggleSource",
-    value: function toggleSource(source) {
+    value: function toggleSource(event, source) {
+      event.preventDefault();
       if (source.selected) {
         this.props.updateSource(source, { selected: false });
       } else {
@@ -2368,8 +2382,26 @@ var Source = function (_React$Component) {
     }
   }, {
     key: "toggleSourceForm",
-    value: function toggleSourceForm() {
-      this.setState({ toggled: true });
+    value: function toggleSourceForm(event) {
+      event.preventDefault();
+      if (!this.state.toggled) {
+        if (this.props.source.selected) {
+          this.deselectSource();
+        } else {
+          this.setState({ toggled: true });
+        }
+      }
+    }
+  }, {
+    key: "toggleSourceFormClose",
+    value: function toggleSourceFormClose(event) {
+      event.preventDefault();
+      this.setState({ toggled: false });
+    }
+  }, {
+    key: "deselectSource",
+    value: function deselectSource() {
+      this.props.updateSource(this.props.source, { selected: false });
     }
   }, {
     key: "render",
@@ -2377,35 +2409,36 @@ var Source = function (_React$Component) {
       var source = this.props.source;
       var className = source.selected ? "source selected" : "source";
 
-      var text = source.selected ? "selected" : "";
-
       if (source.credentials == null) {
-        return this._renderSourceWithoutCredentials(className, text);
+        return this._renderSourceWithoutCredentials(className);
       } else {
-        return this._renderSourceWithCredentials(className, text);
+        return this._renderSourceWithCredentials(className);
       }
     }
   }, {
     key: "_renderSourceWithoutCredentials",
-    value: function _renderSourceWithoutCredentials(className, text) {
+    value: function _renderSourceWithoutCredentials(className) {
       var _this2 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "li",
-        {
-          onClick: function onClick() {
-            return _this2.toggleSource(_this2.props.source);
-          },
-          className: className
-        },
-        this.props.source.name,
-        " ",
-        text
+        { className: className },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "source__checkbox",
+          onClick: function onClick(e) {
+            return _this2.toggleSource(e, _this2.props.source);
+          }
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "h4",
+          { className: "source__title" },
+          this.props.source.name
+        )
       );
     }
   }, {
     key: "_renderSourceWithCredentials",
-    value: function _renderSourceWithCredentials(className, text) {
+    value: function _renderSourceWithCredentials(className) {
       var _this3 = this;
 
       var updateSource = function updateSource(source, attrs) {
@@ -2413,15 +2446,25 @@ var Source = function (_React$Component) {
         _this3.props.updateSource(source, attrs);
       };
 
+      var toggleClass = this.state.toggled ? "form-toggled" : "";
+      var buttonClass = this.state.toggled ? "" : "hidden";
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "li",
-        { onClick: this.toggleSourceForm.bind(this), className: className },
+        { className: className + " " + toggleClass },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "source__checkbox",
+          onClick: this.toggleSourceForm
+        }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "h4",
-          { className: "subtitle is-4" },
-          this.props.source.name
+          { className: "source__title" },
+          this.props.source.name,
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "source__form--close-toggle " + buttonClass,
+            onClick: this.toggleSourceFormClose
+          })
         ),
-        text,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_source_credentials_form_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
           toggled: this.state.toggled,
           source: this.props.source,
@@ -2511,7 +2554,7 @@ var SourceCredentialsForm = function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
-        { className: className, onSubmit: function onSubmit(e) {
+        { className: "source__form " + className, onSubmit: function onSubmit(e) {
             return _this2.handleSubmit(e);
           } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -2675,12 +2718,12 @@ var SourcesForm = function (_React$Component) {
         null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "h2",
-          null,
+          { "class": "" },
           "This is the Form"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "ul",
-          null,
+          { className: "source__list" },
           sourceNodes
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(

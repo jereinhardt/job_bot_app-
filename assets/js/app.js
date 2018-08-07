@@ -98,38 +98,43 @@ export default class App extends React.Component {
   render() {
     return(
       <div className="main-app">
-        <StepsController>
-          <NameLocationForm 
-            name={this.state.name}
-            applicantLocation={this.state.applicantLocation}
-            updateData={this.updateData}       
-          />
-          <SourcesForm 
-            sources={this.state.sources}
-            updateSource={this.updateSource}
-          />
-          <TermsLocationForm
-            terms={this.state.terms}
-            location={this.state.location}
-            updateData={this.updateData}
-          />
-          <AutoapplyForm
-            autoapply={this.state.autoapply}
-            updateData={this.updateData}
-          />
-          <EmailForm
-            email={this.state.email}
-            updateData={this.updateData}
-          />
-          <ResumeForm
-            resumePath={this.state.resumePath}
-            updateData={this.updateData}
-          />
-          <ConfirmationPage
-            data={this.state}
-            handleSubmit={this.handleSubmit}
-          />
-        </StepsController>
+        <div className="modal is-active">
+          <div className="modal-background"></div>
+          <div className="modal-content">
+            <StepsController>
+              <NameLocationForm 
+                name={this.state.name}
+                applicantLocation={this.state.applicantLocation}
+                updateData={this.updateData}       
+              />
+              <SourcesForm 
+                sources={this.state.sources}
+                updateSource={this.updateSource}
+              />
+              <TermsLocationForm
+                terms={this.state.terms}
+                location={this.state.location}
+                updateData={this.updateData}
+              />
+              <AutoapplyForm
+                autoapply={this.state.autoapply}
+                updateData={this.updateData}
+              />
+              <EmailForm
+                email={this.state.email}
+                updateData={this.updateData}
+              />
+              <ResumeForm
+                resumePath={this.state.resumePath}
+                updateData={this.updateData}
+              />
+              <ConfirmationPage
+                data={this.state}
+                handleSubmit={this.handleSubmit}
+              />
+            </StepsController>
+          </div>
+        </div>
         <ListingsList listings={this.state.listings} />
       </div>
     );

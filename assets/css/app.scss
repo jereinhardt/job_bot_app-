@@ -1,4 +1,16 @@
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';
+
 @import "~bulma/bulma.sass";
+
+$color-white: #ffffff;
+$base-spacing: 1.25rem;
+$large-spacing: 1.6rem;
+$larger-spacing: 2rem;
+
+.hidden {
+  display: none;
+}
 
 .input-error-message {
   @extend .help;
@@ -15,3 +27,17 @@
     @extend .input.is-danger;
   }
 }
+
+.modal-background {
+  background: $color-white;
+}
+
+.step {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+@import "components/components";

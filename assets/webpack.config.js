@@ -49,8 +49,15 @@ module.exports = {
         { loader: 'babel-loader' }
       ]
     }, {
-      test: /\.(otf|eot|svg|ttf|woff)$/,
-      use: [{ loader: "url-loader?limit=8192" }]
+     test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+     use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'fonts/',
+          publicPath: '../fonts/'
+        }
+      }]
     }]
   },
   plugins: [

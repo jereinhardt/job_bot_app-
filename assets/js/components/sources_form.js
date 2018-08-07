@@ -52,8 +52,8 @@ export default class SourcesForm extends React.Component {
 
     return(
       <div>
-        <h2>This is the Form</h2>
-        <ul>
+        <h2 class="">This is the Form</h2>
+        <ul className="source__list">
           {sourceNodes}
         </ul>
         <span className={`input-error-message ${this.state.errorClass}`}>
