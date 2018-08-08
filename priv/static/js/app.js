@@ -1579,7 +1579,7 @@ var AutoapplyForm = function (_React$Component) {
             {
               className: "step__action step__action--backward",
               onClick: function onClick(e) {
-                return _this2.props.moveBackward;
+                return _this2.props.moveBackwardOnClick(e);
               }
             },
             "Go Back"
@@ -1911,7 +1911,7 @@ var EmailForm = function (_React$Component) {
             {
               className: "step__action step__action--backward",
               onClick: function onClick(e) {
-                return _this2.props.moveBackward();
+                return _this2.props.moveBackwardOnClick(e);
               }
             },
             "Go Back"
@@ -2277,7 +2277,6 @@ var ResumeForm = function (_React$Component) {
   }, {
     key: "_filename",
     value: function _filename() {
-      console.log(this.state);
       if (this.state.resumePath) {
         this.state.resumePath.split("/").pop();
       } else {
@@ -2366,7 +2365,7 @@ var ResumeForm = function (_React$Component) {
             {
               className: "step__action step__action--backward",
               onClick: function onClick(e) {
-                return _this3.props.moveBackward();
+                return _this3.props.moveBackwardOnClick(e);
               }
             },
             "Go Back"
@@ -2970,7 +2969,7 @@ var TermsLocationForm = function (_React$Component) {
             {
               className: "step__action step__action--backward",
               onClick: function onClick(e) {
-                return _this2.props.moveBackward;
+                return _this2.props.moveBackwardOnClick(e);
               }
             },
             "Go Back"
@@ -3098,17 +3097,30 @@ var StepsController = function (_React$Component) {
       this.setState({ activeStep: this.state.activeStep - steps });
     }
   }, {
+    key: "moveBackwardOnClick",
+    value: function moveBackwardOnClick(event) {
+      var steps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+
+      event.preventDefault();
+      this.moveBackward(steps);
+    }
+  }, {
     key: "_stepMethodsForChild",
     value: function _stepMethodsForChild(child, i) {
       var forward = this.moveForward.bind(this);
       var backward = this.moveBackward.bind(this);
+      var backwardOnClick = this.moveBackwardOnClick.bind(this);
 
       if (i == 1) {
         return { moveForward: forward };
       } else if (i == this.totalSteps) {
-        return { moveBackward: backward };
+        return { moveBackward: backward, moveBackwardOnClick: backwardOnClick };
       } else {
-        return Object.assign({ moveForward: forward }, { moveBackward: backward });
+        return {
+          moveForward: forward,
+          moveBackward: backward,
+          moveBackwardOnClick: backwardOnClick
+        };
       }
     }
   }, {

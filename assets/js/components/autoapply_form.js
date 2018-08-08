@@ -43,7 +43,7 @@ export default class AutoapplyForm extends React.Component {
         <div className="step__actions">
           <button
             className="step__action step__action--backward"
-            onClick={(e) => this.props.moveBackward}
+            onClick={(e) => this.props.moveBackwardOnClick(e)}
           >
             Go Back
           </button>

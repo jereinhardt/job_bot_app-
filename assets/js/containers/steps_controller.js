@@ -17,16 +17,28 @@ export default class StepsController extends React.Component {
     this.setState({activeStep: this.state.activeStep - steps});
   }
 
+  moveBackwardOnClick(event, steps = 1) {
+    event.preventDefault();
+    this.moveBackward(steps);
+  }
+
   _stepMethodsForChild(child, i) {
     const forward = this.moveForward.bind(this);
     const backward = this.moveBackward.bind(this);
+    const backwardOnClick = this.moveBackwardOnClick.bind(this);
 
     if (i == 1) {
       return {moveForward: forward}
     } else if (i == this.totalSteps) {
-      return {moveBackward: backward}
+      return {moveBackward: backward, moveBackwardOnClick: backwardOnClick}
     } else {
-      return Object.assign({moveForward: forward}, {moveBackward: backward})
+      return(
+        {
+          moveForward: forward,
+          moveBackward: backward,
+          moveBackwardOnClick: backwardOnClick
+        }
+      );
     }
   }
 
