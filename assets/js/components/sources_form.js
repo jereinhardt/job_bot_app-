@@ -52,25 +52,33 @@ export default class SourcesForm extends React.Component {
 
     return(
       <div>
-        <h2 class="">This is the Form</h2>
+        <div className="step__title">Where would you like to look?</div>
+        <p className="step__description">
+          Please select at least one job board where you would like to look for
+          jobs.  I may need your log in credentials for some boards (don't
+          worry, your secrets are safe with me 😉).
+        </p>
+
         <ul className="source__list">
           {sourceNodes}
         </ul>
         <span className={`input-error-message ${this.state.errorClass}`}>
           {this.state.errorMessage}
         </span>
-        <button 
-          onClick={(_e) => this.props.moveBackward()}
-          className="button is-link"
-        >
-          Go Back
-        </button>
-        <button
-          onClick={(e) => this.handleSubmit(e)}
-          className="button is-link"
-        >
-          Continue
-        </button>
+        <div className="step__actions">
+          <button 
+            onClick={(_e) => this.props.moveBackward()}
+            className="step__action step__action--backward"
+          >
+            Go Back
+          </button>
+          <button
+            onClick={(e) => this.handleSubmit(e)}
+            className="step__action step__action--forward"
+          >
+            Continue
+          </button>
+        </div>
       </div> 
     );
   }

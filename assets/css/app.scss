@@ -15,6 +15,7 @@ $larger-spacing: 2rem;
 .input-error-message {
   @extend .help;
 
+  color: $red;
   display: none;
 
   &.has-error {
@@ -38,6 +39,16 @@ $larger-spacing: 2rem;
   &.active {
     display: block;
   }
+}
+
+.fas {
+  &::before {
+    font-family: "FontAwesome";
+  }
+}
+
+.file-filename {
+  margin-left: $base-spacing;
 }
 
 @import "components/components";

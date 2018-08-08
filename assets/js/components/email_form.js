@@ -37,18 +37,25 @@ export default class EmailForm extends React.Component {
     const passwordError = this.validator.errorClassFor("password");
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
+        <div className="step__title">
+          Mind if I borrow your email?
+        </div>
+        <p className="step__description">
+          Some jobs require me to send an application by email.  In order to do
+          this for you, I'll need to be able to log into your Gmail account.
+        </p>
         <div className="field">
           <label
             htmlFor="username"
             className={`label ${usernameError}`}
           >
-            Email
+            What is your Gmail username?
           </label>
           <div className="control">
             <input
               type="text"
               name="username"
-              placeholder="enter your email"
+              placeholder="applicant@gmail.com"
               value={this.state.username}
               onChange={(e) => this.handleUsernameChange(e)}
               className={`input ${usernameError}`}
@@ -77,16 +84,18 @@ export default class EmailForm extends React.Component {
           </div>
         </div>
 
-        <div className="field">
-          <div className="control">
-            <button
-              className="button is-link"
-              onClick={(e) => this.props.moveBackward()}
-            >
-              Go Back
-            </button>
-            <input type="submit" value="continue" className="button is-link"/>
-          </div>
+        <div className="step__actions">
+          <button
+            className="step__action step__action--backward"
+            onClick={(e) => this.props.moveBackward()}
+          >
+            Go Back
+          </button>
+          <input
+            type="submit"
+            value="Continue"
+            className="step__action step__action--forward"
+          />
         </div>
       </form>
     );

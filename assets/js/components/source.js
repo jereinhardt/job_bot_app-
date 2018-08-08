@@ -25,7 +25,9 @@ export default class Source extends React.Component {
 
   toggleSourceForm(event) {
     event.preventDefault();
-    if ( !this.state.toggled ) {
+    if ( this.state.toggled ) {
+      this.setState({toggled: false});
+    } else {
       if ( this.props.source.selected ) { 
         this.deselectSource() 
       } else {

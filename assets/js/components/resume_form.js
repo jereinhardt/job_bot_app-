@@ -12,6 +12,8 @@ export default class ResumeForm extends React.Component {
       this,
       [{id: "resumePath", validate: ["presence"]}]
     );
+
+    this._filename = this._filename.bind(this);
   }
 
   handleChange(event) {
@@ -39,12 +41,24 @@ export default class ResumeForm extends React.Component {
     }
   }
 
+  _filename() {
+    console.log(this.state);
+    if ( this.state.resumePath ) {
+      this.state.resumePath.split("/").pop();
+    } else {
+      ""
+    }
+  }
+
   render() {
     const errorClass = this.validator.errorClassFor("resumePath");
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <p>Please upload your most recent resume</p>
+        <div className="step__title">Next, I'll need your resume</div>
+        <p className="step__description">
+          Please upload a current resume that I can show off to employers.
+        </p>
         <div className="field">
           <div className="file">
             <label htmlFor="resumePath" className={`file-label ${errorClass}`}>
@@ -53,13 +67,18 @@ export default class ResumeForm extends React.Component {
                 type="file"
                 onChange={(e) => this.handleChange(e)}
                 className={`file-input ${errorClass}`}
+                ref={(ref) => this.upload = ref}
               />
-              <span className="file-cta">
+              <span 
+                className="file-cta"
+                onClick={(_e) => this.upload.click()}
+              >
                 <span className="file-icon">
-                  <i className="fas fa-upload"></i>
+                  <span className="fas fa-upload"></span>
                 </span>
                 <span className="file-label">Upload Your Resume</span>
               </span>
+              <span className="file-filename">{this._filename()}</span>
               <p className={`input-error-message is-danger ${errorClass}`}>
                 {this.validator.errorMessageFor("resumePath")}
               </p>
@@ -67,11 +86,19 @@ export default class ResumeForm extends React.Component {
           </div>
         </div>
 
-        <div className="field">
-          <div className="control">
-            <input type="submit" value="Continue" className="button is-link"/>
-          </div>
-        </div>  
+        <div className="step__actions">
+          <button
+            className="step__action step__action--backward"
+            onClick={(e) => this.props.moveBackward()}
+          >
+            Go Back
+          </button>
+          <input
+            type="submit"
+            value="Continue"
+            className="step__action step__action--forward"
+          />
+        </div>
     </form>
     )
   }

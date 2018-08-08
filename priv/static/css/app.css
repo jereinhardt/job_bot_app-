@@ -3046,7 +3046,7 @@
     transform: rotate(359deg); } }
 
 /* line 133, node_modules/bulma/sass/utilities/mixins.sass */
-.delete, .modal-close, .is-unselectable, .button, .file, .breadcrumb, .pagination-previous,
+.delete, .modal-close, .is-unselectable, .button, .step__action, .file, .breadcrumb, .pagination-previous,
 .pagination-next,
 .pagination-link,
 .pagination-ellipsis, .tabs {
@@ -3140,7 +3140,7 @@
     min-width: 24px;
     width: 24px; }
   /* line 227, node_modules/bulma/sass/utilities/mixins.sass */
-  .is-large.delete, .is-large.modal-close {
+  .is-large.delete, .delete.step__action--cta, .is-large.modal-close, .modal-close.step__action--cta {
     height: 32px;
     max-height: 32px;
     max-width: 32px;
@@ -3149,7 +3149,7 @@
     width: 32px; }
 
 /* line 238, node_modules/bulma/sass/utilities/mixins.sass */
-.button.is-loading::after, .select.is-loading::after, .control.is-loading::after, .loader {
+.button.is-loading::after, .is-loading.step__action::after, .select.is-loading::after, .control.is-loading::after, .loader {
   animation: spinAround 500ms infinite linear;
   border: 2px solid #dbdbdb;
   border-radius: 290486px;
@@ -3170,7 +3170,7 @@
   top: 0; }
 
 /* line 9, node_modules/bulma/sass/utilities/controls.sass */
-.button, .input,
+.button, .step__action, .input,
 .textarea, .select select, .file-cta,
 .file-name, .pagination-previous,
 .pagination-next,
@@ -3194,22 +3194,22 @@
   position: relative;
   vertical-align: top; }
   /* line 28, node_modules/bulma/sass/utilities/controls.sass */
-  .button:focus, .input:focus,
+  .button:focus, .step__action:focus, .input:focus,
   .textarea:focus, .select select:focus, .file-cta:focus,
   .file-name:focus, .pagination-previous:focus,
   .pagination-next:focus,
   .pagination-link:focus,
-  .pagination-ellipsis:focus, .is-focused.button, .is-focused.input,
+  .pagination-ellipsis:focus, .is-focused.button, .is-focused.step__action, .is-focused.input,
   .is-focused.textarea, .select select.is-focused, .is-focused.file-cta,
   .is-focused.file-name, .is-focused.pagination-previous,
   .is-focused.pagination-next,
   .is-focused.pagination-link,
-  .is-focused.pagination-ellipsis, .button:active, .input:active,
+  .is-focused.pagination-ellipsis, .button:active, .step__action:active, .input:active,
   .textarea:active, .select select:active, .file-cta:active,
   .file-name:active, .pagination-previous:active,
   .pagination-next:active,
   .pagination-link:active,
-  .pagination-ellipsis:active, .is-active.button, .is-active.input,
+  .pagination-ellipsis:active, .is-active.button, .is-active.step__action, .is-active.input,
   .is-active.textarea, .select select.is-active, .is-active.file-cta,
   .is-active.file-name, .is-active.pagination-previous,
   .is-active.pagination-next,
@@ -3217,7 +3217,7 @@
   .is-active.pagination-ellipsis {
     outline: none; }
   /* line 33, node_modules/bulma/sass/utilities/controls.sass */
-  .button[disabled], .input[disabled],
+  .button[disabled], .step__action[disabled], .input[disabled],
   .textarea[disabled], .select select[disabled], .file-cta[disabled],
   .file-name[disabled], .pagination-previous[disabled],
   .pagination-next[disabled],
@@ -4408,7 +4408,7 @@ a.box:active {
   box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2), 0 0 0 1px #3273dc; }
 
 /* line 43, node_modules/bulma/sass/elements/button.sass */
-.button {
+.button, .step__action {
   background-color: white;
   border-color: #dbdbdb;
   border-width: 1px;
@@ -4422,867 +4422,867 @@ a.box:active {
   text-align: center;
   white-space: nowrap; }
   /* line 58, node_modules/bulma/sass/elements/button.sass */
-  .button strong {
+  .button strong, .step__action strong {
     color: inherit; }
   /* line 61, node_modules/bulma/sass/elements/button.sass */
-  .button .icon, .button .icon.is-small, .button .icon.is-medium, .button .icon.is-large {
+  .button .icon, .step__action .icon, .button .icon.is-small, .step__action .icon.is-small, .button .icon.is-medium, .step__action .icon.is-medium, .button .icon.is-large, .step__action .icon.is-large, .button .icon.step__action--cta, .step__action .icon.step__action--cta {
     height: 1.5em;
     width: 1.5em; }
   /* line 67, node_modules/bulma/sass/elements/button.sass */
-  .button .icon:first-child:not(:last-child) {
+  .button .icon:first-child:not(:last-child), .step__action .icon:first-child:not(:last-child) {
     margin-left: calc(-0.375em - 1px);
     margin-right: 0.1875em; }
   /* line 70, node_modules/bulma/sass/elements/button.sass */
-  .button .icon:last-child:not(:first-child) {
+  .button .icon:last-child:not(:first-child), .step__action .icon:last-child:not(:first-child) {
     margin-left: 0.1875em;
     margin-right: calc(-0.375em - 1px); }
   /* line 73, node_modules/bulma/sass/elements/button.sass */
-  .button .icon:first-child:last-child {
+  .button .icon:first-child:last-child, .step__action .icon:first-child:last-child {
     margin-left: calc(-0.375em - 1px);
     margin-right: calc(-0.375em - 1px); }
   /* line 77, node_modules/bulma/sass/elements/button.sass */
-  .button:hover, .button.is-hovered {
+  .button:hover, .step__action:hover, .button.is-hovered, .is-hovered.step__action {
     border-color: #b5b5b5;
     color: #363636; }
   /* line 81, node_modules/bulma/sass/elements/button.sass */
-  .button:focus, .button.is-focused {
+  .button:focus, .step__action:focus, .button.is-focused, .is-focused.step__action {
     border-color: #3273dc;
     color: #363636; }
     /* line 85, node_modules/bulma/sass/elements/button.sass */
-    .button:focus:not(:active), .button.is-focused:not(:active) {
+    .button:focus:not(:active), .step__action:focus:not(:active), .button.is-focused:not(:active), .is-focused.step__action:not(:active) {
       box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25); }
   /* line 87, node_modules/bulma/sass/elements/button.sass */
-  .button:active, .button.is-active {
+  .button:active, .step__action:active, .button.is-active, .is-active.step__action {
     border-color: #4a4a4a;
     color: #363636; }
   /* line 92, node_modules/bulma/sass/elements/button.sass */
-  .button.is-text {
+  .button.is-text, .is-text.step__action {
     background-color: transparent;
     border-color: transparent;
     color: #4a4a4a;
     text-decoration: underline; }
     /* line 97, node_modules/bulma/sass/elements/button.sass */
-    .button.is-text:hover, .button.is-text.is-hovered, .button.is-text:focus, .button.is-text.is-focused {
+    .button.is-text:hover, .is-text.step__action:hover, .button.is-text.is-hovered, .is-text.is-hovered.step__action, .button.is-text:focus, .is-text.step__action:focus, .button.is-text.is-focused, .is-text.is-focused.step__action {
       background-color: whitesmoke;
       color: #363636; }
     /* line 103, node_modules/bulma/sass/elements/button.sass */
-    .button.is-text:active, .button.is-text.is-active {
+    .button.is-text:active, .is-text.step__action:active, .button.is-text.is-active, .is-text.is-active.step__action {
       background-color: #e8e8e8;
       color: #363636; }
     /* line 107, node_modules/bulma/sass/elements/button.sass */
-    .button.is-text[disabled] {
+    .button.is-text[disabled], .is-text.step__action[disabled] {
       background-color: transparent;
       border-color: transparent;
       box-shadow: none; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-white {
+  .button.is-white, .is-white.step__action {
     background-color: white;
     border-color: transparent;
     color: #0a0a0a; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white:hover, .button.is-white.is-hovered {
+    .button.is-white:hover, .is-white.step__action:hover, .button.is-white.is-hovered, .is-white.is-hovered.step__action {
       background-color: #f9f9f9;
       border-color: transparent;
       color: #0a0a0a; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white:focus, .button.is-white.is-focused {
+    .button.is-white:focus, .is-white.step__action:focus, .button.is-white.is-focused, .is-white.is-focused.step__action {
       border-color: transparent;
       color: #0a0a0a; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white:focus:not(:active), .button.is-white.is-focused:not(:active) {
+      .button.is-white:focus:not(:active), .is-white.step__action:focus:not(:active), .button.is-white.is-focused:not(:active), .is-white.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white:active, .button.is-white.is-active {
+    .button.is-white:active, .is-white.step__action:active, .button.is-white.is-active, .is-white.is-active.step__action {
       background-color: #f2f2f2;
       border-color: transparent;
       color: #0a0a0a; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white[disabled] {
+    .button.is-white[disabled], .is-white.step__action[disabled] {
       background-color: white;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white.is-inverted {
+    .button.is-white.is-inverted, .is-white.is-inverted.step__action {
       background-color: #0a0a0a;
       color: white; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white.is-inverted:hover {
+      .button.is-white.is-inverted:hover, .is-white.is-inverted.step__action:hover {
         background-color: black; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white.is-inverted[disabled] {
+      .button.is-white.is-inverted[disabled], .is-white.is-inverted.step__action[disabled] {
         background-color: #0a0a0a;
         border-color: transparent;
         box-shadow: none;
         color: white; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white.is-loading::after {
+    .button.is-white.is-loading::after, .is-white.is-loading.step__action::after {
       border-color: transparent transparent #0a0a0a #0a0a0a !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white.is-outlined {
+    .button.is-white.is-outlined, .is-white.is-outlined.step__action {
       background-color: transparent;
       border-color: white;
       color: white; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white.is-outlined:hover, .button.is-white.is-outlined:focus {
+      .button.is-white.is-outlined:hover, .is-white.is-outlined.step__action:hover, .button.is-white.is-outlined:focus, .is-white.is-outlined.step__action:focus {
         background-color: white;
         border-color: white;
         color: #0a0a0a; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white.is-outlined.is-loading::after {
+      .button.is-white.is-outlined.is-loading::after, .is-white.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent white white !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white.is-outlined[disabled] {
+      .button.is-white.is-outlined[disabled], .is-white.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: white;
         box-shadow: none;
         color: white; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-white.is-inverted.is-outlined {
+    .button.is-white.is-inverted.is-outlined, .is-white.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: #0a0a0a;
       color: #0a0a0a; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white.is-inverted.is-outlined:hover, .button.is-white.is-inverted.is-outlined:focus {
+      .button.is-white.is-inverted.is-outlined:hover, .is-white.is-inverted.is-outlined.step__action:hover, .button.is-white.is-inverted.is-outlined:focus, .is-white.is-inverted.is-outlined.step__action:focus {
         background-color: #0a0a0a;
         color: white; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-white.is-inverted.is-outlined[disabled] {
+      .button.is-white.is-inverted.is-outlined[disabled], .is-white.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #0a0a0a;
         box-shadow: none;
         color: #0a0a0a; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-black {
+  .button.is-black, .is-black.step__action {
     background-color: #0a0a0a;
     border-color: transparent;
     color: white; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black:hover, .button.is-black.is-hovered {
+    .button.is-black:hover, .is-black.step__action:hover, .button.is-black.is-hovered, .is-black.is-hovered.step__action {
       background-color: #040404;
       border-color: transparent;
       color: white; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black:focus, .button.is-black.is-focused {
+    .button.is-black:focus, .is-black.step__action:focus, .button.is-black.is-focused, .is-black.is-focused.step__action {
       border-color: transparent;
       color: white; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black:focus:not(:active), .button.is-black.is-focused:not(:active) {
+      .button.is-black:focus:not(:active), .is-black.step__action:focus:not(:active), .button.is-black.is-focused:not(:active), .is-black.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(10, 10, 10, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black:active, .button.is-black.is-active {
+    .button.is-black:active, .is-black.step__action:active, .button.is-black.is-active, .is-black.is-active.step__action {
       background-color: black;
       border-color: transparent;
       color: white; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black[disabled] {
+    .button.is-black[disabled], .is-black.step__action[disabled] {
       background-color: #0a0a0a;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black.is-inverted {
+    .button.is-black.is-inverted, .is-black.is-inverted.step__action {
       background-color: white;
       color: #0a0a0a; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black.is-inverted:hover {
+      .button.is-black.is-inverted:hover, .is-black.is-inverted.step__action:hover {
         background-color: #f2f2f2; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black.is-inverted[disabled] {
+      .button.is-black.is-inverted[disabled], .is-black.is-inverted.step__action[disabled] {
         background-color: white;
         border-color: transparent;
         box-shadow: none;
         color: #0a0a0a; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black.is-loading::after {
+    .button.is-black.is-loading::after, .is-black.is-loading.step__action::after {
       border-color: transparent transparent white white !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black.is-outlined {
+    .button.is-black.is-outlined, .is-black.is-outlined.step__action {
       background-color: transparent;
       border-color: #0a0a0a;
       color: #0a0a0a; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black.is-outlined:hover, .button.is-black.is-outlined:focus {
+      .button.is-black.is-outlined:hover, .is-black.is-outlined.step__action:hover, .button.is-black.is-outlined:focus, .is-black.is-outlined.step__action:focus {
         background-color: #0a0a0a;
         border-color: #0a0a0a;
         color: white; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black.is-outlined.is-loading::after {
+      .button.is-black.is-outlined.is-loading::after, .is-black.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent #0a0a0a #0a0a0a !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black.is-outlined[disabled] {
+      .button.is-black.is-outlined[disabled], .is-black.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #0a0a0a;
         box-shadow: none;
         color: #0a0a0a; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-black.is-inverted.is-outlined {
+    .button.is-black.is-inverted.is-outlined, .is-black.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: white;
       color: white; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black.is-inverted.is-outlined:hover, .button.is-black.is-inverted.is-outlined:focus {
+      .button.is-black.is-inverted.is-outlined:hover, .is-black.is-inverted.is-outlined.step__action:hover, .button.is-black.is-inverted.is-outlined:focus, .is-black.is-inverted.is-outlined.step__action:focus {
         background-color: white;
         color: #0a0a0a; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-black.is-inverted.is-outlined[disabled] {
+      .button.is-black.is-inverted.is-outlined[disabled], .is-black.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: white;
         box-shadow: none;
         color: white; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-light {
+  .button.is-light, .is-light.step__action {
     background-color: whitesmoke;
     border-color: transparent;
     color: #363636; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light:hover, .button.is-light.is-hovered {
+    .button.is-light:hover, .is-light.step__action:hover, .button.is-light.is-hovered, .is-light.is-hovered.step__action {
       background-color: #eeeeee;
       border-color: transparent;
       color: #363636; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light:focus, .button.is-light.is-focused {
+    .button.is-light:focus, .is-light.step__action:focus, .button.is-light.is-focused, .is-light.is-focused.step__action {
       border-color: transparent;
       color: #363636; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light:focus:not(:active), .button.is-light.is-focused:not(:active) {
+      .button.is-light:focus:not(:active), .is-light.step__action:focus:not(:active), .button.is-light.is-focused:not(:active), .is-light.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(245, 245, 245, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light:active, .button.is-light.is-active {
+    .button.is-light:active, .is-light.step__action:active, .button.is-light.is-active, .is-light.is-active.step__action {
       background-color: #e8e8e8;
       border-color: transparent;
       color: #363636; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light[disabled] {
+    .button.is-light[disabled], .is-light.step__action[disabled] {
       background-color: whitesmoke;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light.is-inverted {
+    .button.is-light.is-inverted, .is-light.is-inverted.step__action {
       background-color: #363636;
       color: whitesmoke; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light.is-inverted:hover {
+      .button.is-light.is-inverted:hover, .is-light.is-inverted.step__action:hover {
         background-color: #292929; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light.is-inverted[disabled] {
+      .button.is-light.is-inverted[disabled], .is-light.is-inverted.step__action[disabled] {
         background-color: #363636;
         border-color: transparent;
         box-shadow: none;
         color: whitesmoke; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light.is-loading::after {
+    .button.is-light.is-loading::after, .is-light.is-loading.step__action::after {
       border-color: transparent transparent #363636 #363636 !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light.is-outlined {
+    .button.is-light.is-outlined, .is-light.is-outlined.step__action {
       background-color: transparent;
       border-color: whitesmoke;
       color: whitesmoke; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light.is-outlined:hover, .button.is-light.is-outlined:focus {
+      .button.is-light.is-outlined:hover, .is-light.is-outlined.step__action:hover, .button.is-light.is-outlined:focus, .is-light.is-outlined.step__action:focus {
         background-color: whitesmoke;
         border-color: whitesmoke;
         color: #363636; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light.is-outlined.is-loading::after {
+      .button.is-light.is-outlined.is-loading::after, .is-light.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent whitesmoke whitesmoke !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light.is-outlined[disabled] {
+      .button.is-light.is-outlined[disabled], .is-light.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: whitesmoke;
         box-shadow: none;
         color: whitesmoke; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-light.is-inverted.is-outlined {
+    .button.is-light.is-inverted.is-outlined, .is-light.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: #363636;
       color: #363636; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light.is-inverted.is-outlined:hover, .button.is-light.is-inverted.is-outlined:focus {
+      .button.is-light.is-inverted.is-outlined:hover, .is-light.is-inverted.is-outlined.step__action:hover, .button.is-light.is-inverted.is-outlined:focus, .is-light.is-inverted.is-outlined.step__action:focus {
         background-color: #363636;
         color: whitesmoke; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-light.is-inverted.is-outlined[disabled] {
+      .button.is-light.is-inverted.is-outlined[disabled], .is-light.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #363636;
         box-shadow: none;
         color: #363636; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-dark {
+  .button.is-dark, .is-dark.step__action {
     background-color: #363636;
     border-color: transparent;
     color: whitesmoke; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark:hover, .button.is-dark.is-hovered {
+    .button.is-dark:hover, .is-dark.step__action:hover, .button.is-dark.is-hovered, .is-dark.is-hovered.step__action {
       background-color: #2f2f2f;
       border-color: transparent;
       color: whitesmoke; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark:focus, .button.is-dark.is-focused {
+    .button.is-dark:focus, .is-dark.step__action:focus, .button.is-dark.is-focused, .is-dark.is-focused.step__action {
       border-color: transparent;
       color: whitesmoke; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark:focus:not(:active), .button.is-dark.is-focused:not(:active) {
+      .button.is-dark:focus:not(:active), .is-dark.step__action:focus:not(:active), .button.is-dark.is-focused:not(:active), .is-dark.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(54, 54, 54, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark:active, .button.is-dark.is-active {
+    .button.is-dark:active, .is-dark.step__action:active, .button.is-dark.is-active, .is-dark.is-active.step__action {
       background-color: #292929;
       border-color: transparent;
       color: whitesmoke; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark[disabled] {
+    .button.is-dark[disabled], .is-dark.step__action[disabled] {
       background-color: #363636;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark.is-inverted {
+    .button.is-dark.is-inverted, .is-dark.is-inverted.step__action {
       background-color: whitesmoke;
       color: #363636; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark.is-inverted:hover {
+      .button.is-dark.is-inverted:hover, .is-dark.is-inverted.step__action:hover {
         background-color: #e8e8e8; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark.is-inverted[disabled] {
+      .button.is-dark.is-inverted[disabled], .is-dark.is-inverted.step__action[disabled] {
         background-color: whitesmoke;
         border-color: transparent;
         box-shadow: none;
         color: #363636; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark.is-loading::after {
+    .button.is-dark.is-loading::after, .is-dark.is-loading.step__action::after {
       border-color: transparent transparent whitesmoke whitesmoke !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark.is-outlined {
+    .button.is-dark.is-outlined, .is-dark.is-outlined.step__action {
       background-color: transparent;
       border-color: #363636;
       color: #363636; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark.is-outlined:hover, .button.is-dark.is-outlined:focus {
+      .button.is-dark.is-outlined:hover, .is-dark.is-outlined.step__action:hover, .button.is-dark.is-outlined:focus, .is-dark.is-outlined.step__action:focus {
         background-color: #363636;
         border-color: #363636;
         color: whitesmoke; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark.is-outlined.is-loading::after {
+      .button.is-dark.is-outlined.is-loading::after, .is-dark.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent #363636 #363636 !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark.is-outlined[disabled] {
+      .button.is-dark.is-outlined[disabled], .is-dark.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #363636;
         box-shadow: none;
         color: #363636; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-dark.is-inverted.is-outlined {
+    .button.is-dark.is-inverted.is-outlined, .is-dark.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: whitesmoke;
       color: whitesmoke; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark.is-inverted.is-outlined:hover, .button.is-dark.is-inverted.is-outlined:focus {
+      .button.is-dark.is-inverted.is-outlined:hover, .is-dark.is-inverted.is-outlined.step__action:hover, .button.is-dark.is-inverted.is-outlined:focus, .is-dark.is-inverted.is-outlined.step__action:focus {
         background-color: whitesmoke;
         color: #363636; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-dark.is-inverted.is-outlined[disabled] {
+      .button.is-dark.is-inverted.is-outlined[disabled], .is-dark.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: whitesmoke;
         box-shadow: none;
         color: whitesmoke; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-primary {
+  .button.is-primary, .is-primary.step__action, .step__action.step__action--forward, .step__action.step__action--cta, .button.step__action--forward, .button.step__action--cta {
     background-color: #00d1b2;
     border-color: transparent;
     color: #fff; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary:hover, .button.is-primary.is-hovered {
+    .button.is-primary:hover, .is-primary.step__action:hover, .step__action.step__action--forward:hover, .step__action.step__action--cta:hover, .button.step__action--forward:hover, .button.step__action--cta:hover, .button.is-primary.is-hovered, .is-primary.is-hovered.step__action, .is-hovered.step__action.step__action--forward, .is-hovered.step__action.step__action--cta, .button.is-hovered.step__action--forward, .button.is-hovered.step__action--cta {
       background-color: #00c4a7;
       border-color: transparent;
       color: #fff; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary:focus, .button.is-primary.is-focused {
+    .button.is-primary:focus, .is-primary.step__action:focus, .step__action.step__action--forward:focus, .step__action.step__action--cta:focus, .button.step__action--forward:focus, .button.step__action--cta:focus, .button.is-primary.is-focused, .is-primary.is-focused.step__action, .is-focused.step__action.step__action--forward, .is-focused.step__action.step__action--cta, .button.is-focused.step__action--forward, .button.is-focused.step__action--cta {
       border-color: transparent;
       color: #fff; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary:focus:not(:active), .button.is-primary.is-focused:not(:active) {
+      .button.is-primary:focus:not(:active), .is-primary.step__action:focus:not(:active), .step__action.step__action--forward:focus:not(:active), .step__action.step__action--cta:focus:not(:active), .button.step__action--forward:focus:not(:active), .button.step__action--cta:focus:not(:active), .button.is-primary.is-focused:not(:active), .is-primary.is-focused.step__action:not(:active), .is-focused.step__action.step__action--forward:not(:active), .is-focused.step__action.step__action--cta:not(:active), .button.is-focused.step__action--forward:not(:active), .button.is-focused.step__action--cta:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary:active, .button.is-primary.is-active {
+    .button.is-primary:active, .is-primary.step__action:active, .step__action.step__action--forward:active, .step__action.step__action--cta:active, .button.step__action--forward:active, .button.step__action--cta:active, .button.is-primary.is-active, .is-primary.is-active.step__action, .is-active.step__action.step__action--forward, .is-active.step__action.step__action--cta, .button.is-active.step__action--forward, .button.is-active.step__action--cta {
       background-color: #00b89c;
       border-color: transparent;
       color: #fff; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary[disabled] {
+    .button.is-primary[disabled], .is-primary.step__action[disabled], .step__action.step__action--forward[disabled], .step__action.step__action--cta[disabled], .button.step__action--forward[disabled], .button.step__action--cta[disabled] {
       background-color: #00d1b2;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary.is-inverted {
+    .button.is-primary.is-inverted, .is-primary.is-inverted.step__action, .is-inverted.step__action.step__action--forward, .is-inverted.step__action.step__action--cta, .button.is-inverted.step__action--forward, .button.is-inverted.step__action--cta {
       background-color: #fff;
       color: #00d1b2; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary.is-inverted:hover {
+      .button.is-primary.is-inverted:hover, .is-primary.is-inverted.step__action:hover, .is-inverted.step__action.step__action--forward:hover, .is-inverted.step__action.step__action--cta:hover, .button.is-inverted.step__action--forward:hover, .button.is-inverted.step__action--cta:hover {
         background-color: #f2f2f2; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary.is-inverted[disabled] {
+      .button.is-primary.is-inverted[disabled], .is-primary.is-inverted.step__action[disabled], .is-inverted.step__action.step__action--forward[disabled], .is-inverted.step__action.step__action--cta[disabled], .button.is-inverted.step__action--forward[disabled], .button.is-inverted.step__action--cta[disabled] {
         background-color: #fff;
         border-color: transparent;
         box-shadow: none;
         color: #00d1b2; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary.is-loading::after {
+    .button.is-primary.is-loading::after, .is-primary.is-loading.step__action::after, .is-loading.step__action.step__action--forward::after, .is-loading.step__action.step__action--cta::after, .button.is-loading.step__action--forward::after, .button.is-loading.step__action--cta::after {
       border-color: transparent transparent #fff #fff !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary.is-outlined {
+    .button.is-primary.is-outlined, .is-primary.is-outlined.step__action, .is-outlined.step__action.step__action--forward, .is-outlined.step__action.step__action--cta, .button.is-outlined.step__action--forward, .button.is-outlined.step__action--cta {
       background-color: transparent;
       border-color: #00d1b2;
       color: #00d1b2; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary.is-outlined:hover, .button.is-primary.is-outlined:focus {
+      .button.is-primary.is-outlined:hover, .is-primary.is-outlined.step__action:hover, .is-outlined.step__action.step__action--forward:hover, .is-outlined.step__action.step__action--cta:hover, .button.is-outlined.step__action--forward:hover, .button.is-outlined.step__action--cta:hover, .button.is-primary.is-outlined:focus, .is-primary.is-outlined.step__action:focus, .is-outlined.step__action.step__action--forward:focus, .is-outlined.step__action.step__action--cta:focus, .button.is-outlined.step__action--forward:focus, .button.is-outlined.step__action--cta:focus {
         background-color: #00d1b2;
         border-color: #00d1b2;
         color: #fff; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary.is-outlined.is-loading::after {
+      .button.is-primary.is-outlined.is-loading::after, .is-primary.is-outlined.is-loading.step__action::after, .is-outlined.is-loading.step__action.step__action--forward::after, .is-outlined.is-loading.step__action.step__action--cta::after, .button.is-outlined.is-loading.step__action--forward::after, .button.is-outlined.is-loading.step__action--cta::after {
         border-color: transparent transparent #00d1b2 #00d1b2 !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary.is-outlined[disabled] {
+      .button.is-primary.is-outlined[disabled], .is-primary.is-outlined.step__action[disabled], .is-outlined.step__action.step__action--forward[disabled], .is-outlined.step__action.step__action--cta[disabled], .button.is-outlined.step__action--forward[disabled], .button.is-outlined.step__action--cta[disabled] {
         background-color: transparent;
         border-color: #00d1b2;
         box-shadow: none;
         color: #00d1b2; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-primary.is-inverted.is-outlined {
+    .button.is-primary.is-inverted.is-outlined, .is-primary.is-inverted.is-outlined.step__action, .is-inverted.is-outlined.step__action.step__action--forward, .is-inverted.is-outlined.step__action.step__action--cta, .button.is-inverted.is-outlined.step__action--forward, .button.is-inverted.is-outlined.step__action--cta {
       background-color: transparent;
       border-color: #fff;
       color: #fff; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary.is-inverted.is-outlined:hover, .button.is-primary.is-inverted.is-outlined:focus {
+      .button.is-primary.is-inverted.is-outlined:hover, .is-primary.is-inverted.is-outlined.step__action:hover, .is-inverted.is-outlined.step__action.step__action--forward:hover, .is-inverted.is-outlined.step__action.step__action--cta:hover, .button.is-inverted.is-outlined.step__action--forward:hover, .button.is-inverted.is-outlined.step__action--cta:hover, .button.is-primary.is-inverted.is-outlined:focus, .is-primary.is-inverted.is-outlined.step__action:focus, .is-inverted.is-outlined.step__action.step__action--forward:focus, .is-inverted.is-outlined.step__action.step__action--cta:focus, .button.is-inverted.is-outlined.step__action--forward:focus, .button.is-inverted.is-outlined.step__action--cta:focus {
         background-color: #fff;
         color: #00d1b2; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-primary.is-inverted.is-outlined[disabled] {
+      .button.is-primary.is-inverted.is-outlined[disabled], .is-primary.is-inverted.is-outlined.step__action[disabled], .is-inverted.is-outlined.step__action.step__action--forward[disabled], .is-inverted.is-outlined.step__action.step__action--cta[disabled], .button.is-inverted.is-outlined.step__action--forward[disabled], .button.is-inverted.is-outlined.step__action--cta[disabled] {
         background-color: transparent;
         border-color: #fff;
         box-shadow: none;
         color: #fff; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-link {
+  .button.is-link, .is-link.step__action {
     background-color: #3273dc;
     border-color: transparent;
     color: #fff; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link:hover, .button.is-link.is-hovered {
+    .button.is-link:hover, .is-link.step__action:hover, .button.is-link.is-hovered, .is-link.is-hovered.step__action {
       background-color: #276cda;
       border-color: transparent;
       color: #fff; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link:focus, .button.is-link.is-focused {
+    .button.is-link:focus, .is-link.step__action:focus, .button.is-link.is-focused, .is-link.is-focused.step__action {
       border-color: transparent;
       color: #fff; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link:focus:not(:active), .button.is-link.is-focused:not(:active) {
+      .button.is-link:focus:not(:active), .is-link.step__action:focus:not(:active), .button.is-link.is-focused:not(:active), .is-link.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link:active, .button.is-link.is-active {
+    .button.is-link:active, .is-link.step__action:active, .button.is-link.is-active, .is-link.is-active.step__action {
       background-color: #2366d1;
       border-color: transparent;
       color: #fff; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link[disabled] {
+    .button.is-link[disabled], .is-link.step__action[disabled] {
       background-color: #3273dc;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link.is-inverted {
+    .button.is-link.is-inverted, .is-link.is-inverted.step__action {
       background-color: #fff;
       color: #3273dc; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link.is-inverted:hover {
+      .button.is-link.is-inverted:hover, .is-link.is-inverted.step__action:hover {
         background-color: #f2f2f2; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link.is-inverted[disabled] {
+      .button.is-link.is-inverted[disabled], .is-link.is-inverted.step__action[disabled] {
         background-color: #fff;
         border-color: transparent;
         box-shadow: none;
         color: #3273dc; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link.is-loading::after {
+    .button.is-link.is-loading::after, .is-link.is-loading.step__action::after {
       border-color: transparent transparent #fff #fff !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link.is-outlined {
+    .button.is-link.is-outlined, .is-link.is-outlined.step__action {
       background-color: transparent;
       border-color: #3273dc;
       color: #3273dc; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link.is-outlined:hover, .button.is-link.is-outlined:focus {
+      .button.is-link.is-outlined:hover, .is-link.is-outlined.step__action:hover, .button.is-link.is-outlined:focus, .is-link.is-outlined.step__action:focus {
         background-color: #3273dc;
         border-color: #3273dc;
         color: #fff; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link.is-outlined.is-loading::after {
+      .button.is-link.is-outlined.is-loading::after, .is-link.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent #3273dc #3273dc !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link.is-outlined[disabled] {
+      .button.is-link.is-outlined[disabled], .is-link.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #3273dc;
         box-shadow: none;
         color: #3273dc; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-link.is-inverted.is-outlined {
+    .button.is-link.is-inverted.is-outlined, .is-link.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: #fff;
       color: #fff; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link.is-inverted.is-outlined:hover, .button.is-link.is-inverted.is-outlined:focus {
+      .button.is-link.is-inverted.is-outlined:hover, .is-link.is-inverted.is-outlined.step__action:hover, .button.is-link.is-inverted.is-outlined:focus, .is-link.is-inverted.is-outlined.step__action:focus {
         background-color: #fff;
         color: #3273dc; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-link.is-inverted.is-outlined[disabled] {
+      .button.is-link.is-inverted.is-outlined[disabled], .is-link.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #fff;
         box-shadow: none;
         color: #fff; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-info {
+  .button.is-info, .is-info.step__action {
     background-color: #209cee;
     border-color: transparent;
     color: #fff; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info:hover, .button.is-info.is-hovered {
+    .button.is-info:hover, .is-info.step__action:hover, .button.is-info.is-hovered, .is-info.is-hovered.step__action {
       background-color: #1496ed;
       border-color: transparent;
       color: #fff; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info:focus, .button.is-info.is-focused {
+    .button.is-info:focus, .is-info.step__action:focus, .button.is-info.is-focused, .is-info.is-focused.step__action {
       border-color: transparent;
       color: #fff; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info:focus:not(:active), .button.is-info.is-focused:not(:active) {
+      .button.is-info:focus:not(:active), .is-info.step__action:focus:not(:active), .button.is-info.is-focused:not(:active), .is-info.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(32, 156, 238, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info:active, .button.is-info.is-active {
+    .button.is-info:active, .is-info.step__action:active, .button.is-info.is-active, .is-info.is-active.step__action {
       background-color: #118fe4;
       border-color: transparent;
       color: #fff; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info[disabled] {
+    .button.is-info[disabled], .is-info.step__action[disabled] {
       background-color: #209cee;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info.is-inverted {
+    .button.is-info.is-inverted, .is-info.is-inverted.step__action {
       background-color: #fff;
       color: #209cee; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info.is-inverted:hover {
+      .button.is-info.is-inverted:hover, .is-info.is-inverted.step__action:hover {
         background-color: #f2f2f2; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info.is-inverted[disabled] {
+      .button.is-info.is-inverted[disabled], .is-info.is-inverted.step__action[disabled] {
         background-color: #fff;
         border-color: transparent;
         box-shadow: none;
         color: #209cee; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info.is-loading::after {
+    .button.is-info.is-loading::after, .is-info.is-loading.step__action::after {
       border-color: transparent transparent #fff #fff !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info.is-outlined {
+    .button.is-info.is-outlined, .is-info.is-outlined.step__action {
       background-color: transparent;
       border-color: #209cee;
       color: #209cee; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info.is-outlined:hover, .button.is-info.is-outlined:focus {
+      .button.is-info.is-outlined:hover, .is-info.is-outlined.step__action:hover, .button.is-info.is-outlined:focus, .is-info.is-outlined.step__action:focus {
         background-color: #209cee;
         border-color: #209cee;
         color: #fff; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info.is-outlined.is-loading::after {
+      .button.is-info.is-outlined.is-loading::after, .is-info.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent #209cee #209cee !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info.is-outlined[disabled] {
+      .button.is-info.is-outlined[disabled], .is-info.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #209cee;
         box-shadow: none;
         color: #209cee; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-info.is-inverted.is-outlined {
+    .button.is-info.is-inverted.is-outlined, .is-info.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: #fff;
       color: #fff; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info.is-inverted.is-outlined:hover, .button.is-info.is-inverted.is-outlined:focus {
+      .button.is-info.is-inverted.is-outlined:hover, .is-info.is-inverted.is-outlined.step__action:hover, .button.is-info.is-inverted.is-outlined:focus, .is-info.is-inverted.is-outlined.step__action:focus {
         background-color: #fff;
         color: #209cee; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-info.is-inverted.is-outlined[disabled] {
+      .button.is-info.is-inverted.is-outlined[disabled], .is-info.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #fff;
         box-shadow: none;
         color: #fff; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-success {
+  .button.is-success, .is-success.step__action {
     background-color: #23d160;
     border-color: transparent;
     color: #fff; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success:hover, .button.is-success.is-hovered {
+    .button.is-success:hover, .is-success.step__action:hover, .button.is-success.is-hovered, .is-success.is-hovered.step__action {
       background-color: #22c65b;
       border-color: transparent;
       color: #fff; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success:focus, .button.is-success.is-focused {
+    .button.is-success:focus, .is-success.step__action:focus, .button.is-success.is-focused, .is-success.is-focused.step__action {
       border-color: transparent;
       color: #fff; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success:focus:not(:active), .button.is-success.is-focused:not(:active) {
+      .button.is-success:focus:not(:active), .is-success.step__action:focus:not(:active), .button.is-success.is-focused:not(:active), .is-success.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(35, 209, 96, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success:active, .button.is-success.is-active {
+    .button.is-success:active, .is-success.step__action:active, .button.is-success.is-active, .is-success.is-active.step__action {
       background-color: #20bc56;
       border-color: transparent;
       color: #fff; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success[disabled] {
+    .button.is-success[disabled], .is-success.step__action[disabled] {
       background-color: #23d160;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success.is-inverted {
+    .button.is-success.is-inverted, .is-success.is-inverted.step__action {
       background-color: #fff;
       color: #23d160; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success.is-inverted:hover {
+      .button.is-success.is-inverted:hover, .is-success.is-inverted.step__action:hover {
         background-color: #f2f2f2; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success.is-inverted[disabled] {
+      .button.is-success.is-inverted[disabled], .is-success.is-inverted.step__action[disabled] {
         background-color: #fff;
         border-color: transparent;
         box-shadow: none;
         color: #23d160; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success.is-loading::after {
+    .button.is-success.is-loading::after, .is-success.is-loading.step__action::after {
       border-color: transparent transparent #fff #fff !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success.is-outlined {
+    .button.is-success.is-outlined, .is-success.is-outlined.step__action {
       background-color: transparent;
       border-color: #23d160;
       color: #23d160; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success.is-outlined:hover, .button.is-success.is-outlined:focus {
+      .button.is-success.is-outlined:hover, .is-success.is-outlined.step__action:hover, .button.is-success.is-outlined:focus, .is-success.is-outlined.step__action:focus {
         background-color: #23d160;
         border-color: #23d160;
         color: #fff; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success.is-outlined.is-loading::after {
+      .button.is-success.is-outlined.is-loading::after, .is-success.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent #23d160 #23d160 !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success.is-outlined[disabled] {
+      .button.is-success.is-outlined[disabled], .is-success.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #23d160;
         box-shadow: none;
         color: #23d160; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-success.is-inverted.is-outlined {
+    .button.is-success.is-inverted.is-outlined, .is-success.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: #fff;
       color: #fff; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success.is-inverted.is-outlined:hover, .button.is-success.is-inverted.is-outlined:focus {
+      .button.is-success.is-inverted.is-outlined:hover, .is-success.is-inverted.is-outlined.step__action:hover, .button.is-success.is-inverted.is-outlined:focus, .is-success.is-inverted.is-outlined.step__action:focus {
         background-color: #fff;
         color: #23d160; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-success.is-inverted.is-outlined[disabled] {
+      .button.is-success.is-inverted.is-outlined[disabled], .is-success.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #fff;
         box-shadow: none;
         color: #fff; }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-warning {
+  .button.is-warning, .is-warning.step__action {
     background-color: #ffdd57;
     border-color: transparent;
     color: rgba(0, 0, 0, 0.7); }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning:hover, .button.is-warning.is-hovered {
+    .button.is-warning:hover, .is-warning.step__action:hover, .button.is-warning.is-hovered, .is-warning.is-hovered.step__action {
       background-color: #ffdb4a;
       border-color: transparent;
       color: rgba(0, 0, 0, 0.7); }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning:focus, .button.is-warning.is-focused {
+    .button.is-warning:focus, .is-warning.step__action:focus, .button.is-warning.is-focused, .is-warning.is-focused.step__action {
       border-color: transparent;
       color: rgba(0, 0, 0, 0.7); }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning:focus:not(:active), .button.is-warning.is-focused:not(:active) {
+      .button.is-warning:focus:not(:active), .is-warning.step__action:focus:not(:active), .button.is-warning.is-focused:not(:active), .is-warning.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(255, 221, 87, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning:active, .button.is-warning.is-active {
+    .button.is-warning:active, .is-warning.step__action:active, .button.is-warning.is-active, .is-warning.is-active.step__action {
       background-color: #ffd83d;
       border-color: transparent;
       color: rgba(0, 0, 0, 0.7); }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning[disabled] {
+    .button.is-warning[disabled], .is-warning.step__action[disabled] {
       background-color: #ffdd57;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning.is-inverted {
+    .button.is-warning.is-inverted, .is-warning.is-inverted.step__action {
       background-color: rgba(0, 0, 0, 0.7);
       color: #ffdd57; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning.is-inverted:hover {
+      .button.is-warning.is-inverted:hover, .is-warning.is-inverted.step__action:hover {
         background-color: rgba(0, 0, 0, 0.7); }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning.is-inverted[disabled] {
+      .button.is-warning.is-inverted[disabled], .is-warning.is-inverted.step__action[disabled] {
         background-color: rgba(0, 0, 0, 0.7);
         border-color: transparent;
         box-shadow: none;
         color: #ffdd57; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning.is-loading::after {
+    .button.is-warning.is-loading::after, .is-warning.is-loading.step__action::after {
       border-color: transparent transparent rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning.is-outlined {
+    .button.is-warning.is-outlined, .is-warning.is-outlined.step__action {
       background-color: transparent;
       border-color: #ffdd57;
       color: #ffdd57; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning.is-outlined:hover, .button.is-warning.is-outlined:focus {
+      .button.is-warning.is-outlined:hover, .is-warning.is-outlined.step__action:hover, .button.is-warning.is-outlined:focus, .is-warning.is-outlined.step__action:focus {
         background-color: #ffdd57;
         border-color: #ffdd57;
         color: rgba(0, 0, 0, 0.7); }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning.is-outlined.is-loading::after {
+      .button.is-warning.is-outlined.is-loading::after, .is-warning.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent #ffdd57 #ffdd57 !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning.is-outlined[disabled] {
+      .button.is-warning.is-outlined[disabled], .is-warning.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #ffdd57;
         box-shadow: none;
         color: #ffdd57; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-warning.is-inverted.is-outlined {
+    .button.is-warning.is-inverted.is-outlined, .is-warning.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: rgba(0, 0, 0, 0.7);
       color: rgba(0, 0, 0, 0.7); }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning.is-inverted.is-outlined:hover, .button.is-warning.is-inverted.is-outlined:focus {
+      .button.is-warning.is-inverted.is-outlined:hover, .is-warning.is-inverted.is-outlined.step__action:hover, .button.is-warning.is-inverted.is-outlined:focus, .is-warning.is-inverted.is-outlined.step__action:focus {
         background-color: rgba(0, 0, 0, 0.7);
         color: #ffdd57; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-warning.is-inverted.is-outlined[disabled] {
+      .button.is-warning.is-inverted.is-outlined[disabled], .is-warning.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: rgba(0, 0, 0, 0.7);
         box-shadow: none;
         color: rgba(0, 0, 0, 0.7); }
   /* line 114, node_modules/bulma/sass/elements/button.sass */
-  .button.is-danger {
+  .button.is-danger, .is-danger.step__action {
     background-color: #ff3860;
     border-color: transparent;
     color: #fff; }
     /* line 118, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger:hover, .button.is-danger.is-hovered {
+    .button.is-danger:hover, .is-danger.step__action:hover, .button.is-danger.is-hovered, .is-danger.is-hovered.step__action {
       background-color: #ff2b56;
       border-color: transparent;
       color: #fff; }
     /* line 123, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger:focus, .button.is-danger.is-focused {
+    .button.is-danger:focus, .is-danger.step__action:focus, .button.is-danger.is-focused, .is-danger.is-focused.step__action {
       border-color: transparent;
       color: #fff; }
       /* line 127, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger:focus:not(:active), .button.is-danger.is-focused:not(:active) {
+      .button.is-danger:focus:not(:active), .is-danger.step__action:focus:not(:active), .button.is-danger.is-focused:not(:active), .is-danger.is-focused.step__action:not(:active) {
         box-shadow: 0 0 0 0.125em rgba(255, 56, 96, 0.25); }
     /* line 129, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger:active, .button.is-danger.is-active {
+    .button.is-danger:active, .is-danger.step__action:active, .button.is-danger.is-active, .is-danger.is-active.step__action {
       background-color: #ff1f4b;
       border-color: transparent;
       color: #fff; }
     /* line 134, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger[disabled] {
+    .button.is-danger[disabled], .is-danger.step__action[disabled] {
       background-color: #ff3860;
       border-color: transparent;
       box-shadow: none; }
     /* line 138, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger.is-inverted {
+    .button.is-danger.is-inverted, .is-danger.is-inverted.step__action {
       background-color: #fff;
       color: #ff3860; }
       /* line 141, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger.is-inverted:hover {
+      .button.is-danger.is-inverted:hover, .is-danger.is-inverted.step__action:hover {
         background-color: #f2f2f2; }
       /* line 143, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger.is-inverted[disabled] {
+      .button.is-danger.is-inverted[disabled], .is-danger.is-inverted.step__action[disabled] {
         background-color: #fff;
         border-color: transparent;
         box-shadow: none;
         color: #ff3860; }
     /* line 149, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger.is-loading::after {
+    .button.is-danger.is-loading::after, .is-danger.is-loading.step__action::after {
       border-color: transparent transparent #fff #fff !important; }
     /* line 151, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger.is-outlined {
+    .button.is-danger.is-outlined, .is-danger.is-outlined.step__action {
       background-color: transparent;
       border-color: #ff3860;
       color: #ff3860; }
       /* line 155, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger.is-outlined:hover, .button.is-danger.is-outlined:focus {
+      .button.is-danger.is-outlined:hover, .is-danger.is-outlined.step__action:hover, .button.is-danger.is-outlined:focus, .is-danger.is-outlined.step__action:focus {
         background-color: #ff3860;
         border-color: #ff3860;
         color: #fff; }
       /* line 161, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger.is-outlined.is-loading::after {
+      .button.is-danger.is-outlined.is-loading::after, .is-danger.is-outlined.is-loading.step__action::after {
         border-color: transparent transparent #ff3860 #ff3860 !important; }
       /* line 163, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger.is-outlined[disabled] {
+      .button.is-danger.is-outlined[disabled], .is-danger.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #ff3860;
         box-shadow: none;
         color: #ff3860; }
     /* line 168, node_modules/bulma/sass/elements/button.sass */
-    .button.is-danger.is-inverted.is-outlined {
+    .button.is-danger.is-inverted.is-outlined, .is-danger.is-inverted.is-outlined.step__action {
       background-color: transparent;
       border-color: #fff;
       color: #fff; }
       /* line 172, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger.is-inverted.is-outlined:hover, .button.is-danger.is-inverted.is-outlined:focus {
+      .button.is-danger.is-inverted.is-outlined:hover, .is-danger.is-inverted.is-outlined.step__action:hover, .button.is-danger.is-inverted.is-outlined:focus, .is-danger.is-inverted.is-outlined.step__action:focus {
         background-color: #fff;
         color: #ff3860; }
       /* line 176, node_modules/bulma/sass/elements/button.sass */
-      .button.is-danger.is-inverted.is-outlined[disabled] {
+      .button.is-danger.is-inverted.is-outlined[disabled], .is-danger.is-inverted.is-outlined.step__action[disabled] {
         background-color: transparent;
         border-color: #fff;
         box-shadow: none;
         color: #fff; }
   /* line 182, node_modules/bulma/sass/elements/button.sass */
-  .button.is-small {
+  .button.is-small, .is-small.step__action {
     border-radius: 2px;
     font-size: 0.75rem; }
   /* line 184, node_modules/bulma/sass/elements/button.sass */
-  .button.is-medium {
+  .button.is-medium, .is-medium.step__action {
     font-size: 1.25rem; }
   /* line 186, node_modules/bulma/sass/elements/button.sass */
-  .button.is-large {
+  .button.is-large, .is-large.step__action, .step__action.step__action--cta, .button.step__action--cta {
     font-size: 1.5rem; }
   /* line 189, node_modules/bulma/sass/elements/button.sass */
-  .button[disabled] {
+  .button[disabled], .step__action[disabled] {
     background-color: white;
     border-color: #dbdbdb;
     box-shadow: none;
     opacity: 0.5; }
   /* line 194, node_modules/bulma/sass/elements/button.sass */
-  .button.is-fullwidth {
+  .button.is-fullwidth, .is-fullwidth.step__action, .step__action.step__action--cta, .button.step__action--cta {
     display: flex;
     width: 100%; }
   /* line 197, node_modules/bulma/sass/elements/button.sass */
-  .button.is-loading {
+  .button.is-loading, .is-loading.step__action {
     color: transparent !important;
     pointer-events: none; }
     /* line 200, node_modules/bulma/sass/elements/button.sass */
-    .button.is-loading::after {
+    .button.is-loading::after, .is-loading.step__action::after {
       position: absolute;
       left: calc(50% - (1em / 2));
       top: calc(50% - (1em / 2));
       position: absolute !important; }
   /* line 204, node_modules/bulma/sass/elements/button.sass */
-  .button.is-static {
+  .button.is-static, .is-static.step__action {
     background-color: whitesmoke;
     border-color: #dbdbdb;
     color: #7a7a7a;
     box-shadow: none;
     pointer-events: none; }
   /* line 210, node_modules/bulma/sass/elements/button.sass */
-  .button.is-rounded {
+  .button.is-rounded, .is-rounded.step__action {
     border-radius: 290486px;
     padding-left: 1em;
     padding-right: 1em; }
@@ -5294,10 +5294,10 @@ a.box:active {
   flex-wrap: wrap;
   justify-content: flex-start; }
   /* line 220, node_modules/bulma/sass/elements/button.sass */
-  .buttons .button {
+  .buttons .button, .buttons .step__action {
     margin-bottom: 0.5rem; }
     /* line 222, node_modules/bulma/sass/elements/button.sass */
-    .buttons .button:not(:last-child) {
+    .buttons .button:not(:last-child), .buttons .step__action:not(:last-child) {
       margin-right: 0.5rem; }
   /* line 224, node_modules/bulma/sass/elements/button.sass */
   .buttons:last-child {
@@ -5306,28 +5306,28 @@ a.box:active {
   .buttons:not(:last-child) {
     margin-bottom: 1rem; }
   /* line 230, node_modules/bulma/sass/elements/button.sass */
-  .buttons.has-addons .button:not(:first-child) {
+  .buttons.has-addons .button:not(:first-child), .buttons.has-addons .step__action:not(:first-child) {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0; }
   /* line 233, node_modules/bulma/sass/elements/button.sass */
-  .buttons.has-addons .button:not(:last-child) {
+  .buttons.has-addons .button:not(:last-child), .buttons.has-addons .step__action:not(:last-child) {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     margin-right: -1px; }
   /* line 237, node_modules/bulma/sass/elements/button.sass */
-  .buttons.has-addons .button:last-child {
+  .buttons.has-addons .button:last-child, .buttons.has-addons .step__action:last-child {
     margin-right: 0; }
   /* line 239, node_modules/bulma/sass/elements/button.sass */
-  .buttons.has-addons .button:hover, .buttons.has-addons .button.is-hovered {
+  .buttons.has-addons .button:hover, .buttons.has-addons .step__action:hover, .buttons.has-addons .button.is-hovered, .buttons.has-addons .is-hovered.step__action {
     z-index: 2; }
   /* line 242, node_modules/bulma/sass/elements/button.sass */
-  .buttons.has-addons .button:focus, .buttons.has-addons .button.is-focused, .buttons.has-addons .button:active, .buttons.has-addons .button.is-active, .buttons.has-addons .button.is-selected {
+  .buttons.has-addons .button:focus, .buttons.has-addons .step__action:focus, .buttons.has-addons .button.is-focused, .buttons.has-addons .is-focused.step__action, .buttons.has-addons .button:active, .buttons.has-addons .step__action:active, .buttons.has-addons .button.is-active, .buttons.has-addons .is-active.step__action, .buttons.has-addons .button.is-selected, .buttons.has-addons .is-selected.step__action {
     z-index: 3; }
     /* line 248, node_modules/bulma/sass/elements/button.sass */
-    .buttons.has-addons .button:focus:hover, .buttons.has-addons .button.is-focused:hover, .buttons.has-addons .button:active:hover, .buttons.has-addons .button.is-active:hover, .buttons.has-addons .button.is-selected:hover {
+    .buttons.has-addons .button:focus:hover, .buttons.has-addons .step__action:focus:hover, .buttons.has-addons .button.is-focused:hover, .buttons.has-addons .is-focused.step__action:hover, .buttons.has-addons .button:active:hover, .buttons.has-addons .step__action:active:hover, .buttons.has-addons .button.is-active:hover, .buttons.has-addons .is-active.step__action:hover, .buttons.has-addons .button.is-selected:hover, .buttons.has-addons .is-selected.step__action:hover {
       z-index: 4; }
   /* line 250, node_modules/bulma/sass/elements/button.sass */
-  .buttons.has-addons .button.is-expanded {
+  .buttons.has-addons .button.is-expanded, .buttons.has-addons .is-expanded.step__action {
     flex-grow: 1; }
   /* line 252, node_modules/bulma/sass/elements/button.sass */
   .buttons.is-centered {
@@ -5534,7 +5534,7 @@ a.box:active {
   font-size: 1.25rem; }
 
 /* line 140, node_modules/bulma/sass/elements/content.sass */
-.content.is-large {
+.content.is-large, .content.step__action--cta {
   font-size: 1.5rem; }
 
 /* line 67, node_modules/bulma/sass/elements/form.sass */
@@ -5647,15 +5647,25 @@ a.box:active {
     .textarea.is-dark.is-active {
       box-shadow: 0 0 0 0.125em rgba(54, 54, 54, 0.25); }
   /* line 78, node_modules/bulma/sass/elements/form.sass */
-  .input.is-primary,
-  .textarea.is-primary {
+  .input.is-primary, .input.step__action--forward, .input.step__action--cta,
+  .textarea.is-primary,
+  .textarea.step__action--forward,
+  .textarea.step__action--cta {
     border-color: #00d1b2; }
     /* line 80, node_modules/bulma/sass/elements/form.sass */
-    .input.is-primary:focus, .input.is-primary.is-focused, .input.is-primary:active, .input.is-primary.is-active,
+    .input.is-primary:focus, .input.step__action--forward:focus, .input.step__action--cta:focus, .input.is-primary.is-focused, .input.is-focused.step__action--forward, .input.is-focused.step__action--cta, .input.is-primary:active, .input.step__action--forward:active, .input.step__action--cta:active, .input.is-primary.is-active, .input.is-active.step__action--forward, .input.is-active.step__action--cta,
     .textarea.is-primary:focus,
+    .textarea.step__action--forward:focus,
+    .textarea.step__action--cta:focus,
     .textarea.is-primary.is-focused,
+    .textarea.is-focused.step__action--forward,
+    .textarea.is-focused.step__action--cta,
     .textarea.is-primary:active,
-    .textarea.is-primary.is-active {
+    .textarea.step__action--forward:active,
+    .textarea.step__action--cta:active,
+    .textarea.is-primary.is-active,
+    .textarea.is-active.step__action--forward,
+    .textarea.is-active.step__action--cta {
       box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25); }
   /* line 78, node_modules/bulma/sass/elements/form.sass */
   .input.is-link,
@@ -5722,12 +5732,14 @@ a.box:active {
   .textarea.is-medium {
     font-size: 1.25rem; }
   /* line 90, node_modules/bulma/sass/elements/form.sass */
-  .input.is-large,
-  .textarea.is-large {
+  .input.is-large, .input.step__action--cta,
+  .textarea.is-large,
+  .textarea.step__action--cta {
     font-size: 1.5rem; }
   /* line 93, node_modules/bulma/sass/elements/form.sass */
-  .input.is-fullwidth,
-  .textarea.is-fullwidth {
+  .input.is-fullwidth, .input.step__action--cta,
+  .textarea.is-fullwidth,
+  .textarea.step__action--cta {
     display: block;
     width: 100%; }
   /* line 96, node_modules/bulma/sass/elements/form.sass */
@@ -5926,16 +5938,16 @@ a.box:active {
     .select.is-dark select:focus, .select.is-dark select.is-focused, .select.is-dark select:active, .select.is-dark select.is-active {
       box-shadow: 0 0 0 0.125em rgba(54, 54, 54, 0.25); }
   /* line 187, node_modules/bulma/sass/elements/form.sass */
-  .select.is-primary:not(:hover)::after {
+  .select.is-primary:not(:hover)::after, .select.step__action--forward:not(:hover)::after, .select.step__action--cta:not(:hover)::after {
     border-color: #00d1b2; }
   /* line 189, node_modules/bulma/sass/elements/form.sass */
-  .select.is-primary select {
+  .select.is-primary select, .select.step__action--forward select, .select.step__action--cta select {
     border-color: #00d1b2; }
     /* line 191, node_modules/bulma/sass/elements/form.sass */
-    .select.is-primary select:hover, .select.is-primary select.is-hovered {
+    .select.is-primary select:hover, .select.step__action--forward select:hover, .select.step__action--cta select:hover, .select.is-primary select.is-hovered, .select.step__action--forward select.is-hovered, .select.step__action--cta select.is-hovered {
       border-color: #00b89c; }
     /* line 194, node_modules/bulma/sass/elements/form.sass */
-    .select.is-primary select:focus, .select.is-primary select.is-focused, .select.is-primary select:active, .select.is-primary select.is-active {
+    .select.is-primary select:focus, .select.step__action--forward select:focus, .select.step__action--cta select:focus, .select.is-primary select.is-focused, .select.step__action--forward select.is-focused, .select.step__action--cta select.is-focused, .select.is-primary select:active, .select.step__action--forward select:active, .select.step__action--cta select:active, .select.is-primary select.is-active, .select.step__action--forward select.is-active, .select.step__action--cta select.is-active {
       box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25); }
   /* line 187, node_modules/bulma/sass/elements/form.sass */
   .select.is-link:not(:hover)::after {
@@ -6005,16 +6017,16 @@ a.box:active {
   .select.is-medium {
     font-size: 1.25rem; }
   /* line 204, node_modules/bulma/sass/elements/form.sass */
-  .select.is-large {
+  .select.is-large, .select.step__action--cta {
     font-size: 1.5rem; }
   /* line 208, node_modules/bulma/sass/elements/form.sass */
   .select.is-disabled::after {
     border-color: #7a7a7a; }
   /* line 210, node_modules/bulma/sass/elements/form.sass */
-  .select.is-fullwidth {
+  .select.is-fullwidth, .select.step__action--cta {
     width: 100%; }
     /* line 212, node_modules/bulma/sass/elements/form.sass */
-    .select.is-fullwidth select {
+    .select.is-fullwidth select, .select.step__action--cta select {
       width: 100%; }
   /* line 215, node_modules/bulma/sass/elements/form.sass */
   .select.is-loading::after {
@@ -6030,7 +6042,7 @@ a.box:active {
   .select.is-loading.is-medium:after {
     font-size: 1.25rem; }
   /* line 226, node_modules/bulma/sass/elements/form.sass */
-  .select.is-loading.is-large:after {
+  .select.is-loading.is-large:after, .select.is-loading.step__action--cta:after {
     font-size: 1.5rem; }
 
 /* line 229, node_modules/bulma/sass/elements/form.sass */
@@ -6120,22 +6132,22 @@ a.box:active {
     border-color: transparent;
     color: whitesmoke; }
   /* line 240, node_modules/bulma/sass/elements/form.sass */
-  .file.is-primary .file-cta {
+  .file.is-primary .file-cta, .file.step__action--forward .file-cta, .file.step__action--cta .file-cta {
     background-color: #00d1b2;
     border-color: transparent;
     color: #fff; }
   /* line 246, node_modules/bulma/sass/elements/form.sass */
-  .file.is-primary:hover .file-cta, .file.is-primary.is-hovered .file-cta {
+  .file.is-primary:hover .file-cta, .file.step__action--forward:hover .file-cta, .file.step__action--cta:hover .file-cta, .file.is-primary.is-hovered .file-cta, .file.is-hovered.step__action--forward .file-cta, .file.is-hovered.step__action--cta .file-cta {
     background-color: #00c4a7;
     border-color: transparent;
     color: #fff; }
   /* line 252, node_modules/bulma/sass/elements/form.sass */
-  .file.is-primary:focus .file-cta, .file.is-primary.is-focused .file-cta {
+  .file.is-primary:focus .file-cta, .file.step__action--forward:focus .file-cta, .file.step__action--cta:focus .file-cta, .file.is-primary.is-focused .file-cta, .file.is-focused.step__action--forward .file-cta, .file.is-focused.step__action--cta .file-cta {
     border-color: transparent;
     box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.25);
     color: #fff; }
   /* line 258, node_modules/bulma/sass/elements/form.sass */
-  .file.is-primary:active .file-cta, .file.is-primary.is-active .file-cta {
+  .file.is-primary:active .file-cta, .file.step__action--forward:active .file-cta, .file.step__action--cta:active .file-cta, .file.is-primary.is-active .file-cta, .file.is-active.step__action--forward .file-cta, .file.is-active.step__action--cta .file-cta {
     background-color: #00b89c;
     border-color: transparent;
     color: #fff; }
@@ -6249,10 +6261,10 @@ a.box:active {
     .file.is-medium .file-icon .fa {
       font-size: 21px; }
   /* line 270, node_modules/bulma/sass/elements/form.sass */
-  .file.is-large {
+  .file.is-large, .file.step__action--cta {
     font-size: 1.5rem; }
     /* line 273, node_modules/bulma/sass/elements/form.sass */
-    .file.is-large .file-icon .fa {
+    .file.is-large .file-icon .fa, .file.step__action--cta .file-icon .fa {
       font-size: 28px; }
   /* line 277, node_modules/bulma/sass/elements/form.sass */
   .file.has-name .file-cta {
@@ -6293,7 +6305,7 @@ a.box:active {
   .file.is-boxed.is-medium .file-icon .fa {
     font-size: 28px; }
   /* line 309, node_modules/bulma/sass/elements/form.sass */
-  .file.is-boxed.is-large .file-icon .fa {
+  .file.is-boxed.is-large .file-icon .fa, .file.is-boxed.step__action--cta .file-icon .fa {
     font-size: 35px; }
   /* line 312, node_modules/bulma/sass/elements/form.sass */
   .file.is-boxed.has-name .file-cta {
@@ -6306,10 +6318,10 @@ a.box:active {
   .file.is-centered {
     justify-content: center; }
   /* line 320, node_modules/bulma/sass/elements/form.sass */
-  .file.is-fullwidth .file-label {
+  .file.is-fullwidth .file-label, .file.step__action--cta .file-label {
     width: 100%; }
   /* line 322, node_modules/bulma/sass/elements/form.sass */
-  .file.is-fullwidth .file-name {
+  .file.is-fullwidth .file-name, .file.step__action--cta .file-name {
     flex-grow: 1;
     max-width: none; }
   /* line 325, node_modules/bulma/sass/elements/form.sass */
@@ -6410,7 +6422,7 @@ a.box:active {
   .label.is-medium {
     font-size: 1.25rem; }
   /* line 408, node_modules/bulma/sass/elements/form.sass */
-  .label.is-large {
+  .label.is-large, .label.step__action--cta {
     font-size: 1.5rem; }
 
 /* line 411, node_modules/bulma/sass/elements/form.sass */
@@ -6431,7 +6443,7 @@ a.box:active {
   .help.is-dark, .is-dark.input-error-message {
     color: #363636; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
-  .help.is-primary, .is-primary.input-error-message {
+  .help.is-primary, .is-primary.input-error-message, .input-error-message.step__action--forward, .input-error-message.step__action--cta, .help.step__action--forward, .help.step__action--cta {
     color: #00d1b2; }
   /* line 417, node_modules/bulma/sass/elements/form.sass */
   .help.is-link, .is-link.input-error-message {
@@ -6461,31 +6473,31 @@ a.box:active {
   .field.has-addons .control:not(:last-child) {
     margin-right: -1px; }
   /* line 433, node_modules/bulma/sass/elements/form.sass */
-  .field.has-addons .control:not(:first-child):not(:last-child) .button,
+  .field.has-addons .control:not(:first-child):not(:last-child) .button, .field.has-addons .control:not(:first-child):not(:last-child) .step__action,
   .field.has-addons .control:not(:first-child):not(:last-child) .input,
   .field.has-addons .control:not(:first-child):not(:last-child) .select select {
     border-radius: 0; }
   /* line 438, node_modules/bulma/sass/elements/form.sass */
-  .field.has-addons .control:first-child .button,
+  .field.has-addons .control:first-child .button, .field.has-addons .control:first-child .step__action,
   .field.has-addons .control:first-child .input,
   .field.has-addons .control:first-child .select select {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0; }
   /* line 444, node_modules/bulma/sass/elements/form.sass */
-  .field.has-addons .control:last-child .button,
+  .field.has-addons .control:last-child .button, .field.has-addons .control:last-child .step__action,
   .field.has-addons .control:last-child .input,
   .field.has-addons .control:last-child .select select {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0; }
   /* line 452, node_modules/bulma/sass/elements/form.sass */
-  .field.has-addons .control .button:hover, .field.has-addons .control .button.is-hovered,
+  .field.has-addons .control .button:hover, .field.has-addons .control .step__action:hover, .field.has-addons .control .button.is-hovered, .field.has-addons .control .is-hovered.step__action,
   .field.has-addons .control .input:hover,
   .field.has-addons .control .input.is-hovered,
   .field.has-addons .control .select select:hover,
   .field.has-addons .control .select select.is-hovered {
     z-index: 2; }
   /* line 455, node_modules/bulma/sass/elements/form.sass */
-  .field.has-addons .control .button:focus, .field.has-addons .control .button.is-focused, .field.has-addons .control .button:active, .field.has-addons .control .button.is-active,
+  .field.has-addons .control .button:focus, .field.has-addons .control .step__action:focus, .field.has-addons .control .button.is-focused, .field.has-addons .control .is-focused.step__action, .field.has-addons .control .button:active, .field.has-addons .control .step__action:active, .field.has-addons .control .button.is-active, .field.has-addons .control .is-active.step__action,
   .field.has-addons .control .input:focus,
   .field.has-addons .control .input.is-focused,
   .field.has-addons .control .input:active,
@@ -6496,7 +6508,7 @@ a.box:active {
   .field.has-addons .control .select select.is-active {
     z-index: 3; }
     /* line 460, node_modules/bulma/sass/elements/form.sass */
-    .field.has-addons .control .button:focus:hover, .field.has-addons .control .button.is-focused:hover, .field.has-addons .control .button:active:hover, .field.has-addons .control .button.is-active:hover,
+    .field.has-addons .control .button:focus:hover, .field.has-addons .control .step__action:focus:hover, .field.has-addons .control .button.is-focused:hover, .field.has-addons .control .is-focused.step__action:hover, .field.has-addons .control .button:active:hover, .field.has-addons .control .step__action:active:hover, .field.has-addons .control .button.is-active:hover, .field.has-addons .control .is-active.step__action:hover,
     .field.has-addons .control .input:focus:hover,
     .field.has-addons .control .input.is-focused:hover,
     .field.has-addons .control .input:active:hover,
@@ -6588,7 +6600,7 @@ a.box:active {
       font-size: 1.25rem;
       padding-top: 0.375em; }
     /* line 521, node_modules/bulma/sass/elements/form.sass */
-    .field-label.is-large {
+    .field-label.is-large, .field-label.step__action--cta {
       font-size: 1.5rem;
       padding-top: 0.375em; } }
 
@@ -6640,7 +6652,7 @@ a.box:active {
   .control.has-icon .input.is-medium + .icon {
     font-size: 1.25rem; }
   /* line 568, node_modules/bulma/sass/elements/form.sass */
-  .control.has-icon .input.is-large + .icon {
+  .control.has-icon .input.is-large + .icon, .control.has-icon .input.step__action--cta + .icon {
     font-size: 1.5rem; }
   /* line 571, node_modules/bulma/sass/elements/form.sass */
   .control.has-icon:not(.has-icon-right) .icon {
@@ -6670,9 +6682,11 @@ a.box:active {
   .control.has-icons-right .select.is-medium ~ .icon {
     font-size: 1.25rem; }
   /* line 591, node_modules/bulma/sass/elements/form.sass */
-  .control.has-icons-left .input.is-large ~ .icon,
-  .control.has-icons-left .select.is-large ~ .icon, .control.has-icons-right .input.is-large ~ .icon,
-  .control.has-icons-right .select.is-large ~ .icon {
+  .control.has-icons-left .input.is-large ~ .icon, .control.has-icons-left .input.step__action--cta ~ .icon,
+  .control.has-icons-left .select.is-large ~ .icon,
+  .control.has-icons-left .select.step__action--cta ~ .icon, .control.has-icons-right .input.is-large ~ .icon, .control.has-icons-right .input.step__action--cta ~ .icon,
+  .control.has-icons-right .select.is-large ~ .icon,
+  .control.has-icons-right .select.step__action--cta ~ .icon {
     font-size: 1.5rem; }
   /* line 593, node_modules/bulma/sass/elements/form.sass */
   .control.has-icons-left .icon, .control.has-icons-right .icon {
@@ -6710,7 +6724,7 @@ a.box:active {
   .control.is-loading.is-medium:after {
     font-size: 1.25rem; }
   /* line 624, node_modules/bulma/sass/elements/form.sass */
-  .control.is-loading.is-large:after {
+  .control.is-loading.is-large:after, .control.is-loading.step__action--cta:after {
     font-size: 1.5rem; }
 
 /* line 6, node_modules/bulma/sass/elements/icon.sass */
@@ -6729,7 +6743,7 @@ a.box:active {
     height: 2rem;
     width: 2rem; }
   /* line 19, node_modules/bulma/sass/elements/icon.sass */
-  .icon.is-large {
+  .icon.is-large, .icon.step__action--cta {
     height: 3rem;
     width: 3rem; }
 
@@ -6830,7 +6844,7 @@ a.box:active {
   padding: 1.25rem 2.5rem 1.25rem 1.5rem;
   position: relative; }
   /* line 11, node_modules/bulma/sass/elements/notification.sass */
-  .notification a:not(.button) {
+  .notification a:not(.button):not(.step__action) {
     color: currentColor;
     text-decoration: underline; }
   /* line 14, node_modules/bulma/sass/elements/notification.sass */
@@ -6870,7 +6884,7 @@ a.box:active {
     background-color: #363636;
     color: whitesmoke; }
   /* line 33, node_modules/bulma/sass/elements/notification.sass */
-  .notification.is-primary {
+  .notification.is-primary, .notification.step__action--forward, .notification.step__action--cta {
     background-color: #00d1b2;
     color: #fff; }
   /* line 33, node_modules/bulma/sass/elements/notification.sass */
@@ -6955,13 +6969,13 @@ a.box:active {
   .progress.is-dark::-ms-fill {
     background-color: #363636; }
   /* line 28, node_modules/bulma/sass/elements/progress.sass */
-  .progress.is-primary::-webkit-progress-value {
+  .progress.is-primary::-webkit-progress-value, .progress.step__action--forward::-webkit-progress-value, .progress.step__action--cta::-webkit-progress-value {
     background-color: #00d1b2; }
   /* line 30, node_modules/bulma/sass/elements/progress.sass */
-  .progress.is-primary::-moz-progress-bar {
+  .progress.is-primary::-moz-progress-bar, .progress.step__action--forward::-moz-progress-bar, .progress.step__action--cta::-moz-progress-bar {
     background-color: #00d1b2; }
   /* line 32, node_modules/bulma/sass/elements/progress.sass */
-  .progress.is-primary::-ms-fill {
+  .progress.is-primary::-ms-fill, .progress.step__action--forward::-ms-fill, .progress.step__action--cta::-ms-fill {
     background-color: #00d1b2; }
   /* line 28, node_modules/bulma/sass/elements/progress.sass */
   .progress.is-link::-webkit-progress-value {
@@ -7015,7 +7029,7 @@ a.box:active {
   .progress.is-medium {
     height: 1.25rem; }
   /* line 39, node_modules/bulma/sass/elements/progress.sass */
-  .progress.is-large {
+  .progress.is-large, .progress.step__action--cta {
     height: 1.5rem; }
 
 /* line 22, node_modules/bulma/sass/elements/table.sass */
@@ -7054,8 +7068,10 @@ a.box:active {
       border-color: #363636;
       color: whitesmoke; }
     /* line 36, node_modules/bulma/sass/elements/table.sass */
-    .table td.is-primary,
-    .table th.is-primary {
+    .table td.is-primary, .table td.step__action--forward, .table td.step__action--cta,
+    .table th.is-primary,
+    .table th.step__action--forward,
+    .table th.step__action--cta {
       background-color: #00d1b2;
       border-color: #00d1b2;
       color: #fff; }
@@ -7145,7 +7161,7 @@ a.box:active {
   .table.is-bordered tr:last-child th {
     border-bottom-width: 1px; }
   /* line 90, node_modules/bulma/sass/elements/table.sass */
-  .table.is-fullwidth {
+  .table.is-fullwidth, .table.step__action--cta {
     width: 100%; }
   /* line 95, node_modules/bulma/sass/elements/table.sass */
   .table.is-hoverable tbody tr:not(.is-selected):hover {
@@ -7249,7 +7265,7 @@ a.box:active {
     background-color: #363636;
     color: whitesmoke; }
   /* line 61, node_modules/bulma/sass/elements/tag.sass */
-  .tag:not(body).is-primary {
+  .tag:not(body).is-primary, .tag.step__action--forward:not(body), .tag.step__action--cta:not(body) {
     background-color: #00d1b2;
     color: #fff; }
   /* line 61, node_modules/bulma/sass/elements/tag.sass */
@@ -7276,7 +7292,7 @@ a.box:active {
   .tag:not(body).is-medium {
     font-size: 1rem; }
   /* line 67, node_modules/bulma/sass/elements/tag.sass */
-  .tag:not(body).is-large {
+  .tag:not(body).is-large, .tag.step__action--cta:not(body) {
     font-size: 1.25rem; }
   /* line 70, node_modules/bulma/sass/elements/tag.sass */
   .tag:not(body) .icon:first-child:not(:last-child) {
@@ -7374,7 +7390,7 @@ a.tag:hover {
   .title.is-2 {
     font-size: 2.5rem; }
   /* line 47, node_modules/bulma/sass/elements/title.sass */
-  .title.is-3 {
+  .title.is-3, .step__title {
     font-size: 2rem; }
   /* line 47, node_modules/bulma/sass/elements/title.sass */
   .title.is-4 {
@@ -7415,7 +7431,7 @@ a.tag:hover {
   .subtitle.is-4, .source__title {
     font-size: 1.5rem; }
   /* line 63, node_modules/bulma/sass/elements/title.sass */
-  .subtitle.is-5 {
+  .subtitle.is-5, .step__description {
     font-size: 1.25rem; }
   /* line 63, node_modules/bulma/sass/elements/title.sass */
   .subtitle.is-6 {
@@ -7516,7 +7532,7 @@ a.tag:hover {
   .breadcrumb.is-medium {
     font-size: 1.25rem; }
   /* line 61, node_modules/bulma/sass/components/breadcrumb.sass */
-  .breadcrumb.is-large {
+  .breadcrumb.is-large, .breadcrumb.step__action--cta {
     font-size: 1.5rem; }
   /* line 65, node_modules/bulma/sass/components/breadcrumb.sass */
   .breadcrumb.has-arrow-separator li + li::before {
@@ -7789,7 +7805,7 @@ a.dropdown-item {
     margin-top: 1rem;
     padding-top: 1rem; }
   /* line 24, node_modules/bulma/sass/components/media.sass */
-  .media.is-large + .media {
+  .media.is-large + .media, .media.step__action--cta + .media {
     margin-top: 1.5rem;
     padding-top: 1.5rem; }
 
@@ -7825,7 +7841,7 @@ a.dropdown-item {
   .menu.is-medium {
     font-size: 1.25rem; }
   /* line 19, node_modules/bulma/sass/components/menu.sass */
-  .menu.is-large {
+  .menu.is-large, .menu.step__action--cta {
     font-size: 1.5rem; }
 
 /* line 22, node_modules/bulma/sass/components/menu.sass */
@@ -7873,7 +7889,7 @@ a.dropdown-item {
   .message strong {
     color: currentColor; }
   /* line 28, node_modules/bulma/sass/components/message.sass */
-  .message a:not(.button):not(.tag) {
+  .message a:not(.button):not(.step__action):not(.tag) {
     color: currentColor;
     text-decoration: underline; }
   /* line 32, node_modules/bulma/sass/components/message.sass */
@@ -7883,7 +7899,7 @@ a.dropdown-item {
   .message.is-medium {
     font-size: 1.25rem; }
   /* line 36, node_modules/bulma/sass/components/message.sass */
-  .message.is-large {
+  .message.is-large, .message.step__action--cta {
     font-size: 1.5rem; }
   /* line 46, node_modules/bulma/sass/components/message.sass */
   .message.is-white {
@@ -7930,14 +7946,14 @@ a.dropdown-item {
       border-color: #363636;
       color: #2a2a2a; }
   /* line 46, node_modules/bulma/sass/components/message.sass */
-  .message.is-primary {
+  .message.is-primary, .message.step__action--forward, .message.step__action--cta {
     background-color: #f5fffd; }
     /* line 48, node_modules/bulma/sass/components/message.sass */
-    .message.is-primary .message-header {
+    .message.is-primary .message-header, .message.step__action--forward .message-header, .message.step__action--cta .message-header {
       background-color: #00d1b2;
       color: #fff; }
     /* line 51, node_modules/bulma/sass/components/message.sass */
-    .message.is-primary .message-body {
+    .message.is-primary .message-body, .message.step__action--forward .message-body, .message.step__action--cta .message-body {
       border-color: #00d1b2;
       color: #021310; }
   /* line 46, node_modules/bulma/sass/components/message.sass */
@@ -8114,7 +8130,7 @@ a.dropdown-item {
   border-bottom-right-radius: 6px;
   border-top: 1px solid #dbdbdb; }
   /* line 102, node_modules/bulma/sass/components/modal.sass */
-  .modal-card-foot .button:not(:last-child) {
+  .modal-card-foot .button:not(:last-child), .modal-card-foot .step__action:not(:last-child) {
     margin-right: 10px; }
 
 /* line 105, node_modules/bulma/sass/components/modal.sass */
@@ -8321,50 +8337,78 @@ a.dropdown-item {
         background-color: #363636;
         color: whitesmoke; } }
   /* line 59, node_modules/bulma/sass/components/navbar.sass */
-  .navbar.is-primary {
+  .navbar.is-primary, .navbar.step__action--forward, .navbar.step__action--cta {
     background-color: #00d1b2;
     color: #fff; }
     /* line 63, node_modules/bulma/sass/components/navbar.sass */
-    .navbar.is-primary .navbar-brand > .navbar-item,
-    .navbar.is-primary .navbar-brand .navbar-link {
+    .navbar.is-primary .navbar-brand > .navbar-item, .navbar.step__action--forward .navbar-brand > .navbar-item, .navbar.step__action--cta .navbar-brand > .navbar-item,
+    .navbar.is-primary .navbar-brand .navbar-link,
+    .navbar.step__action--forward .navbar-brand .navbar-link,
+    .navbar.step__action--cta .navbar-brand .navbar-link {
       color: #fff; }
     /* line 68, node_modules/bulma/sass/components/navbar.sass */
-    .navbar.is-primary .navbar-brand > a.navbar-item:hover, .navbar.is-primary .navbar-brand > a.navbar-item.is-active,
+    .navbar.is-primary .navbar-brand > a.navbar-item:hover, .navbar.step__action--forward .navbar-brand > a.navbar-item:hover, .navbar.step__action--cta .navbar-brand > a.navbar-item:hover, .navbar.is-primary .navbar-brand > a.navbar-item.is-active, .navbar.step__action--forward .navbar-brand > a.navbar-item.is-active, .navbar.step__action--cta .navbar-brand > a.navbar-item.is-active,
     .navbar.is-primary .navbar-brand .navbar-link:hover,
-    .navbar.is-primary .navbar-brand .navbar-link.is-active {
+    .navbar.step__action--forward .navbar-brand .navbar-link:hover,
+    .navbar.step__action--cta .navbar-brand .navbar-link:hover,
+    .navbar.is-primary .navbar-brand .navbar-link.is-active,
+    .navbar.step__action--forward .navbar-brand .navbar-link.is-active,
+    .navbar.step__action--cta .navbar-brand .navbar-link.is-active {
       background-color: #00b89c;
       color: #fff; }
     /* line 73, node_modules/bulma/sass/components/navbar.sass */
-    .navbar.is-primary .navbar-brand .navbar-link::after {
+    .navbar.is-primary .navbar-brand .navbar-link::after, .navbar.step__action--forward .navbar-brand .navbar-link::after, .navbar.step__action--cta .navbar-brand .navbar-link::after {
       border-color: #fff; }
     @media screen and (min-width: 1088px) {
       /* line 78, node_modules/bulma/sass/components/navbar.sass */
-      .navbar.is-primary .navbar-start > .navbar-item,
+      .navbar.is-primary .navbar-start > .navbar-item, .navbar.step__action--forward .navbar-start > .navbar-item, .navbar.step__action--cta .navbar-start > .navbar-item,
       .navbar.is-primary .navbar-start .navbar-link,
+      .navbar.step__action--forward .navbar-start .navbar-link,
+      .navbar.step__action--cta .navbar-start .navbar-link,
       .navbar.is-primary .navbar-end > .navbar-item,
-      .navbar.is-primary .navbar-end .navbar-link {
+      .navbar.step__action--forward .navbar-end > .navbar-item,
+      .navbar.step__action--cta .navbar-end > .navbar-item,
+      .navbar.is-primary .navbar-end .navbar-link,
+      .navbar.step__action--forward .navbar-end .navbar-link,
+      .navbar.step__action--cta .navbar-end .navbar-link {
         color: #fff; }
       /* line 83, node_modules/bulma/sass/components/navbar.sass */
-      .navbar.is-primary .navbar-start > a.navbar-item:hover, .navbar.is-primary .navbar-start > a.navbar-item.is-active,
+      .navbar.is-primary .navbar-start > a.navbar-item:hover, .navbar.step__action--forward .navbar-start > a.navbar-item:hover, .navbar.step__action--cta .navbar-start > a.navbar-item:hover, .navbar.is-primary .navbar-start > a.navbar-item.is-active, .navbar.step__action--forward .navbar-start > a.navbar-item.is-active, .navbar.step__action--cta .navbar-start > a.navbar-item.is-active,
       .navbar.is-primary .navbar-start .navbar-link:hover,
+      .navbar.step__action--forward .navbar-start .navbar-link:hover,
+      .navbar.step__action--cta .navbar-start .navbar-link:hover,
       .navbar.is-primary .navbar-start .navbar-link.is-active,
+      .navbar.step__action--forward .navbar-start .navbar-link.is-active,
+      .navbar.step__action--cta .navbar-start .navbar-link.is-active,
       .navbar.is-primary .navbar-end > a.navbar-item:hover,
+      .navbar.step__action--forward .navbar-end > a.navbar-item:hover,
+      .navbar.step__action--cta .navbar-end > a.navbar-item:hover,
       .navbar.is-primary .navbar-end > a.navbar-item.is-active,
+      .navbar.step__action--forward .navbar-end > a.navbar-item.is-active,
+      .navbar.step__action--cta .navbar-end > a.navbar-item.is-active,
       .navbar.is-primary .navbar-end .navbar-link:hover,
-      .navbar.is-primary .navbar-end .navbar-link.is-active {
+      .navbar.step__action--forward .navbar-end .navbar-link:hover,
+      .navbar.step__action--cta .navbar-end .navbar-link:hover,
+      .navbar.is-primary .navbar-end .navbar-link.is-active,
+      .navbar.step__action--forward .navbar-end .navbar-link.is-active,
+      .navbar.step__action--cta .navbar-end .navbar-link.is-active {
         background-color: #00b89c;
         color: #fff; }
       /* line 88, node_modules/bulma/sass/components/navbar.sass */
-      .navbar.is-primary .navbar-start .navbar-link::after,
-      .navbar.is-primary .navbar-end .navbar-link::after {
+      .navbar.is-primary .navbar-start .navbar-link::after, .navbar.step__action--forward .navbar-start .navbar-link::after, .navbar.step__action--cta .navbar-start .navbar-link::after,
+      .navbar.is-primary .navbar-end .navbar-link::after,
+      .navbar.step__action--forward .navbar-end .navbar-link::after,
+      .navbar.step__action--cta .navbar-end .navbar-link::after {
         border-color: #fff; }
       /* line 90, node_modules/bulma/sass/components/navbar.sass */
-      .navbar.is-primary .navbar-item.has-dropdown:hover .navbar-link,
-      .navbar.is-primary .navbar-item.has-dropdown.is-active .navbar-link {
+      .navbar.is-primary .navbar-item.has-dropdown:hover .navbar-link, .navbar.step__action--forward .navbar-item.has-dropdown:hover .navbar-link, .navbar.step__action--cta .navbar-item.has-dropdown:hover .navbar-link,
+      .navbar.is-primary .navbar-item.has-dropdown.is-active .navbar-link,
+      .navbar.step__action--forward .navbar-item.has-dropdown.is-active .navbar-link,
+      .navbar.step__action--cta .navbar-item.has-dropdown.is-active .navbar-link {
         background-color: #00b89c;
         color: #fff; }
       /* line 96, node_modules/bulma/sass/components/navbar.sass */
-      .navbar.is-primary .navbar-dropdown a.navbar-item.is-active {
+      .navbar.is-primary .navbar-dropdown a.navbar-item.is-active, .navbar.step__action--forward .navbar-dropdown a.navbar-item.is-active, .navbar.step__action--cta .navbar-dropdown a.navbar-item.is-active {
         background-color: #00d1b2;
         color: #fff; } }
   /* line 59, node_modules/bulma/sass/components/navbar.sass */
@@ -9034,7 +9078,7 @@ a.navbar-item,
   .pagination.is-medium {
     font-size: 1.25rem; }
   /* line 34, node_modules/bulma/sass/components/pagination.sass */
-  .pagination.is-large {
+  .pagination.is-large, .pagination.step__action--cta {
     font-size: 1.5rem; }
   /* line 37, node_modules/bulma/sass/components/pagination.sass */
   .pagination.is-rounded .pagination-previous,
@@ -9358,7 +9402,7 @@ label.panel-block {
     border-color: #dbdbdb;
     border-bottom-color: transparent !important; }
   /* line 106, node_modules/bulma/sass/components/tabs.sass */
-  .tabs.is-fullwidth li {
+  .tabs.is-fullwidth li, .tabs.step__action--cta li {
     flex-grow: 1;
     flex-shrink: 0; }
   /* line 110, node_modules/bulma/sass/components/tabs.sass */
@@ -9408,7 +9452,7 @@ label.panel-block {
   .tabs.is-medium {
     font-size: 1.25rem; }
   /* line 150, node_modules/bulma/sass/components/tabs.sass */
-  .tabs.is-large {
+  .tabs.is-large, .tabs.step__action--cta {
     font-size: 1.5rem; }
 
 /* line 3, node_modules/bulma/sass/grid/columns.sass */
@@ -10688,7 +10732,7 @@ label.panel-block {
     background-color: white;
     color: #0a0a0a; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-white a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-white a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-white strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -10698,7 +10742,7 @@ label.panel-block {
     .hero.is-white .subtitle {
       color: rgba(10, 10, 10, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-white .subtitle a:not(.button),
+      .hero.is-white .subtitle a:not(.button):not(.step__action),
       .hero.is-white .subtitle strong {
         color: #0a0a0a; }
     @media screen and (max-width: 1087px) {
@@ -10748,7 +10792,7 @@ label.panel-block {
     background-color: #0a0a0a;
     color: white; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-black a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-black a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-black strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -10758,7 +10802,7 @@ label.panel-block {
     .hero.is-black .subtitle {
       color: rgba(255, 255, 255, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-black .subtitle a:not(.button),
+      .hero.is-black .subtitle a:not(.button):not(.step__action),
       .hero.is-black .subtitle strong {
         color: white; }
     @media screen and (max-width: 1087px) {
@@ -10808,7 +10852,7 @@ label.panel-block {
     background-color: whitesmoke;
     color: #363636; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-light a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-light a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-light strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -10818,7 +10862,7 @@ label.panel-block {
     .hero.is-light .subtitle {
       color: rgba(54, 54, 54, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-light .subtitle a:not(.button),
+      .hero.is-light .subtitle a:not(.button):not(.step__action),
       .hero.is-light .subtitle strong {
         color: #363636; }
     @media screen and (max-width: 1087px) {
@@ -10868,7 +10912,7 @@ label.panel-block {
     background-color: #363636;
     color: whitesmoke; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-dark a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-dark a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-dark strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -10878,7 +10922,7 @@ label.panel-block {
     .hero.is-dark .subtitle {
       color: rgba(245, 245, 245, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-dark .subtitle a:not(.button),
+      .hero.is-dark .subtitle a:not(.button):not(.step__action),
       .hero.is-dark .subtitle strong {
         color: whitesmoke; }
     @media screen and (max-width: 1087px) {
@@ -10924,71 +10968,81 @@ label.panel-block {
         .hero.is-dark.is-bold .navbar-menu {
           background-image: linear-gradient(141deg, #1f191a 0%, #363636 71%, #46403f 100%); } }
   /* line 17, node_modules/bulma/sass/layout/hero.sass */
-  .hero.is-primary {
+  .hero.is-primary, .hero.step__action--forward, .hero.step__action--cta {
     background-color: #00d1b2;
     color: #fff; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary a:not(.button):not(.dropdown-item):not(.tag),
-    .hero.is-primary strong {
+    .hero.is-primary a:not(.button):not(.step__action):not(.dropdown-item):not(.tag), .hero.step__action--forward a:not(.button):not(.step__action):not(.dropdown-item):not(.tag), .hero.step__action--cta a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
+    .hero.is-primary strong,
+    .hero.step__action--forward strong,
+    .hero.step__action--cta strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary .title {
+    .hero.is-primary .title, .hero.step__action--forward .title, .hero.step__action--cta .title {
       color: #fff; }
     /* line 25, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary .subtitle {
+    .hero.is-primary .subtitle, .hero.step__action--forward .subtitle, .hero.step__action--cta .subtitle {
       color: rgba(255, 255, 255, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-primary .subtitle a:not(.button),
-      .hero.is-primary .subtitle strong {
+      .hero.is-primary .subtitle a:not(.button):not(.step__action), .hero.step__action--forward .subtitle a:not(.button):not(.step__action), .hero.step__action--cta .subtitle a:not(.button):not(.step__action),
+      .hero.is-primary .subtitle strong,
+      .hero.step__action--forward .subtitle strong,
+      .hero.step__action--cta .subtitle strong {
         color: #fff; }
     @media screen and (max-width: 1087px) {
       /* line 30, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-primary .navbar-menu {
+      .hero.is-primary .navbar-menu, .hero.step__action--forward .navbar-menu, .hero.step__action--cta .navbar-menu {
         background-color: #00d1b2; } }
     /* line 33, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary .navbar-item,
-    .hero.is-primary .navbar-link {
+    .hero.is-primary .navbar-item, .hero.step__action--forward .navbar-item, .hero.step__action--cta .navbar-item,
+    .hero.is-primary .navbar-link,
+    .hero.step__action--forward .navbar-link,
+    .hero.step__action--cta .navbar-link {
       color: rgba(255, 255, 255, 0.7); }
     /* line 38, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary a.navbar-item:hover, .hero.is-primary a.navbar-item.is-active,
+    .hero.is-primary a.navbar-item:hover, .hero.step__action--forward a.navbar-item:hover, .hero.step__action--cta a.navbar-item:hover, .hero.is-primary a.navbar-item.is-active, .hero.step__action--forward a.navbar-item.is-active, .hero.step__action--cta a.navbar-item.is-active,
     .hero.is-primary .navbar-link:hover,
-    .hero.is-primary .navbar-link.is-active {
+    .hero.step__action--forward .navbar-link:hover,
+    .hero.step__action--cta .navbar-link:hover,
+    .hero.is-primary .navbar-link.is-active,
+    .hero.step__action--forward .navbar-link.is-active,
+    .hero.step__action--cta .navbar-link.is-active {
       background-color: #00b89c;
       color: #fff; }
     /* line 43, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary .tabs a {
+    .hero.is-primary .tabs a, .hero.step__action--forward .tabs a, .hero.step__action--cta .tabs a {
       color: #fff;
       opacity: 0.9; }
       /* line 46, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-primary .tabs a:hover {
+      .hero.is-primary .tabs a:hover, .hero.step__action--forward .tabs a:hover, .hero.step__action--cta .tabs a:hover {
         opacity: 1; }
     /* line 49, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary .tabs li.is-active a {
+    .hero.is-primary .tabs li.is-active a, .hero.step__action--forward .tabs li.is-active a, .hero.step__action--cta .tabs li.is-active a {
       opacity: 1; }
     /* line 53, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary .tabs.is-boxed a, .hero.is-primary .tabs.is-toggle a {
+    .hero.is-primary .tabs.is-boxed a, .hero.step__action--forward .tabs.is-boxed a, .hero.step__action--cta .tabs.is-boxed a, .hero.is-primary .tabs.is-toggle a, .hero.step__action--forward .tabs.is-toggle a, .hero.step__action--cta .tabs.is-toggle a {
       color: #fff; }
       /* line 55, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-primary .tabs.is-boxed a:hover, .hero.is-primary .tabs.is-toggle a:hover {
+      .hero.is-primary .tabs.is-boxed a:hover, .hero.step__action--forward .tabs.is-boxed a:hover, .hero.step__action--cta .tabs.is-boxed a:hover, .hero.is-primary .tabs.is-toggle a:hover, .hero.step__action--forward .tabs.is-toggle a:hover, .hero.step__action--cta .tabs.is-toggle a:hover {
         background-color: rgba(10, 10, 10, 0.1); }
     /* line 58, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary .tabs.is-boxed li.is-active a, .hero.is-primary .tabs.is-boxed li.is-active a:hover, .hero.is-primary .tabs.is-toggle li.is-active a, .hero.is-primary .tabs.is-toggle li.is-active a:hover {
+    .hero.is-primary .tabs.is-boxed li.is-active a, .hero.step__action--forward .tabs.is-boxed li.is-active a, .hero.step__action--cta .tabs.is-boxed li.is-active a, .hero.is-primary .tabs.is-boxed li.is-active a:hover, .hero.step__action--forward .tabs.is-boxed li.is-active a:hover, .hero.step__action--cta .tabs.is-boxed li.is-active a:hover, .hero.is-primary .tabs.is-toggle li.is-active a, .hero.step__action--forward .tabs.is-toggle li.is-active a, .hero.step__action--cta .tabs.is-toggle li.is-active a, .hero.is-primary .tabs.is-toggle li.is-active a:hover, .hero.step__action--forward .tabs.is-toggle li.is-active a:hover, .hero.step__action--cta .tabs.is-toggle li.is-active a:hover {
       background-color: #fff;
       border-color: #fff;
       color: #00d1b2; }
     /* line 64, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-primary.is-bold {
+    .hero.is-primary.is-bold, .hero.is-bold.step__action--forward, .hero.is-bold.step__action--cta {
       background-image: linear-gradient(141deg, #009e6c 0%, #00d1b2 71%, #00e7eb 100%); }
       @media screen and (max-width: 768px) {
         /* line 69, node_modules/bulma/sass/layout/hero.sass */
-        .hero.is-primary.is-bold .navbar-menu {
+        .hero.is-primary.is-bold .navbar-menu, .hero.is-bold.step__action--forward .navbar-menu, .hero.is-bold.step__action--cta .navbar-menu {
           background-image: linear-gradient(141deg, #009e6c 0%, #00d1b2 71%, #00e7eb 100%); } }
   /* line 17, node_modules/bulma/sass/layout/hero.sass */
   .hero.is-link {
     background-color: #3273dc;
     color: #fff; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-link a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-link a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-link strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -10998,7 +11052,7 @@ label.panel-block {
     .hero.is-link .subtitle {
       color: rgba(255, 255, 255, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-link .subtitle a:not(.button),
+      .hero.is-link .subtitle a:not(.button):not(.step__action),
       .hero.is-link .subtitle strong {
         color: #fff; }
     @media screen and (max-width: 1087px) {
@@ -11048,7 +11102,7 @@ label.panel-block {
     background-color: #209cee;
     color: #fff; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-info a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-info a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-info strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -11058,7 +11112,7 @@ label.panel-block {
     .hero.is-info .subtitle {
       color: rgba(255, 255, 255, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-info .subtitle a:not(.button),
+      .hero.is-info .subtitle a:not(.button):not(.step__action),
       .hero.is-info .subtitle strong {
         color: #fff; }
     @media screen and (max-width: 1087px) {
@@ -11108,7 +11162,7 @@ label.panel-block {
     background-color: #23d160;
     color: #fff; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-success a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-success a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-success strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -11118,7 +11172,7 @@ label.panel-block {
     .hero.is-success .subtitle {
       color: rgba(255, 255, 255, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-success .subtitle a:not(.button),
+      .hero.is-success .subtitle a:not(.button):not(.step__action),
       .hero.is-success .subtitle strong {
         color: #fff; }
     @media screen and (max-width: 1087px) {
@@ -11168,7 +11222,7 @@ label.panel-block {
     background-color: #ffdd57;
     color: rgba(0, 0, 0, 0.7); }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-warning a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-warning a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-warning strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -11178,7 +11232,7 @@ label.panel-block {
     .hero.is-warning .subtitle {
       color: rgba(0, 0, 0, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-warning .subtitle a:not(.button),
+      .hero.is-warning .subtitle a:not(.button):not(.step__action),
       .hero.is-warning .subtitle strong {
         color: rgba(0, 0, 0, 0.7); }
     @media screen and (max-width: 1087px) {
@@ -11228,7 +11282,7 @@ label.panel-block {
     background-color: #ff3860;
     color: #fff; }
     /* line 20, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-danger a:not(.button):not(.dropdown-item):not(.tag),
+    .hero.is-danger a:not(.button):not(.step__action):not(.dropdown-item):not(.tag),
     .hero.is-danger strong {
       color: inherit; }
     /* line 23, node_modules/bulma/sass/layout/hero.sass */
@@ -11238,7 +11292,7 @@ label.panel-block {
     .hero.is-danger .subtitle {
       color: rgba(255, 255, 255, 0.9); }
       /* line 27, node_modules/bulma/sass/layout/hero.sass */
-      .hero.is-danger .subtitle a:not(.button),
+      .hero.is-danger .subtitle a:not(.button):not(.step__action),
       .hero.is-danger .subtitle strong {
         color: #fff; }
     @media screen and (max-width: 1087px) {
@@ -11294,7 +11348,7 @@ label.panel-block {
       padding-top: 9rem; } }
   @media screen and (min-width: 769px), print {
     /* line 96, node_modules/bulma/sass/layout/hero.sass */
-    .hero.is-large .hero-body {
+    .hero.is-large .hero-body, .hero.step__action--cta .hero-body {
       padding-bottom: 18rem;
       padding-top: 18rem; } }
   /* line 101, node_modules/bulma/sass/layout/hero.sass */
@@ -11336,10 +11390,10 @@ label.panel-block {
   margin-top: 1.5rem; }
   @media screen and (max-width: 768px) {
     /* line 135, node_modules/bulma/sass/layout/hero.sass */
-    .hero-buttons .button {
+    .hero-buttons .button, .hero-buttons .step__action {
       display: flex; }
       /* line 137, node_modules/bulma/sass/layout/hero.sass */
-      .hero-buttons .button:not(:last-child) {
+      .hero-buttons .button:not(:last-child), .hero-buttons .step__action:not(:last-child) {
         margin-bottom: 0.75rem; } }
   @media screen and (min-width: 769px), print {
     /* line 131, node_modules/bulma/sass/layout/hero.sass */
@@ -11347,7 +11401,7 @@ label.panel-block {
       display: flex;
       justify-content: center; }
       /* line 142, node_modules/bulma/sass/layout/hero.sass */
-      .hero-buttons .button:not(:last-child) {
+      .hero-buttons .button:not(:last-child), .hero-buttons .step__action:not(:last-child) {
         margin-right: 1.5rem; } }
 
 /* line 147, node_modules/bulma/sass/layout/hero.sass */
@@ -11370,7 +11424,7 @@ label.panel-block {
     .section.is-medium {
       padding: 9rem 1.5rem; }
     /* line 12, node_modules/bulma/sass/layout/section.sass */
-    .section.is-large {
+    .section.is-large, .section.step__action--cta {
       padding: 18rem 1.5rem; } }
 
 /* line 3, node_modules/bulma/sass/layout/footer.sass */
@@ -11384,28 +11438,56 @@ label.panel-block {
 
 /* line 15, stdin */
 .input-error-message {
+  color: #ff3860;
   display: none; }
-  /* line 20, stdin */
+  /* line 21, stdin */
   .input-error-message.has-error {
     display: block; }
 
-/* line 31, stdin */
+/* line 32, stdin */
 .modal-background {
   background: #ffffff; }
 
-/* line 35, stdin */
+/* line 36, stdin */
 .step {
   display: none; }
-  /* line 38, stdin */
+  /* line 39, stdin */
   .step.active {
     display: block; }
+
+/* line 45, stdin */
+.fas::before {
+  font-family: "FontAwesome"; }
+
+/* line 50, stdin */
+.file-filename {
+  margin-left: 1.25rem; }
+
+/* line 2, css/components/step.scss */
+.step__title {
+  margin-bottom: 1.25rem; }
+
+/* line 8, css/components/step.scss */
+.step__description {
+  margin-bottom: 1.6rem; }
+
+/* line 14, css/components/step.scss */
+.step__actions {
+  margin-top: 1.6rem; }
+
+/* line 24, css/components/step.scss */
+.step__action + .step__action--forward {
+  float: right; }
 
 /* line 5, css/components/source.scss */
 .source {
   padding-bottom: 1.6rem;
   padding-left: 45px;
   position: relative; }
-  /* line 12, css/components/source.scss */
+  /* line 10, css/components/source.scss */
+  .source:last-child {
+    padding-bottom: 0; }
+  /* line 15, css/components/source.scss */
   .source__checkbox {
     background: #e8e8e8;
     color: #ffffff;
@@ -11416,36 +11498,39 @@ label.panel-block {
     text-align: center;
     top: 4px;
     width: 30px; }
-    /* line 23, css/components/source.scss */
+    /* line 26, css/components/source.scss */
+    .source__checkbox:focus {
+      outline: 0; }
+    /* line 30, css/components/source.scss */
     .source__checkbox::before {
       font-family: "FontAwesome";
       font-size: 22px;
       line-height: 26px;
       text-align: center; }
-    /* line 30, css/components/source.scss */
+    /* line 37, css/components/source.scss */
     .selected .source__checkbox {
       background: #23d160;
       box-shadow: inset 0 0 6px 2px #48e07d; }
-      /* line 34, css/components/source.scss */
+      /* line 41, css/components/source.scss */
       .selected .source__checkbox::before {
         content: "\F00C"; }
-    /* line 40, css/components/source.scss */
+    /* line 47, css/components/source.scss */
     .form-toggled .source__checkbox::before {
       content: "\F068"; }
-  /* line 50, css/components/source.scss */
+  /* line 57, css/components/source.scss */
   .source__form {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.7s ease-in-out; }
-    /* line 55, css/components/source.scss */
+    /* line 62, css/components/source.scss */
     .source__form.toggled {
       max-height: 300px; }
-  /* line 60, css/components/source.scss */
+  /* line 67, css/components/source.scss */
   .source__form--close-toggle {
     background: inherit;
     border: 0;
     margin-left: 5px; }
-    /* line 66, css/components/source.scss */
+    /* line 73, css/components/source.scss */
     .source__form--close-toggle::before {
       color: #ff3860;
       content: "\F00D";

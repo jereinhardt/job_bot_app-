@@ -37,16 +37,19 @@ export default class TermsLocationForm extends React.Component {
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
+        <div className="step__title">
+          What kind of job are you looking for?
+        </div>
         <div className="field">
           <label htmlFor="terms" className={`label ${termsError}`}>
-            What kind of job are you looking for?
+            What search terms would you like me to use?
           </label>
           <div className="control">
             <input
               type="text"
               name="terms"
               value={this.state.terms}
-              placeholder="What kind of job are you looking for?"
+              placeholder="e.g. 'Hospitality Management'"
               onChange={(e) => this.handleTermsChange(e)}
               className={`input ${termsError}`}
             />
@@ -67,22 +70,24 @@ export default class TermsLocationForm extends React.Component {
             type="text"
             name="location"
             value={this.state.location}
-            placeholder="Where are you looking? (optional)"
+            placeholder="Enter a city, state, or country."
             onChange={(e) => this.handleLocationChange(e)}
             className="input"
           />
         </div>
 
-        <div className="field">
-          <div className="control">
-            <button
-              className="button is-link"
-              onClick={(e) => this.props.moveBackward}
-            >
-              Go Back
-            </button>
-            <input type="submit" value="continue" className="button is-link"/>
-          </div>
+        <div className="step__actions">
+          <button
+            className="step__action step__action--backward"
+            onClick={(e) => this.props.moveBackward}
+          >
+            Go Back
+          </button>
+          <input
+            type="submit"
+            value="continue"
+            className="step__action step__action--forward"
+          />
         </div>
       </form>
     );

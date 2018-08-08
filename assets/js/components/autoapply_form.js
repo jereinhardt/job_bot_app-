@@ -22,9 +22,13 @@ export default class AutoapplyForm extends React.Component {
   render() {
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <div>
-          Would you like us to automatically apply as they are found on your behalf?
+        <div className="step__title">
+          Are you ready to apply?
         </div>
+        <p className="step__description">
+          If you would like, I can automatically send applications to some jobs
+          as I find them.  Would you like me to apply to jobs on your behalf?
+        </p>
         <div className="field">
           <label className="checkbox">
             <input 
@@ -32,20 +36,22 @@ export default class AutoapplyForm extends React.Component {
               value={this.state.autoapply}
               onChange={(e) => this.handleChange(e)}
             />
-            Yes.
+            Yes, I would like to automatically apply to available jobs.
           </label>
         </div>
 
-        <div className="field">
-          <div className="control">
-            <button
-              className="button is-link"
-              onClick={(e) => this.props.moveBackward}
-            >
-              Go Back
-            </button>
-            <input type="submit" value="continue" className="button is-link"/>
-          </div>
+        <div className="step__actions">
+          <button
+            className="step__action step__action--backward"
+            onClick={(e) => this.props.moveBackward}
+          >
+            Go Back
+          </button>
+          <input
+            type="submit"
+            value="Continue"
+            className="step__action step__action--forward"
+          />
         </div>
       </form>
     );

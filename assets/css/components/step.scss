@@ -1,3 +1,35 @@
 .step {
-  
+  &__title {
+    @extend .title.is-3;
+
+    margin-bottom: $base-spacing;
+  }
+
+  &__description {
+    @extend .subtitle.is-5;
+
+    margin-bottom: $large-spacing;
+  }
+
+  &__actions {
+    margin-top: $large-spacing;
+  }
+
+  &__action {
+    @extend .button;
+
+    &--forward {
+      @extend .is-primary;
+
+      .step__action + & {
+        float: right;
+      }
+    }
+
+    &--cta {
+      @extend .is-primary;
+      @extend .is-large;
+      @extend .is-fullwidth;
+    }
+  }
 }

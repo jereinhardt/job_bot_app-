@@ -41,12 +41,15 @@ export default class NameLocationForm extends React.Component {
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
+        <div className="step__title">
+          Tell me about yourself...
+        </div>
         <div className="field">
           <label
             htmlFor="name"
             className={`label ${nameError}`}
           >
-            Name
+            What is your name?
           </label>
           <div className="control">
             <input
@@ -68,14 +71,14 @@ export default class NameLocationForm extends React.Component {
             htmlFor="applicantLocation"
             className={`label ${locationError}`}
           >
-            Location
+            Where do you live?
           </label>
           <div className="control">
             <input
               type="text"
               name="applicantLocation"
               value={this.state.applicantLocation}
-              placeholder="Enter your Location"
+              placeholder="Please enter your city"
               onChange={(e) => this.handleLocationChange(e)}
               className={`input ${locationError}`}
             />
@@ -85,10 +88,12 @@ export default class NameLocationForm extends React.Component {
           </div>
         </div>
 
-        <div className="field">
-          <div className="control">
-            <input type="submit" value="Continue" className="button is-link"/>
-          </div>
+        <div className="step__actions">
+          <input
+            type="submit"
+            value="Continue"
+            className="step__action step__action--forward"
+          />
         </div>
       </form>
     )
