@@ -45,7 +45,8 @@ defmodule JobBot.Mixfile do
 
       {:floki, "~> 0.20.1"},
       {:hound, "~> 1.0"},
-      {:mock, "~> 0.3.0", only: :test}
+      {:mock, "~> 0.3.0", only: :test},
+      {:atomic_map, git: "https://github.com/ruby2elixir/atomic_map.git"}
     ]
   end
 

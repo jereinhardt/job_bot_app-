@@ -1372,10 +1372,10 @@ var App = function (_React$Component) {
         return source.selected;
       }).map(function (_ref) {
         var name = _ref.name,
-            scraper = _ref.scraper,
+            crawler = _ref.crawler,
             applier = _ref.applier,
             credentials = _ref.credentials;
-        return { name: name, scraper: scraper, applier: applier, credentials: credentials };
+        return { name: name, crawler: crawler, applier: applier, credentials: credentials };
       });
       var data = {
         sources: sources,
@@ -1391,7 +1391,9 @@ var App = function (_React$Component) {
 
       console.log(data);
 
-      // submit data to api endpoint
+      jquery__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/job_searches", data, function (res) {
+        return console.log(res);
+      });
     }
   }, {
     key: "updateSource",

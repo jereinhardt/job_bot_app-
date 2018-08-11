@@ -64,7 +64,7 @@ export default class App extends React.Component {
   handleSubmit() {
     const sources = this.state.sources.
       filter(source => source.selected).
-      map(({ name, scraper, applier, credentials }) => ({ name, scraper, applier, credentials }));
+      map(({ name, crawler, applier, credentials }) => ({ name, crawler, applier, credentials }));
     const data = {
       sources: sources,
       name: this.state.name,
@@ -80,7 +80,7 @@ export default class App extends React.Component {
     console.log(data);
 
 
-    // submit data to api endpoint
+    $.post("/api/job_searches", data, (res) => console.log(res))
   }
 
   updateSource(source, attrs) {
