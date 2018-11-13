@@ -7,12 +7,22 @@ defmodule JobBotWeb.JobSearchesController do
       keyword_opts
       |> Keyword.get(:sources)
       |> Map.values()
+      |> Enum.map(&normalize_source/1)
     opts = Keyword.put(keyword_opts, :sources, sources)
-    
+
     JobBot.CrawlerSupervisor.start_crawlers(opts)
     
     conn
     |> put_status(:created)
     |> render("create.json")
+  end
+
+  defp normalize_source(source_map) do
+    crawler = source_map |> Map.get(:crawler) |> String.to_atom()
+    applier = source_map |> Map.get(:applier) |> String.to_atom()
+
+    JobBot.Source.__struct__(source_map)
+      |> Map.put(:crawler, crawler)
+      |> Map.put(:applier, applier)
   end
 end
