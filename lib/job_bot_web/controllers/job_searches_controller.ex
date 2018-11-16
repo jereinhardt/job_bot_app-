@@ -2,7 +2,7 @@ defmodule JobBotWeb.JobSearchesController do
   use JobBotWeb, :controller
 
   def create(conn, params) do
-    keyword_opts = params |> AtomicMap.convert(%{ignore: true}) |> Map.to_list()
+    keyword_opts = params |> atomize() |> Map.to_list()
     sources = 
       keyword_opts
       |> Keyword.get(:sources)
@@ -24,5 +24,15 @@ defmodule JobBotWeb.JobSearchesController do
     JobBot.Source.__struct__(source_map)
       |> Map.put(:crawler, crawler)
       |> Map.put(:applier, applier)
+  end
+
+  defp atomize(params, to_map \\ true) do
+    params
+    |> Enum.map(fn {key, value} ->
+         key = if is_atom(key), do: key, else: String.to_atom(key)
+         value = if is_map(value), do: atomize(value), else: value
+         {key, value}
+       end)
+    |> Enum.into(%{})
   end
 end

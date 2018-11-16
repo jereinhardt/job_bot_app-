@@ -5,7 +5,7 @@ defmodule JobBot.CrawlerTest do
     defmodule TestCrawler do
       use JobBot.Crawler
 
-      def get_job_urls(_opts), do: 1..100
+      def get_job_urls(_opts), do: 1..2
       def crawl_url_for_listing(_url), do: {:ok, %JobBot.Listing{}}
     end
 
