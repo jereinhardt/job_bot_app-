@@ -26,7 +26,7 @@ defmodule JobBotWeb.JobSearchesController do
       |> Map.put(:applier, applier)
   end
 
-  defp atomize(params, to_map \\ true) do
+  defp atomize(params) do
     params
     |> Enum.map(fn {key, value} ->
          key = if is_atom(key), do: key, else: String.to_atom(key)

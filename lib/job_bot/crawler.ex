@@ -1,6 +1,6 @@
 defmodule JobBot.Crawler do
   @callback get_job_urls(list) :: list
-  @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t} # Listing.t
+  @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t} # {:ok, Listing.t}
 
   defmacro __using__(opts) do
     use_hound = Keyword.get(opts, :use_hound, false)
@@ -33,8 +33,8 @@ defmodule JobBot.Crawler do
         end
       end
 
-      def start_link(opts \\ []) do
-        user_id = Keyword.get(opts, :user_id)
+      def start_link(_, args, opts \\ []) do
+        user_id = Keyword.get(args, :user_id)
         GenServer.start_link(__MODULE__, opts, name: ref(user_id))
       end
 
@@ -109,7 +109,7 @@ defmodule JobBot.Crawler do
       """
       def ref(user_id), do: {:global, {__MODULE__, user_id}}
       
-      defp user_id, do: JobBot.Registry.user_id(self())
+      defp user_id, do: JobBot.WorkerRegistry.user_id(self())
 
       defp process_listing({:ok, listing}) do
         JobBotWeb.Endpoint.broadcast(

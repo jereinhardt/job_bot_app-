@@ -45,7 +45,6 @@ defmodule JobBot.WorkerRegistry do
   end
 
   defp processes_registered_to_user(user_id) do
-    has_user = fn({_, _, id}) -> user_id == id end
     Agent.get(
       __MODULE__,
       fn (state) ->

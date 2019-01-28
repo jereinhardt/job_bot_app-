@@ -1355,6 +1355,7 @@ var App = function (_React$Component) {
       var channel = socket.channel("users:" + userId, {});
       channel.join().receive("ok", function (resp) {
         var listings = _this2.state.listings;
+        console.log("connected", listings);
         _this2.setState({ listings: resp.listings });
       }).receive("error", function (resp) {
         console.error("failed to connect to channel", resp);
@@ -1362,6 +1363,7 @@ var App = function (_React$Component) {
 
       channel.on("new_listing", function (payload) {
         var listings = _this2.state.listings.concat(payload.listing);
+        console.log("received payload", payload.listing);
         _this2.setState({ listings: listings });
       });
     }

@@ -27,7 +27,7 @@ defmodule JobBot.CrawlerSupervisor do
     |> Enum.each(fn (source) ->
       worker_opts = Enum.into(opts, credentials: source.credentials)
       child = worker(source.crawler, worker_opts, restart: :temporary)
-      Logger.info "STARTING CHILD FOR #{source.name}"
+      Logger.info "STARTING CHILD FOR #{source.crawler}"
       Supervisor.start_child(__MODULE__, child)
     end)
   end

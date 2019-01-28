@@ -7,31 +7,28 @@ defmodule JobBot.Source do
   def all do
     [
       %__MODULE__{
-        applier: JobBot.StackOverflowApplier,
         name: "Stack Overflow",
-        crawler: JobBot.StackOverflowScraper,
+        crawler: JobBot.Crawler.StackOverflow,
         credentials: %{}
       },
       %__MODULE__{
-        applier: JobBot.WeWorkRemotelyApplier,
         name: "We Work Remotely",
-        crawler: JobBot.WeWorkRemotelyScraper,
+        crawler: JobBot.Crawler.WeWorkRemotely,
         credentials: nil
       },
       %__MODULE__{
-        applier: JobBot.GithubJobsApplier,
         name: "Github Jobs",
-        crawler: JobBot.GithubJobsScraper,
+        crawler: JobBot.Crawler.GithubJobs,
         credentials: %{}
       },
       %__MODULE__{
         name: "Zip Recruiter",
-        crawler: JobBot.ZipRecruiterScraper,
+        crawler: JobBot.Crawler.ZipRecruiter,
         credentials: %{}
       },
       %__MODULE__{
         name: "AngelList",
-        crawler: JobBot.AngelListScraper,
+        crawler: JobBot.Crawler.AngelList,
         credentials: %{}
       }
     ]

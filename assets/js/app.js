@@ -49,6 +49,7 @@ export default class App extends React.Component {
     channel.join().
       receive("ok", resp => {
         let listings = this.state.listings;
+        console.log("connected", listings);
         this.setState({listings: resp.listings});
       }).
       receive("error", resp => { 
@@ -57,6 +58,7 @@ export default class App extends React.Component {
 
     channel.on("new_listing", payload => {
       const listings = this.state.listings.concat(payload.listing);
+      console.log("received payload", payload.listing);
       this.setState({listings: listings});
     });
   }
