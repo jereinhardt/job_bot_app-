@@ -2,12 +2,19 @@ defmodule JobBot.Crawler do
   @callback get_job_urls(list) :: list
   @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t} # {:ok, Listing.t}
 
+  @doc """
+    returns the formatted tuple to register the the process as a Genserver
+    with a unique id associated with the current user.
+  """
+  def ref(user_id, module), do: {:global, {module, user_id}}
+
   defmacro __using__(opts) do
     use_hound = Keyword.get(opts, :use_hound, false)
 
     quote do
       use GenServer
       require Logger
+      import JobBot.Crawler
 
       if unquote(use_hound) do
         use Hound.Helpers
@@ -33,9 +40,16 @@ defmodule JobBot.Crawler do
         end
       end
 
-      def start_link(_, args, opts \\ []) do
-        user_id = Keyword.get(args, :user_id)
-        GenServer.start_link(__MODULE__, opts, name: ref(user_id))
+      # def start_link(opts) do
+      #   IO.inspect opts
+      #   GenServer.start_link(__MODULE__, :ok)
+      # end
+
+      # def init(_), do: {:ok, []}
+
+      def start_link(opts) do
+        user_id = Keyword.get(opts, :user_id)
+        GenServer.start_link(__MODULE__, {:ok, opts}, name: ref(user_id))
       end
 
       @doc """
@@ -45,7 +59,7 @@ defmodule JobBot.Crawler do
           3. Crawl the index of the source for the listing urls, and set those
              urls as the initial state of the process
       """
-      def init(opts) do
+      def init({:ok, opts}) do
         Logger.info(
           IO.ANSI.magenta <> "Starting crawler #{__MODULE__}" <> IO.ANSI.reset
         )
@@ -103,11 +117,7 @@ defmodule JobBot.Crawler do
         JobBot.WorkerRegistry.unregister(self())
       end
 
-      @doc """
-        returns the formatted tuple to register the the process as a Genserver
-        with a unique id associated with the current user.
-      """
-      def ref(user_id), do: {:global, {__MODULE__, user_id}}
+      defp ref(user_id), do: ref(user_id, __MODULE__)
       
       defp user_id, do: JobBot.WorkerRegistry.user_id(self())
 

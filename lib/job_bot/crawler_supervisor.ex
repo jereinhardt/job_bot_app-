@@ -1,14 +1,19 @@
 defmodule JobBot.CrawlerSupervisor do
-  use Supervisor
-
-  require Logger
+  use DynamicSupervisor
 
   def start_link do
-    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+    DynamicSupervisor.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  def init(:ok) do
-    Supervisor.init([], strategy: :one_for_one)
+  def init(_arg) do
+    DynamicSupervisor.init(strategy: :one_for_one)
+  end
+
+  def start_child(module, opts) do
+    user_id = Keyword.get(opts, :user_id)
+    ref = JobBot.Crawler.ref(user_id, module)
+    spec = Supervisor.Spec.worker(module, [opts], restart: :temporary, id: ref)
+    DynamicSupervisor.start_child(__MODULE__, spec)
   end
 
   @doc """
@@ -26,9 +31,7 @@ defmodule JobBot.CrawlerSupervisor do
     |> Keyword.get(:sources, [])
     |> Enum.each(fn (source) ->
       worker_opts = Enum.into(opts, credentials: source.credentials)
-      child = worker(source.crawler, worker_opts, restart: :temporary)
-      Logger.info "STARTING CHILD FOR #{source.crawler}"
-      Supervisor.start_child(__MODULE__, child)
+      start_child(source.crawler, worker_opts)
     end)
   end
 end
