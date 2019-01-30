@@ -12,9 +12,9 @@ defmodule JobBot.CrawlerTest do
     %{crawler: TestCrawler}
   end
 
-  test "ref/1 returns a genserver-copliant reference", %{crawler: crawler} do
+  test "ref/2 returns a genserver-copliant reference", %{crawler: crawler} do
     user_id = 1
 
-    assert crawler.ref(user_id) == {:global, {crawler, user_id}}
+    assert JobBot.Crawler.ref(user_id, crawler) == {:global, {crawler, user_id}}
   end
 end

@@ -24,7 +24,7 @@ defmodule JobBotWeb.UserChannelTest do
 
   test(
     "new_listing returns the new listing",
-    %{socket: socket, user_id: user_id}
+    %{socket: socket}
   ) do
     listing = %JobBot.Listing{title: "New Listing"}
     push socket, "new_listing", %{"listing" => listing}
