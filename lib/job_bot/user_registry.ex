@@ -17,8 +17,8 @@ defmodule JobBot.UserRegistry do
 
   def unregister(user_id) do
     resume_path = Agent.get(__MODULE__, &Map.get(&1, user_id))
-      |> Keyword.get(:resume_path)
-      |> Upload.delete()
+      |> Keyword.get(:resume_path, nil)
+    if resume_path, do: Upload.delete(resume_path)
     Agent.update(__MODULE__, &Map.drop(&1, [user_id]))
   end
 end

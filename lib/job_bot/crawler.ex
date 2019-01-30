@@ -53,34 +53,42 @@ defmodule JobBot.Crawler do
       end
 
       @doc """
-        Performs the following setup steps before starting the process:
-          1. Register the process with the WorkerRegistry
-          2. Send an asyncronous call to self to schedule the first crawl job
-          3. Crawl the index of the source for the listing urls, and set those
-             urls as the initial state of the process
+        There are certain setup tasks that need to be performed before starting
+        the crawler.  However, since these tasks are expensive, they will be
+        performed in a continue callback so the process, and the parent
+        supervisor, aren't tied up while setup is being performed.
       """
       def init({:ok, opts}) do
         Logger.info(
           IO.ANSI.magenta <> "Starting crawler #{__MODULE__}" <> IO.ANSI.reset
         )
+        {:ok, nil, {:continue, {:perform_setup, opts}}}
+      end
+
+      @doc """
+        Performs the following setup steps before crawling:
+          1. Register the process with the WorkerRegistry
+          2. Send an asyncronous call to self to schedule the first crawl job
+          3. Crawl the index of the source for the listing urls, and set those
+             urls as the initial state of the process
+      """
+      def handle_continue({:perform_setup, opts}, nil) do
         opts
         |> Keyword.get(:user_id)
         |> ref()
         |> JobBot.WorkerRegistry.register(self())
 
-        task = Task.async(fn -> get_job_urls(opts) end)
-        state = Task.await(task, 30000)
+        state = Task.async(fn -> get_job_urls(opts) end)
+          |> Task.await(30000)
         schedule_next_crawl()
-        {:ok, state}
+        {:noreply, state}
       end
 
       @doc """
-        Waits a random amount of time between 5 and 8 seconds before crawling
-        the next url
+        Waits 5 seconds before crawling the next url
       """
       def schedule_next_crawl do
-        wait = :rand.uniform(8) * 1000
-        Process.send_after(self(), :crawl_next, wait)
+        Process.send_after(self(), :crawl_next, 5000)
       end
 
       @doc """
@@ -96,9 +104,19 @@ defmodule JobBot.Crawler do
       end
 
       @doc """
-        once all of the urls have been crawled, the process stops itself
+        Once all of the urls have been crawled, the process stops itself
       """
       def handle_info(:crawl_next, []), do: GenServer.call(self(), :stop)
+
+      @doc """
+        If the setup has not been completed yet, queue another delayed scraper.
+      """
+      def handle_info(:crawl_next, nil) do
+        Logger.info(
+          IO.ANSI.green <> "no initial state yet.  Resetting inittial crawl" <> IO.ANSI.reset
+        )
+        schedule_next_crawl()
+      end
 
       @doc "Stops the process"
       def handle_call(:stop, _from, []), do: {:stop, :normal, []}
@@ -122,10 +140,11 @@ defmodule JobBot.Crawler do
       defp user_id, do: JobBot.WorkerRegistry.user_id(self())
 
       defp process_listing({:ok, listing}) do
+        clean_listing = Map.delete(listing, :__meta__)
         JobBotWeb.Endpoint.broadcast(
           "users:#{user_id()}",
           "new_listing",
-          %{"listing" => listing}
+          %{"listing" => clean_listing}
         )
       end
 

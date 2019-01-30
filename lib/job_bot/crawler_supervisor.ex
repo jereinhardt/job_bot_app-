@@ -30,7 +30,7 @@ defmodule JobBot.CrawlerSupervisor do
     opts
     |> Keyword.get(:sources, [])
     |> Enum.each(fn (source) ->
-      worker_opts = Enum.into(opts, credentials: source.credentials)
+      worker_opts = Keyword.merge(opts, credentials: source.credentials)
       start_child(source.crawler, worker_opts)
     end)
   end

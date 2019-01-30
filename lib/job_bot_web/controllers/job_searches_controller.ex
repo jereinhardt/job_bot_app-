@@ -33,6 +33,6 @@ defmodule JobBotWeb.JobSearchesController do
          value = if is_map(value), do: atomize(value), else: value
          {key, value}
        end)
-    |> Enum.into(%{})
+    |> Map.new()
   end
 end

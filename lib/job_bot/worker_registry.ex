@@ -14,7 +14,7 @@ defmodule JobBot.WorkerRegistry do
   @doc "Adds a process to the registry"
   def register({_scope, {module, user_id}}, pid) do
     ref = {pid, module, user_id}
-    Agent.update(__MODULE__, fn state -> Enum.into(state, [ref]) end)
+    Agent.update(__MODULE__, fn state -> Enum.concat(state, [ref]) end)
   end
 
   @doc "Removes a process from the registry"

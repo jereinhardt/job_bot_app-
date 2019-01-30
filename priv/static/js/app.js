@@ -2027,7 +2027,9 @@ var ListingsList = function (_React$Component) {
     key: "render",
     value: function render() {
       var listingNodes = this.props.listings.map(function (listing) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_js__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, listing, { key: listing.updated_at }));
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_js__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, listing, {
+          key: listing.listing_url + "|" + listing.title
+        }));
       });
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
