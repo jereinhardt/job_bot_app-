@@ -27,7 +27,7 @@ export default class EmailForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if ( !this.validator.hasInvalidFields() ) {
-      this.props.updateData({email: this.state});
+      this.props.updateEmail(this.state);
       this.props.moveForward();
     }
   }
@@ -85,12 +85,12 @@ export default class EmailForm extends React.Component {
         </div>
 
         <div className="step__actions">
-          <button
+          <span
             className="step__action step__action--backward"
-            onClick={(e) => this.props.moveBackwardOnClick(e)}
+            onClick={(e) => this.props.moveBackward()}
           >
             Go Back
-          </button>
+          </span>
           <input
             type="submit"
             value="Continue"

@@ -1,48 +1,39 @@
 import React from "react";
 import SourceCredentialsForm from "./source_credentials_form.js";
+import { UPDATE_SOURCE, TOGGLE_SOURCE } from "../actionTypes.js";
 
 export default class Source extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      toggled: false
+      formToggled: false
     };
 
     this.toggleSourceForm = this.toggleSourceForm.bind(this);
     this.toggleSourceFormClose = this.toggleSourceFormClose.bind(this);
-    this.deselectSource = this.deselectSource.bind(this);
   }
 
-  toggleSource(event, source) {
-    event.preventDefault();
-    if (source.selected) {
-      this.props.updateSource(source, {selected: false});
-    } else {
-      this.props.updateSource(source, {selected: true});
-    }
+  toggleSourceSelect() {
+    this.props.toggleSource(this.props.source.name)
   }
 
   toggleSourceForm(event) {
     event.preventDefault();
-    if ( this.state.toggled ) {
-      this.setState({toggled: false});
+    if ( this.state.formToggled ) {
+      this.setState({formToggled: false});
     } else {
       if ( this.props.source.selected ) { 
-        this.deselectSource() 
+        this.toggleSourceSelect();
       } else {
-        this.setState({toggled: true});
+        this.setState({formToggled: true});
       }
     }
   }
 
   toggleSourceFormClose(event) {
     event.preventDefault();
-    this.setState({toggled: false});
-  }
-
-  deselectSource() {
-    this.props.updateSource(this.props.source, {selected: false});
+    this.setState({formToggled: false});
   }
 
   render() {
@@ -61,7 +52,7 @@ export default class Source extends React.Component {
       <li className={className}>
         <button
           className="source__checkbox"
-          onClick={(e) => this.toggleSource(e, this.props.source)}
+          onClick={() => this.toggleSourceSelect()}
         >
         </button>
         <h4 className="source__title">
@@ -72,13 +63,14 @@ export default class Source extends React.Component {
   }
 
   _renderSourceWithCredentials(className) {
-    const updateSource = (source, attrs) => {
-      this.setState({toggled: false});
-      this.props.updateSource(source, attrs);
+    const updateSource = (data) => {
+      this.setState({formToggled: false});
+      const source = this.props.source;
+      this.props.updateSource({ source, data });
     }
 
-    const toggleClass = this.state.toggled ? "form-toggled" : "";
-    const buttonClass = this.state.toggled ? "" : "hidden";
+    const toggleClass = this.state.formToggled ? "form-toggled" : "";
+    const buttonClass = this.state.formToggled ? "" : "hidden";
 
     return(
       <li className={`${className} ${toggleClass}`}>
@@ -97,7 +89,7 @@ export default class Source extends React.Component {
         </h4>
 
         <SourceCredentialsForm
-          toggled={this.state.toggled}
+          toggled={this.state.formToggled}
           source={this.props.source}
           updateSource={updateSource}
         />

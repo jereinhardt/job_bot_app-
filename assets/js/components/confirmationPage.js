@@ -1,9 +1,32 @@
 import React from "react";
+import $ from "jquery";
 
 export default class ConfirmationPage extends React.Component {
   handleBack(e) {
     const steps = this.props.data.autoapply ? 1 : 3;
     this.props.moveBackward(steps)
+  }
+
+  handleSubmit() {
+    const data = this.props.data;
+    const sources = data.sources.filter(source => source.selected).
+      map(({ name, crawler, applier, credentials }) => {
+        return { name, crawler, applier, credentials }
+      });
+    const params = {
+      sources: sources,
+      name: data.name,
+      applicant_location: data.applicantLocation,
+      terms: data.terms,
+      location: data.location,
+      autoapply: data.autoapply,
+      email: data.email,
+      resume_path: data.resumePath,
+      user_id: $("#app").data("js-user-id")
+    };
+    $.post("/api/job_searches", params, () => {
+      this.props.toggleSubmitted();
+    });
   }
 
   render() {
@@ -47,7 +70,7 @@ export default class ConfirmationPage extends React.Component {
               Go Back
             </button>
             <button
-              onClick={() => this.props.handleSubmit()}
+              onClick={() => this.handleSubmit()}
               className="button is-link"
             >
               Confirm

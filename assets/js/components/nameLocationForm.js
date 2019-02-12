@@ -20,7 +20,8 @@ export default class NameLocationForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if ( !this.validator.hasInvalidFields() ) {
-      this.props.updateData(this.state);
+      this.props.updateApplicantLocation(this.state.applicantLocation);
+      this.props.updateName(this.state.name);
       this.props.moveForward();
     }
   }

@@ -10,13 +10,13 @@ export default class AutoapplyForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const steps = this.state.autoapply ? 1 : 3;
-    this.props.updateData(this.state);
+    this.props.updateAutoapply(this.state.autoapply);
     this.props.moveForward(steps);
   }
 
   handleChange(event) {
     event.persist();
-    this.setState({autoapply: event.target.value})
+    this.setState({autoapply: event.target.checked});
   }
 
   render() {
@@ -33,7 +33,7 @@ export default class AutoapplyForm extends React.Component {
           <label className="checkbox">
             <input 
               type="checkbox"
-              value={this.state.autoapply}
+              checked={this.state.autoapply}
               onChange={(e) => this.handleChange(e)}
             />
             Yes, I would like to automatically apply to available jobs.
@@ -41,12 +41,12 @@ export default class AutoapplyForm extends React.Component {
         </div>
 
         <div className="step__actions">
-          <button
+          <span
             className="step__action step__action--backward"
-            onClick={(e) => this.props.moveBackwardOnClick(e)}
+            onClick={() => this.props.moveBackward()}
           >
             Go Back
-          </button>
+          </span>
           <input
             type="submit"
             value="Continue"

@@ -17,7 +17,8 @@ export default class TermsLocationForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if ( !this.validator.hasInvalidFields() ) {
-      this.props.updateData(this.state);
+      this.props.updateTerms(this.state.terms);
+      this.props.updateLocation(this.state.location);
       this.props.moveForward();
     }
   }
@@ -77,12 +78,12 @@ export default class TermsLocationForm extends React.Component {
         </div>
 
         <div className="step__actions">
-          <button
+          <span
             className="step__action step__action--backward"
-            onClick={(e) => this.props.moveBackwardOnClick(e)}
+            onClick={(e) => this.props.moveBackward()}
           >
             Go Back
-          </button>
+          </span>
           <input
             type="submit"
             value="continue"

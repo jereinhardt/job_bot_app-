@@ -20,8 +20,7 @@ export default class SourceCredentialsForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if ( !this.validator.hasInvalidFields() ) {
-      const attrs = Object.assign({credentials: this.state}, {selected: true});
-      this.props.updateSource(this.props.source, attrs);
+      this.props.updateSource({credentials: this.state, selected: true});
     }
   }
 

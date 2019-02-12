@@ -36,7 +36,7 @@ export default class ResumeForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if ( !this.validator.hasInvalidFields() ) {
-      this.props.updateData(this.state);
+      this.props.updateResumePath(this.state.resumePath);
       this.props.moveForward();
     }
   }
@@ -86,12 +86,12 @@ export default class ResumeForm extends React.Component {
         </div>
 
         <div className="step__actions">
-          <button
+          <span
             className="step__action step__action--backward"
-            onClick={(e) => this.props.moveBackwardOnClick(e)}
+            onClick={() => this.props.moveBackward()}
           >
             Go Back
-          </button>
+          </span>
           <input
             type="submit"
             value="Continue"

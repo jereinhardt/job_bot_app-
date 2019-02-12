@@ -1,5 +1,5 @@
 import React from "react";
-import Source from "./source.js";
+import Source from "../containers/source.js";
 
 export default class SourcesForm extends React.Component {
   constructor(props) {    
@@ -9,14 +9,6 @@ export default class SourcesForm extends React.Component {
       errorClass: "",
       errorMessage: ""
     };
-  }
-
-  toggleSource(source) {
-    if (source.selected) {
-      this.props.updateSource(source, {selected: false});
-    } else {
-      this.props.updateSource(source, {selected: true});
-    }
   }
 
   handleSubmit(event) {
@@ -45,7 +37,6 @@ export default class SourcesForm extends React.Component {
         <Source
           key={source.name}
           source={source} 
-          updateSource={this.props.updateSource} 
         />
       );
     }.bind(this));

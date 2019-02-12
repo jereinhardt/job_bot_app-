@@ -7,7 +7,7 @@ var isProduction = (env === 'prod')
 
 module.exports = {
   entry: {
-    'app': ['./js/app.js', './css/app.scss']
+    'app': ['./js/index.js', './css/app.scss']
   },
   output: {
     path: path.resolve(__dirname, '../priv/static/'),
