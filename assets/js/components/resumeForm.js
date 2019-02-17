@@ -7,13 +7,14 @@ export default class ResumeForm extends React.Component {
     super(props);
 
     this.state = {resumePath: this.props.resumePath};
+    window.t = this;
 
     this.validator = new Validator(
       this,
       [{id: "resumePath", validate: ["presence"]}]
     );
 
-    this._filename = this._filename.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
@@ -41,16 +42,12 @@ export default class ResumeForm extends React.Component {
     }
   }
 
-  _filename() {
-    if ( this.state.resumePath ) {
-      this.state.resumePath.split("/").pop();
-    } else {
-      ""
-    }
-  }
-
   render() {
     const errorClass = this.validator.errorClassFor("resumePath");
+    let filename = "";
+    if ( this.state.resumePath != "" ) {
+      filename = this.state.resumePath.split("/").pop();
+    }
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -77,7 +74,7 @@ export default class ResumeForm extends React.Component {
                 </span>
                 <span className="file-label">Upload Your Resume</span>
               </span>
-              <span className="file-filename">{this._filename()}</span>
+              <span className="file-filename">{filename}</span>
               <p className={`input-error-message is-danger ${errorClass}`}>
                 {this.validator.errorMessageFor("resumePath")}
               </p>

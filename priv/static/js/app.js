@@ -1267,7 +1267,7 @@ class Timer {
 /*!***************************!*\
   !*** ./js/actionTypes.js ***!
   \***************************/
-/*! exports provided: ADD_LISTING, MOVE_BACKWARD, MOVE_FORWARD, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_AUTOAPPLY, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS */
+/*! exports provided: ADD_LISTING, MOVE_BACKWARD, MOVE_FORWARD, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1278,8 +1278,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOGGLE_SOURCE", function() { return TOGGLE_SOURCE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOGGLE_SUBMITTED", function() { return TOGGLE_SUBMITTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_APPLICANT_LOCATION", function() { return UPDATE_APPLICANT_LOCATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_AUTOAPPLY", function() { return UPDATE_AUTOAPPLY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_EMAIL", function() { return UPDATE_EMAIL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_LOCATION", function() { return UPDATE_LOCATION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_NAME", function() { return UPDATE_NAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_RESUME_PATH", function() { return UPDATE_RESUME_PATH; });
@@ -1291,8 +1289,6 @@ var MOVE_FORWARD = 'MOVE_FORWARD';
 var TOGGLE_SOURCE = 'TOGGLE_SOURCE';
 var TOGGLE_SUBMITTED = 'TOGGLE_SUBMITTED';
 var UPDATE_APPLICANT_LOCATION = 'UPDATE_APPLICANT_LOCATION';
-var UPDATE_AUTOAPPLY = 'UPDATE_AUTOAPPLY';
-var UPDATE_EMAIL = 'UPDATE_EMAIL';
 var UPDATE_LOCATION = 'UPDATE_LOCATION';
 var UPDATE_NAME = 'UPDATE_NAME';
 var UPDATE_RESUME_PATH = 'UPDATE_RESUME_PATH';
@@ -1312,15 +1308,13 @@ var UPDATE_TERMS = 'UPDATE_TERMS';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _containers_autoapplyForm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/autoapplyForm.js */ "./js/containers/autoapplyForm.js");
-/* harmony import */ var _containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/confirmationPage.js */ "./js/containers/confirmationPage.js");
-/* harmony import */ var _containers_emailForm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/emailForm.js */ "./js/containers/emailForm.js");
-/* harmony import */ var _containers_listingsList_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/listingsList.js */ "./js/containers/listingsList.js");
-/* harmony import */ var _containers_nameLocationForm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../containers/nameLocationForm.js */ "./js/containers/nameLocationForm.js");
-/* harmony import */ var _containers_resumeForm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../containers/resumeForm.js */ "./js/containers/resumeForm.js");
-/* harmony import */ var _containers_sourcesForm_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../containers/sourcesForm.js */ "./js/containers/sourcesForm.js");
-/* harmony import */ var _containers_step_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../containers/step.js */ "./js/containers/step.js");
-/* harmony import */ var _containers_termsLocationForm_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../containers/termsLocationForm.js */ "./js/containers/termsLocationForm.js");
+/* harmony import */ var _containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/confirmationPage.js */ "./js/containers/confirmationPage.js");
+/* harmony import */ var _containers_listingsList_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/listingsList.js */ "./js/containers/listingsList.js");
+/* harmony import */ var _containers_nameLocationForm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/nameLocationForm.js */ "./js/containers/nameLocationForm.js");
+/* harmony import */ var _containers_resumeForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/resumeForm.js */ "./js/containers/resumeForm.js");
+/* harmony import */ var _containers_sourcesForm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../containers/sourcesForm.js */ "./js/containers/sourcesForm.js");
+/* harmony import */ var _containers_step_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../containers/step.js */ "./js/containers/step.js");
+/* harmony import */ var _containers_termsLocationForm_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../containers/termsLocationForm.js */ "./js/containers/termsLocationForm.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1328,8 +1322,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
 
 
 
@@ -1365,43 +1357,33 @@ var App = function (_React$Component) {
             "div",
             { className: "modal-content" },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              _containers_step_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+              _containers_step_js__WEBPACK_IMPORTED_MODULE_6__["default"],
               { step: 1 },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_nameLocationForm_js__WEBPACK_IMPORTED_MODULE_5__["default"], null)
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_nameLocationForm_js__WEBPACK_IMPORTED_MODULE_3__["default"], null)
             ),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              _containers_step_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+              _containers_step_js__WEBPACK_IMPORTED_MODULE_6__["default"],
               { step: 2 },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_sourcesForm_js__WEBPACK_IMPORTED_MODULE_7__["default"], null)
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_sourcesForm_js__WEBPACK_IMPORTED_MODULE_5__["default"], null)
             ),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              _containers_step_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+              _containers_step_js__WEBPACK_IMPORTED_MODULE_6__["default"],
               { step: 3 },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_termsLocationForm_js__WEBPACK_IMPORTED_MODULE_9__["default"], null)
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_termsLocationForm_js__WEBPACK_IMPORTED_MODULE_7__["default"], null)
             ),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              _containers_step_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+              _containers_step_js__WEBPACK_IMPORTED_MODULE_6__["default"],
               { step: 4 },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_autoapplyForm_js__WEBPACK_IMPORTED_MODULE_1__["default"], null)
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_resumeForm_js__WEBPACK_IMPORTED_MODULE_4__["default"], null)
             ),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              _containers_step_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+              _containers_step_js__WEBPACK_IMPORTED_MODULE_6__["default"],
               { step: 5 },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_emailForm_js__WEBPACK_IMPORTED_MODULE_3__["default"], null)
-            ),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              _containers_step_js__WEBPACK_IMPORTED_MODULE_8__["default"],
-              { step: 6 },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_resumeForm_js__WEBPACK_IMPORTED_MODULE_6__["default"], null)
-            ),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              _containers_step_js__WEBPACK_IMPORTED_MODULE_8__["default"],
-              { step: 7 },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_1__["default"], null)
             )
           )
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_listingsList_js__WEBPACK_IMPORTED_MODULE_4__["default"], null)
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_listingsList_js__WEBPACK_IMPORTED_MODULE_2__["default"], null)
       );
     }
   }]);
@@ -1410,119 +1392,6 @@ var App = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
-
-/***/ }),
-
-/***/ "./js/components/autoapplyForm.js":
-/*!****************************************!*\
-  !*** ./js/components/autoapplyForm.js ***!
-  \****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-var AutoapplyForm = function (_React$Component) {
-  _inherits(AutoapplyForm, _React$Component);
-
-  function AutoapplyForm(props) {
-    _classCallCheck(this, AutoapplyForm);
-
-    var _this = _possibleConstructorReturn(this, (AutoapplyForm.__proto__ || Object.getPrototypeOf(AutoapplyForm)).call(this, props));
-
-    _this.state = { autoapply: _this.props.autoapply };
-    return _this;
-  }
-
-  _createClass(AutoapplyForm, [{
-    key: "handleSubmit",
-    value: function handleSubmit(event) {
-      event.preventDefault();
-      var steps = this.state.autoapply ? 1 : 3;
-      this.props.updateAutoapply(this.state.autoapply);
-      this.props.moveForward(steps);
-    }
-  }, {
-    key: "handleChange",
-    value: function handleChange(event) {
-      event.persist();
-      this.setState({ autoapply: event.target.checked });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "form",
-        { onSubmit: function onSubmit(e) {
-            return _this2.handleSubmit(e);
-          } },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "step__title" },
-          "Are you ready to apply?"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "p",
-          { className: "step__description" },
-          "If you would like, I can automatically send applications to some jobs as I find them.  Would you like me to apply to jobs on your behalf?"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "field" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { className: "checkbox" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-              type: "checkbox",
-              checked: this.state.autoapply,
-              onChange: function onChange(e) {
-                return _this2.handleChange(e);
-              }
-            }),
-            "Yes, I would like to automatically apply to available jobs."
-          )
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "step__actions" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "span",
-            {
-              className: "step__action step__action--backward",
-              onClick: function onClick() {
-                return _this2.props.moveBackward();
-              }
-            },
-            "Go Back"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            type: "submit",
-            value: "Continue",
-            className: "step__action step__action--forward"
-          })
-        )
-      );
-    }
-  }]);
-
-  return AutoapplyForm;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (AutoapplyForm);
 
 /***/ }),
 
@@ -1587,8 +1456,6 @@ var ConfirmationPage = function (_React$Component) {
         applicant_location: data.applicantLocation,
         terms: data.terms,
         location: data.location,
-        autoapply: data.autoapply,
-        email: data.email,
         resume_path: data.resumePath,
         user_id: jquery__WEBPACK_IMPORTED_MODULE_1___default()("#app").data("js-user-id")
       };
@@ -1720,175 +1587,6 @@ var ConfirmationPage = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (ConfirmationPage);
-
-/***/ }),
-
-/***/ "./js/components/emailForm.js":
-/*!************************************!*\
-  !*** ./js/components/emailForm.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-var EmailForm = function (_React$Component) {
-  _inherits(EmailForm, _React$Component);
-
-  function EmailForm(props) {
-    _classCallCheck(this, EmailForm);
-
-    var _this = _possibleConstructorReturn(this, (EmailForm.__proto__ || Object.getPrototypeOf(EmailForm)).call(this, props));
-
-    _this.state = _this.props.email;
-
-    var validations = [{ id: "username", validate: ["presence", "email"] }, { id: "password", validate: ["presence"] }];
-    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
-    return _this;
-  }
-
-  _createClass(EmailForm, [{
-    key: "handleUsernameChange",
-    value: function handleUsernameChange(event) {
-      event.persist();
-      this.setState({ username: event.target.value });
-    }
-  }, {
-    key: "handlePasswordChange",
-    value: function handlePasswordChange(event) {
-      event.persist();
-      this.setState({ password: event.target.value });
-    }
-  }, {
-    key: "handleSubmit",
-    value: function handleSubmit(event) {
-      event.preventDefault();
-      if (!this.validator.hasInvalidFields()) {
-        this.props.updateEmail(this.state);
-        this.props.moveForward();
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var usernameError = this.validator.errorClassFor("username");
-      var passwordError = this.validator.errorClassFor("password");
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "form",
-        { onSubmit: function onSubmit(e) {
-            return _this2.handleSubmit(e);
-          } },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "step__title" },
-          "Mind if I borrow your email?"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "p",
-          { className: "step__description" },
-          "Some jobs require me to send an application by email.  In order to do this for you, I'll need to be able to log into your Gmail account."
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "field" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            {
-              htmlFor: "username",
-              className: "label " + usernameError
-            },
-            "What is your Gmail username?"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "div",
-            { className: "control" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-              type: "text",
-              name: "username",
-              placeholder: "applicant@gmail.com",
-              value: this.state.username,
-              onChange: function onChange(e) {
-                return _this2.handleUsernameChange(e);
-              },
-              className: "input " + usernameError
-            }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              "p",
-              { className: "input-error-message is-danger " + usernameError },
-              this.validator.errorMessageFor("username")
-            )
-          )
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "field" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { htmlFor: "emailPassword", className: "label " + passwordError },
-            "Password"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "div",
-            { className: "control" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-              type: "password",
-              name: "emailPassword",
-              value: this.state.password,
-              onChange: function onChange(e) {
-                return _this2.handlePasswordChange(e);
-              },
-              className: "input " + passwordError
-            }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              "p",
-              { className: "input-error-message is-danger " + passwordError },
-              this.validator.errorMessageFor("password")
-            )
-          )
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "step__actions" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "span",
-            {
-              className: "step__action step__action--backward",
-              onClick: function onClick(e) {
-                return _this2.props.moveBackward();
-              }
-            },
-            "Go Back"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            type: "submit",
-            value: "Continue",
-            className: "step__action step__action--forward"
-          })
-        )
-      );
-    }
-  }]);
-
-  return EmailForm;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (EmailForm);
 
 /***/ }),
 
@@ -2219,10 +1917,11 @@ var ResumeForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ResumeForm.__proto__ || Object.getPrototypeOf(ResumeForm)).call(this, props));
 
     _this.state = { resumePath: _this.props.resumePath };
+    window.t = _this;
 
     _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, [{ id: "resumePath", validate: ["presence"] }]);
 
-    _this._filename = _this._filename.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
     return _this;
   }
 
@@ -2256,20 +1955,15 @@ var ResumeForm = function (_React$Component) {
       }
     }
   }, {
-    key: "_filename",
-    value: function _filename() {
-      if (this.state.resumePath) {
-        this.state.resumePath.split("/").pop();
-      } else {
-        "";
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
       var errorClass = this.validator.errorClassFor("resumePath");
+      var filename = "";
+      if (this.state.resumePath != "") {
+        filename = this.state.resumePath.split("/").pop();
+      }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
@@ -2328,7 +2022,7 @@ var ResumeForm = function (_React$Component) {
               react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 "span",
                 { className: "file-filename" },
-                this._filename()
+                filename
               ),
               react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 "p",
@@ -3031,44 +2725,6 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
-/***/ "./js/containers/autoapplyForm.js":
-/*!****************************************!*\
-  !*** ./js/containers/autoapplyForm.js ***!
-  \****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actionTypes.js */ "./js/actionTypes.js");
-/* harmony import */ var _components_autoapplyForm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/autoapplyForm.js */ "./js/components/autoapplyForm.js");
-
-
-
-
-var mapStateToProps = function mapStateToProps(state) {
-  return { autoapply: state.autoapply };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    moveBackward: function moveBackward() {
-      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["MOVE_BACKWARD"] });
-    },
-    moveForward: function moveForward(payload) {
-      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["MOVE_FORWARD"], payload: payload });
-    },
-    updateAutoapply: function updateAutoapply(payload) {
-      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["UPDATE_AUTOAPPLY"], payload: payload });
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_autoapplyForm_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
-
-/***/ }),
-
 /***/ "./js/containers/confirmationPage.js":
 /*!*******************************************!*\
   !*** ./js/containers/confirmationPage.js ***!
@@ -3101,44 +2757,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_confirmationPage_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
-
-/***/ }),
-
-/***/ "./js/containers/emailForm.js":
-/*!************************************!*\
-  !*** ./js/containers/emailForm.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actionTypes.js */ "./js/actionTypes.js");
-/* harmony import */ var _components_emailForm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/emailForm.js */ "./js/components/emailForm.js");
-
-
-
-
-var mapStateToProps = function mapStateToProps(state) {
-  return { email: state.email };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    moveBackward: function moveBackward() {
-      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["MOVE_BACKWARD"] });
-    },
-    moveForward: function moveForward() {
-      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["MOVE_FORWARD"] });
-    },
-    updateEmail: function updateEmail(payload) {
-      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["UPDATE_EMAIL"], payload: payload });
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_emailForm_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -3562,17 +3180,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _reducers_activeStep__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducers/activeStep */ "./js/reducers/activeStep.js");
 /* harmony import */ var _reducers_applicantLocation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reducers/applicantLocation */ "./js/reducers/applicantLocation.js");
-/* harmony import */ var _reducers_autoapply__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducers/autoapply */ "./js/reducers/autoapply.js");
-/* harmony import */ var _reducers_email__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reducers/email */ "./js/reducers/email.js");
-/* harmony import */ var _reducers_listings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducers/listings */ "./js/reducers/listings.js");
-/* harmony import */ var _reducers_location__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reducers/location */ "./js/reducers/location.js");
-/* harmony import */ var _reducers_name__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reducers/name */ "./js/reducers/name.js");
-/* harmony import */ var _reducers_resumePath__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./reducers/resumePath */ "./js/reducers/resumePath.js");
-/* harmony import */ var _reducers_sources__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./reducers/sources */ "./js/reducers/sources.js");
-/* harmony import */ var _reducers_submitted__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./reducers/submitted */ "./js/reducers/submitted.js");
-/* harmony import */ var _reducers_terms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./reducers/terms */ "./js/reducers/terms.js");
-
-
+/* harmony import */ var _reducers_listings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducers/listings */ "./js/reducers/listings.js");
+/* harmony import */ var _reducers_location__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reducers/location */ "./js/reducers/location.js");
+/* harmony import */ var _reducers_name__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducers/name */ "./js/reducers/name.js");
+/* harmony import */ var _reducers_resumePath__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reducers/resumePath */ "./js/reducers/resumePath.js");
+/* harmony import */ var _reducers_sources__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reducers/sources */ "./js/reducers/sources.js");
+/* harmony import */ var _reducers_submitted__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./reducers/submitted */ "./js/reducers/submitted.js");
+/* harmony import */ var _reducers_terms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./reducers/terms */ "./js/reducers/terms.js");
 
 
 
@@ -3587,15 +3201,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   activeStep: _reducers_activeStep__WEBPACK_IMPORTED_MODULE_1__["default"],
   applicantLocation: _reducers_applicantLocation__WEBPACK_IMPORTED_MODULE_2__["default"],
-  autoapply: _reducers_autoapply__WEBPACK_IMPORTED_MODULE_3__["default"],
-  email: _reducers_email__WEBPACK_IMPORTED_MODULE_4__["default"],
-  location: _reducers_location__WEBPACK_IMPORTED_MODULE_6__["default"],
-  listings: _reducers_listings__WEBPACK_IMPORTED_MODULE_5__["default"],
-  name: _reducers_name__WEBPACK_IMPORTED_MODULE_7__["default"],
-  resumePath: _reducers_resumePath__WEBPACK_IMPORTED_MODULE_8__["default"],
-  sources: _reducers_sources__WEBPACK_IMPORTED_MODULE_9__["default"],
-  submitted: _reducers_submitted__WEBPACK_IMPORTED_MODULE_10__["default"],
-  terms: _reducers_terms__WEBPACK_IMPORTED_MODULE_11__["default"]
+  location: _reducers_location__WEBPACK_IMPORTED_MODULE_4__["default"],
+  listings: _reducers_listings__WEBPACK_IMPORTED_MODULE_3__["default"],
+  name: _reducers_name__WEBPACK_IMPORTED_MODULE_5__["default"],
+  resumePath: _reducers_resumePath__WEBPACK_IMPORTED_MODULE_6__["default"],
+  sources: _reducers_sources__WEBPACK_IMPORTED_MODULE_7__["default"],
+  submitted: _reducers_submitted__WEBPACK_IMPORTED_MODULE_8__["default"],
+  terms: _reducers_terms__WEBPACK_IMPORTED_MODULE_9__["default"]
 }));
 
 /***/ }),
@@ -3648,58 +3260,6 @@ __webpack_require__.r(__webpack_exports__);
 
   switch (action.type) {
     case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["UPDATE_APPLICANT_LOCATION"]:
-      return action.payload;
-    default:
-      return state;
-  }
-});
-
-/***/ }),
-
-/***/ "./js/reducers/autoapply.js":
-/*!**********************************!*\
-  !*** ./js/reducers/autoapply.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actionTypes.js */ "./js/actionTypes.js");
-
-
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["UPDATE_AUTOAPPLY"]:
-      return action.payload;
-    default:
-      return state;
-  }
-});
-
-/***/ }),
-
-/***/ "./js/reducers/email.js":
-/*!******************************!*\
-  !*** ./js/reducers/email.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actionTypes.js */ "./js/actionTypes.js");
-
-
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["UPDATE_EMAIL"]:
       return action.payload;
     default:
       return state;
@@ -3941,8 +3501,6 @@ var getSources = function getSources() {
 var initialState = {
   activeStep: 1,
   applicantLocation: "",
-  autoapply: false,
-  email: { username: "", password: "" },
   listings: [],
   location: "",
   name: "",

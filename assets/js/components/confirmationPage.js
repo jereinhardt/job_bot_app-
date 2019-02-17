@@ -19,8 +19,6 @@ export default class ConfirmationPage extends React.Component {
       applicant_location: data.applicantLocation,
       terms: data.terms,
       location: data.location,
-      autoapply: data.autoapply,
-      email: data.email,
       resume_path: data.resumePath,
       user_id: $("#app").data("js-user-id")
     };

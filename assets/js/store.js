@@ -17,8 +17,6 @@ const getSources = () => {
 const initialState = {
   activeStep: 1,
   applicantLocation: "",
-  autoapply: false,
-  email: {username: "", password: ""},
   listings: [],
   location: "",
   name: "",

@@ -1,7 +1,5 @@
 import React from "react";
-import AutoapplyForm from "../containers/autoapplyForm.js";
 import ConfirmationPage from "../containers/confirmationPage.js";
-import EmailForm from "../containers/emailForm.js";
 import ListingsList from "../containers/listingsList.js";
 import NameLocationForm from "../containers/nameLocationForm.js";
 import ResumeForm from "../containers/resumeForm.js";
@@ -28,15 +26,9 @@ export default class App extends React.Component {
               <TermsLocationForm />
             </Step>
             <Step step={4}>
-              <AutoapplyForm />
-            </Step>
-            <Step step={5}>
-              <EmailForm />
-            </Step>
-            <Step step={6}>
               <ResumeForm />
             </Step>
-            <Step step={7}>
+            <Step step={5}>
               <ConfirmationPage />
             </Step>
           </div>
