@@ -15,16 +15,30 @@ defmodule JobBotWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :data do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :protect_from_forgery
+  end
+
+  pipeline :authenticate_user do
+    plug JobBot.Accounts.Pipeline
+  end
+
   scope "/", JobBotWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :authenticate_user] # Use the default browser stack
 
     get "/", PageController, :index
+    delete "/session", SessionController, :delete
     resources "/uploads", UploadController, only: [:create]
   end
 
-  scope "/api", JobBotWeb do
-    pipe_through :api
+  scope "/data", JobBotWeb do
+    pipe_through [:data, :authenticate_user]
 
+    get "/users", UsersController, :show
+    resources "/users", UsersController, only: [:create]
+    resources "/session", SessionController, only: [:create]
     resources "/sources", SourceController, only: [:index]
     resources "/job_searches", JobSearchesController, only: [:create]
   end

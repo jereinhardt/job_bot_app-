@@ -1459,7 +1459,7 @@ var ConfirmationPage = function (_React$Component) {
         resume_path: data.resumePath,
         user_id: jquery__WEBPACK_IMPORTED_MODULE_1___default()("#app").data("js-user-id")
       };
-      jquery__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/job_searches", params, function () {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default.a.post("/data/job_searches", params, function () {
         _this2.props.toggleSubmitted();
       });
     }
@@ -3487,7 +3487,7 @@ __webpack_require__.r(__webpack_exports__);
 var getSources = function getSources() {
   var sources = void 0;
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
-    url: "/api/sources",
+    url: "/data/sources",
     type: "get",
     dataType: "json",
     async: false,

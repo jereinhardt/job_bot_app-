@@ -27,6 +27,10 @@ config :arc,
   storage: Arc.Storage.Local,
   storage_dir: "uploads/tmp/resumes"
 
+config :job_bot, JobBot.Accounts.Guardian,
+       issuer: "job_bot",
+       secret_key: "xE6zQ+KVS5+EswEJbDxEFtKvu4z4zK/DHJEeAl3JbpwdqAO2u+GJyl18kuE4JZ2s"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

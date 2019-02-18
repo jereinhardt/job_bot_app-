@@ -1,6 +1,10 @@
 defmodule JobBotWeb.ErrorView do
   use JobBotWeb, :view
 
+  def render("401.json", %{message: message}) do
+    %{data: %{message: message}}
+  end
+
   def render("404.html", _assigns) do
     "Page not found"
   end

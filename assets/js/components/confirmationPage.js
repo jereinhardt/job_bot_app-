@@ -22,7 +22,7 @@ export default class ConfirmationPage extends React.Component {
       resume_path: data.resumePath,
       user_id: $("#app").data("js-user-id")
     };
-    $.post("/api/job_searches", params, () => {
+    $.post("/data/job_searches", params, () => {
       this.props.toggleSubmitted();
     });
   }

@@ -5,7 +5,7 @@ import reducer from "./reducer.js";
 const getSources = () => {
   let sources;
   $.ajax({
-    url: "/api/sources",
+    url: "/data/sources",
     type: "get",
     dataType: "json",
     async: false,

@@ -1,5 +1,6 @@
 defmodule JobBotWeb.JobSearchesController do
   use JobBotWeb, :controller
+  plug Guardian.Plug.EnsureAuthenticated
 
   def create(conn, params) do
     keyword_opts = params |> atomize() |> Map.to_list()

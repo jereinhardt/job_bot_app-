@@ -41,10 +41,14 @@ defmodule JobBot.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:guardian, "~> 1.0"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 0.12"},
       {:arc, "~> 0.10.0"},
       {:floki, "~> 0.20.1"},
       {:hound, "~> 1.0"},
       {:mock, "~> 0.3.2", only: :test},
+      {:ex_machina, "~> 2.2", only: :test},
     ]
   end
 
@@ -58,7 +62,7 @@ defmodule JobBot.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
