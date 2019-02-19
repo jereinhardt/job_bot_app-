@@ -2,9 +2,8 @@ import React from "react";
 import $ from "jquery";
 
 export default class ConfirmationPage extends React.Component {
-  handleBack(e) {
-    const steps = this.props.data.autoapply ? 1 : 3;
-    this.props.moveBackward(steps)
+  handleBack() {
+    this.props.moveBackward()
   }
 
   handleSubmit() {

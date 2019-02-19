@@ -16,7 +16,7 @@ defmodule JobBotWeb.SessionControllerTest do
         %{"session" => %{"email" => user.email, "password" => "password"}}
       response = 
         conn
-        |> post("/data/session", params)
+        |> post("/session", params)
         |> json_response(200)
 
       assert response == data

@@ -9,3 +9,4 @@ export const UPDATE_NAME = 'UPDATE_NAME';
 export const UPDATE_RESUME_PATH = 'UPDATE_RESUME_PATH';
 export const UPDATE_SOURCE = 'UPDATE_SOURCE';
 export const UPDATE_TERMS = 'UPDATE_TERMS';
+export const UPDATE_USER = 'UPDATE_USER';

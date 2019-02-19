@@ -8,6 +8,7 @@ import resumePath from "./reducers/resumePath";
 import sources from "./reducers/sources";
 import submitted from "./reducers/submitted";
 import terms from "./reducers/terms";
+import user from "./reducers/user";
 
 export default combineReducers({
   activeStep,
@@ -18,5 +19,6 @@ export default combineReducers({
   resumePath,
   sources,
   submitted,
-  terms
+  terms,
+  user
 });

@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    moveBackward: (payload) => dispatch({ type: MOVE_BACKWARD, payload }),
+    moveBackward: () => dispatch({ type: MOVE_BACKWARD }),
     toggleSubmitted: () => dispatch({ type: TOGGLE_SUBMITTED })
   }
 }

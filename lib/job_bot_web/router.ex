@@ -30,6 +30,7 @@ defmodule JobBotWeb.Router do
 
     get "/", PageController, :index
     delete "/session", SessionController, :delete
+    resources "/session", SessionController, only: [:create]
     resources "/uploads", UploadController, only: [:create]
   end
 
@@ -38,7 +39,6 @@ defmodule JobBotWeb.Router do
 
     get "/users", UsersController, :show
     resources "/users", UsersController, only: [:create]
-    resources "/session", SessionController, only: [:create]
     resources "/sources", SourceController, only: [:index]
     resources "/job_searches", JobSearchesController, only: [:create]
   end

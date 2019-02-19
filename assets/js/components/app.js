@@ -1,5 +1,6 @@
 import React from "react";
 import ConfirmationPage from "../containers/confirmationPage.js";
+import FinalStep from "../containers/finalStep.js";
 import ListingsList from "../containers/listingsList.js";
 import NameLocationForm from "../containers/nameLocationForm.js";
 import ResumeForm from "../containers/resumeForm.js";
@@ -29,7 +30,7 @@ export default class App extends React.Component {
               <ResumeForm />
             </Step>
             <Step step={5}>
-              <ConfirmationPage />
+              <FinalStep />
             </Step>
           </div>
         </div>

@@ -14,6 +14,24 @@ const getSources = () => {
   return JSON.parse(sources);
 }
 
+const getUser = () => {
+  let user;
+  $.ajax({
+    url: "/data/users",
+    type: "get",
+    dataType: "json",
+    async: false,
+    success: (res) => {
+      if ( res.data.user == null ) {
+        user = {};        
+      } else {
+        user = res.data.user;        
+      }
+    }
+  })
+  return user;
+}
+
 const initialState = {
   activeStep: 1,
   applicantLocation: "",
@@ -23,7 +41,8 @@ const initialState = {
   sources: getSources(),
   terms: "",
   resumePath: "",
-  submitted: false
+  submitted: false,
+  user: getUser()
 }
 
 export const store = createStore(reducer, initialState);
