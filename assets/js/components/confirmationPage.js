@@ -12,6 +12,7 @@ export default class ConfirmationPage extends React.Component {
       map(({ name, crawler, applier, credentials }) => {
         return { name, crawler, applier, credentials }
       });
+    const token = $("#app").data("js-csrf-token")
     const params = {
       sources: sources,
       name: data.name,
@@ -19,7 +20,8 @@ export default class ConfirmationPage extends React.Component {
       terms: data.terms,
       location: data.location,
       resume_path: data.resumePath,
-      user_id: $("#app").data("js-user-id")
+      user_id: data.user.id,
+      _csrf_token: token
     };
     $.post("/data/job_searches", params, () => {
       this.props.toggleSubmitted();

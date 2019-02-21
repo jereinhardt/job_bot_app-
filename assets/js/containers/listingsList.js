@@ -3,7 +3,7 @@ import { ADD_LISTING } from "../actionTypes.js";
 import ListingsList from "../components/listingsList.js";
 
 const mapStateToProps = (state) => {
-  return { listings: state.listings };
+  return { listings: state.listings, user: state.user };
 }
 
 const mapDispatchToProps = (dispatch) => {

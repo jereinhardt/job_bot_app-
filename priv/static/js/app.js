@@ -1453,6 +1453,7 @@ var ConfirmationPage = function (_React$Component) {
 
         return { name: name, crawler: crawler, applier: applier, credentials: credentials };
       });
+      var token = jquery__WEBPACK_IMPORTED_MODULE_1___default()("#app").data("js-csrf-token");
       var params = {
         sources: sources,
         name: data.name,
@@ -1460,7 +1461,8 @@ var ConfirmationPage = function (_React$Component) {
         terms: data.terms,
         location: data.location,
         resume_path: data.resumePath,
-        user_id: jquery__WEBPACK_IMPORTED_MODULE_1___default()("#app").data("js-user-id")
+        user_id: data.user.id,
+        _csrf_token: token
       };
       jquery__WEBPACK_IMPORTED_MODULE_1___default.a.post("/data/job_searches", params, function () {
         _this2.props.toggleSubmitted();
@@ -1723,10 +1725,11 @@ var Listing = function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var phoenix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! phoenix */ "../deps/phoenix/assets/js/phoenix.js");
-/* harmony import */ var _listing_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./listing.js */ "./js/components/listing.js");
+/* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
+/* harmony import */ var _listing_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./listing.js */ "./js/components/listing.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1741,6 +1744,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var ListingsList = function (_React$Component) {
   _inherits(ListingsList, _React$Component);
 
@@ -1749,20 +1753,9 @@ var ListingsList = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ListingsList.__proto__ || Object.getPrototypeOf(ListingsList)).call(this, props));
 
-    var $app = $("#app");
-    var userId = $app.data("js-user-id");
-    var userToken = $app.data("js-user-token");
-
-    var socket = new phoenix__WEBPACK_IMPORTED_MODULE_1__["Socket"]("/socket", { params: { token: userToken } });
-    socket.connect();
-    var channel = socket.channel("users:" + userId, {});
-    channel.join().receive("error", function (resp) {
-      console.error("failed to connect to channel", resp);
-    });
-
-    channel.on("new_listing", function (payload) {
-      _this.props.addListing(payload.listing);
-    });
+    if (_this.props.user.id && _this.props.user.token) {
+      new _userSocket_js__WEBPACK_IMPORTED_MODULE_2__["default"](_this.props.user).listenForListings();
+    }
     return _this;
   }
 
@@ -1770,7 +1763,7 @@ var ListingsList = function (_React$Component) {
     key: "render",
     value: function render() {
       var listingNodes = this.props.listings.map(function (listing) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_js__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({}, listing, {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, listing, {
           key: listing.listing_url + "|" + listing.title
         }));
       });
@@ -1787,7 +1780,6 @@ var ListingsList = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (ListingsList);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -2148,7 +2140,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2156,6 +2149,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2192,6 +2186,7 @@ var SignupForm = function (_React$Component) {
       };
       jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/data/users", params, function (res) {
         _this2.props.updateUser(res.data.user);
+        new _userSocket_js__WEBPACK_IMPORTED_MODULE_2__["default"](res.data.user).listenForListings();
       }).fail(function (res) {
         _this2.setState({ errors: res.responseJSON.data.errors });
       });
@@ -3106,7 +3101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return { listings: state.listings };
+  return { listings: state.listings, user: state.user };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -3920,6 +3915,59 @@ var initialState = {
 };
 
 var store = Object(redux__WEBPACK_IMPORTED_MODULE_1__["createStore"])(_reducer_js__WEBPACK_IMPORTED_MODULE_2__["default"], initialState);
+
+/***/ }),
+
+/***/ "./js/userSocket.js":
+/*!**************************!*\
+  !*** ./js/userSocket.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var phoenix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! phoenix */ "../deps/phoenix/assets/js/phoenix.js");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store.js */ "./js/store.js");
+/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actionTypes.js */ "./js/actionTypes.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+var UserSocket = function () {
+  function UserSocket(user) {
+    _classCallCheck(this, UserSocket);
+
+    var socket = new phoenix__WEBPACK_IMPORTED_MODULE_0__["Socket"]("/socket", { params: { token: user.token } });
+    socket.connect();
+
+    this.user = user;
+    this.socket = socket;
+  }
+
+  _createClass(UserSocket, [{
+    key: "listenForListings",
+    value: function listenForListings() {
+      var channel = this.socket.channel("users:" + this.user.id, {});
+
+      channel.join().receive("error", function (resp) {
+        console.error("failed to connect to channel", resp);
+      });
+
+      channel.on("new_listing", function (payload) {
+        _store_js__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["ADD_LISTING"], payload: payload.listing });
+      });
+    }
+  }]);
+
+  return UserSocket;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (UserSocket);
 
 /***/ }),
 

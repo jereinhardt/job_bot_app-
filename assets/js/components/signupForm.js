@@ -1,5 +1,6 @@
 import $ from "jquery";
 import React from "react";
+import UserSocket from "../userSocket.js";
 import Validator from "../containers/validator.js";
 
 export default class SignupForm extends React.Component {
@@ -24,6 +25,7 @@ export default class SignupForm extends React.Component {
     };
     $.post("/data/users", params, (res) => {
       this.props.updateUser(res.data.user);
+      new UserSocket(res.data.user).listenForListings();
     }).fail((res) => {
       this.setState({errors: res.responseJSON.data.errors});
     })

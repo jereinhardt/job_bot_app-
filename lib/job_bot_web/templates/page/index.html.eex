@@ -1,6 +1,4 @@
 <div
   id="app"
   data-js-csrf-token="<%= @token %>"
-  data-js-user-token="<%= assigns[:user_token] %>"
-  data-js-user-id="<%= assigns[:user_id] %>"
 ></div>
