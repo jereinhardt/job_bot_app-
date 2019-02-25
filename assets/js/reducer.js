@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
 import activeStep from "./reducers/activeStep";
 import applicantLocation from "./reducers/applicantLocation";
 import listings from "./reducers/listings";
@@ -10,13 +11,14 @@ import submitted from "./reducers/submitted";
 import terms from "./reducers/terms";
 import user from "./reducers/user";
 
-export default combineReducers({
+export default (history) => combineReducers({
   activeStep,
   applicantLocation,
   location,
   listings,
   name,
   resumePath,
+  router: connectRouter(history),
   sources,
   submitted,
   terms,

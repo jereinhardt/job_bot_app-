@@ -5,14 +5,19 @@ defmodule JobBotWeb.SessionController do
   def create(conn, %{"session" => %{"email" => email, "password" => password}}) do
     case JobBot.Accounts.authenticate_user(email, password) do
       {:ok, user} ->
+        token = Phoenix.Token.sign(conn, "user socket", user.id)
         conn
         |> JobBot.Accounts.login(user)
-        |> render("create.json", user: user)
+        |> render("create.json", user: user, token: token)
 
       {:error, _reason} ->
         conn
         |> put_status(401)
-        |> render(ErrorView, "401.json", message: "We couldn't find that username and password.")
+        |> render(
+            JobBotWeb.ErrorView,
+            "401.json",
+            message: "We couldn't find that email and password."
+          )
     end
   end
 

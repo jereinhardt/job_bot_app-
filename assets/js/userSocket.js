@@ -1,6 +1,6 @@
 import { Socket } from "phoenix";
-import store from "./store.js";
-import { ADD_LISTING } from "./actionTypes.js";
+import { store } from "./store.js";
+import { ADD_LISTING, UPDATE_LISTINGS } from "./actionTypes.js";
 
 export default class UserSocket {
   constructor(user) {
@@ -9,17 +9,19 @@ export default class UserSocket {
 
     this.user = user;
     this.socket = socket;
+    this.channel = this.socket.channel(`users:${this.user.id}`, {});
+
+    this.channel.join().
+      receive("ok", (res) => {
+        store.dispatch({ type: UPDATE_LISTINGS, payload: res.listings });
+      }).
+      receive("error", (res) => {
+        console.error("failed to connect to channel", res);
+      });
   }
 
   listenForListings() {
-    let channel = this.socket.channel(`users:${this.user.id}`, {});
-  
-    channel.join().
-      receive("error", resp => { 
-        console.error("failed to connect to channel", resp);
-      });
-
-    channel.on("new_listing", payload => {
+    this.channel.on("new_listing", payload => {
       store.dispatch({ type: ADD_LISTING, payload: payload.listing });
     });
   }

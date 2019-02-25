@@ -1,6 +1,8 @@
 import $ from "jquery";
-import { createStore } from "redux";
-import reducer from "./reducer.js";
+import { createBrowserHistory } from "history";
+import { applyMiddleware, compose, createStore } from "redux";
+import { routerMiddleware } from "connected-react-router";
+import createRootReducer from "./reducer.js";
 
 const getSources = () => {
   let sources;
@@ -45,4 +47,11 @@ const initialState = {
   user: getUser()
 }
 
-export const store = createStore(reducer, initialState);
+export const history = createBrowserHistory();
+const middleware = applyMiddleware(routerMiddleware(history));
+
+export const store = createStore(
+  createRootReducer(history),
+  initialState,
+  compose(middleware)
+);
