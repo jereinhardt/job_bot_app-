@@ -2,24 +2,29 @@ defmodule JobBotWeb.SessionControllerTest do
   use JobBotWeb.ConnCase
   use JobBotWeb.AuthCase
 
+  import Mock
+
   describe "create session" do
     test "successful json requests return the user" do
-      user = insert(:user)
-      json_user = %{
-        "id" => user.id,
-        "name" => user.name,
-        "email" => user.email
-      }
-      data = %{"data" => %{"user" => json_user}}
+      with_mock( Phoenix.Token, [sign: fn(_, _, _) -> "token" end]) do
+        user = insert(:user)
+        json_user = %{
+          "id" => user.id,
+          "name" => user.name,
+          "email" => user.email,
+          "token" => "token"
+        }
+        data = %{"data" => %{"user" => json_user}}
 
-      params = 
-        %{"session" => %{"email" => user.email, "password" => "password"}}
-      response = 
-        conn
-        |> post("/session", params)
-        |> json_response(200)
+        params = 
+          %{"session" => %{"email" => user.email, "password" => "password"}}
+        response = 
+          conn
+          |> post("/session", params)
+          |> json_response(200)
 
-      assert response == data
+        assert response == data
+      end
     end
   end
 

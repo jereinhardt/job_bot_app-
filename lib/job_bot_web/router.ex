@@ -44,9 +44,7 @@ defmodule JobBotWeb.Router do
 
   defp put_user_token(conn, _params) do
     case Map.get(conn.assigns, :current_user, nil) do
-      nil -> 
-        IO.puts "NO CURRENT USER"
-        conn
+      nil -> conn
       _ ->
         user_id = conn.assigns[:current_user].id
         token = Phoenix.Token.sign(conn, "user socket", user_id)

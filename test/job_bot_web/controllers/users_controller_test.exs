@@ -2,6 +2,8 @@ defmodule JobBotWeb.UsersControllerTest do
   use JobBotWeb.ConnCase
   use JobBotWeb.AuthCase
 
+  import Mock
+
   describe "create" do
     test "logs in the user and returns user data on success", %{conn: conn} do
       {name, email, password} = {"John Doe", "john@doe.com", "password"}
@@ -41,23 +43,26 @@ defmodule JobBotWeb.UsersControllerTest do
 
   describe "show when user is logged in" do
     test "returns the current user", %{conn: conn} do
-      user = insert(:user)
-      data = %{
-        "data" => %{
-          "user" => %{
-            "id" => user.id,
-            "name" => user.name,
-            "email" => user.email
+      with_mock( Phoenix.Token, [sign: fn(_, _, _) -> "token" end]) do
+        user = insert(:user)
+        data = %{
+          "data" => %{
+            "user" => %{
+              "id" => user.id,
+              "name" => user.name,
+              "email" => user.email,
+              "token" => "token"
+            }
           }
         }
-      }
-      response = 
-        conn
-        |> log_in_user(user)
-        |> get("/data/users")
-        |> json_response(200)
+        response = 
+          conn
+          |> log_in_user(user)
+          |> get("/data/users")
+          |> json_response(200)
 
-      assert response == data
+        assert response == data
+      end
     end
   end
 
