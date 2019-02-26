@@ -140,12 +140,7 @@ defmodule JobBot.Crawler do
       defp user_id, do: JobBot.WorkerRegistry.user_id(self())
 
       defp process_listing({:ok, listing}) do
-        clean_listing = Map.delete(listing, :__meta__)
-        JobBotWeb.Endpoint.broadcast(
-          "users:#{user_id()}",
-          "new_listing",
-          %{"listing" => clean_listing}
-        )
+        JobBot.ListingProcessor.process(listing, user_id())
       end
 
       defp process_listing({:error, message}) do

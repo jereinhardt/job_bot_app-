@@ -18,6 +18,27 @@ defmodule JobBot.UserRegistryTest do
     assert retreived == opts
   end
 
+  test "register/1 gets the data associated with a user" do
+    user_id = 1
+    opts = [autoapply: true, sources: []]
+    JobBot.UserRegistry.register(user_id, opts)
+
+    data = JobBot.UserRegistry.get_user_data(user_id)
+
+    assert data == opts
+  end
+
+  test "register/2 gets the data key associated with a user" do
+    value = :target_value
+    opts = [autoapply: true, sources: [], target_key: value]
+    user_id = 1
+    JobBot.UserRegistry.register(user_id, opts)
+
+    retreived = JobBot.UserRegistry.get_user_data(user_id, :target_key)
+
+    assert retreived == value
+  end
+
   test "unregister/1 removes the user from the registry" do
     user_id = 1
     JobBot.UserRegistry.register(user_id, [])

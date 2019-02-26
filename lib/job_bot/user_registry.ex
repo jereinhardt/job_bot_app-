@@ -15,6 +15,14 @@ defmodule JobBot.UserRegistry do
     Agent.update(__MODULE__, &Map.put(&1, user_id, data))
   end
 
+  def get_user_data(user_id) do
+    Agent.get(__MODULE__, &Map.get(&1, user_id))
+  end
+
+  def get_user_data(user_id, data) do
+    get_user_data(user_id) |> Keyword.get(data)
+  end
+
   def unregister(user_id) do
     resume_path = Agent.get(__MODULE__, &Map.get(&1, user_id))
       |> Keyword.get(:resume_path, nil)

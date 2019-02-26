@@ -1,7 +1,7 @@
 defmodule JobBot.Accounts do
   import Ecto.Query, warn: false
   alias JobBot.Repo
-  alias JobBot.Accounts.User
+  alias JobBot.Accounts.{User, UserListing}
   alias Comeonin.Bcrypt
 
   def get_user!(id) do
@@ -39,6 +39,17 @@ defmodule JobBot.Accounts do
   def logout(conn) do
     conn
     |> JobBot.Accounts.Guardian.Plug.sign_out()
+  end
+
+  def create_user_listing(attrs \\ %{}) do
+    %UserListing{}
+    |> create_user_listing(attrs)
+  end
+
+  def create_user_listing(%UserListing{} = user_listing, attrs) do
+    user_listing
+    |> UserListing.changeset(attrs)
+    |> Repo.insert()
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect email or password"}

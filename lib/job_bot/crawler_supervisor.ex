@@ -24,7 +24,9 @@ defmodule JobBot.CrawlerSupervisor do
     import Supervisor.Spec
 
     user_id = Keyword.get(opts, :user_id)
-    data = Keyword.drop(opts, [:user_id])
+    data = opts
+      |> Keyword.drop([:user_id])
+      |> Keyword.merge(searched_for_at: DateTime.utc_now())
     JobBot.UserRegistry.register(user_id, data)
 
     opts

@@ -26,6 +26,8 @@ defmodule JobBot.CrawlerSupervisorTest do
       DynamicSupervisor, [], [start_child: fn(_mod, _child) -> nil end]
     }, {
       JobBot.UserRegistry, [], [register: fn(_id, _data) -> nil end]
+    }, {
+      DateTime, [], [utc_now: fn() -> time_now() end]
     }]) do
       data = Keyword.drop(opts(), [:user_id])
       ref = JobBot.Crawler.ref(user_id(), Crawler)
@@ -33,7 +35,8 @@ defmodule JobBot.CrawlerSupervisorTest do
         Crawler,
         [worker_opts()],
         restart: :temporary,
-        id: ref
+        id: ref,
+        searched_for_at: time_now()
       )
 
       JobBot.CrawlerSupervisor.start_crawlers(opts())
@@ -46,7 +49,16 @@ defmodule JobBot.CrawlerSupervisorTest do
   defp user_id, do: 1
 
   defp opts do
-    [user_id: user_id(), sources: [source()], name: "name"]
+    [
+      user_id: user_id(),
+      sources: [source()],
+      name: "name",
+      searched_for_at: time_now()
+    ]
+  end
+
+  defp time_now do
+    "placeholder time now"
   end
 
   defp source do
