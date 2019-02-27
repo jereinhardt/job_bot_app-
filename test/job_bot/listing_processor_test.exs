@@ -17,11 +17,15 @@ defmodule JobBot.ListingProcessorTest do
         UserRegistry.register(user.id, [searched_for_at: DateTime.utc_now()])
 
         ListingProcessor.process(listing, user.id)
+        query = from ul in UserListing,
+          order_by: [desc: ul.inserted_at],
+          limit: 1
+        user_listing = Repo.one(query)
 
         assert called Endpoint.broadcast(
           "users:#{user.id}",
           "new_listing",
-          %{"listing" => listing}
+          %{"listing" => user_listing}
         )
       end
     end

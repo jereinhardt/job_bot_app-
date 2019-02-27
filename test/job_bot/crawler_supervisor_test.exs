@@ -25,9 +25,9 @@ defmodule JobBot.CrawlerSupervisorTest do
     with_mocks([{
       DynamicSupervisor, [], [start_child: fn(_mod, _child) -> nil end]
     }, {
-      JobBot.UserRegistry, [], [register: fn(_id, _data) -> nil end]
+      JobBot.UserRegistry, [], [register: fn(id, data) -> nil end]
     }, {
-      DateTime, [], [utc_now: fn() -> time_now() end]
+      NaiveDateTime, [], [utc_now: fn() -> time_now() end]
     }]) do
       data = Keyword.drop(opts(), [:user_id])
       ref = JobBot.Crawler.ref(user_id(), Crawler)
@@ -42,7 +42,7 @@ defmodule JobBot.CrawlerSupervisorTest do
       JobBot.CrawlerSupervisor.start_crawlers(opts())
 
       assert called(DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec))
-      assert called(JobBot.UserRegistry.register(user_id(), data))
+      assert called(JobBot.UserRegistry.register(1, data))
     end
   end
 

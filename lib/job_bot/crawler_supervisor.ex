@@ -23,10 +23,12 @@ defmodule JobBot.CrawlerSupervisor do
   def start_crawlers(opts) do
     import Supervisor.Spec
 
+
     user_id = Keyword.get(opts, :user_id)
+    searched_for_at = NaiveDateTime.utc_now()
     data = opts
       |> Keyword.drop([:user_id])
-      |> Keyword.merge(searched_for_at: DateTime.utc_now())
+      |> Keyword.merge(searched_for_at: searched_for_at)
     JobBot.UserRegistry.register(user_id, data)
 
     opts

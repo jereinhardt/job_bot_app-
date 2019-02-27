@@ -1,5 +1,6 @@
 import $ from "jquery";
 import React from "react";
+import { Link } from "react-router-dom";
 import UserSocket from "../userSocket.js";
 import Validator from "../containers/validator.js";
 
@@ -70,7 +71,7 @@ export default class SignupForm extends React.Component {
         </h4>
 
         <p>
-          Already have an account? <a>Sign in here</a>.
+          Already have an account? <Link to="/login">Sign in here</Link>.
         </p>
 
         <div className="field">

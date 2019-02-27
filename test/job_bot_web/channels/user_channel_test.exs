@@ -1,25 +1,39 @@
 defmodule JobBotWeb.UserChannelTest do
   use JobBotWeb.ChannelCase
 
+  import JobBot.Factory
+
   alias JobBotWeb.UserChannel
 
   setup do
-    user_id = 1
+    user = insert(:user)
     {:ok, _, socket} =
-      socket(nil, %{user_id: user_id})
-      |> subscribe_and_join(UserChannel, "users:#{user_id}")
+      socket(nil, %{user_id: user.id})
+      |> subscribe_and_join(UserChannel, "users:#{user.id}")
 
-    {:ok, socket: socket, user_id: user_id}
+    {:ok, socket: socket, user: user}
   end
 
   test(
-    "join/3 returns associated listings",
-    %{socket: socket, user_id: user_id}
+    "join/3 returns listings from latest search",
+    %{socket: socket, user: user}
   ) do
-    {resp, assigns, _} = UserChannel.join("users:#{user_id}", %{}, socket)
+    new_timestamp = NaiveDateTime.utc_now
+    old_timestamp = new_timestamp |> NaiveDateTime.add(-604800)
+
+    insert(
+      :user_listing,
+      %{searched_for_at: old_timestamp, user: user}
+    )
+    new_user_listing = insert(
+      :user_listing,
+      %{searched_for_at: new_timestamp, user: user}
+    )
+
+    {resp, %{listings: [listing]}, _} = UserChannel.join("users:#{user.id}", %{}, socket)
 
     assert resp == :ok
-    assert assigns == %{listings: []}
+    assert JobBot.Repo.preload(listing, :user) == new_user_listing
   end
 
   test(

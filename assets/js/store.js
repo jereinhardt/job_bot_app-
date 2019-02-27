@@ -4,7 +4,7 @@ import { applyMiddleware, compose, createStore } from "redux";
 import { routerMiddleware } from "connected-react-router";
 import createRootReducer from "./reducer.js";
 
-const getSources = () => {
+const sources = (() => {
   let sources;
   $.ajax({
     url: "/data/sources",
@@ -14,9 +14,9 @@ const getSources = () => {
     success: (data) => sources = data
   });
   return JSON.parse(sources);
-}
+})()
 
-const getUser = () => {
+const user = (() => {
   let user;
   $.ajax({
     url: "/data/users",
@@ -32,6 +32,11 @@ const getUser = () => {
     }
   })
   return user;
+})()
+
+let submitted = false;
+if ( user.id ) {
+  submitted = true;
 }
 
 const initialState = {
@@ -40,11 +45,11 @@ const initialState = {
   listings: [],
   location: "",
   name: "",
-  sources: getSources(),
+  sources: sources,
   terms: "",
   resumePath: "",
-  submitted: false,
-  user: getUser()
+  submitted: submitted,
+  user: user
 }
 
 export const history = createBrowserHistory();

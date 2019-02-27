@@ -4,12 +4,12 @@ defmodule JobBot.ListingProcessor do
 
   def process(listing, user_id) do
     with {:ok, listing} <- Listing.find_or_create(listing),
-      {:ok, _user_listing} <- create_user_listing(listing, user_id)
+      {:ok, user_listing} <- create_user_listing(listing, user_id)
     do
       JobBotWeb.Endpoint.broadcast(
         "users:#{user_id}",
         "new_listing",
-        %{"listing" => listing}
+        %{"listing" => user_listing}
       )      
     end
   end

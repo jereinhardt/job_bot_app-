@@ -5,12 +5,11 @@ defmodule JobBot.Accounts.UserListing do
   alias JobBot.Accounts.User
   alias JobBot.Listing
 
-  @derive {Poison.Encoder, only: [:user, :listing, :searched_for_at]}
   schema "user_listings" do
     field :searched_for_at, :naive_datetime
     field :applied_to_at, :naive_datetime
-    belongs_to :user, JobBot.Accounts.User
-    belongs_to :listing, JobBot.Listing
+    belongs_to :user, User
+    belongs_to :listing, Listing
 
     timestamps()
   end
@@ -20,5 +19,24 @@ defmodule JobBot.Accounts.UserListing do
     |> cast(params, [:searched_for_at, :user_id, :listing_id])
     |> cast_assoc(:user, with: &User.changeset/2)
     |> cast_assoc(:listing, with: &Listing.changeset/2)
+  end
+end
+
+defimpl Poison.Encoder, for: JobBot.Accounts.UserListing do
+  def encode(%{listing: %JobBot.Listing{}} = user_listing, options) do
+    attrs = Map.take(user_listing, [:searched_for_at])
+    user_listing
+    |> Map.get(:listing)
+    |> Map.from_struct()
+    |> Map.delete(:__meta__)
+    |> Map.merge(attrs)
+    |> Poison.Encoder.Map.encode(options)
+  end
+
+  def encode(%{listing: listing} = user_listing, options) when is_map(listing) do
+    attrs = Map.take(user_listing, [:searched_for_at])
+    listing
+    |> Map.merge(attrs)
+    |> Poison.Encoder.Map.encode(options)
   end
 end

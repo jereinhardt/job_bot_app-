@@ -1,11 +1,11 @@
 defmodule JobBotWeb.UserChannel do
   use Phoenix.Channel
+  alias JobBot.Accounts
 
   def join("users:" <> user_id, _params, socket) do
     if authorized?(socket, user_id) do
-      # TODO: get all the listings associated with the user id and return them
-      # with the socket
-      {:ok, %{listings: []}, socket}
+      listings = Accounts.listings_from_latest_search(user_id)
+      {:ok, %{listings: listings}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end

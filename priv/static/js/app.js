@@ -2329,8 +2329,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2338,6 +2339,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2375,7 +2377,7 @@ var SignupForm = function (_React$Component) {
       };
       jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/data/users", params, function (res) {
         _this2.props.updateUser(res.data.user);
-        new _userSocket_js__WEBPACK_IMPORTED_MODULE_2__["default"](res.data.user).listenForListings();
+        new _userSocket_js__WEBPACK_IMPORTED_MODULE_3__["default"](res.data.user).listenForListings();
       }).fail(function (res) {
         _this2.setState({ errors: res.responseJSON.data.errors });
       });
@@ -2436,8 +2438,8 @@ var SignupForm = function (_React$Component) {
           null,
           "Already have an account? ",
           react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
-            "a",
-            null,
+            react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"],
+            { to: "/login" },
             "Sign in here"
           ),
           "."
@@ -4126,7 +4128,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var getSources = function getSources() {
+var sources = function () {
   var sources = void 0;
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
     url: "/data/sources",
@@ -4138,9 +4140,9 @@ var getSources = function getSources() {
     }
   });
   return JSON.parse(sources);
-};
+}();
 
-var getUser = function getUser() {
+var user = function () {
   var user = void 0;
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
     url: "/data/users",
@@ -4156,7 +4158,12 @@ var getUser = function getUser() {
     }
   });
   return user;
-};
+}();
+
+var submitted = false;
+if (user.id) {
+  submitted = true;
+}
 
 var initialState = {
   activeStep: 1,
@@ -4164,11 +4171,11 @@ var initialState = {
   listings: [],
   location: "",
   name: "",
-  sources: getSources(),
+  sources: sources,
   terms: "",
   resumePath: "",
-  submitted: false,
-  user: getUser()
+  submitted: submitted,
+  user: user
 };
 
 var history = Object(history__WEBPACK_IMPORTED_MODULE_1__["createBrowserHistory"])();
@@ -4210,6 +4217,7 @@ var UserSocket = function () {
     this.channel = this.socket.channel("users:" + this.user.id, {});
 
     this.channel.join().receive("ok", function (res) {
+      console.log("joined the channel", res);
       _store_js__WEBPACK_IMPORTED_MODULE_1__["store"].dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["UPDATE_LISTINGS"], payload: res.listings });
     }).receive("error", function (res) {
       console.error("failed to connect to channel", res);

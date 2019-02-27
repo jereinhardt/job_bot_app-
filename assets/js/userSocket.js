@@ -13,6 +13,7 @@ export default class UserSocket {
 
     this.channel.join().
       receive("ok", (res) => {
+        console.log("joined the channel", res)
         store.dispatch({ type: UPDATE_LISTINGS, payload: res.listings });
       }).
       receive("error", (res) => {

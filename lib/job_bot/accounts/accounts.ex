@@ -1,6 +1,6 @@
 defmodule JobBot.Accounts do
   import Ecto.Query, warn: false
-  alias JobBot.Repo
+  alias JobBot.{Listing, Repo}
   alias JobBot.Accounts.{User, UserListing}
   alias Comeonin.Bcrypt
 
@@ -50,6 +50,31 @@ defmodule JobBot.Accounts do
     user_listing
     |> UserListing.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def listings_from_latest_search(%User{id: id}) do
+    listings_from_latest_search(id)
+  end
+
+  def listings_from_latest_search(user_id) do
+    latest_search_query =
+      from ul in UserListing,
+      select: max(ul.searched_for_at),
+      where: ul.user_id == ^user_id
+
+    latest_search_at = Repo.one(latest_search_query)
+
+    if is_nil(latest_search_at) do
+      []
+    else
+      query =
+        from ul in UserListing,
+        where: ul.searched_for_at == ^latest_search_at,
+        where: ul.user_id == ^user_id,
+        preload: [:listing]
+
+      Repo.all(query)
+    end
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect email or password"}

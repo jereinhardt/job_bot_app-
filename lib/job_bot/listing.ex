@@ -4,22 +4,7 @@ defmodule JobBot.Listing do
   import Ecto.Changeset
   alias JobBot.{Repo, Source}
 
-  @derive {
-    Poison.Encoder,
-    only: [
-      :application_url,
-      :city,
-      :company_name,
-      :description,
-      :email,
-      :listing_url,
-      :remote,
-      :salary,
-      :skills,
-      :title,
-      :source
-    ]
-  }
+  @derive {Poison.Encoder, except: [:__meta__]}
   schema "listings" do
     field :application_url, :string
     field :city, :string
@@ -48,6 +33,11 @@ defmodule JobBot.Listing do
     listing
     |> cast(attrs, casted_attrs())
     |> validate_required(required_attrs())
+  end
+
+  def get!(id) do
+    __MODULE__
+    |> Repo.get!(id)
   end
 
   def create(listing, attrs \\ %{}) do
