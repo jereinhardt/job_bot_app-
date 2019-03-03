@@ -11463,6 +11463,58 @@ label.panel-block {
 .file-filename {
   margin-left: 1.25rem; }
 
+/* line 5, css/components/listing.scss */
+.listing {
+  margin-bottom: 1rem; }
+  /* line 8, css/components/listing.scss */
+  .listing:last-child {
+    margin-bottom: 0; }
+  /* line 12, css/components/listing.scss */
+  .listing--title {
+    border-bottom: 1px solid #b5b5b5;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem; }
+  /* line 18, css/components/listing.scss */
+  .listing--job-title {
+    font-size: 1.25rem;
+    margin-right: 1rem; }
+  /* line 23, css/components/listing.scss */
+  .listing--company-name {
+    color: #7a7a7a; }
+  /* line 27, css/components/listing.scss */
+  .listing--description {
+    max-height: 300px;
+    overflow: hidden;
+    position: relative; }
+    /* line 32, css/components/listing.scss */
+    .listing--description.expanded {
+      max-height: none; }
+  /* line 37, css/components/listing.scss */
+  .listing--description-toggle {
+    background: white;
+    border-top: 25px solid white;
+    box-sizing: initial;
+    display: block;
+    height: 25px;
+    position: absolute;
+    top: 250px;
+    width: 100%; }
+    /* line 47, css/components/listing.scss */
+    .listing--description.expanded .listing--description-toggle {
+      border-top: 0;
+      position: static; }
+  /* line 53, css/components/listing.scss */
+  .listing--actions {
+    border-top: 1px solid #b5b5b5;
+    margin-top: 0.75rem;
+    padding-top: 1rem; }
+  /* line 59, css/components/listing.scss */
+  .listing--action {
+    margin-left: 0.75rem; }
+    /* line 62, css/components/listing.scss */
+    .listing--action:first-child {
+      margin-left: 0; }
+
 /* line 2, css/components/step.scss */
 .step__title {
   margin-bottom: 1.25rem; }

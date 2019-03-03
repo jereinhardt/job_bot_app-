@@ -1,6 +1,5 @@
 defmodule JobBotWeb.UsersView do
   use JobBotWeb, :view
-  alias JobBot.Accounts.User
 
   def render("create.json", %{user: user, token: token}) do
     %{data: %{user: json_user(user, token)}}

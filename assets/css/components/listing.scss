@@ -1,0 +1,66 @@
+$listing-description-max-height: 300px;
+$listing-description-toggle-height: 25px;
+$listing-description-toggle-border-height: 25px;
+
+.listing {
+  margin-bottom: $size-6;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &--title {
+    border-bottom: 1px solid $grey-light;
+    margin-bottom: $size-7;
+    padding-bottom: $size-7;
+  }
+
+  &--job-title {
+    font-size: $size-5;
+    margin-right: $size-6;
+  }
+
+  &--company-name {
+    color: $grey;
+  }
+
+  &--description {
+    max-height: $listing-description-max-height;
+    overflow: hidden;
+    position: relative;
+
+    &.expanded {
+      max-height: none;
+    }
+  }
+
+  &--description-toggle {
+    background: $white;
+    border-top: $listing-description-toggle-border-height solid $white;
+    box-sizing: initial;
+    display: block;
+    height: $listing-description-toggle-height;
+    position: absolute;
+    top: $listing-description-max-height - ($listing-description-toggle-height + $listing-description-toggle-border-height);
+    width: 100%;
+
+    .listing--description.expanded & {
+      border-top: 0;
+      position: static;
+    }
+  }
+
+  &--actions {
+    border-top: 1px solid $grey-light;
+    margin-top: $size-7;
+    padding-top: $size-6;
+  }
+
+  &--action {
+    margin-left: $size-7;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

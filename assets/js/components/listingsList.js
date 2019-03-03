@@ -24,9 +24,13 @@ export default class ListingsList extends React.Component {
       });
 
     return(
-      <ul className="listings--list">
-        {listingNodes}
-      </ul>
+      <section className="section">
+        <div className="container">
+          <ul className="listings--list">
+            {listingNodes}
+          </ul>
+        </div>
+      </section>
     );
   }
 }

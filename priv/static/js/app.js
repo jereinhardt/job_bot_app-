@@ -1690,22 +1690,144 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Listing = function (_React$Component) {
   _inherits(Listing, _React$Component);
 
-  function Listing() {
+  function Listing(props) {
     _classCallCheck(this, Listing);
 
-    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).call(this, props));
+
+    _this.state = { expanded: false };
+
+    _this.apply = _this.apply.bind(_this);
+    _this.toggleApplied = _this.toggleApplied.bind(_this);
+    _this.toggleDescription = _this.toggleDescription.bind(_this);
+    return _this;
   }
 
   _createClass(Listing, [{
+    key: "toggleDescription",
+    value: function toggleDescription(event) {
+      event.preventDefault();
+      this.setState({ expanded: !this.state.expanded });
+    }
+  }, {
+    key: "toggleApplied",
+    value: function toggleApplied(event) {
+      event.preventDefault();
+    }
+  }, {
+    key: "apply",
+    value: function apply(event) {
+      if (this.props.applied_to_at) {
+        event.preventDefault();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var descriptionClassName = void 0,
+          descriptionToggleOnClassName = void 0,
+          descriptionToggleOffClassName = void 0;
+      if (this.state.expanded) {
+        descriptionClassName = " expanded";
+        descriptionToggleOnClassName = "hidden";
+        descriptionToggleOffClassName = "";
+      } else {
+        descriptionClassName = "";
+        descriptionToggleOnClassName = "";
+        descriptionToggleOffClassName = "hidden";
+      }
+
+      var applyHref = void 0;
+      if (this.props.application_url) {
+        applyHref = this.props.application_url;
+      } else if (this.props.email) {
+        applyHref = "mailto:" + this.props.email;
+      } else {
+        applyHref = this.props.listing_url;
+      }
+
+      var applyClassName = void 0;
+      if (this.props.applied_to_at) {
+        applyClassName = " button is-success";
+      } else {
+        applyClassName = " button is-link";
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "li",
-        { className: "listing" },
+        { className: "listing card" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
-          { className: "listing--title" },
-          this.props.title
+          { className: "card-content" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "listing--title" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "span",
+              { className: "listing--job-title has-text-weight-semibold" },
+              this.props.title
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "span",
+              { className: "listing--company-name" },
+              this.props.company_name
+            )
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "p",
+            {
+              className: "listing--description" + descriptionClassName },
+            this.props.description,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "a",
+              {
+                className: "listing--description-toggle has-text-centered",
+                onClick: this.toggleDescription
+              },
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "span",
+                { className: descriptionToggleOnClassName },
+                "Show More"
+              ),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "span",
+                { className: descriptionToggleOffClassName },
+                "See Less"
+              )
+            )
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "listing--actions has-text-right" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "a",
+              {
+                className: "listing--action button",
+                target: "_blank",
+                href: this.props.listing_url
+              },
+              "View Listing"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "a",
+              {
+                className: "listing--action button",
+                href: "#",
+                onClick: this.toggleApplied
+              },
+              this.props.applied_to_at ? "Unmark as Applied" : "Mark as Applied"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "a",
+              {
+                className: "listing--action" + applyClassName,
+                target: "_blank",
+                href: applyHref,
+                onClick: this.apply
+              },
+              this.props.applied_to_at ? "Applied!" : "Apply"
+            )
+          )
         )
       );
     }
@@ -1771,9 +1893,17 @@ var ListingsList = function (_React$Component) {
       });
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "ul",
-        { className: "listings--list" },
-        listingNodes
+        "section",
+        { className: "section" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "container" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "ul",
+            { className: "listings--list" },
+            listingNodes
+          )
+        )
       );
     }
   }]);
