@@ -18,11 +18,19 @@ export default class Listing extends React.Component {
 
   toggleApplied(event) {
     event.preventDefault();
-    // TODOS:
-    // - create reducer and add reducer to props in container for updating a
-    //     single listing
-    // - Send an ajax request to the controller to mark listing as applied
-    // - In callback of ajax request, dispatch the action to update listing
+    const token = $("#app").data("js-csrf-token");
+    const params = {
+      user_listing: {toggle_applied_to_at: true},
+      _csrf_token: token
+    };
+    $.ajax({
+      url: `/data/user_listings/${this.props.id}`,
+      data: params,
+      type: "PATCH",
+      dataType: "json",
+      async: false,
+      success: (res) => this.props.updateListing(res.data.user_listing)
+    });
   }
 
   apply(event) {

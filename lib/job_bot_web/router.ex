@@ -38,6 +38,7 @@ defmodule JobBotWeb.Router do
 
     get "/users", UsersController, :show
     resources "/users", UsersController, only: [:create]
+    resources "/user_listings", UserListingsController, only: [:update]
     resources "/sources", SourceController, only: [:index]
     resources "/job_searches", JobSearchesController, only: [:create]
   end

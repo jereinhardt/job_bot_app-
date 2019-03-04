@@ -16,7 +16,7 @@ defmodule JobBot.Accounts.UserListing do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:searched_for_at, :user_id, :listing_id])
+    |> cast(params, [:applied_to_at, :searched_for_at, :user_id, :listing_id])
     |> cast_assoc(:user, with: &User.changeset/2)
     |> cast_assoc(:listing, with: &Listing.changeset/2)
   end
@@ -40,5 +40,5 @@ defimpl Poison.Encoder, for: JobBot.Accounts.UserListing do
     |> Poison.Encoder.Map.encode(options)
   end
 
-  def encoded_properties, do: [:searched_for_at, :applied_to_at]
+  def encoded_properties, do: [:id, :listing_id, :searched_for_at, :applied_to_at]
 end

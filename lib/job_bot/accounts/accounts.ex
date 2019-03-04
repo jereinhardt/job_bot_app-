@@ -41,6 +41,19 @@ defmodule JobBot.Accounts do
     |> JobBot.Accounts.Guardian.Plug.sign_out()
   end
 
+  def get_user_listing!(%User{id: id}, user_listing_id) do
+    get_user_listing!(id, user_listing_id)
+  end
+  
+  def get_user_listing!(user_id, user_listing_id) do
+    query =
+      from ul in UserListing,
+      where: ul.user_id == ^user_id,
+      where: ul.id == ^user_listing_id
+
+    Repo.one!(query)
+  end
+
   def create_user_listing(attrs \\ %{}) do
     %UserListing{}
     |> create_user_listing(attrs)
@@ -50,6 +63,12 @@ defmodule JobBot.Accounts do
     user_listing
     |> UserListing.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def update_user_listing(%UserListing{} = user_listing, attrs) do
+    user_listing
+    |> UserListing.changeset(attrs)
+    |> Repo.update()
   end
 
   def listings_from_latest_search(%User{id: id}) do

@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import UserSocket from "../userSocket.js"
-import Listing from "./listing.js";
+import Listing from "../containers/listing.js";
 
 export default class ListingsList extends React.Component {
   constructor(props) {

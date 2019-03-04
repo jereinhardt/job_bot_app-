@@ -1267,7 +1267,7 @@ class Timer {
 /*!***************************!*\
   !*** ./js/actionTypes.js ***!
   \***************************/
-/*! exports provided: ADD_LISTING, MOVE_BACKWARD, MOVE_FORWARD, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_LISTINGS, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS, UPDATE_USER */
+/*! exports provided: ADD_LISTING, MOVE_BACKWARD, MOVE_FORWARD, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_LISTING, UPDATE_LISTINGS, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS, UPDATE_USER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1278,6 +1278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOGGLE_SOURCE", function() { return TOGGLE_SOURCE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOGGLE_SUBMITTED", function() { return TOGGLE_SUBMITTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_APPLICANT_LOCATION", function() { return UPDATE_APPLICANT_LOCATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_LISTING", function() { return UPDATE_LISTING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_LISTINGS", function() { return UPDATE_LISTINGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_LOCATION", function() { return UPDATE_LOCATION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_NAME", function() { return UPDATE_NAME; });
@@ -1291,6 +1292,7 @@ var MOVE_FORWARD = 'MOVE_FORWARD';
 var TOGGLE_SOURCE = 'TOGGLE_SOURCE';
 var TOGGLE_SUBMITTED = 'TOGGLE_SUBMITTED';
 var UPDATE_APPLICANT_LOCATION = 'UPDATE_APPLICANT_LOCATION';
+var UPDATE_LISTING = 'UPDATE_LISTING';
 var UPDATE_LISTINGS = 'UPDATE_LISTINGS';
 var UPDATE_LOCATION = 'UPDATE_LOCATION';
 var UPDATE_NAME = 'UPDATE_NAME';
@@ -1675,7 +1677,7 @@ var FinalStep = function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1712,7 +1714,29 @@ var Listing = function (_React$Component) {
   }, {
     key: "toggleApplied",
     value: function toggleApplied(event) {
+      var _this2 = this;
+
       event.preventDefault();
+      var token = $("#app").data("js-csrf-token");
+      var params = {
+        user_listing: { toggle_applied_to_at: true },
+        _csrf_token: token
+      };
+      $.ajax({
+        url: "/data/user_listings/" + this.props.id,
+        data: params,
+        type: "PATCH",
+        dataType: "json",
+        async: false,
+        success: function success(res) {
+          console.log(res.data.user_listing);_this2.props.updateListing(res.data.user_listing);
+        }
+      });
+      // TODOS:
+      // - create reducer and add reducer to props in container for updating a
+      //     single listing
+      // - Send an ajax request to the controller to mark listing as applied
+      // - In callback of ajax request, dispatch the action to update listing
     }
   }, {
     key: "apply",
@@ -1837,6 +1861,7 @@ var Listing = function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Listing);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -1853,7 +1878,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var phoenix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! phoenix */ "../deps/phoenix/assets/js/phoenix.js");
 /* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
-/* harmony import */ var _listing_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./listing.js */ "./js/components/listing.js");
+/* harmony import */ var _containers_listing_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/listing.js */ "./js/containers/listing.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1887,7 +1912,7 @@ var ListingsList = function (_React$Component) {
     key: "render",
     value: function render() {
       var listingNodes = this.props.listings.map(function (listing) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, listing, {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_listing_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, listing, {
           key: listing.listing_url + "|" + listing.title
         }));
       });
@@ -3405,6 +3430,38 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./js/containers/listing.js":
+/*!**********************************!*\
+  !*** ./js/containers/listing.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actionTypes.js */ "./js/actionTypes.js");
+/* harmony import */ var _components_listing_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/listing.js */ "./js/components/listing.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, props) {
+  return props;
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    updateListing: function updateListing(payload) {
+      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["UPDATE_LISTING"], payload: payload });
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_listing_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
 /***/ "./js/containers/listingsList.js":
 /*!***************************************!*\
   !*** ./js/containers/listingsList.js ***!
@@ -4032,6 +4089,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       return [].concat(_toConsumableArray(state), [action.payload]);
     case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["UPDATE_LISTINGS"]:
       return action.payload;
+    case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["UPDATE_LISTING"]:
+      var listing = state.find(function (l) {
+        return l.id == action.payload.id;
+      });
+      var i = state.indexOf(listing);
+      var newState = Object.assign([], state);
+      newState[i] = action.payload;
+      return newState;
     default:
       return state;
   }
