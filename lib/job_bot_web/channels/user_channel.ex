@@ -11,8 +11,8 @@ defmodule JobBotWeb.UserChannel do
     end
   end
 
-  def handle_in("new_listing", %{"listing" => listing}, socket) do
-    broadcast! socket, "new_listing", %{"listing" => listing}
+  def handle_in("new_listing", %{"listing" => user_listing}, socket) do
+    broadcast! socket, "new_listing", %{"listing" => user_listing}
     {:noreply, socket}
   end
 

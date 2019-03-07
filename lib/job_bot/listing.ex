@@ -62,7 +62,7 @@ defmodule JobBot.Listing do
       from l in __MODULE__,
       where: l.listing_url == ^listing_url
 
-    Repo.one(query)    
+    Repo.one(query)
   end
 
   defp casted_attrs do

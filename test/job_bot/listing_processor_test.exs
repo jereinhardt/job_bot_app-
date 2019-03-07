@@ -19,6 +19,7 @@ defmodule JobBot.ListingProcessorTest do
         ListingProcessor.process(listing, user.id)
         query = from ul in UserListing,
           order_by: [desc: ul.inserted_at],
+          preload: [:listing],
           limit: 1
         user_listing = Repo.one(query)
 

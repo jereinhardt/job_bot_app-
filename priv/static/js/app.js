@@ -4419,6 +4419,7 @@ var UserSocket = function () {
     key: "listenForListings",
     value: function listenForListings() {
       this.channel.on("new_listing", function (payload) {
+        console.log("received a new listing", payload);
         _store_js__WEBPACK_IMPORTED_MODULE_1__["store"].dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["ADD_LISTING"], payload: payload.listing });
       });
     }

@@ -24,7 +24,7 @@ end
 
 defimpl Poison.Encoder, for: JobBot.Accounts.UserListing do
   def encode(%{listing: %JobBot.Listing{}} = user_listing, options) do
-    attrs = Map.take(user_listing, encoded_properties)
+    attrs = Map.take(user_listing, encoded_properties())
     user_listing
     |> Map.get(:listing)
     |> Map.from_struct()
@@ -34,7 +34,7 @@ defimpl Poison.Encoder, for: JobBot.Accounts.UserListing do
   end
 
   def encode(%{listing: listing} = user_listing, options) when is_map(listing) do
-    attrs = Map.take(user_listing, encoded_properties)
+    attrs = Map.take(user_listing, encoded_properties())
     listing
     |> Map.merge(attrs)
     |> Poison.Encoder.Map.encode(options)
