@@ -5,7 +5,7 @@ defmodule JobBotWeb.SessionControllerTest do
   import Mock
 
   describe "create session" do
-    test "successful json requests return the user" do
+    test "successful json requests return the user", %{conn: conn} do
       with_mock( Phoenix.Token, [sign: fn(_, _, _) -> "token" end]) do
         user = insert(:user)
         json_user = %{

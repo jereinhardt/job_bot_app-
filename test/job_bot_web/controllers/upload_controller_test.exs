@@ -10,7 +10,7 @@ defmodule JobBotWeb.UploadControllerTest do
         |> post("uploads", %{"file" => %Plug.Upload{}})
         |> json_response(200)
 
-      assert response = %{path: "uploads/tmp/resumes/rand/path/to_file.pdf"}
+      assert response == %{path: "uploads/tmp/resumes/rand/path/to_file.pdf"}
     end
   end
 end

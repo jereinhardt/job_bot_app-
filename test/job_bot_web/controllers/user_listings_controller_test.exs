@@ -3,7 +3,7 @@ defmodule JobBotWeb.UserListingsControllerTest do
   use JobBotWeb.AuthCase
 
   describe "update/2" do
-    test "updates the user listing" do
+    test "updates the user listing", %{conn: conn} do
       applied_to_at = NaiveDateTime.utc_now()
       user = insert(:user)
       user_listing = insert(:user_listing, user: user)

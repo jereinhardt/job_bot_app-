@@ -5,7 +5,7 @@ defmodule JobBot.ListingProcessorTest do
   import Ecto.Query, warn: false
   import Mock
 
-  alias JobBot.{Listing, ListingProcessor, Repo, UserRegistry}
+  alias JobBot.{ListingProcessor, Repo, UserRegistry}
   alias JobBot.Accounts.UserListing
   alias JobBotWeb.Endpoint
 

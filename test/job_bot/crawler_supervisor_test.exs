@@ -25,7 +25,7 @@ defmodule JobBot.CrawlerSupervisorTest do
     with_mocks([{
       DynamicSupervisor, [], [start_child: fn(_mod, _child) -> nil end]
     }, {
-      JobBot.UserRegistry, [], [register: fn(id, data) -> nil end]
+      JobBot.UserRegistry, [], [register: fn(_id, _data) -> nil end]
     }, {
       NaiveDateTime, [], [utc_now: fn() -> time_now() end]
     }]) do
