@@ -81,9 +81,10 @@ export default class Listing extends React.Component {
             </span>
           </div>
 
-          <p 
-            className={`listing--description${ descriptionClassName }`}>
-            {this.props.description}
+          <div 
+            className={`listing--description${ descriptionClassName }`}
+          >
+            <p dangerouslySetInnerHTML={{ __html: this.props.description }}></p>
             <a 
               className="listing--description-toggle has-text-centered"
               onClick={this.toggleDescription}
@@ -95,7 +96,7 @@ export default class Listing extends React.Component {
                 See Less
               </span>
             </a>
-          </p>
+          </div>
           <div className="listing--actions has-text-right">
             <a 
               className="listing--action button"

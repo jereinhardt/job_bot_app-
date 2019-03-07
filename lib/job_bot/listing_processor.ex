@@ -2,6 +2,16 @@ defmodule JobBot.ListingProcessor do
   alias JobBot.{Accounts, Listing, Repo, UserRegistry}
   alias JobBot.Accounts.UserListing
 
+  def process(%Listing{id: id} = listing, user_id) when is_integer(id) do
+    with {:ok, user_listing} <- create_user_listing(listing, user_id) do
+      JobBotWeb.Endpoint.broadcast(
+        "users:#{user_id}",
+        "new_listing",
+        %{"listing" => user_listing}
+      )
+    end      
+  end
+
   def process(listing, user_id) do
     with {:ok, listing} <- Listing.find_or_create(listing),
       {:ok, user_listing} <- create_user_listing(listing, user_id)

@@ -2,6 +2,8 @@ defmodule JobBot.Crawler do
   @callback get_job_urls(list) :: list
   @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t} # {:ok, Listing.t}
 
+  alias JobBot.Listing
+
   @doc """
     returns the formatted tuple to register the the process as a Genserver
     with a unique id associated with the current user.
@@ -92,12 +94,16 @@ defmodule JobBot.Crawler do
       end
 
       @doc """
-        Crawls the next url listed in the process's current state.  Once the
-        listing information is returned, it sends the listing to the Processor,
-        then schedules the next crawl job.
+        Process the next url listed in the process's current state.  First
+        checks to see if a listing with the same listing_url exists.  If so, it 
+        processes that listing.  If not, then it crawls the url to build a new 
+        listing.  Once the listing information is returned, it sends the listing
+        to the Processor, then schedules the next crawl job.
       """
       def handle_info(:crawl_next, [url|state]) do
-        crawl_url_for_listing(url) |> process_listing()
+        url
+        |> crawl_url_for_listing_if_none_exists()
+        |> process_listing()
         schedule_next_crawl()
         
         {:noreply, state}
@@ -133,6 +139,13 @@ defmodule JobBot.Crawler do
       """
       def terminate(_reason, _state) do
         JobBot.WorkerRegistry.unregister(self())
+      end
+
+      defp crawl_url_for_listing_if_none_exists(url) do
+        case Listing.find_existing_listing(url) do
+          %Listing{} = listing -> {:ok, listing}
+          nil -> crawl_url_for_listing(url)
+        end
       end
 
       defp ref(user_id), do: ref(user_id, __MODULE__)

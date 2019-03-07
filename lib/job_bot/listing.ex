@@ -53,13 +53,16 @@ defmodule JobBot.Listing do
     end
   end
 
-  defp find_existing_listing(%__MODULE__{listing_url: listing_url, company_name: company_name}) do
+  def find_existing_listing(%__MODULE__{listing_url: listing_url}) do
+    find_existing_listing(listing_url)
+  end
+
+  def find_existing_listing(listing_url) do
     query =
       from l in __MODULE__,
-      where: l.listing_url == ^listing_url,
-      where: l.company_name == ^company_name
+      where: l.listing_url == ^listing_url
 
-    Repo.one(query)
+    Repo.one(query)    
   end
 
   defp casted_attrs do

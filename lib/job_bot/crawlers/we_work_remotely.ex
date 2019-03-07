@@ -74,24 +74,28 @@ defmodule JobBot.Crawler.WeWorkRemotely do
   end
 
   defp extract_email(parsed) do
-    text = 
-      parsed
-      |> Floki.find(".apply p")
-      |> Floki.text()
-    if String.match?(text, ~r/(\w+)@([\w.]+)/) do
-      i = 
+    if email = get_email_from_mailto_link(parsed) do
+      email
+    else
+      text = 
+        parsed
+        |> Floki.find(".apply p")
+        |> Floki.text()
+      if String.match?(text, ~r/(\w+)@([\w.]+)/) do
+        i =
+          text
+          |> String.split(~r/(\w+)@([\w.]+)/)
+          |> Enum.at(0)
+          |> String.length
         text
-        |> String.split(~r/(\w+)@([\w.]+)/)
-        |> Enum.at(0)
-        |> String.length
-      text
         |> String.split_at(i)
         |> Tuple.to_list()
         |> Enum.at(1)
         |> String.split(" ")
         |> Enum.at(0)
-    else
-      nil
+      else
+        nil
+      end
     end
   end
 
@@ -102,9 +106,17 @@ defmodule JobBot.Crawler.WeWorkRemotely do
   end
 
   defp extract_application_url(parsed) do
-    parsed
-      |> Floki.find(".apply")
-      |> Floki.attribute("a", "href")
+    unless get_email_from_mailto_link(parsed) do
+      Floki.attribute(parsed, "#post-job-cta", "href")
       |> Enum.at(0)
+    end
+  end
+
+  defp get_email_from_mailto_link(parsed) do
+    with [href] <- Floki.attribute(parsed, "#post-job-cta", "href"),
+      [_, email] <- Regex.run(~r/^mailto\:(.*)/, href)
+    do
+      email
+    end
   end
 end

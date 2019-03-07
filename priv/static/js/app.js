@@ -1729,14 +1729,9 @@ var Listing = function (_React$Component) {
         dataType: "json",
         async: false,
         success: function success(res) {
-          console.log(res.data.user_listing);_this2.props.updateListing(res.data.user_listing);
+          return _this2.props.updateListing(res.data.user_listing);
         }
       });
-      // TODOS:
-      // - create reducer and add reducer to props in container for updating a
-      //     single listing
-      // - Send an ajax request to the controller to mark listing as applied
-      // - In callback of ajax request, dispatch the action to update listing
     }
   }, {
     key: "apply",
@@ -1798,10 +1793,11 @@ var Listing = function (_React$Component) {
             )
           ),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "p",
+            "div",
             {
-              className: "listing--description" + descriptionClassName },
-            this.props.description,
+              className: "listing--description" + descriptionClassName
+            },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", { dangerouslySetInnerHTML: { __html: this.props.description } }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               "a",
               {
