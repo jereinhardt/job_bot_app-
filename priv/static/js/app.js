@@ -1267,7 +1267,7 @@ class Timer {
 /*!***************************!*\
   !*** ./js/actionTypes.js ***!
   \***************************/
-/*! exports provided: ADD_LISTING, CLEAR_LISTINGS, MOVE_BACKWARD, MOVE_FORWARD, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_LISTING, UPDATE_LISTINGS, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS, UPDATE_USER */
+/*! exports provided: ADD_LISTING, CLEAR_LISTINGS, MOVE_BACKWARD, MOVE_FORWARD, RESET_STEPS, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_LISTING, UPDATE_LISTINGS, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS, UPDATE_USER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1276,6 +1276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_LISTINGS", function() { return CLEAR_LISTINGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOVE_BACKWARD", function() { return MOVE_BACKWARD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOVE_FORWARD", function() { return MOVE_FORWARD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET_STEPS", function() { return RESET_STEPS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOGGLE_SOURCE", function() { return TOGGLE_SOURCE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOGGLE_SUBMITTED", function() { return TOGGLE_SUBMITTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_APPLICANT_LOCATION", function() { return UPDATE_APPLICANT_LOCATION; });
@@ -1291,6 +1292,7 @@ var ADD_LISTING = 'ADD_LISTING';
 var CLEAR_LISTINGS = 'CLEAR_LISTINGS';
 var MOVE_BACKWARD = 'MOVE_BACKWARD';
 var MOVE_FORWARD = 'MOVE_FORWARD';
+var RESET_STEPS = 'RESET_STEPS';
 var TOGGLE_SOURCE = 'TOGGLE_SOURCE';
 var TOGGLE_SUBMITTED = 'TOGGLE_SUBMITTED';
 var UPDATE_APPLICANT_LOCATION = 'UPDATE_APPLICANT_LOCATION';
@@ -3588,6 +3590,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createNewSearch: function createNewSearch() {
+      dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["RESET_STEPS"] });
       dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["TOGGLE_SUBMITTED"] });
       dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["CLEAR_LISTINGS"] });
     }
@@ -3814,6 +3817,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createNewSearch: function createNewSearch() {
+      dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["RESET_STEPS"] });
       dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["TOGGLE_SUBMITTED"] });
       dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["CLEAR_LISTINGS"] });
     }
@@ -4268,6 +4272,8 @@ __webpack_require__.r(__webpack_exports__);
       return state - i;
     case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["MOVE_FORWARD"]:
       return state + i;
+    case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["RESET_STEPS"]:
+      return 1;
     default:
       return state;
   }
