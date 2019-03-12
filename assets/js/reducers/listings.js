@@ -1,5 +1,6 @@
 import {
   ADD_LISTING,
+  CLEAR_LISTINGS,
   UPDATE_LISTING,
   UPDATE_LISTINGS
 } from "../actionTypes.js";
@@ -8,6 +9,8 @@ export default (state = [], action) => {
   switch (action.type) {
     case ADD_LISTING:
       return [ ...state, action.payload ];
+    case CLEAR_LISTINGS:
+      return [];
     case UPDATE_LISTINGS:
       return action.payload;
     case UPDATE_LISTING:

@@ -1267,12 +1267,13 @@ class Timer {
 /*!***************************!*\
   !*** ./js/actionTypes.js ***!
   \***************************/
-/*! exports provided: ADD_LISTING, MOVE_BACKWARD, MOVE_FORWARD, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_LISTING, UPDATE_LISTINGS, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS, UPDATE_USER */
+/*! exports provided: ADD_LISTING, CLEAR_LISTINGS, MOVE_BACKWARD, MOVE_FORWARD, TOGGLE_SOURCE, TOGGLE_SUBMITTED, UPDATE_APPLICANT_LOCATION, UPDATE_LISTING, UPDATE_LISTINGS, UPDATE_LOCATION, UPDATE_NAME, UPDATE_RESUME_PATH, UPDATE_SOURCE, UPDATE_TERMS, UPDATE_USER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_LISTING", function() { return ADD_LISTING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_LISTINGS", function() { return CLEAR_LISTINGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOVE_BACKWARD", function() { return MOVE_BACKWARD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOVE_FORWARD", function() { return MOVE_FORWARD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOGGLE_SOURCE", function() { return TOGGLE_SOURCE; });
@@ -1287,6 +1288,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_TERMS", function() { return UPDATE_TERMS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_USER", function() { return UPDATE_USER; });
 var ADD_LISTING = 'ADD_LISTING';
+var CLEAR_LISTINGS = 'CLEAR_LISTINGS';
 var MOVE_BACKWARD = 'MOVE_BACKWARD';
 var MOVE_FORWARD = 'MOVE_FORWARD';
 var TOGGLE_SOURCE = 'TOGGLE_SOURCE';
@@ -1429,13 +1431,22 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BlankSlate = function (_React$Component) {
   _inherits(BlankSlate, _React$Component);
 
-  function BlankSlate() {
+  function BlankSlate(props) {
     _classCallCheck(this, BlankSlate);
 
-    return _possibleConstructorReturn(this, (BlankSlate.__proto__ || Object.getPrototypeOf(BlankSlate)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (BlankSlate.__proto__ || Object.getPrototypeOf(BlankSlate)).call(this, props));
+
+    _this.createNewSearch = _this.createNewSearch.bind(_this);
+    return _this;
   }
 
   _createClass(BlankSlate, [{
+    key: "createNewSearch",
+    value: function createNewSearch(event) {
+      event.preventDefault();
+      this.props.createNewSearch();
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -1455,11 +1466,14 @@ var BlankSlate = function (_React$Component) {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               "p",
               null,
-              "Looks like I don't have any job listings for you yet.  Try checking in later, or ",
+              "Looks like I don't have any job listings for you yet. Try checking in later, or",
               react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 "a",
-                { href: "#" },
-                "create a new search"
+                {
+                  href: "#",
+                  onClick: this.createNewSearch
+                },
+                " create a new search"
               ),
               "."
             )
@@ -1946,7 +1960,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var phoenix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! phoenix */ "../deps/phoenix/assets/js/phoenix.js");
-/* harmony import */ var _blankSlate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blankSlate.js */ "./js/components/blankSlate.js");
+/* harmony import */ var _containers_blankSlate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/blankSlate.js */ "./js/containers/blankSlate.js");
 /* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
 /* harmony import */ var _containers_listing_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/listing.js */ "./js/containers/listing.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1983,7 +1997,7 @@ var ListingsList = function (_React$Component) {
     key: "render",
     value: function render() {
       if (this.props.listings.length < 1) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blankSlate_js__WEBPACK_IMPORTED_MODULE_2__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_blankSlate_js__WEBPACK_IMPORTED_MODULE_2__["default"], null);
       } else {
         var listingNodes = this.props.listings.map(function (listing) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_listing_js__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({}, listing, {
@@ -2455,6 +2469,7 @@ var Nav = function (_React$Component) {
 
     _this.state = { expanded: false };
     _this.toggleExpanded = _this.toggleExpanded.bind(_this);
+    _this.createNewSearch = _this.createNewSearch.bind(_this);
     return _this;
   }
 
@@ -2463,6 +2478,12 @@ var Nav = function (_React$Component) {
     value: function toggleExpanded(event) {
       event.preventDefault();
       this.setState({ expanded: !this.state.expanded });
+    }
+  }, {
+    key: "createNewSearch",
+    value: function createNewSearch(event) {
+      event.preventDefault();
+      this.props.createNewSearch();
     }
   }, {
     key: "_menuItems",
@@ -2476,7 +2497,11 @@ var Nav = function (_React$Component) {
             { className: "navbar-item" },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               "a",
-              { href: "#", className: "button is-primary" },
+              {
+                href: "#",
+                className: "button is-primary",
+                onClick: this.createNewSearch
+              },
               "Create New Search"
             )
           ),
@@ -3723,6 +3748,39 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./js/containers/blankSlate.js":
+/*!*************************************!*\
+  !*** ./js/containers/blankSlate.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actionTypes.js */ "./js/actionTypes.js");
+/* harmony import */ var _components_blankSlate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/blankSlate.js */ "./js/components/blankSlate.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createNewSearch: function createNewSearch() {
+      dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["TOGGLE_SUBMITTED"] });
+      dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["CLEAR_LISTINGS"] });
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_blankSlate_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
 /***/ "./js/containers/confirmationPage.js":
 /*!*******************************************!*\
   !*** ./js/containers/confirmationPage.js ***!
@@ -3926,7 +3984,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _components_nav_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/nav.js */ "./js/components/nav.js");
+/* harmony import */ var _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actionTypes.js */ "./js/actionTypes.js");
+/* harmony import */ var _components_nav_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/nav.js */ "./js/components/nav.js");
+
 
 
 
@@ -3935,10 +3995,15 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    createNewSearch: function createNewSearch() {
+      dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["TOGGLE_SUBMITTED"] });
+      dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["CLEAR_LISTINGS"] });
+    }
+  };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_nav_js__WEBPACK_IMPORTED_MODULE_1__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_nav_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -4478,6 +4543,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   switch (action.type) {
     case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["ADD_LISTING"]:
       return [].concat(_toConsumableArray(state), [action.payload]);
+    case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["CLEAR_LISTINGS"]:
+      return [];
     case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["UPDATE_LISTINGS"]:
       return action.payload;
     case _actionTypes_js__WEBPACK_IMPORTED_MODULE_0__["UPDATE_LISTING"]:

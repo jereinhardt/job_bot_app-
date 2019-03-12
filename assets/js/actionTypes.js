@@ -1,4 +1,5 @@
 export const ADD_LISTING = 'ADD_LISTING';
+export const CLEAR_LISTINGS = 'CLEAR_LISTINGS';
 export const MOVE_BACKWARD = 'MOVE_BACKWARD';
 export const MOVE_FORWARD = 'MOVE_FORWARD';
 export const TOGGLE_SOURCE = 'TOGGLE_SOURCE';

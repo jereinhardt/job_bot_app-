@@ -1,6 +1,6 @@
 import React from "react";
 import { Socket } from "phoenix";
-import BlankSlate from "./blankSlate.js";
+import BlankSlate from "../containers/blankSlate.js";
 import UserSocket from "../userSocket.js"
 import Listing from "../containers/listing.js";
 

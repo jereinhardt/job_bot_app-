@@ -7,6 +7,7 @@ export default class Nav extends React.Component {
 
     this.state = { expanded: false };
     this.toggleExpanded = this.toggleExpanded.bind(this)
+    this.createNewSearch = this.createNewSearch.bind(this)
   }
 
   toggleExpanded(event) {
@@ -14,12 +15,23 @@ export default class Nav extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   }
 
+  createNewSearch(event) {
+    event.preventDefault();
+    this.props.createNewSearch();
+  }
+
   _menuItems() {
     if ( this.props.user.id ) {
       return(
         <div className="navbar-end">
           <div className="navbar-item">
-            <a href="#" className="button is-primary">Create New Search</a>
+            <a
+              href="#"
+              className="button is-primary"
+              onClick={this.createNewSearch}
+            >
+              Create New Search
+            </a>
           </div>
           <div className="navbar-item">
             <a href="/logout" className="button is-light">Logout</a>

@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { TOGGLE_SUBMITTED, CLEAR_LISTINGS } from "../actionTypes.js";
-import Nav from "../components/nav.js";
+import BlankSlate from "../components/blankSlate.js";
 
 const mapStateToProps = (state) => {
-  return { user: state.user };
+  return {};
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav)
+export default connect(mapStateToProps, mapDispatchToProps)(BlankSlate)
