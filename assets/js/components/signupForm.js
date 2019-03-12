@@ -10,6 +10,8 @@ export default class SignupForm extends React.Component {
 
     const name = this.props.user.name ? this.props.user.name : this.props.name;
     this.state = { name: name, email: "", password: "", errors: {} };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
@@ -27,6 +29,9 @@ export default class SignupForm extends React.Component {
     $.post("/data/users", params, (res) => {
       this.props.updateUser(res.data.user);
       new UserSocket(res.data.user).listenForListings();
+      if ( this.props.submitCallback ) {
+        this.props.submitCallback()
+      }
     }).fail((res) => {
       this.setState({errors: res.responseJSON.data.errors});
     })
@@ -62,7 +67,7 @@ export default class SignupForm extends React.Component {
     };
 
     return(
-      <form onSubmit={(e) => this.handleSubmit(e)}>
+      <form onSubmit={this.handleSubmit}>
         <h2 className="step__title">
           Sign Up For JobBot
         </h2>

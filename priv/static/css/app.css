@@ -11463,6 +11463,10 @@ label.panel-block {
 .file-filename {
   margin-left: 1.25rem; }
 
+/* line 54, stdin */
+.modal {
+  margin-top: 52px; }
+
 /* line 5, css/components/listing.scss */
 .listing {
   margin-bottom: 1rem; }
@@ -11514,6 +11518,18 @@ label.panel-block {
     /* line 62, css/components/listing.scss */
     .listing--action:first-child {
       margin-left: 0; }
+
+/* line 1, css/components/nav.scss */
+.navbar {
+  box-shadow: 0 1px 10px 0px rgba(45, 45, 45, 0.5);
+  z-index: 41; }
+
+/* line 6, css/components/nav.scss */
+.navbar-menu {
+  text-align: center; }
+  /* line 9, css/components/nav.scss */
+  .navbar-menu.expanded {
+    display: initial; }
 
 /* line 2, css/components/step.scss */
 .step__title {

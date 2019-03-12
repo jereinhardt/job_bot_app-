@@ -34,17 +34,20 @@ const user = (() => {
   return user;
 })()
 
+const name = user.name || "";
+
 let submitted = false;
 if ( user.id ) {
   submitted = true;
 }
+
 
 const initialState = {
   activeStep: 1,
   applicantLocation: "",
   listings: [],
   location: "",
-  name: "",
+  name: name,
   sources: sources,
   terms: "",
   resumePath: "",

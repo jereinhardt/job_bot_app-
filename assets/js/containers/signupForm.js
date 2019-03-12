@@ -2,8 +2,12 @@ import { connect } from "react-redux";
 import { UPDATE_USER } from "../actionTypes.js";
 import SignupForm from "../components/signupForm.js";
 
-const mapStateToProps = (state) => {
-  return { user: state.user, name: state.name };
+const mapStateToProps = (state, props) => {
+  return {
+    user: state.user,
+    name: state.name,
+    submitCallback: props.submitCallback
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {

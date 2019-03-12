@@ -27,7 +27,9 @@ defmodule JobBotWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/signup", PageController, :index
     get "/login", PageController, :index
+    get "/logout", SessionController, :delete
     delete "/session", SessionController, :delete
     resources "/session", SessionController, only: [:create]
     resources "/uploads", UploadController, only: [:create]

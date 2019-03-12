@@ -5,13 +5,22 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { store, history } from "./store.js";
 import App from "./containers/app.js";
-import LoginForm from "./containers/loginForm.js";
+import LoginPage from "./components/loginPage.js";
+import SignupPage from "./components/signupPage.js";
 
-const loginFormOrRedirect = () => {
+const loginPageOrRedirect = () => {
   if ( store.getState().user.id ) {
     return <Redirect to="/" />
   } else {
-    return <LoginForm />
+    return <LoginPage />
+  }
+}
+
+const signupPageOrRedirect = () => {
+  if ( store.getState().user.id ) {
+    return <Redirect to="/" />
+  } else {
+    return <SignupPage />
   }
 }
 
@@ -20,7 +29,8 @@ render(
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/" render={() => <App />} />
-        <Route path="/login" render={loginFormOrRedirect} />
+        <Route path="/login" render={loginPageOrRedirect} />
+        <Route path="/signup" render={signupPageOrRedirect} />
       </Switch>
     </ConnectedRouter>
   </Provider>,

@@ -1,0 +1,12 @@
+.navbar {
+  box-shadow: 0 1px 10px 0px rgba(45, 45, 45, 0.5);
+  z-index: $modal-z + 1;
+}
+
+.navbar-menu {
+  text-align: center;
+  
+  &.expanded {
+    display: initial;
+  }
+}
