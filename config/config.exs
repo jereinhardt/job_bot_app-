@@ -23,10 +23,6 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :arc,
-  storage: Arc.Storage.Local,
-  storage_dir: "uploads/tmp/resumes"
-
 config :job_bot, JobBot.Accounts.Guardian,
        issuer: "job_bot",
        secret_key: "xE6zQ+KVS5+EswEJbDxEFtKvu4z4zK/DHJEeAl3JbpwdqAO2u+GJyl18kuE4JZ2s"

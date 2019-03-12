@@ -32,7 +32,6 @@ defmodule JobBotWeb.Router do
     get "/logout", SessionController, :delete
     delete "/session", SessionController, :delete
     resources "/session", SessionController, only: [:create]
-    resources "/uploads", UploadController, only: [:create]
   end
 
   scope "/data", JobBotWeb do

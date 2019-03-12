@@ -48,15 +48,4 @@ defmodule JobBot.UserRegistryTest do
 
     assert registry == %{}
   end
-
-  test "unregister/1 deletes their reumse" do
-    with_mock(JobBotWeb.Upload, [delete: fn(_path) -> nil end]) do
-      user_id = 1
-      resume_path = "uploads/tmp/resumes/test/resume.pdf"
-      JobBot.UserRegistry.register(user_id, [resume_path: resume_path])
-      JobBot.UserRegistry.unregister(user_id)
-
-      assert called JobBotWeb.Upload.delete(resume_path)
-    end
-  end
 end

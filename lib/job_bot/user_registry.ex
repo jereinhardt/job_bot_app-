@@ -5,8 +5,6 @@ defmodule JobBot.UserRegistry do
   """
   use Agent
 
-  alias JobBotWeb.Upload
-
   def start_link(opts \\ []) do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
@@ -24,9 +22,6 @@ defmodule JobBot.UserRegistry do
   end
 
   def unregister(user_id) do
-    resume_path = Agent.get(__MODULE__, &Map.get(&1, user_id))
-      |> Keyword.get(:resume_path, nil)
-    if resume_path, do: Upload.delete(resume_path)
     Agent.update(__MODULE__, &Map.drop(&1, [user_id]))
   end
 end

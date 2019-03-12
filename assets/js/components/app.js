@@ -3,7 +3,6 @@ import ConfirmationPage from "../containers/confirmationPage.js";
 import FinalStep from "../containers/finalStep.js";
 import ListingsList from "../containers/listingsList.js";
 import NameLocationForm from "../containers/nameLocationForm.js";
-import ResumeForm from "../containers/resumeForm.js";
 import SourcesForm from "../containers/sourcesForm.js";
 import Step from "../containers/step.js";
 import TermsLocationForm from "../containers/termsLocationForm.js";
