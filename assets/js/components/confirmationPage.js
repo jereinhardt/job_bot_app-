@@ -9,8 +9,8 @@ export default class ConfirmationPage extends React.Component {
   handleSubmit() {
     const data = this.props.data;
     const sources = data.sources.filter(source => source.selected).
-      map(({ name, crawler, applier, credentials }) => {
-        return { name, crawler, applier, credentials }
+      map(({ name, crawler, applier }) => {
+        return { name, crawler, applier }
       });
     const token = $("#app").data("js-csrf-token")
     const params = {

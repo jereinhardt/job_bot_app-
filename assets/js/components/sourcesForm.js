@@ -46,8 +46,7 @@ export default class SourcesForm extends React.Component {
         <div className="step__title">Where would you like to look?</div>
         <p className="step__description">
           Please select at least one job board where you would like to look for
-          jobs.  I may need your log in credentials for some boards (don't
-          worry, your secrets are safe with me 😉).
+          jobs.
         </p>
 
         <ul className="source__list">

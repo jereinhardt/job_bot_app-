@@ -1539,10 +1539,9 @@ var ConfirmationPage = function (_React$Component) {
       }).map(function (_ref) {
         var name = _ref.name,
             crawler = _ref.crawler,
-            applier = _ref.applier,
-            credentials = _ref.credentials;
+            applier = _ref.applier;
 
-        return { name: name, crawler: crawler, applier: applier, credentials: credentials };
+        return { name: name, crawler: crawler, applier: applier };
       });
       var token = jquery__WEBPACK_IMPORTED_MODULE_1___default()("#app").data("js-csrf-token");
       var params = {
@@ -2938,12 +2937,7 @@ var Source = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Source.__proto__ || Object.getPrototypeOf(Source)).call(this, props));
 
-    _this.state = {
-      formToggled: false
-    };
-
-    _this.toggleSourceForm = _this.toggleSourceForm.bind(_this);
-    _this.toggleSourceFormClose = _this.toggleSourceFormClose.bind(_this);
+    _this.toggleSourceSelect = _this.toggleSourceSelect.bind(_this);
     return _this;
   }
 
@@ -2953,93 +2947,22 @@ var Source = function (_React$Component) {
       this.props.toggleSource(this.props.source.name);
     }
   }, {
-    key: "toggleSourceForm",
-    value: function toggleSourceForm(event) {
-      event.preventDefault();
-      if (this.state.formToggled) {
-        this.setState({ formToggled: false });
-      } else {
-        if (this.props.source.selected) {
-          this.toggleSourceSelect();
-        } else {
-          this.setState({ formToggled: true });
-        }
-      }
-    }
-  }, {
-    key: "toggleSourceFormClose",
-    value: function toggleSourceFormClose(event) {
-      event.preventDefault();
-      this.setState({ formToggled: false });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var source = this.props.source;
-      var className = source.selected ? "source selected" : "source";
-
-      if (source.credentials == null) {
-        return this._renderSourceWithoutCredentials(className);
-      } else {
-        return this._renderSourceWithCredentials(className);
-      }
-    }
-  }, {
-    key: "_renderSourceWithoutCredentials",
-    value: function _renderSourceWithoutCredentials(className) {
-      var _this2 = this;
+      var className = this.props.source.selected ? "source selected" : "source";
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "li",
         { className: className },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "source__checkbox",
-          onClick: function onClick() {
-            return _this2.toggleSourceSelect();
-          }
+          onClick: this.toggleSourceSelect
         }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "h4",
           { className: "source__title" },
           this.props.source.name
         )
-      );
-    }
-  }, {
-    key: "_renderSourceWithCredentials",
-    value: function _renderSourceWithCredentials(className) {
-      var _this3 = this;
-
-      var updateSource = function updateSource(data) {
-        _this3.setState({ formToggled: false });
-        var source = _this3.props.source;
-        _this3.props.updateSource({ source: source, data: data });
-      };
-
-      var toggleClass = this.state.formToggled ? "form-toggled" : "";
-      var buttonClass = this.state.formToggled ? "" : "hidden";
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "li",
-        { className: className + " " + toggleClass },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "source__checkbox",
-          onClick: this.toggleSourceForm
-        }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "h4",
-          { className: "source__title" },
-          this.props.source.name,
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: "source__form--close-toggle " + buttonClass,
-            onClick: this.toggleSourceFormClose
-          })
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_source_credentials_form_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          toggled: this.state.formToggled,
-          source: this.props.source,
-          updateSource: updateSource
-        })
       );
     }
   }]);
@@ -3283,7 +3206,7 @@ var SourcesForm = function (_React$Component) {
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "p",
           { className: "step__description" },
-          "Please select at least one job board where you would like to look for jobs.  I may need your log in credentials for some boards (don't worry, your secrets are safe with me \uD83D\uDE09)."
+          "Please select at least one job board where you would like to look for jobs."
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "ul",

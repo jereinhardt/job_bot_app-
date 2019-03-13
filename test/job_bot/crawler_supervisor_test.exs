@@ -10,12 +10,12 @@ defmodule JobBot.CrawlerSupervisorTest do
       ref = JobBot.Crawler.ref(user_id(), Crawler)
       spec = Supervisor.Spec.worker(
         Crawler,
-        [worker_opts()],
+        [opts()],
         restart: :temporary,
         id: ref
       )
 
-      JobBot.CrawlerSupervisor.start_child(Crawler, worker_opts())
+      JobBot.CrawlerSupervisor.start_child(Crawler, opts())
 
       assert called(DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec))
     end
@@ -33,7 +33,7 @@ defmodule JobBot.CrawlerSupervisorTest do
       ref = JobBot.Crawler.ref(user_id(), Crawler)
       spec = Supervisor.Spec.worker(
         Crawler,
-        [worker_opts()],
+        [opts()],
         restart: :temporary,
         id: ref,
         searched_for_at: time_now()
@@ -62,13 +62,6 @@ defmodule JobBot.CrawlerSupervisorTest do
   end
 
   defp source do
-    %JobBot.Source{
-      crawler: Crawler,
-      credentials: %{username: "username", password: "password"}
-    }
+    %JobBot.Source{crawler: Crawler}
   end 
-
-  defp worker_opts do
-    Keyword.merge(opts(), credentials: source().credentials)
-  end
 end

@@ -5,20 +5,11 @@ defmodule JobBot.SourceTest do
 
   describe "from_map/1" do
     test "it creates a struct from a map with string keys and constants" do
-      source_with_applier = %Source{
-        applier: JobBot.TestApplier,
-        crawler: JobBot.TestScraper
-      }
-      source_without_applier = %Source{crawler: JobBot.TestScraper}
+      source = %Source{crawler: JobBot.TestScraper}
 
-      map_with_applier = %{
-        "applier" => "Elixir.JobBot.TestApplier",
-        "crawler" => "Elixir.JobBot.TestScraper"
-      }
-      map_without_applier = %{"crawler" => "Elixir.JobBot.TestScraper"}
+      source_map = %{"crawler" => "Elixir.JobBot.TestScraper"}
 
-      assert Source.from_map(map_with_applier) == source_with_applier
-      assert Source.from_map(map_without_applier) == source_without_applier
+      assert Source.from_map(source_map) == source
     end
   end
 end

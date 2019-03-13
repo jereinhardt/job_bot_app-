@@ -1,6 +1,6 @@
 defmodule JobBot.Crawler do
   @callback get_job_urls(list) :: list
-  @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t} # {:ok, Listing.t}
+  @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t}
 
   alias JobBot.Listing
 
@@ -11,43 +11,12 @@ defmodule JobBot.Crawler do
   def ref(user_id, module), do: {:global, {module, user_id}}
 
   defmacro __using__(opts) do
-    use_hound = Keyword.get(opts, :use_hound, false)
-
     quote do
       use GenServer
       require Logger
       import JobBot.Crawler
 
-      if unquote(use_hound) do
-        use Hound.Helpers
-      end
-
       @behaviour JobBot.Crawler
-
-      if unquote(use_hound) do
-        defp start_hound_session do
-          if Enum.any?(Hound.Session.active_sessions()) do
-            Hound.end_session()
-          end
-
-          Hound.start_session(
-            browser: "chrome",
-            user_agent: :chrome,
-            driver: %{
-              chromeOptions: %{
-                args: ["--headless"]
-              }
-            }
-          )
-        end
-      end
-
-      # def start_link(opts) do
-      #   IO.inspect opts
-      #   GenServer.start_link(__MODULE__, :ok)
-      # end
-
-      # def init(_), do: {:ok, []}
 
       def start_link(opts) do
         user_id = Keyword.get(opts, :user_id)

@@ -31,7 +31,6 @@ defmodule JobBotWeb.JobSearchesControllerTest do
       "0" => %{
         "applier" => "Elixir.JobBot.WeWorkRemotelyApplier",
         "crawler" => "Elixir.JobBot.WeWorkRemotelyScraper",
-        "credentials" => nil,
         "name" => "We Work Remotely"
       }
     }
