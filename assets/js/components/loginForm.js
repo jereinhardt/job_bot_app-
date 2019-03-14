@@ -2,7 +2,6 @@ import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
 import { history } from "../store.js";
-import UserSocket from "../userSocket.js";
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -21,7 +20,9 @@ export default class LoginForm extends React.Component {
     };
     $.post(url, params, (res) => {
       this.props.updateUser(res.data.user);
-      new UserSocket(res.data.user).listenForListings();
+      if ( this.props.activeStep == 1 ) {
+        this.props.toggleSubmitted();
+      }
       history.push("/");
     }).fail((res) => {
       this.setState({error: res.responseJSON.data.message});

@@ -1696,8 +1696,9 @@ var ConfirmationPage = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _containers_signupForm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/signupForm.js */ "./js/containers/signupForm.js");
-/* harmony import */ var _containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/confirmationPage.js */ "./js/containers/confirmationPage.js");
+/* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
+/* harmony import */ var _containers_signupForm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/signupForm.js */ "./js/containers/signupForm.js");
+/* harmony import */ var _containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/confirmationPage.js */ "./js/containers/confirmationPage.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1705,6 +1706,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -1730,18 +1732,22 @@ var FinalStep = function (_React$Component) {
         confirmationPageClass = "hidden";
       }
 
+      var socketConnectOnSignup = function socketConnectOnSignup(user) {
+        new _userSocket_js__WEBPACK_IMPORTED_MODULE_1__["default"](user).listenForListings();
+      };
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "div",
         null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
           { className: signupFormClass },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_signupForm_js__WEBPACK_IMPORTED_MODULE_1__["default"], null)
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_signupForm_js__WEBPACK_IMPORTED_MODULE_2__["default"], { submitCallback: socketConnectOnSignup })
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
           { className: confirmationPageClass },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_confirmationPage_js__WEBPACK_IMPORTED_MODULE_3__["default"], null)
         )
       );
     }
@@ -1987,6 +1993,7 @@ var ListingsList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ListingsList.__proto__ || Object.getPrototypeOf(ListingsList)).call(this, props));
 
     if (_this.props.user.id && _this.props.user.token) {
+      console.log("connect from listings list");
       new _userSocket_js__WEBPACK_IMPORTED_MODULE_3__["default"](_this.props.user).listenForListings();
     }
     return _this;
@@ -2043,7 +2050,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store.js */ "./js/store.js");
-/* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2051,7 +2057,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -2084,7 +2089,9 @@ var LoginForm = function (_React$Component) {
       };
       jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, params, function (res) {
         _this2.props.updateUser(res.data.user);
-        new _userSocket_js__WEBPACK_IMPORTED_MODULE_4__["default"](res.data.user).listenForListings();
+        if (_this2.props.activeStep == 1) {
+          _this2.props.toggleSubmitted();
+        }
         _store_js__WEBPACK_IMPORTED_MODULE_3__["history"].push("/");
       }).fail(function (res) {
         _this2.setState({ error: res.responseJSON.data.message });
@@ -2603,8 +2610,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _userSocket_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../userSocket.js */ "./js/userSocket.js");
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2612,7 +2618,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -2652,9 +2657,8 @@ var SignupForm = function (_React$Component) {
       };
       jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/data/users", params, function (res) {
         _this2.props.updateUser(res.data.user);
-        new _userSocket_js__WEBPACK_IMPORTED_MODULE_3__["default"](res.data.user).listenForListings();
         if (_this2.props.submitCallback) {
-          _this2.props.submitCallback();
+          _this2.props.submitCallback(res.data.user);
         }
       }).fail(function (res) {
         _this2.setState({ errors: res.responseJSON.data.errors });
@@ -3662,12 +3666,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {};
+  return { activeStep: state.activeStep };
 };
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updateUser: function updateUser(payload) {
       return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["UPDATE_USER"], payload: payload });
+    },
+    toggleSubmitted: function toggleSubmitted() {
+      return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_1__["TOGGLE_SUBMITTED"] });
     }
   };
 };
