@@ -10,7 +10,7 @@ defmodule JobBot.CrawlerSupervisor do
   end
 
   def start_child(module, opts) do
-    user_id = Keyword.get(opts, :user_id)
+    user_id = Map.get(opts, :user_id)
     ref = JobBot.Crawler.ref(user_id, module)
     spec = Supervisor.Spec.worker(module, [opts], restart: :temporary, id: ref)
     DynamicSupervisor.start_child(__MODULE__, spec)
@@ -24,15 +24,16 @@ defmodule JobBot.CrawlerSupervisor do
     import Supervisor.Spec
 
 
-    user_id = Keyword.get(opts, :user_id)
+    user_id = Map.get(opts, :user_id)
     searched_for_at = NaiveDateTime.utc_now()
-    data = opts
-      |> Keyword.drop([:user_id])
-      |> Keyword.merge(searched_for_at: searched_for_at)
+    data =
+      opts
+      |> Map.drop([:user_id])
+      |> Map.put(:searched_for_at, searched_for_at)
     JobBot.UserRegistry.register(user_id, data)
 
     opts
-    |> Keyword.get(:sources, [])
+    |> Map.get(:sources, [])
     |> Enum.each(fn (source) -> start_child(source.crawler, opts) end)
   end
 end

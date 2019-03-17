@@ -18,7 +18,7 @@ defmodule JobBot.UserRegistry do
   end
 
   def get_user_data(user_id, data) do
-    get_user_data(user_id) |> Keyword.get(data)
+    get_user_data(user_id) |> Map.get(data)
   end
 
   def unregister(user_id) do

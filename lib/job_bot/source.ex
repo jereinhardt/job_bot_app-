@@ -4,8 +4,8 @@ defmodule JobBot.Source do
   def all do
     [
       %__MODULE__{
-        name: "Stack Overflow",
-        crawler: JobBot.Crawler.StackOverflow
+        name: "Indeed",
+        crawler: JobBot.Crawler.Indeed
       },
       %__MODULE__{
         name: "We Work Remotely",

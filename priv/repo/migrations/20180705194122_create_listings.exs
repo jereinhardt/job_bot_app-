@@ -10,8 +10,8 @@ defmodule JobBot.Repo.Migrations.CreateListings do
       add :salary, :string
       add :email, :string
       add :company_name, :string
-      add :listing_url, :string
-      add :application_url, :string
+      add :listing_url, :text
+      add :application_url, :text
       add :skills, {:array, :string}
       add :source, :string
 

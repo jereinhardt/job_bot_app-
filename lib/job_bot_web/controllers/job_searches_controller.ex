@@ -3,13 +3,13 @@ defmodule JobBotWeb.JobSearchesController do
   plug Guardian.Plug.EnsureAuthenticated
 
   def create(conn, params) do
-    keyword_opts = params |> atomize() |> Map.to_list()
+    atomized_params = atomize(params)
     sources = 
-      keyword_opts
-      |> Keyword.get(:sources)
+      atomized_params
+      |> Map.get(:sources)
       |> Map.values()
       |> Enum.map(&normalize_source/1)
-    opts = Keyword.put(keyword_opts, :sources, sources)
+    opts = Map.put(atomized_params, :sources, sources)
 
     JobBot.CrawlerSupervisor.start_crawlers(opts)
     

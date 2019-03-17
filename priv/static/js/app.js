@@ -1993,7 +1993,6 @@ var ListingsList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ListingsList.__proto__ || Object.getPrototypeOf(ListingsList)).call(this, props));
 
     if (_this.props.user.id && _this.props.user.token) {
-      console.log("connect from listings list");
       new _userSocket_js__WEBPACK_IMPORTED_MODULE_3__["default"](_this.props.user).listenForListings();
     }
     return _this;

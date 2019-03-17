@@ -3,14 +3,14 @@ defmodule JobBot.Crawler.WeWorkRemotely do
 
   import JobBot.Crawler.Helper
 
-  alias HTTPoison.Response
-  alias JobBot.Listing
+  alias HTTPoison.{Response, Error}
+  alias JobBot.{Listing, Source}
 
   @base_url "https://weworkremotely.com"
 
   def get_job_urls(opts) do
-    http_opts = if Keyword.get(opts, :terms) do
-      [params: %{terms: Keyword.get(opts, :terms)}]
+    http_opts = if Map.get(opts, :terms) do
+      [params: %{terms: Map.get(opts, :terms)}]
     else
       []      
     end
@@ -27,7 +27,7 @@ defmodule JobBot.Crawler.WeWorkRemotely do
       {:ok, %Response{status_code: code}} -> 
         message = "Failed to crawl job at #{url}, status code: #{code}"
         {:error, message}
-      {:error, %HTTPoison.Error{reason: reason}} ->
+      {:error, %Error{reason: reason}} ->
         message = "Failed to connect to #{url}, reason: #{reason}"
         {:error, message}
     end
@@ -50,7 +50,7 @@ defmodule JobBot.Crawler.WeWorkRemotely do
       remote: true,
       email: extract_email(parsed),
       company_name: extract_company_name(parsed),
-      source: JobBot.Source.find_by_name("We Work Remotely"),
+      source: Source.find_by_name("We Work Remotely"),
       application_url: extract_application_url(parsed)
     }    
   end

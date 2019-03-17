@@ -29,7 +29,7 @@ defmodule JobBot.CrawlerSupervisorTest do
     }, {
       NaiveDateTime, [], [utc_now: fn() -> time_now() end]
     }]) do
-      data = Keyword.drop(opts(), [:user_id])
+      data = Map.drop(opts(), [:user_id])
       ref = JobBot.Crawler.ref(user_id(), Crawler)
       spec = Supervisor.Spec.worker(
         Crawler,
@@ -49,12 +49,12 @@ defmodule JobBot.CrawlerSupervisorTest do
   defp user_id, do: 1
 
   defp opts do
-    [
+    %{
       user_id: user_id(),
       sources: [source()],
       name: "name",
       searched_for_at: time_now()
-    ]
+    }
   end
 
   defp time_now do

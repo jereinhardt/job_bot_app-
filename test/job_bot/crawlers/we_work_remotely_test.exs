@@ -1,20 +1,25 @@
 defmodule JobBot.Crawler.WeWorkRemotelyTest do
+  @base_url "https://weworkremotely.com"
+  @fixture_dir "test/support/fixtures/we_work_remotely/"
+
   use JobBot.CrawlerCase
 
-  alias HTTPoison.Response
-  alias HTTPoison.Error
+  alias HTTPoison.{Error, Response}
   alias JobBot.Listing
   alias JobBot.Crawler.WeWorkRemotely, as: Crawler
 
   import Mock
 
-  @base_url "https://weworkremotely.com"
-  @fixture_path "test/support/fixtures/we_work_remotely/"
-
   describe "get_job_urls/1" do
     test "crawls the index for all jobs" do
-      with_mock(HTTPoison, mocks()) do
-        urls = Crawler.get_job_urls([])
+      mocks = [
+        get: fn(@base_url <> "/remote-jobs/search", _headers, _opts) ->
+          get_fixture_response("index.html")
+        end
+      ]
+
+      with_mock(HTTPoison, mocks) do
+        urls = Crawler.get_job_urls(%{})
 
         assert called HTTPoison.get(@base_url <> "/remote-jobs/search", [], [])
         assert urls == ["#{@base_url}/job_1", "#{@base_url}/job_2"]
@@ -22,10 +27,16 @@ defmodule JobBot.Crawler.WeWorkRemotelyTest do
     end
 
     test "crawls the index with the given params" do
-      with_mock(HTTPoison, mocks()) do
+      mocks = [
+        get: fn(@base_url <> "/remote-jobs/search", _headers, _opts) ->
+          get_fixture_response("index.html")
+        end
+      ]
+
+      with_mock(HTTPoison, mocks) do
         search = "search terms"
         opts = [params: %{terms: search}]
-        Crawler.get_job_urls(user_id: 1, terms: search)
+        Crawler.get_job_urls(%{user_id: 1, terms: search})
 
         assert called HTTPoison.get(@base_url <> "/remote-jobs/search", [], opts)
       end
@@ -34,7 +45,18 @@ defmodule JobBot.Crawler.WeWorkRemotelyTest do
 
   describe "crawl_url_for_listing/1" do
     test "returns a tuple with a listing when the request is good" do
-      with_mock(HTTPoison, mocks()) do
+      mocks = [
+        get: fn(url) ->
+          case url do
+            "/job_1" ->
+              get_fixture_response("job_1.html")
+            "/job_2" ->
+              get_fixture_response("job_2.html")
+          end
+        end
+      ]
+
+      with_mock(HTTPoison, mocks) do
         expected_listing_1 = %Listing{
           title: "Experienced Backend Engineer",
           company_name: "Citrusbyte",
@@ -82,26 +104,5 @@ defmodule JobBot.Crawler.WeWorkRemotelyTest do
         assert response == {:error, message}
       end
     end
-  end
-
-  defp mocks do
-    [
-      get: fn(@base_url <> "/remote-jobs/search", _headers, _opts) ->
-        get_fixture_response("index.html")
-      end,
-      get: fn(url) ->
-        case url do
-          "/job_1" ->
-            get_fixture_response("job_1.html")
-          "/job_2" ->
-            get_fixture_response("job_2.html")
-        end
-      end
-    ]
-  end
-
-  defp get_fixture_response(path) do
-    body = Path.expand(@fixture_path <> path) |> File.read!()
-    {:ok, %Response{status_code: 200, body: body}}
   end
 end

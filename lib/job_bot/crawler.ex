@@ -1,5 +1,5 @@
 defmodule JobBot.Crawler do
-  @callback get_job_urls(list) :: list
+  @callback get_job_urls(map) :: list
   @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t}
 
   alias JobBot.Listing
@@ -19,7 +19,7 @@ defmodule JobBot.Crawler do
       @behaviour JobBot.Crawler
 
       def start_link(opts) do
-        user_id = Keyword.get(opts, :user_id)
+        user_id = Map.get(opts, :user_id)
         GenServer.start_link(__MODULE__, {:ok, opts}, name: ref(user_id))
       end
 
@@ -45,7 +45,7 @@ defmodule JobBot.Crawler do
       """
       def handle_continue({:perform_setup, opts}, nil) do
         opts
-        |> Keyword.get(:user_id)
+        |> Map.get(:user_id)
         |> ref()
         |> JobBot.WorkerRegistry.register(self())
 

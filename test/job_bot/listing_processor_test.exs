@@ -14,7 +14,7 @@ defmodule JobBot.ListingProcessorTest do
       with_mock(Endpoint, [broadcast: fn(_, _, _) -> nil end]) do
         user = insert(:user)
         listing = insert(:listing)
-        UserRegistry.register(user.id, [searched_for_at: DateTime.utc_now()])
+        UserRegistry.register(user.id, %{searched_for_at: DateTime.utc_now()})
 
         ListingProcessor.process(listing, user.id)
         query = from ul in UserListing,
