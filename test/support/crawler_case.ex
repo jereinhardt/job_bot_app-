@@ -4,17 +4,24 @@ defmodule JobBot.CrawlerCase do
 
   using do
     quote do
-      defp listing_matches_response?(listing, response) do
-        {message, response_listing} = response
-        message == :ok &&
-          listing.title == response_listing.title &&
-          listing.company_name == response_listing.company_name &&
-          listing.email == response_listing.email &&
-          listing.application_url == response_listing.application_url
+
+      defp listing_matches_response(_, {:error, _}, _), do: false
+      defp listing_matches_response?(listing, {:ok, response_listing}, fields) do
+        Enum.all?(fields, fn (field) ->
+          Map.get(response_listing, field) == Map.get(listing, field)
+        end)
       end
 
       defp get_fixture_response(path) do
-        body = Path.expand(@fixture_dir <> path) |> File.read!()
+        dirname =
+          __MODULE__.__info__(:module)
+          |> Atom.to_string()
+          |> String.split(".")
+          |> Enum.at(-1)
+          |> Macro.underscore()
+          |> String.replace("_test", "")
+        dir_path = "test/support/fixtures/#{dirname}/"
+        body = Path.expand(dir_path <> path) |> File.read!()
         {:ok, %Response{status_code: 200, body: body}}
       end
     end

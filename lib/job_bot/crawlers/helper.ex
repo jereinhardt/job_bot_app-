@@ -9,7 +9,8 @@ defmodule JobBot.Crawler.Helper do
     case status_code do
       code when code in 200..299 -> {:ok, response}
       code when code in 300..399 -> follow_redirect_response(response)
-      _ -> {:ok, response}
+      code when code in 400..499 -> {:error, %Error{reason: "Could not find linked url"}}
+      _ -> {:error, %Error{reason: "Internal server error"}}
     end
   end
 

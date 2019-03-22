@@ -1,7 +1,4 @@
 defmodule JobBot.Crawler.WeWorkRemotelyTest do
-  @base_url "https://weworkremotely.com"
-  @fixture_dir "test/support/fixtures/we_work_remotely/"
-
   use JobBot.CrawlerCase
 
   alias HTTPoison.{Error, Response}
@@ -10,6 +7,9 @@ defmodule JobBot.Crawler.WeWorkRemotelyTest do
 
   import Mock
 
+  @base_url "https://weworkremotely.com"
+  @fixture_dir "test/support/fixtures/we_work_remotely/"
+  
   describe "get_job_urls/1" do
     test "crawls the index for all jobs" do
       mocks = [
@@ -70,12 +70,13 @@ defmodule JobBot.Crawler.WeWorkRemotelyTest do
           email: "jobs@taxjar.com",
           application_url: nil
         }
+        fields = [:title, :company_name, :email, :application_url]
 
         response_1 = Crawler.crawl_url_for_listing("/job_1")
         response_2 = Crawler.crawl_url_for_listing("/job_2")
 
-        assert listing_matches_response?(expected_listing_1, response_1)
-        assert listing_matches_response?(expected_listing_2, response_2)
+        assert listing_matches_response?(expected_listing_1, response_1, fields)
+        assert listing_matches_response?(expected_listing_2, response_2, fields)
       end
     end
 

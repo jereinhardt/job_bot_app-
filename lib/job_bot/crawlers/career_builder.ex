@@ -1,4 +1,4 @@
-defmodule JobBot.Crawler.Indeed do
+defmodule JobBot.Crawler.CareerBuilder do
   use JobBot.Crawler
 
   import JobBot.Crawler.Helper
@@ -6,16 +6,11 @@ defmodule JobBot.Crawler.Indeed do
   alias HTTPoison.{Error, Response}
   alias JobBot.{Listing, Source}
 
-  @base_url "https://www.indeed.com"
+  @base_url "https://www.careerbuilder.com"
 
-  def get_job_urls(%{location: nil}), do: []
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{
-        q: Map.get(opts, :terms),
-        l: Map.get(opts, :location)
-      }
-    ]
+  def get_job_urls(%{terms: terms} = opts) do
+    location = Map.get(opts, :location)
+    http_opts = [params: %{ keywords: terms, location: location }]
 
     @base_url <> "/jobs"
     |> HTTPoison.get([], http_opts)
@@ -24,19 +19,18 @@ defmodule JobBot.Crawler.Indeed do
   end
 
   def crawl_url_for_listing(url) do
-    response = 
+    response =
       url
       |> HTTPoison.get()
       |> find_final_request_response()
-
+      
     case response do
       {:ok, %Response{status_code: 200, body: body}} ->
-        listing = 
+        listing =
           body
           |> Floki.parse()
           |> extract_listing_data_from_parsed_body()
           |> Map.put(:listing_url, url)
-
         {:ok, listing}
       {:error, %Error{reason: reason}} ->
         message =
@@ -50,7 +44,7 @@ defmodule JobBot.Crawler.Indeed do
   defp extract_urls_from_index({:ok, %Response{status_code: 200, body: body}}) do
     body
     |> Floki.parse()
-    |> Floki.attribute("a.jobtitle, .jobtitle a", "href")
+    |> Floki.attribute(".job-title.hide-for-medium-up a", "href")
     |> Enum.map(&relative_to_absolute_url(@base_url, &1))
   end
   defp extract_urls_from_index({_, _}), do: []
@@ -62,43 +56,50 @@ defmodule JobBot.Crawler.Indeed do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Indeed")
+      source: Source.find_by_name("CareerBuilder")
     }
   end
 
   defp extract_application_url(parsed) do
-    parsed
-    |> Floki.attribute("#viewJobButtonLinkContainer a", "href")
-    |> Enum.at(0)
+    href =
+      parsed
+      |> Floki.attribute("#apply-now-top", "href")
+      |> Enum.at(0)
+    if String.starts_with?(href, "http") do
+      href
+    else
+      relative_to_absolute_url(@base_url, href)
+    end
   end
 
   defp extract_city(parsed) do
     parsed
-    |> Floki.find(".jobsearch-InlineCompanyRating")
+    |> Floki.find("#job-company-name")
     |> Floki.text()
-    |> String.split("-")
-    |> Enum.at(-1)
+    |> String.split("•")
+    |> Enum.at(1)
+    |> String.trim()
   end
 
   defp extract_company_name(parsed) do
     parsed
-    |> Floki.find(".jobsearch-InlineCompanyRating")
+    |> Floki.find("#job-company-name")
     |> Floki.text()
-    |> String.split("-")
-    |> Enum.at(0)    
+    |> String.split("•")
+    |> Enum.at(0)
+    |> String.trim()
   end
 
   defp extract_description(parsed) do
     parsed
-    |> Floki.find(".jobsearch-JobComponent-description")
+    |> Floki.find(".description")
     |> Floki.raw_html()
   end
 
   defp extract_title(parsed) do
     parsed
-    |> Floki.find(".jobsearch-JobInfoHeader-title")
+    |> Floki.find(".card .item h1")
     |> Floki.text()
-    |> String.split("-")
-    |> Enum.at(0)    
+    |> String.trim()
   end
 end

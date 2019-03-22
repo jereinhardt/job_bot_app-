@@ -4,24 +4,16 @@ defmodule JobBot.Source do
   def all do
     [
       %__MODULE__{
+        name: "CareerBuilder",
+        crawler: JobBot.Crawler.CareerBuilder
+      },
+      %__MODULE__{
         name: "Indeed",
         crawler: JobBot.Crawler.Indeed
       },
       %__MODULE__{
         name: "We Work Remotely",
         crawler: JobBot.Crawler.WeWorkRemotely
-      },
-      %__MODULE__{
-        name: "Github Jobs",
-        crawler: JobBot.Crawler.GithubJobs
-      },
-      %__MODULE__{
-        name: "Zip Recruiter",
-        crawler: JobBot.Crawler.ZipRecruiter
-      },
-      %__MODULE__{
-        name: "AngelList",
-        crawler: JobBot.Crawler.AngelList
       }
     ]
   end
