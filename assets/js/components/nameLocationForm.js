@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { loginPath } from "../routes.js";
 import Validator from "../containers/validator.js";
 
 export default class NameLocationForm extends React.Component {
@@ -97,7 +98,7 @@ export default class NameLocationForm extends React.Component {
             className="step__action step__action--forward"
           />
         </div>
-        <p>Already have an account? <Link to="/login">Log in here</Link></p>
+        <p>Already have an account? <Link to={loginPath}>Log in here</Link></p>
       </form>
     )
   }

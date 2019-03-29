@@ -1451,7 +1451,7 @@ var BlankSlate = function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "section",
-        { className: "hero is-large" },
+        { className: "hero is-fullheight" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
           { className: "hero-body has-text-centered" },
@@ -1564,16 +1564,6 @@ var ConfirmationPage = function (_React$Component) {
       var _this3 = this;
 
       var data = this.props.data;
-
-      var sourceNodes = data.sources.filter(function (source) {
-        return source.selected;
-      }).map(function (source) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "li",
-          { key: source.name },
-          source.name
-        );
-      });
       var location = data.location == "" ? "Anywhere" : data.location;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -1581,25 +1571,29 @@ var ConfirmationPage = function (_React$Component) {
         { className: "data-summary" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "h3",
-          { className: "data-summary--heading" },
+          { className: "title" },
           "Does this look right?"
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "section",
-          { className: "data-summary--section name-location" },
+          "div",
+          { className: "field" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "h5",
-            null,
+            "label",
+            { className: "label" },
             "Your Name"
           ),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             "p",
             { className: "data-summary--info" },
             data.name
-          ),
+          )
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "field" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "h5",
-            null,
+            "label",
+            { className: "label" },
             "Your Location"
           ),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -1609,21 +1603,25 @@ var ConfirmationPage = function (_React$Component) {
           )
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "section",
-          { className: "data-summary--section search-info" },
+          "div",
+          { className: "field" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "h5",
-            null,
+            "label",
+            { className: "label" },
             "What You're Looking For"
           ),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             "p",
             { className: "data-summary--info" },
             data.terms
-          ),
+          )
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "field" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "h5",
-            null,
+            "label",
+            { className: "label" },
             "Where You're Looking"
           ),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -1633,42 +1631,32 @@ var ConfirmationPage = function (_React$Component) {
           )
         ),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "section",
-          { className: "data-summary--section sources" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "h5",
-            null,
-            "Sources"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "ul",
-            { className: "data-summary--sources-list" },
-            sourceNodes
-          )
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
-          { className: "field" },
+          { className: "columns" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             "div",
-            { className: "control" },
+            { className: "column is-one-quarter" },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               "button",
               {
                 onClick: function onClick() {
                   return _this3.handleBack();
                 },
-                className: "button is-link"
+                className: "button is-fullwidth"
               },
               "Go Back"
-            ),
+            )
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "column is-one-quarter" },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               "button",
               {
                 onClick: function onClick() {
                   return _this3.handleSubmit();
                 },
-                className: "button is-link"
+                className: "button is-fullwidth is-link"
               },
               "Confirm"
             )
@@ -1774,6 +1762,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../routes.js */ "./js/routes.js");
 /* harmony import */ var _containers_nav_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/nav.js */ "./js/containers/nav.js");
+/* harmony import */ var _static_images_avatar_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../static/images/avatar.png */ "./static/images/avatar.png");
+/* harmony import */ var _static_images_avatar_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_static_images_avatar_png__WEBPACK_IMPORTED_MODULE_4__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1781,6 +1771,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -1804,14 +1795,52 @@ var LandingPage = function (_React$Component) {
         null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_nav_js__WEBPACK_IMPORTED_MODULE_3__["default"], null),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "h1",
-          null,
-          "Hi!  I'm Job-Bot!"
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
-          { to: _routes_js__WEBPACK_IMPORTED_MODULE_2__["mainAppPath"], className: "button is-primary" },
-          "Get Started Now"
+          "div",
+          { className: "hero is-fullheight" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "hero-body" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "div",
+              { className: "container" },
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "div",
+                { className: "columns is-tablet" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "figure",
+                  { className: "landing-page__hero-image-container column is-one-third-tablet" },
+                  react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: _static_images_avatar_png__WEBPACK_IMPORTED_MODULE_4___default.a })
+                ),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "div",
+                  { className: "column" },
+                  react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    "div",
+                    { className: "landing-page__hero-text-container" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                      "div",
+                      null,
+                      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "h1",
+                        { className: "title" },
+                        "Hi! I'm Job-Bot"
+                      ),
+                      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "h3",
+                        { className: "subtitle" },
+                        "And I can check the most popular job boards on the internet to find the job that's right for you!"
+                      ),
+                      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
+                        { to: _routes_js__WEBPACK_IMPORTED_MODULE_2__["mainAppPath"], className: "button is-primary is-medium" },
+                        "Get Started Now"
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
         )
       );
     }
@@ -2344,7 +2373,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../routes.js */ "./js/routes.js");
+/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2352,6 +2382,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2371,7 +2402,7 @@ var NameLocationForm = function (_React$Component) {
     };
 
     var validations = [{ id: "name", validate: ["presence"] }, { id: "applicantLocation", validate: ["presence"] }];
-    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_2__["default"](_this, validations);
+    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_3__["default"](_this, validations);
     return _this;
   }
 
@@ -2492,7 +2523,7 @@ var NameLocationForm = function (_React$Component) {
           "Already have an account? ",
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
-            { to: "/login" },
+            { to: _routes_js__WEBPACK_IMPORTED_MODULE_2__["loginPath"] },
             "Log in here"
           )
         )
@@ -4191,13 +4222,13 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], { exact: true, path: _routes_js__WEBPACK_IMPORTED_MODULE_6__["mainAppPath"], render: function render() {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_app_js__WEBPACK_IMPORTED_MODULE_7__["default"], null);
         } }),
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], { path: _routes_js__WEBPACK_IMPORTED_MODULE_6__["rootPath"], render: function render() {
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], { exact: true, path: _routes_js__WEBPACK_IMPORTED_MODULE_6__["rootPath"], render: function render() {
           return landingPage;
         } }),
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], { path: _routes_js__WEBPACK_IMPORTED_MODULE_6__["loginPath"], render: function render() {
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], { exact: true, path: _routes_js__WEBPACK_IMPORTED_MODULE_6__["loginPath"], render: function render() {
           return loginPage;
         } }),
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], { path: _routes_js__WEBPACK_IMPORTED_MODULE_6__["signupPath"], render: function render() {
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], { exact: true, path: _routes_js__WEBPACK_IMPORTED_MODULE_6__["signupPath"], render: function render() {
           return signupPage;
         } })
     )
@@ -29705,6 +29736,17 @@ module.exports = function (module) {
 	}
 	return module;
 };
+
+/***/ }),
+
+/***/ "./static/images/avatar.png":
+/*!**********************************!*\
+  !*** ./static/images/avatar.png ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,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"
 
 /***/ }),
 

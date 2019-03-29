@@ -49,8 +49,8 @@ module.exports = {
         { loader: 'babel-loader' }
       ]
     }, {
-     test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-     use: [{
+      test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+      use: [{
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
@@ -58,6 +58,15 @@ module.exports = {
           publicPath: '../fonts/'
         }
       }]
+    }, {
+      test: /\.(jpe?g|png|gif|svg)$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: { limit: 40000 }
+        },
+        'image-webpack-loader'
+      ]
     }]
   },
   plugins: [

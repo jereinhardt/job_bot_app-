@@ -1,0 +1,19 @@
+.landing-page {
+  &__hero-image-container {
+    display: none;
+
+    @media screen and (min-width: $tablet) {
+      display: block;
+    }
+  }
+
+  &__hero-text-container {
+    align-items: center;
+    display: flex;
+    height: 100%;
+  }
+
+  &__hero-cta-container {
+
+  }
+}

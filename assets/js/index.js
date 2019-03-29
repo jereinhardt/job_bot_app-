@@ -27,9 +27,9 @@ render(
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path={mainAppPath} render={() => <App />} />
-        <Route path={rootPath} render={() => landingPage} />
-        <Route path={loginPath} render={() => loginPage} />
-        <Route path={signupPath} render={() => signupPage} />
+        <Route exact path={rootPath} render={() => landingPage} />
+        <Route exact path={loginPath} render={() => loginPage} />
+        <Route exact path={signupPath} render={() => signupPage} />
       </Switch>
     </ConnectedRouter>
   </Provider>,

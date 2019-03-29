@@ -7,6 +7,7 @@ $color-white: #ffffff;
 $base-spacing: 1.25rem;
 $large-spacing: 1.6rem;
 $larger-spacing: 2rem;
+$navbar-height: 3.25rem;
 
 .hidden {
   display: none;
@@ -53,6 +54,10 @@ $larger-spacing: 2rem;
 
 .modal {
   margin-top: 52px;
+}
+
+.hero.is-fullheight {
+  min-height: calc(100vh - $navbar-height);
 }
 
 @import "components/components";

@@ -14,7 +14,7 @@ export default class BlankSlate extends React.Component {
 
   render() {
     return(
-      <section className="hero is-large">
+      <section className="hero is-fullheight">
         <div className="hero-body has-text-centered">
           <div className="container">
             <p className="title">I'm hard at work</p>

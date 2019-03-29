@@ -11432,40 +11432,58 @@ label.panel-block {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
-/* line 11, stdin */
+/* line 12, stdin */
 .hidden {
   display: none; }
 
-/* line 15, stdin */
+/* line 16, stdin */
 .input-error-message {
   color: #ff3860;
   display: none; }
-  /* line 21, stdin */
+  /* line 22, stdin */
   .input-error-message.has-error {
     display: block; }
 
-/* line 32, stdin */
+/* line 33, stdin */
 .modal-background {
   background: #ffffff; }
 
-/* line 36, stdin */
+/* line 37, stdin */
 .step {
   display: none; }
-  /* line 39, stdin */
+  /* line 40, stdin */
   .step.active {
     display: block; }
 
-/* line 45, stdin */
+/* line 46, stdin */
 .fas::before {
   font-family: "FontAwesome"; }
 
-/* line 50, stdin */
+/* line 51, stdin */
 .file-filename {
   margin-left: 1.25rem; }
 
-/* line 54, stdin */
+/* line 55, stdin */
 .modal {
   margin-top: 52px; }
+
+/* line 59, stdin */
+.hero.is-fullheight {
+  min-height: calc(100vh - $navbar-height); }
+
+/* line 2, css/components/landing_page.scss */
+.landing-page__hero-image-container {
+  display: none; }
+  @media screen and (min-width: 769px) {
+    /* line 2, css/components/landing_page.scss */
+    .landing-page__hero-image-container {
+      display: block; } }
+
+/* line 10, css/components/landing_page.scss */
+.landing-page__hero-text-container {
+  align-items: center;
+  display: flex;
+  height: 100%; }
 
 /* line 5, css/components/listing.scss */
 .listing {
@@ -11529,7 +11547,9 @@ label.panel-block {
   text-align: center; }
   /* line 9, css/components/nav.scss */
   .navbar-menu.expanded {
-    display: initial; }
+    display: initial;
+    position: fixed;
+    width: 100%; }
 
 /* line 2, css/components/step.scss */
 .step__title {
