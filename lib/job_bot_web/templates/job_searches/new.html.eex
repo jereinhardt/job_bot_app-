@@ -1,0 +1,4 @@
+<div
+  id="app"
+  data-js-csrf-token="<%= @token %>"
+></div>

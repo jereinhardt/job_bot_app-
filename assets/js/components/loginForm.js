@@ -2,6 +2,7 @@ import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
 import { history } from "../store.js";
+import { mainAppPath, signupPath } from "../routes.js";
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class LoginForm extends React.Component {
       if ( this.props.activeStep == 1 ) {
         this.props.toggleSubmitted();
       }
-      history.push("/");
+      history.push(mainAppPath);
     }).fail((res) => {
       this.setState({error: res.responseJSON.data.message});
     })
@@ -49,7 +50,7 @@ export default class LoginForm extends React.Component {
             Log in and get back to the job search
           </h4>
           <p>
-            New to JobBot? <Link to="/">Sign up for a free account</Link>.
+            New to JobBot? <Link to={signupPath}>Sign up for a free account</Link>.
           </p>
           <form className="login-form" onSubmit={(e) => this.handleSubmit(e)}>
 

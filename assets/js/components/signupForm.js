@@ -1,6 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
+import { loginPath } from "../routes.js";
 import Validator from "../containers/validator.js";
 
 export default class SignupForm extends React.Component {
@@ -74,7 +75,7 @@ export default class SignupForm extends React.Component {
         </h4>
 
         <p>
-          Already have an account? <Link to="/login">Sign in here</Link>.
+          Already have an account? <Link to={loginPath}>Sign in here</Link>.
         </p>
 
         <div className="field">

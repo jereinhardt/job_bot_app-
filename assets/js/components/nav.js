@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { loginPath, logoutPath, mainAppPath, signupPath } from "../routes.js";
 
 export default class Nav extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class Nav extends React.Component {
             </a>
           </div>
           <div className="navbar-item">
-            <a href="/logout" className="button is-light">Logout</a>
+            <a href={logoutPath} className="button is-light">Logout</a>
           </div>
         </div>
       );
@@ -42,10 +43,10 @@ export default class Nav extends React.Component {
       return(
         <div className="navbar-end">
           <div className="navbar-item">
-            <Link to="/signup" className="button is-primary">Sign Up</Link>
+            <Link to={signupPath} className="button is-primary">Sign Up</Link>
           </div>
           <div className="navbar-item">
-            <Link to="/login" className="button is-light">Log In</Link>
+            <Link to={loginPath} className="button is-light">Log In</Link>
           </div>
         </div>
       );
@@ -58,7 +59,7 @@ export default class Nav extends React.Component {
     return(
       <nav className="navbar" role="navigation">
         <div className="navbar-brand">
-          <a href="/" className="navbar-item">
+          <a href={mainAppPath} className="navbar-item">
             <span className="navbar-logo">
               JOB BOT
             </span>

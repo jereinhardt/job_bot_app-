@@ -1,11 +1,12 @@
 import React from "react";
 import { history } from "../store.js";
+import { mainAppPath } from "../routes.js"
 import SignupForm from "../containers/signupForm.js";
 import Nav from "../containers/nav.js";
 
 export default class LoginPage extends React.Component {
   render() {
-    const redirect = () => history.push("/");
+    const redirect = () => history.push(mainAppPath);
 
     return(
       <div>

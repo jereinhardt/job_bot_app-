@@ -1,6 +1,6 @@
 defmodule JobBotWeb.JobSearchesController do
   use JobBotWeb, :controller
-  plug Guardian.Plug.EnsureAuthenticated
+  plug Guardian.Plug.EnsureAuthenticated when action in [:create]
 
   def create(conn, params) do
     atomized_params = atomize(params)
