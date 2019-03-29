@@ -51,6 +51,7 @@ defmodule JobBot.Crawler do
 
         state = Task.async(fn -> get_job_urls(opts) end)
           |> Task.await(30000)
+          |> Enum.take(10)
         schedule_next_crawl()
         {:noreply, state}
       end
