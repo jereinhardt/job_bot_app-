@@ -42,6 +42,10 @@ defmodule JobBot.Crawler do
           2. Send an asyncronous call to self to schedule the first crawl job
           3. Crawl the index of the source for the listing urls, and set those
              urls as the initial state of the process
+
+        Right now, the amount of links the crawler is allowed to return from the
+        index is limitted to the first 10.  This is to prevent an overload of
+        requests to the target service's servers.
       """
       def handle_continue({:perform_setup, opts}, nil) do
         opts
