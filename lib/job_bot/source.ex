@@ -16,6 +16,10 @@ defmodule JobBot.Source do
         crawler: JobBot.Crawler.Linkedin
       },
       %__MODULE__{
+        name: "Simply Hired",
+        crawler: JobBot.Crawler.SimplyHired
+      },
+      %__MODULE__{
         name: "We Work Remotely",
         crawler: JobBot.Crawler.WeWorkRemotely
       }

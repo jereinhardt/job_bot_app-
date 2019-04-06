@@ -1,4 +1,4 @@
-defmodule JobBot.Crawler.Linkedin do
+defmodule JobBot.Crawler.SimplyHired do
   use JobBot.Crawler
 
   import JobBot.Crawler.Helper
@@ -6,17 +6,14 @@ defmodule JobBot.Crawler.Linkedin do
   alias HTTPoison.{Error, Response}
   alias JobBot.{Listing, Source}
 
-  @base_url "https://www.linkedin.com"
+  @base_url "https://www.simplyhired.com"
 
   def get_job_urls(opts) do
     http_opts = [
-      params: %{
-        keywords: Map.get(opts, :terms),
-        location: Map.get(opts, :location)
-      }
+      params: %{q: Map.get(opts, :terms), l: Map.get(opts, :location)}
     ]
 
-    @base_url <> "/jobs/search"
+    @base_url <> "/search"
     |> HTTPoison.get([], http_opts)
     |> find_final_request_response()
     |> extract_urls_from_index()
@@ -34,7 +31,6 @@ defmodule JobBot.Crawler.Linkedin do
           |> Floki.parse()
           |> extract_listing_data_from_parsed_body()
           |> Map.put(:listing_url, url)
-          |> ensure_application_url_present(url)
 
         {:ok, listing}        
       {:error, %Error{reason: reason}} ->
@@ -49,7 +45,7 @@ defmodule JobBot.Crawler.Linkedin do
   defp extract_urls_from_index({:ok, %Response{status_code: 200, body: body}}) do
     body
     |> Floki.parse()
-    |> Floki.attribute("a.listed-job-posting--is-link", "href")
+    |> Floki.attribute("a.card-link.js-job-link", "href")
     |> Enum.map(&relative_to_absolute_url(@base_url, &1))
   end
   defp extract_urls_from_index(_), do: []
@@ -61,43 +57,39 @@ defmodule JobBot.Crawler.Linkedin do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Linkedin")
-    }    
+      source: Source.find_by_name("Simply Hired")
+    }
   end
 
   defp extract_application_url(parsed) do
-    url = 
+    url =
       parsed
-      |> Floki.attribute("a.apply-button--link", "href")
+      |> Floki.attribute(".viewjob-controls .apply a", "href")
       |> Enum.at(0)
+    relative_to_absolute_url(@base_url, url)
   end
 
   defp extract_city(parsed) do
     parsed
-    |> Floki.find("h3.topcard__flavor-row .topcard__flavor--bullet")
-    |> Floki.text()
+    |> Floki.find(".job-info .location")
+    |> Floki.text()  
   end
 
   defp extract_company_name(parsed) do
     parsed
-    |> Floki.find("a.topcard__org-name-link")
+    |> Floki.find(".job-info .company")
     |> Floki.text()
   end
 
   defp extract_description(parsed) do
     parsed
-    |> Floki.find(".description__text.description__text--rich")
+    |> Floki.find(".viewjob-description")
     |> Floki.raw_html()
   end
 
   defp extract_title(parsed) do
     parsed
-    |> Floki.find("h1.topcard__title")
+    |> Floki.find("h1.viewjob-header-title")
     |> Floki.text()
   end
-
-  defp ensure_application_url_present(%Listing{application_url: nil} = listing, listing_url) do
-    %{ listing | application_url: listing_url }
-  end
-  defp ensure_application_url_present(listing, _), do: listing
 end
