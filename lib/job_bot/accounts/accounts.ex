@@ -1,6 +1,6 @@
 defmodule JobBot.Accounts do
   import Ecto.Query, warn: false
-  alias JobBot.{Listing, Repo}
+  alias JobBot.Repo
   alias JobBot.Accounts.{User, UserListing}
   alias Comeonin.Bcrypt
 

@@ -5,7 +5,7 @@ defmodule JobBot.UserRegistry do
   """
   use Agent
 
-  def start_link(opts \\ []) do
+  def start_link do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 

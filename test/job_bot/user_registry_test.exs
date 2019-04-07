@@ -1,8 +1,6 @@
 defmodule JobBot.UserRegistryTest do
   use ExUnit.Case, async: true
 
-  import Mock
-
   setup do
     Agent.update(JobBot.UserRegistry, fn (_) -> %{} end)
     :ok

@@ -2,8 +2,9 @@ defmodule JobBot.Accounts.Guardian do
   use Guardian, otp_app: :job_bot
 
   alias JobBot.Accounts
+  alias JobBot.Accounts.User
 
-  def subject_for_token(user, _claims) do
+  def subject_for_token(%User{} = user, _claims) do
     {:ok, to_string(user.id)}
   end
 

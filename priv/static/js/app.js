@@ -4719,7 +4719,6 @@ var UserSocket = function () {
     this.channel = this.socket.channel("users:" + this.user.id, {});
 
     this.channel.join().receive("ok", function (res) {
-      console.log("joined the channel", res);
       _store_js__WEBPACK_IMPORTED_MODULE_1__["store"].dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["UPDATE_LISTINGS"], payload: res.listings });
     }).receive("error", function (res) {
       console.error("failed to connect to channel", res);

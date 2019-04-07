@@ -10,7 +10,7 @@ defmodule JobBot.Crawler do
   """
   def ref(user_id, module), do: {:global, {module, user_id}}
 
-  defmacro __using__(opts) do
+  defmacro __using__(_) do
     quote do
       use GenServer
       require Logger

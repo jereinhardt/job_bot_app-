@@ -1,14 +1,13 @@
 defmodule JobBot.Crawler.CareerBuilderTest do
   use JobBot.CrawlerCase
 
-  alias HTTPoison.{Error, Response}
+  alias HTTPoison.Error
   alias JobBot.Listing
   alias JobBot.Crawler.CareerBuilder, as: Crawler
 
   import Mock
 
   @base_url "https://www.careerbuilder.com"
-  @fixture_dir "test/support/fixtures/career_builder"
 
   describe "get_job_urls/1" do
     test "crawls the index page and returns available urls" do
@@ -69,16 +68,5 @@ defmodule JobBot.Crawler.CareerBuilderTest do
         assert response == {:error, expected_message}
       end      
     end
-  end
-
-  defp mocks do
-    [
-      get: fn(@base_url <> "/jobs", _header, _opts) ->
-        get_fixture_response("index.html")
-      end,
-      get: fn("/job_1") ->
-        get_fixture_response("job_1.html")
-      end
-    ]
   end
 end

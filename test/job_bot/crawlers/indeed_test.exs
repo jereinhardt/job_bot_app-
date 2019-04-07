@@ -1,14 +1,13 @@
 defmodule JobBot.Crawler.IndeedTest do
   use JobBot.CrawlerCase
 
-  alias HTTPoison.{Error, Response}
+  alias HTTPoison.Error
   alias JobBot.Listing
   alias JobBot.Crawler.Indeed, as: Crawler
 
   import Mock
 
   @base_url "https://www.indeed.com"
-  @fixture_dir "test/support/fixtures/indeed/"
   
   describe "get_job_urls/1" do
     test "returns an empty list when no location is given" do

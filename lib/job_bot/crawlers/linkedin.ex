@@ -66,10 +66,9 @@ defmodule JobBot.Crawler.Linkedin do
   end
 
   defp extract_application_url(parsed) do
-    url = 
-      parsed
-      |> Floki.attribute("a.apply-button--link", "href")
-      |> Enum.at(0)
+    parsed
+    |> Floki.attribute("a.apply-button--link", "href")
+    |> Enum.at(0)
   end
 
   defp extract_city(parsed) do

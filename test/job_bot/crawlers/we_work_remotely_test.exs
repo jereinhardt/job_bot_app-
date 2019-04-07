@@ -8,7 +8,6 @@ defmodule JobBot.Crawler.WeWorkRemotelyTest do
   import Mock
 
   @base_url "https://weworkremotely.com"
-  @fixture_dir "test/support/fixtures/we_work_remotely/"
   
   describe "get_job_urls/1" do
     test "crawls the index for all jobs" do

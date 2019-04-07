@@ -66,10 +66,9 @@ defmodule JobBot.Crawler.Monster do
   end
 
   defp extract_application_url(parsed) do
-    url = 
-      parsed
-      |> Floki.attribute("a#PrimaryJobApply", "href")
-      |> Enum.at(0)
+    parsed
+    |> Floki.attribute("a#PrimaryJobApply", "href")
+    |> Enum.at(0)
   end
 
   defp extract_city(parsed) do

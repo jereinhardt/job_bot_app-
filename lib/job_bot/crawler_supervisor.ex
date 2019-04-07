@@ -21,9 +21,6 @@ defmodule JobBot.CrawlerSupervisor do
     source for which the user provided information.
   """
   def start_crawlers(opts) do
-    import Supervisor.Spec
-
-
     user_id = Map.get(opts, :user_id)
     searched_for_at = NaiveDateTime.utc_now()
     data =
