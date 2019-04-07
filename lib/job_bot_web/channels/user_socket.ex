@@ -5,7 +5,11 @@ defmodule JobBotWeb.UserSocket do
   channel "users:*", JobBotWeb.UserChannel
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport :websocket, Phoenix.Transports.WebSocket,
+    check_origin: [
+      "//bruised-distant-joey.gigalixirapp.com",
+      "//localhost:4000"
+    ]
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
