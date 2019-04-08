@@ -27,6 +27,10 @@ config :job_bot, JobBot.Repo,
   ssl: true,
   pool_size: 1
 
+config :job_bot, JobBot.Accounts.Guardian,
+       issuer: "job_bot",
+       secret_key: "${GUARDIAN_SECRET_KEY}"
+
 # Do not print debug messages in production
 config :logger, level: :info
 
