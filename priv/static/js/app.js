@@ -2086,7 +2086,7 @@ var ListingsList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ListingsList.__proto__ || Object.getPrototypeOf(ListingsList)).call(this, props));
 
     if (_this.props.user.id && _this.props.user.token) {
-      new _userSocket_js__WEBPACK_IMPORTED_MODULE_3__["default"](_this.props.user).listenForListings();
+      new _userSocket_js__WEBPACK_IMPORTED_MODULE_3__["default"](_this.props.user).joinChannel();
     }
     return _this;
   }
@@ -2141,8 +2141,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store.js */ "./js/store.js");
-/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../routes.js */ "./js/routes.js");
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../routes.js */ "./js/routes.js");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store.js */ "./js/store.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2150,6 +2150,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2175,18 +2176,17 @@ var LoginForm = function (_React$Component) {
       var _this2 = this;
 
       event.preventDefault();
-      var url = "/session";
       var token = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#app").data("js-csrf-token");
       var params = {
         session: { email: this.state.email, password: this.state.password },
         _csrf_token: token
       };
-      jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, params, function (res) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post(_routes_js__WEBPACK_IMPORTED_MODULE_3__["sessionPath"], params, function (res) {
         _this2.props.updateUser(res.data.user);
-        if (_this2.props.activeStep == 1) {
-          _this2.props.toggleSubmitted();
-        }
-        _store_js__WEBPACK_IMPORTED_MODULE_3__["history"].push(_routes_js__WEBPACK_IMPORTED_MODULE_4__["mainAppPath"]);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default.a.get(_routes_js__WEBPACK_IMPORTED_MODULE_3__["userListingsPath"], function (res) {
+          if (res.data.listings.length > 0) _this2.props.toggleSubmitted();
+        });
+        _store_js__WEBPACK_IMPORTED_MODULE_4__["history"].push(_routes_js__WEBPACK_IMPORTED_MODULE_3__["mainAppPath"]);
       }).fail(function (res) {
         _this2.setState({ error: res.responseJSON.data.message });
       });
@@ -2231,7 +2231,7 @@ var LoginForm = function (_React$Component) {
             "New to JobBot? ",
             react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
               react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"],
-              { to: _routes_js__WEBPACK_IMPORTED_MODULE_4__["signupPath"] },
+              { to: _routes_js__WEBPACK_IMPORTED_MODULE_3__["signupPath"] },
               "Sign up for a free account"
             ),
             "."
@@ -2435,6 +2435,19 @@ var NameLocationForm = function (_React$Component) {
 
       var nameError = this.validator.errorClassFor("name");
       var locationError = this.validator.errorClassFor("applicantLocation");
+      var loginPrompt = "";
+      if (!this.props.user.id) {
+        loginPrompt = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "p",
+          null,
+          "Already have an account? ",
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
+            { to: _routes_js__WEBPACK_IMPORTED_MODULE_2__["loginPath"] },
+            "Log in here"
+          )
+        );
+      }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "form",
@@ -2517,16 +2530,7 @@ var NameLocationForm = function (_React$Component) {
             className: "step__action step__action--forward"
           })
         ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "p",
-          null,
-          "Already have an account? ",
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
-            { to: _routes_js__WEBPACK_IMPORTED_MODULE_2__["loginPath"] },
-            "Log in here"
-          )
-        )
+        loginPrompt
       );
     }
   }]);
@@ -3805,7 +3809,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   return {
     applicantLocation: state.applicantLocation,
-    name: state.name
+    name: state.name,
+    user: state.user
   };
 };
 
@@ -4587,7 +4592,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************!*\
   !*** ./js/routes.js ***!
   \**********************/
-/*! exports provided: loginPath, logoutPath, mainAppPath, rootPath, signupPath */
+/*! exports provided: loginPath, logoutPath, mainAppPath, rootPath, sessionPath, signupPath, sourcesPath, userDataPath, userListingsPath */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4596,12 +4601,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutPath", function() { return logoutPath; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mainAppPath", function() { return mainAppPath; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rootPath", function() { return rootPath; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sessionPath", function() { return sessionPath; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signupPath", function() { return signupPath; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sourcesPath", function() { return sourcesPath; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userDataPath", function() { return userDataPath; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userListingsPath", function() { return userListingsPath; });
 var loginPath = "/login";
 var logoutPath = "/logout";
 var mainAppPath = "/search";
 var rootPath = "/";
+var sessionPath = "/session";
 var signupPath = "/signup";
+var sourcesPath = "/data/sources";
+var userDataPath = "/data/users";
+var userListingsPath = "/data/user_listings";
 
 /***/ }),
 
@@ -4621,7 +4634,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! history */ "./node_modules/history/es/index.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! connected-react-router */ "./node_modules/connected-react-router/esm/index.js");
-/* harmony import */ var _reducer_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reducer.js */ "./js/reducer.js");
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./routes.js */ "./js/routes.js");
+/* harmony import */ var _reducer_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducer.js */ "./js/reducer.js");
+
 
 
 
@@ -4631,7 +4646,7 @@ __webpack_require__.r(__webpack_exports__);
 var sources = function () {
   var sources = void 0;
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
-    url: "/data/sources",
+    url: _routes_js__WEBPACK_IMPORTED_MODULE_4__["sourcesPath"],
     type: "get",
     dataType: "json",
     async: false,
@@ -4643,34 +4658,44 @@ var sources = function () {
 }();
 
 var user = function () {
-  var user = void 0;
+  var user = {};
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
-    url: "/data/users",
+    url: _routes_js__WEBPACK_IMPORTED_MODULE_4__["userDataPath"],
     type: "get",
     dataType: "json",
     async: false,
     success: function success(res) {
-      if (res.data.user == null) {
-        user = {};
-      } else {
-        user = res.data.user;
-      }
+      user = res.data.user;
     }
   });
   return user;
 }();
 
+var listings = function () {
+  var listings = [];
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+    url: _routes_js__WEBPACK_IMPORTED_MODULE_4__["userListingsPath"],
+    type: "get",
+    dataType: "json",
+    async: false,
+    success: function success(res) {
+      listings = res.data.listings;
+    }
+  });
+  return listings;
+}();
+
 var name = user.name || "";
 
 var submitted = false;
-if (user.id) {
+if (listings.length > 0) {
   submitted = true;
 }
 
 var initialState = {
   activeStep: 1,
   applicantLocation: "",
-  listings: [],
+  listings: listings,
   location: "",
   name: name,
   sources: sources,
@@ -4683,7 +4708,7 @@ var initialState = {
 var history = Object(history__WEBPACK_IMPORTED_MODULE_1__["createBrowserHistory"])();
 var middleware = Object(redux__WEBPACK_IMPORTED_MODULE_2__["applyMiddleware"])(Object(connected_react_router__WEBPACK_IMPORTED_MODULE_3__["routerMiddleware"])(history));
 
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(Object(_reducer_js__WEBPACK_IMPORTED_MODULE_4__["default"])(history), initialState, Object(redux__WEBPACK_IMPORTED_MODULE_2__["compose"])(middleware));
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(Object(_reducer_js__WEBPACK_IMPORTED_MODULE_5__["default"])(history), initialState, Object(redux__WEBPACK_IMPORTED_MODULE_2__["compose"])(middleware));
 
 /***/ }),
 
@@ -4717,15 +4742,26 @@ var UserSocket = function () {
     this.user = user;
     this.socket = socket;
     this.channel = this.socket.channel("users:" + this.user.id, {});
-
-    this.channel.join().receive("ok", function (res) {
-      _store_js__WEBPACK_IMPORTED_MODULE_1__["store"].dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["UPDATE_LISTINGS"], payload: res.listings });
-    }).receive("error", function (res) {
-      console.error("failed to connect to channel", res);
-    });
   }
 
   _createClass(UserSocket, [{
+    key: "joinChannel",
+    value: function joinChannel() {
+      var _this = this;
+
+      var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+      this.channel.join().receive("ok", function (res) {
+        _store_js__WEBPACK_IMPORTED_MODULE_1__["store"].dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["UPDATE_LISTINGS"], payload: res.listings });
+        if (callback) {
+          callback(res);
+        }
+        _this.listenForListings();
+      }).receive("error", function (res) {
+        console.error("failed to connect to channel", res);
+      });
+    }
+  }, {
     key: "listenForListings",
     value: function listenForListings() {
       this.channel.on("new_listing", function (payload) {

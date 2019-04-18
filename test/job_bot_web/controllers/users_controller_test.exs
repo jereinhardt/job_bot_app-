@@ -68,12 +68,9 @@ defmodule JobBotWeb.UsersControllerTest do
 
   describe "show when the user is logged out" do
     test "returns nil", %{conn: conn} do
-      response =
-        conn
-        |> get("/data/users")
-        |> json_response(200)
+      conn = get(conn, "/data/users")
 
-      assert response == %{"data" => %{"user" => nil}}
+      assert response(conn, 401) == "{\"message\":\"unauthenticated\"}"
     end
   end
 end

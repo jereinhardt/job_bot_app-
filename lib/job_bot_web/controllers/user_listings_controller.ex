@@ -4,6 +4,16 @@ defmodule JobBotWeb.UserListingsController do
   alias JobBot.{Accounts, Repo}
   alias JobBot.Accounts.UserListing
 
+  def index(conn, _params) do
+    listings =
+      conn.assigns
+      |> Map.get(:current_user)
+      |> Map.get(:id)
+      |> Accounts.listings_from_latest_search()
+
+    render(conn, "index.json", listings: listings)
+  end
+
   def update(conn, %{"id" => id, "user_listing" => %{"toggle_applied_to_at" => "true"}}) do
     id = String.to_integer(id)
     user_listing =

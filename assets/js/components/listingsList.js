@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "phoenix";
 import BlankSlate from "../containers/blankSlate.js";
-import UserSocket from "../userSocket.js"
+import UserSocket from "../userSocket.js";
 import Listing from "../containers/listing.js";
 
 export default class ListingsList extends React.Component {
@@ -9,7 +9,7 @@ export default class ListingsList extends React.Component {
     super(props);
     
     if ( this.props.user.id && this.props.user.token ) {
-      new UserSocket(this.props.user).listenForListings();
+      new UserSocket(this.props.user).joinChannel();
     }
   }
 

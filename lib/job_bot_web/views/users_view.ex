@@ -13,7 +13,6 @@ defmodule JobBotWeb.UsersView do
     %{data: %{user: json_user(user, token)}}
   end
 
-  defp json_user(user, _) when is_nil(user), do: nil
   defp json_user(user, token) do
     %{
       id: user.id,

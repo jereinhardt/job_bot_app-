@@ -2,6 +2,25 @@ defmodule JobBotWeb.UserListingsControllerTest do
   use JobBotWeb.ConnCase
   use JobBotWeb.AuthCase
 
+  describe "index/2" do
+    test "returns the listings from the last search" do
+      user = insert(:user)
+      listings = [insert(:user_listing, user: user)]
+      json_response =
+        %{data: %{listings: listings}}
+        |> Poison.encode!()
+        |> Poison.decode!()
+
+      response =
+        conn
+        |> log_in_user(user)
+        |> get("/data/user_listings", %{})
+        |> json_response(200)
+
+      assert response == json_response
+    end
+  end
+
   describe "update/2" do
     test "updates the user listing", %{conn: conn} do
       applied_to_at = NaiveDateTime.utc_now()

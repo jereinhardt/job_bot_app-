@@ -1,6 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
+import { sessionPath, userListingsPath } from "../routes.js";
 import { history } from "../store.js";
 import { mainAppPath, signupPath } from "../routes.js";
 
@@ -13,17 +14,16 @@ export default class LoginForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const url = "/session";
     const token = $("#app").data("js-csrf-token");
     const params = {
       session: {email: this.state.email, password: this.state.password},
       _csrf_token: token
     };
-    $.post(url, params, (res) => {
+    $.post(sessionPath, params, (res) => {
       this.props.updateUser(res.data.user);
-      if ( this.props.activeStep == 1 ) {
-        this.props.toggleSubmitted();
-      }
+      $.get(userListingsPath, (res) => {
+        if ( res.data.listings.length > 0 ) this.props.toggleSubmitted()
+      })
       history.push(mainAppPath);
     }).fail((res) => {
       this.setState({error: res.responseJSON.data.message});

@@ -10,10 +10,16 @@ export default class UserSocket {
     this.user = user;
     this.socket = socket;
     this.channel = this.socket.channel(`users:${this.user.id}`, {});
+  }
 
+  joinChannel(callback = undefined) {
     this.channel.join().
       receive("ok", (res) => {
         store.dispatch({ type: UPDATE_LISTINGS, payload: res.listings });
+        if ( callback ) {
+          callback(res);
+        }
+        this.listenForListings();
       }).
       receive("error", (res) => {
         console.error("failed to connect to channel", res);

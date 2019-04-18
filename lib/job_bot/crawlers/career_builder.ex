@@ -73,21 +73,26 @@ defmodule JobBot.Crawler.CareerBuilder do
   end
 
   defp extract_city(parsed) do
-    parsed
-    |> Floki.find("#job-company-name")
-    |> Floki.text()
-    |> String.split("•")
-    |> Enum.at(1)
-    |> String.trim()
+    regex = ~r/\•/
+    text = parsed |> Floki.find("#job-company-name") |> Floki.text()
+    if Regex.match?(regex, text) do
+      text
+      |> String.split("•")
+      |> Enum.at(1)
+      |> String.trim
+    else
+      String.trim(text)
+    end
   end
 
   defp extract_company_name(parsed) do
-    parsed
-    |> Floki.find("#job-company-name")
-    |> Floki.text()
-    |> String.split("•")
-    |> Enum.at(0)
-    |> String.trim()
+    regex = ~r/(?<company_name>.+)\s\•\s.+/
+    text = parsed |> Floki.find("#job-company-name") |> Floki.text()
+
+    case Regex.named_captures(regex, text) do
+      %{"company_name" => company_name} -> String.trim(company_name)
+      _ -> "View Listing For Company Name"
+    end
   end
 
   defp extract_description(parsed) do

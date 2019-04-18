@@ -23,6 +23,10 @@ defmodule JobBotWeb.Router do
     plug :put_user_token
   end
 
+  pipeline :auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
   scope "/", JobBotWeb do
     pipe_through :browser
 
@@ -38,10 +42,15 @@ defmodule JobBotWeb.Router do
   scope "/data", JobBotWeb do
     pipe_through :data
 
-    get "/users", UsersController, :show
     resources "/users", UsersController, only: [:create]
-    resources "/user_listings", UserListingsController, only: [:update]
     resources "/sources", SourceController, only: [:index]
+  end
+
+  scope "/data", JobBotWeb do
+    pipe_through [:data, :auth]
+
+    get "/users", UsersController, :show
+    resources "/user_listings", UserListingsController, only: [:index, :update]
     resources "/job_searches", JobSearchesController, only: [:create]
   end
 

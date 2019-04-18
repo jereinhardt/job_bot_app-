@@ -2,12 +2,13 @@ import $ from "jquery";
 import { createBrowserHistory } from "history";
 import { applyMiddleware, compose, createStore } from "redux";
 import { routerMiddleware } from "connected-react-router";
+import { sourcesPath, userDataPath, userListingsPath } from "./routes.js";
 import createRootReducer from "./reducer.js";
 
 const sources = (() => {
   let sources;
   $.ajax({
-    url: "/data/sources",
+    url: sourcesPath,
     type: "get",
     dataType: "json",
     async: false,
@@ -17,27 +18,37 @@ const sources = (() => {
 })()
 
 const user = (() => {
-  let user;
+  let user = {};
   $.ajax({
-    url: "/data/users",
+    url: userDataPath,
     type: "get",
     dataType: "json",
     async: false,
     success: (res) => {
-      if ( res.data.user == null ) {
-        user = {};        
-      } else {
-        user = res.data.user;        
-      }
+      user = res.data.user;        
     }
-  })
+  });
   return user;
+})()
+
+const listings = (() => {
+  let listings = [];
+  $.ajax({
+    url: userListingsPath,
+    type: "get",
+    dataType: "json",
+    async: false,
+    success: (res) => {
+      listings = res.data.listings
+    }
+  });
+  return listings;
 })()
 
 const name = user.name || "";
 
 let submitted = false;
-if ( user.id ) {
+if ( listings.length > 0 ) {
   submitted = true;
 }
 
@@ -45,7 +56,7 @@ if ( user.id ) {
 const initialState = {
   activeStep: 1,
   applicantLocation: "",
-  listings: [],
+  listings: listings,
   location: "",
   name: name,
   sources: sources,

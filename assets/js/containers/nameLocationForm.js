@@ -9,7 +9,8 @@ import NameLocationForm from "../components/nameLocationForm.js";
 const mapStateToProps = (state) => {
   return {
     applicantLocation: state.applicantLocation,
-    name: state.name
+    name: state.name,
+    user: state.user
   };
 }
 

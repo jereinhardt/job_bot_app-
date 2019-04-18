@@ -41,6 +41,10 @@ export default class NameLocationForm extends React.Component {
   render() {
     const nameError = this.validator.errorClassFor("name");
     const locationError = this.validator.errorClassFor("applicantLocation");
+    let loginPrompt = "";
+    if ( !this.props.user.id ) {
+      loginPrompt = <p>Already have an account? <Link to={loginPath}>Log in here</Link></p>
+    }
 
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -98,7 +102,7 @@ export default class NameLocationForm extends React.Component {
             className="step__action step__action--forward"
           />
         </div>
-        <p>Already have an account? <Link to={loginPath}>Log in here</Link></p>
+        {loginPrompt}
       </form>
     )
   }
