@@ -12,7 +12,7 @@
     "extract-text-webpack-plugin": "4.0.0-alpha.0",
     "file-loader": "^1.1.11",
     "import-glob-loader": "^1.1.0",
-    "jquery": "^3.3.1",
+    "jquery": "3.4.0",
     "node-sass": "^4.9.1",
     "popper.js": "^1.14.3",
     "react": "^16.4.1",
@@ -29,11 +29,13 @@
     "watch": "webpack --mode development --watch-stdin"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "0.18.1",
     "bulma": "^0.7.1",
     "connected-react-router": "^6.3.1",
     "font-awesome": "^4.7.0",
+    "fstream": "1.0.12",
     "image-webpack-loader": "^4.6.0",
+    "js-yaml": "3.13.1",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",

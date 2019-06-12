@@ -4,7 +4,7 @@
 /deps
 /*.ez
 /lib/.DS_Store
-
+/.DS_Store
 /assets/node_modules
 
 # Generated on crash by the VM
