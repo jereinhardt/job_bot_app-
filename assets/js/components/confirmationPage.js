@@ -1,9 +1,12 @@
 import React from "react";
 import $ from "jquery";
+import { history } from "../store.js";
+import { resultsPath } from "../routes.js";
 
 export default class ConfirmationPage extends React.Component {
   handleBack() {
-    this.props.moveBackward()
+    const steps = this.props.data.user.id ? 2 : 1;
+    this.props.moveBackward(steps);
   }
 
   handleSubmit() {
@@ -24,7 +27,9 @@ export default class ConfirmationPage extends React.Component {
       _csrf_token: token
     };
     $.post("/data/job_searches", params, () => {
-      this.props.toggleSubmitted();
+      this.props.clearListings();
+      this.props.resetSteps();
+      history.push(resultsPath);
     });
   }
 

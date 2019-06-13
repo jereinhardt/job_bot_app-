@@ -17,9 +17,10 @@ export default class TermsLocationForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if ( !this.validator.hasInvalidFields() ) {
+      const steps = this.props.user.id ? 2 : 1;
       this.props.updateTerms(this.state.terms);
       this.props.updateLocation(this.state.location);
-      this.props.moveForward();
+      this.props.moveForward(steps);
     }
   }
 

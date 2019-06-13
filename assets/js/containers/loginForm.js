@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { UPDATE_USER, TOGGLE_SUBMITTED } from "../actionTypes.js";
+import { MOVE_FORWARD, UPDATE_USER, TOGGLE_SUBMITTED } from "../actionTypes.js";
 import LoginForm from "../components/loginForm.js";
 
 const mapStateToProps = (state) => {
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUser: (payload) => dispatch({ type: UPDATE_USER, payload }),
-    toggleSubmitted: () => dispatch({ type: TOGGLE_SUBMITTED })
+    moveForward: () => dispatch({ type: MOVE_FORWARD })
   };
 }
 

@@ -1,13 +1,12 @@
 import React from "react";
 import { history } from "../store.js";
-import { mainAppPath } from "../routes.js"
+import { mainAppPath } from "../routes.js";
 import SignupForm from "../containers/signupForm.js";
 import Nav from "../containers/nav.js";
 
 export default class LoginPage extends React.Component {
   render() {
-    const redirect = () => history.push(mainAppPath);
-
+    const submitCallback = () => history.push(mainAppPath);
     return(
       <div>
         <Nav />
@@ -15,7 +14,7 @@ export default class LoginPage extends React.Component {
           <div className="modal is-active">
             <div className="modal-background"></div>
             <div className="modal-content">
-              <SignupForm submitCallback={redirect}/>
+              <SignupForm submitCallback={submitCallback} />
             </div>
           </div>
         </div>
