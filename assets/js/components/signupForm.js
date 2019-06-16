@@ -8,13 +8,6 @@ export default class SignupForm extends React.Component {
   constructor(props) {
     super(props);
 
-    let name;
-    if ( this.props.name == "" && this.props.user ) {
-      name = this.props.user.name
-    } else {
-      this.props.name
-    }
-
     this.state = { email: "", password: "", errors: {} };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,8 +52,6 @@ export default class SignupForm extends React.Component {
   }
 
   render() {
-    window.props = this.props;
-
     const nameError = {
       class: this.state.errors.name ? " has-error" : "",
       message: this.state.errors.name
