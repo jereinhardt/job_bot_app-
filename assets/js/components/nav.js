@@ -26,13 +26,9 @@ export default class Nav extends React.Component {
       return(
         <div className="navbar-end">
           <div className="navbar-item">
-            <a
-              href="#"
-              className="button is-primary"
-              onClick={this.createNewSearch}
-            >
+            <Link to={mainAppPath} className="button is-primary">
               Create New Search
-            </a>
+            </Link>
           </div>
           <div className="navbar-item">
             <a href={logoutPath} className="button is-light">Logout</a>

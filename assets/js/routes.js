@@ -1,6 +1,7 @@
 export const loginPath = "/login";
 export const logoutPath = "/logout";
 export const mainAppPath = "/search";
+export const resultsPath = "/results";
 export const rootPath = "/";
 export const sessionPath = "/session";
 export const signupPath = "/signup";

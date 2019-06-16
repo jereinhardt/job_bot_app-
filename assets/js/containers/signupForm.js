@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { UPDATE_USER } from "../actionTypes.js";
+import { UPDATE_USER, UPDATE_NAME } from "../actionTypes.js";
 import SignupForm from "../components/signupForm.js";
 
 const mapStateToProps = (state, props) => {
@@ -12,7 +12,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUser: (payload) => dispatch({ type: UPDATE_USER, payload })
+    updateUser: (payload) => dispatch({ type: UPDATE_USER, payload }),
+    updateName: (payload) => dispatch({ type: UPDATE_NAME, payload })
   };
 }
 

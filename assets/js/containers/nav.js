@@ -10,14 +10,4 @@ const mapStateToProps = (state) => {
   return { user: state.user };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createNewSearch: () => {
-      dispatch({ type: RESET_STEPS });
-      dispatch({ type: TOGGLE_SUBMITTED });
-      dispatch({ type: CLEAR_LISTINGS });
-    }
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Nav)
+export default connect(mapStateToProps)(Nav)

@@ -37,6 +37,7 @@ defmodule JobBotWeb.Router do
     delete "/session", SessionController, :delete
     resources "/session", SessionController, only: [:create]
     get "/search", PageController, :index
+    get "/results", PageController, :index
   end
 
   scope "/data", JobBotWeb do

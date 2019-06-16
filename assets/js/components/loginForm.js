@@ -3,7 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { sessionPath, userListingsPath } from "../routes.js";
 import { history } from "../store.js";
-import { mainAppPath, signupPath } from "../routes.js";
+import { mainAppPath, signupPath, resultsPath } from "../routes.js";
+import UserSocket from "../userSocket.js";
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -21,10 +22,18 @@ export default class LoginForm extends React.Component {
     };
     $.post(sessionPath, params, (res) => {
       this.props.updateUser(res.data.user);
-      $.get(userListingsPath, (res) => {
-        if ( res.data.listings.length > 0 ) this.props.toggleSubmitted()
-      })
-      history.push(mainAppPath);
+
+      const channelCallback = (res) => {
+        if ( this.props.activeStep == 4 ) {
+          this.props.moveForward();
+          history.push(mainAppPath);
+        } else if ( res.listings.length > 0 ) {
+          history.push(resultsPath);
+        } else {
+          history.push(mainAppPath);
+        }
+      }
+      new UserSocket(res.data.user).joinChannel(channelCallback);
     }).fail((res) => {
       this.setState({error: res.responseJSON.data.message});
     })

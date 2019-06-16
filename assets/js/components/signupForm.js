@@ -2,14 +2,13 @@ import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
 import { loginPath } from "../routes.js";
-import Validator from "../containers/validator.js";
+import UserSocket from "../userSocket.js";
 
 export default class SignupForm extends React.Component {
   constructor(props) {
     super(props);
 
-    const name = this.props.user.name ? this.props.user.name : this.props.name;
-    this.state = { name: name, email: "", password: "", errors: {} };
+    this.state = { email: "", password: "", errors: {} };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -20,7 +19,7 @@ export default class SignupForm extends React.Component {
     const token = $("#app").data("js-csrf-token")
     const params = {
       user: {
-        name: this.state.name,
+        name: this.props.name,
         email: this.state.email,
         password: this.state.password 
       },
@@ -28,8 +27,9 @@ export default class SignupForm extends React.Component {
     };
     $.post("/data/users", params, (res) => {
       this.props.updateUser(res.data.user);
+      new UserSocket(res.data.user).joinChannel();
       if ( this.props.submitCallback ) {
-        this.props.submitCallback(res.data.user)
+        this.props.submitCallback();
       }
     }).fail((res) => {
       this.setState({errors: res.responseJSON.data.errors});
@@ -38,7 +38,7 @@ export default class SignupForm extends React.Component {
 
   handleNameChange(event) {
     event.persist();
-    this.setState({name: event.target.value});
+    this.props.updateName(event.target.value);
   }
 
   handleEmailChange(event) {
@@ -89,7 +89,7 @@ export default class SignupForm extends React.Component {
             <input
               type="text"
               name="name"
-              value={this.state.name}
+              value={this.props.name}
               placeholder="John Botson"
               className={`input${nameError.class}`}
               onChange={(e) => this.handleNameChange(e)}

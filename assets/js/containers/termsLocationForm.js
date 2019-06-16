@@ -10,14 +10,15 @@ import TermsLocationForm from "../components/termsLocationForm.js";
 const mapStateToProps = (state) => {
   return {
     location: state.location,
-    terms: state.terms
+    terms: state.terms,
+    user: state.user
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     moveBackward: () => dispatch({ type: MOVE_BACKWARD }),
-    moveForward: () => dispatch({ type: MOVE_FORWARD }),
+    moveForward: (payload) => dispatch({ type: MOVE_FORWARD, payload }),
     updateLocation: (payload) => dispatch({ type: UPDATE_LOCATION, payload }),
     updateTerms: (payload) => dispatch({ type: UPDATE_TERMS, payload })
   };

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { MOVE_BACKWARD, TOGGLE_SUBMITTED } from "../actionTypes.js";
+import { CLEAR_LISTINGS, MOVE_BACKWARD, RESET_STEPS } from "../actionTypes.js";
 import ConfirmationPage from "../components/confirmationPage.js";
 
 const mapStateToProps = (state) => {
@@ -8,8 +8,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    moveBackward: () => dispatch({ type: MOVE_BACKWARD }),
-    toggleSubmitted: () => dispatch({ type: TOGGLE_SUBMITTED })
+    moveBackward: (payload) => dispatch({ type: MOVE_BACKWARD, payload }),
+    resetSteps: () => dispatch({ type: RESET_STEPS }),
+    clearListings: () => dispatch({ type: CLEAR_LISTINGS })
   }
 }
 
