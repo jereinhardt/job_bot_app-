@@ -1,10 +1,11 @@
 import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Socket } from "phoenix";
 import { sessionPath, userListingsPath } from "../routes.js";
 import { history } from "../store.js";
 import { mainAppPath, signupPath, resultsPath } from "../routes.js";
-import UserSocket from "../userSocket.js";
+import { joinUserListingsChannel } from "../utils/userListingsChannel.js";
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -15,25 +16,23 @@ export default class LoginForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const token = $("#app").data("js-csrf-token");
     const params = {
       session: {email: this.state.email, password: this.state.password},
-      _csrf_token: token
+      _csrf_token: this.props.csrfToken
     };
     $.post(sessionPath, params, (res) => {
-      this.props.updateUser(res.data.user);
-
-      const channelCallback = (res) => {
-        if ( this.props.activeStep == 4 ) {
-          this.props.moveForward();
-          history.push(mainAppPath);
-        } else if ( res.listings.length > 0 ) {
-          history.push(resultsPath);
-        } else {
-          history.push(mainAppPath);
-        }
+      const user = res.data.user;
+      this.props.updateUser(user);
+      joinUserListingsChannel(user, this.props.addListingsChannel);
+      if ( this.props.activeStep == 4 ) {
+        this.props.moveForward();
       }
-      new UserSocket(res.data.user).joinChannel(channelCallback);
+
+      if ( user.userListings.length > 0 ) {
+        history.push(resultsPath);
+      } else {
+        history.push(mainAppPath);
+      }
     }).fail((res) => {
       this.setState({error: res.responseJSON.data.message});
     })

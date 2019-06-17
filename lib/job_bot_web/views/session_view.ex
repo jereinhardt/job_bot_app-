@@ -10,7 +10,8 @@ defmodule JobBotWeb.SessionView do
       id: user.id,
       name: user.name,
       email: user.email,
-      token: token
+      token: token,
+      userListings: user.user_listings
     }
   end
 end

@@ -12,7 +12,8 @@ defmodule JobBotWeb.SessionControllerTest do
           "id" => user.id,
           "name" => user.name,
           "email" => user.email,
-          "token" => "token"
+          "token" => "token",
+          "userListings" => []
         }
         data = %{"data" => %{"user" => json_user}}
 

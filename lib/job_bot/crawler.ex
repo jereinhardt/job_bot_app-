@@ -86,7 +86,7 @@ defmodule JobBot.Crawler do
       @doc """
         Once all of the urls have been crawled, the process stops itself
       """
-      def handle_info(:crawl_next, []), do: GenServer.call(self(), :stop)
+      def handle_info(:crawl_next, []), do: {:stop, :normal, []}
 
       @doc """
         If the setup has not been completed yet, queue another delayed scraper.
@@ -96,15 +96,6 @@ defmodule JobBot.Crawler do
           IO.ANSI.green <> "no initial state yet.  Resetting inittial crawl" <> IO.ANSI.reset
         )
         schedule_next_crawl()
-      end
-
-      @doc "Stops the process"
-      def handle_call(:stop, _from, []), do: {:stop, :normal, []}
-      
-      @doc "In case there are still urls left to crawl, continue the crawl loop"
-      def handle_call(:stop, _from, state) do
-        schedule_next_crawl()
-        {:reply, :ok, state}
       end
 
       @doc """

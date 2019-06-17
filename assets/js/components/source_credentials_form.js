@@ -1,5 +1,5 @@
 import React from "react";
-import Validator from "../containers/validator.js";
+import Validator from "../utils/validator.js";
 
 export default class SourceCredentialsForm extends React.Component {
   constructor(props) {

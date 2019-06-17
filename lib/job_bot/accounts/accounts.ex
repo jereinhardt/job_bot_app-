@@ -24,7 +24,8 @@ defmodule JobBot.Accounts do
   def authenticate_user(email, given_password) do
     query = 
       from u in User,
-      where: u.email == ^email
+      where: u.email == ^email,
+      preload: [:user_listings]
 
     Repo.one(query)
     |> check_password(given_password)

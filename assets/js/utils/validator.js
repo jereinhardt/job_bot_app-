@@ -1,5 +1,3 @@
-// import React from "react";
-
 export default class Validator {
   constructor(component, validations) {
     this.component = component;

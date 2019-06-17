@@ -6,8 +6,6 @@ import {
 } from "../actionTypes.js";
 import Nav from "../components/nav.js";
 
-const mapStateToProps = (state) => {
-  return { user: state.user };
-}
+const mapStateToProps = (state) => ({ user: state.user });
 
 export default connect(mapStateToProps)(Nav)

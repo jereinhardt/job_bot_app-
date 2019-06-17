@@ -3,7 +3,6 @@ defmodule JobBot.Accounts.User do
   import Ecto.Changeset
   alias JobBot.Accounts.UserListing
 
-  @derive {Poison.Encoder, only: [:name, :email]}
   schema "users" do
     field :name, :string
     field :email, :string
@@ -27,6 +26,20 @@ defmodule JobBot.Accounts.User do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         change(changeset, password: Bcrypt.hash_pwd_salt(password))
       _ -> changeset
+    end
+  end
+end
+
+defimpl Poison.Encoder, for: JobBot.Accounts.User do
+  def encode(user, options) do
+    if Ecto.assoc_loaded?(user.user_listings) do
+      user
+      |> Map.take([:name, :email, :id, :token, :user_listings])
+      |> Poison.Encoder.Map.encode(options)    
+    else  
+      user
+      |> Map.take([:name, :email, :id, :token])
+      |> Poison.Encoder.Map.encode(options)
     end
   end
 end
