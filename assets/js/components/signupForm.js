@@ -1,7 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
-import { loginPath } from "../routes.js";
+import { loginPath, userDataPath } from "../routes.js";
 import { joinUserListingsChannel } from "../utils/userListingsChannel.js";
 
 export default class SignupForm extends React.Component {
@@ -15,7 +15,6 @@ export default class SignupForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const url = "/data/users";
     const params = {
       user: {
         name: this.props.name,
@@ -24,7 +23,7 @@ export default class SignupForm extends React.Component {
       },
       "_csrf_token": this.props.csrfToken
     };
-    $.post("/data/users", params, (res) => {
+    $.post(userDataPath, params, (res) => {
       this.props.updateUser(res.data.user);
       joinUserListingsChannel(res.data.user, this.props.addListingsChannel);
       if ( this.props.submitCallback ) {

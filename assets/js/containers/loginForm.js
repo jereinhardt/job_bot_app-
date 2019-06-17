@@ -11,12 +11,10 @@ const mapStateToProps = (state) => ({
   csrfToken: state.csrfToken
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addListingsChannel: (payload) => dispatch({ type: ADD_LISTINGS_CHANNEL, payload }),
-    updateUser: (payload) => dispatch({ type: UPDATE_USER, payload }),
-    moveForward: () => dispatch({ type: MOVE_FORWARD })
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  addListingsChannel: (payload) => dispatch({ type: ADD_LISTINGS_CHANNEL, payload }),
+  updateUser: (payload) => dispatch({ type: UPDATE_USER, payload }),
+  moveForward: () => dispatch({ type: MOVE_FORWARD })
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

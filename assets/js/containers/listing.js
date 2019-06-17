@@ -6,10 +6,8 @@ const mapStateToProps = (state, props) => (
   Object.assign({}, props, { csrfToken: state.csrfToken })
 );
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateListing: (payload) => dispatch({ type: UPDATE_LISTING, payload })
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  updateListing: (payload) => dispatch({ type: UPDATE_LISTING, payload })
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Listing)

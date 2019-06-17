@@ -6,9 +6,7 @@ import {
 } from "../actionTypes.js";
 import BlankSlate from "../components/blankSlate.js";
 
-const mapStateToProps = (state) => {
-  return {};
-}
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => {
   return {

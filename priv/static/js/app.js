@@ -2333,7 +2333,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../routes.js */ "./js/routes.js");
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var _utils_validator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/validator.js */ "./js/utils/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2361,7 +2361,7 @@ var NameLocationForm = function (_React$Component) {
     };
 
     var validations = [{ id: "name", validate: ["presence"] }, { id: "applicantLocation", validate: ["presence"] }];
-    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_3__["default"](_this, validations);
+    _this.validator = new _utils_validator_js__WEBPACK_IMPORTED_MODULE_3__["default"](_this, validations);
     return _this;
   }
 
@@ -2756,7 +2756,6 @@ var SignupForm = function (_React$Component) {
       var _this2 = this;
 
       event.preventDefault();
-      var url = "/data/users";
       var params = {
         user: {
           name: this.props.name,
@@ -2765,7 +2764,7 @@ var SignupForm = function (_React$Component) {
         },
         "_csrf_token": this.props.csrfToken
       };
-      jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/data/users", params, function (res) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post(_routes_js__WEBPACK_IMPORTED_MODULE_3__["userDataPath"], params, function (res) {
         _this2.props.updateUser(res.data.user);
         Object(_utils_userListingsChannel_js__WEBPACK_IMPORTED_MODULE_4__["joinUserListingsChannel"])(res.data.user, _this2.props.addListingsChannel);
         if (_this2.props.submitCallback) {
@@ -3101,7 +3100,7 @@ var Source = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var _utils_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/validator.js */ "./js/utils/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3127,7 +3126,7 @@ var SourceCredentialsForm = function (_React$Component) {
     };
 
     var validations = [{ id: "email", validate: ["presence"] }, { id: "password", validate: ["presence"] }];
-    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
+    _this.validator = new _utils_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
     return _this;
   }
 
@@ -3435,7 +3434,7 @@ var Step = function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/validator.js */ "./js/containers/validator.js");
+/* harmony import */ var _utils_validator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/validator.js */ "./js/utils/validator.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3461,7 +3460,7 @@ var TermsLocationForm = function (_React$Component) {
     };
 
     var validations = [{ id: "terms", validate: ["presence"] }];
-    _this.validator = new _containers_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
+    _this.validator = new _utils_validator_js__WEBPACK_IMPORTED_MODULE_1__["default"](_this, validations);
     return _this;
   }
 
@@ -3748,17 +3747,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  var connectToListingsChannel = function connectToListingsChannel(user) {
-    var socket = new phoenix__WEBPACK_IMPORTED_MODULE_1__["Socket"]("/socket", { params: { token: user.token } });
-    var channel = socket.channel("users:" + user.id, {});
-    channel.join();
-    channel.on("new_listing", function (payload) {
-      store.dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["ADD_LISTING"], payload: payload.listing });
-    });
-  };
-
   return {
-    connectToListingsChannel: connectToListingsChannel,
     addListingsChannel: function addListingsChannel(payload) {
       return dispatch({ type: _actionTypes_js__WEBPACK_IMPORTED_MODULE_2__["ADD_LISTINGS_CHANNEL"], payload: payload });
     },
@@ -4064,134 +4053,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_termsLocationForm_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
-
-/***/ }),
-
-/***/ "./js/containers/validator.js":
-/*!************************************!*\
-  !*** ./js/containers/validator.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// import React from "react";
-
-var Validator = function () {
-  function Validator(component, validations) {
-    _classCallCheck(this, Validator);
-
-    this.component = component;
-    this.validations = validations;
-    this.errors = [];
-  }
-
-  _createClass(Validator, [{
-    key: "hasInvalidFields",
-    value: function hasInvalidFields() {
-      var _this = this;
-
-      this.errors = [];
-      var invalidProperties = this.validations.filter(function (validation) {
-        return _this._inputIsInvalid(validation);
-      });
-      if (invalidProperties.length > 0) {
-        this.errors = invalidProperties.map(function (_ref) {
-          var id = _ref.id,
-              validate = _ref.validate;
-
-          var value = _this.component.state[id];
-          var errorProperty = validate.find(function (validation) {
-            return _this._inputIsInvalidFor(value, validation);
-          });
-          return { id: id, message: _this._errorMessageFor(errorProperty) };
-        });
-        this.component.forceUpdate();
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }, {
-    key: "errorClassFor",
-    value: function errorClassFor(name) {
-      var title = this.errors.some(function (_ref2) {
-        var id = _ref2.id;
-        return id == name;
-      }) ? "has-error" : "";
-      return title;
-    }
-  }, {
-    key: "errorMessageFor",
-    value: function errorMessageFor(name) {
-      var validation = this.errors.find(function (_ref3) {
-        var id = _ref3.id;
-        return id == name;
-      });
-      if (validation) {
-        return validation.message;
-      } else {
-        return "";
-      }
-    }
-  }, {
-    key: "_inputIsInvalid",
-    value: function _inputIsInvalid(_ref4) {
-      var _this2 = this;
-
-      var id = _ref4.id,
-          validate = _ref4.validate;
-
-      var value = this.component.state[id];
-      return validate.some(function (validation) {
-        return _this2._inputIsInvalidFor(value, validation);
-      });
-    }
-  }, {
-    key: "_inputIsInvalidFor",
-    value: function _inputIsInvalidFor(value, validation) {
-      return this._validations()[validation](value);
-    }
-  }, {
-    key: "_validations",
-    value: function _validations() {
-      return {
-        "presence": this._invalidPresence,
-        "email": this._invalidEmail
-      };
-    }
-  }, {
-    key: "_invalidPresence",
-    value: function _invalidPresence(value) {
-      return value == "" || value == undefined;
-    }
-  }, {
-    key: "_invalidEmail",
-    value: function _invalidEmail(value) {
-      var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return !regex.test(String(value).toLowerCase());
-    }
-  }, {
-    key: "_errorMessageFor",
-    value: function _errorMessageFor(validation) {
-      var messages = {
-        "presence": "Cannot be blank",
-        "email": "Must be a valid email address"
-      };
-
-      return messages[validation];
-    }
-  }]);
-
-  return Validator;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Validator);
 
 /***/ }),
 
@@ -4747,6 +4608,132 @@ var joinUserListingsChannel = function joinUserListingsChannel(user, callback) {
   var channel = socket.channel("users:" + user.id, {});
   callback(channel);
 };
+
+/***/ }),
+
+/***/ "./js/utils/validator.js":
+/*!*******************************!*\
+  !*** ./js/utils/validator.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Validator = function () {
+  function Validator(component, validations) {
+    _classCallCheck(this, Validator);
+
+    this.component = component;
+    this.validations = validations;
+    this.errors = [];
+  }
+
+  _createClass(Validator, [{
+    key: "hasInvalidFields",
+    value: function hasInvalidFields() {
+      var _this = this;
+
+      this.errors = [];
+      var invalidProperties = this.validations.filter(function (validation) {
+        return _this._inputIsInvalid(validation);
+      });
+      if (invalidProperties.length > 0) {
+        this.errors = invalidProperties.map(function (_ref) {
+          var id = _ref.id,
+              validate = _ref.validate;
+
+          var value = _this.component.state[id];
+          var errorProperty = validate.find(function (validation) {
+            return _this._inputIsInvalidFor(value, validation);
+          });
+          return { id: id, message: _this._errorMessageFor(errorProperty) };
+        });
+        this.component.forceUpdate();
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "errorClassFor",
+    value: function errorClassFor(name) {
+      var title = this.errors.some(function (_ref2) {
+        var id = _ref2.id;
+        return id == name;
+      }) ? "has-error" : "";
+      return title;
+    }
+  }, {
+    key: "errorMessageFor",
+    value: function errorMessageFor(name) {
+      var validation = this.errors.find(function (_ref3) {
+        var id = _ref3.id;
+        return id == name;
+      });
+      if (validation) {
+        return validation.message;
+      } else {
+        return "";
+      }
+    }
+  }, {
+    key: "_inputIsInvalid",
+    value: function _inputIsInvalid(_ref4) {
+      var _this2 = this;
+
+      var id = _ref4.id,
+          validate = _ref4.validate;
+
+      var value = this.component.state[id];
+      return validate.some(function (validation) {
+        return _this2._inputIsInvalidFor(value, validation);
+      });
+    }
+  }, {
+    key: "_inputIsInvalidFor",
+    value: function _inputIsInvalidFor(value, validation) {
+      return this._validations()[validation](value);
+    }
+  }, {
+    key: "_validations",
+    value: function _validations() {
+      return {
+        "presence": this._invalidPresence,
+        "email": this._invalidEmail
+      };
+    }
+  }, {
+    key: "_invalidPresence",
+    value: function _invalidPresence(value) {
+      return value == "" || value == undefined;
+    }
+  }, {
+    key: "_invalidEmail",
+    value: function _invalidEmail(value) {
+      var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return !regex.test(String(value).toLowerCase());
+    }
+  }, {
+    key: "_errorMessageFor",
+    value: function _errorMessageFor(validation) {
+      var messages = {
+        "presence": "Cannot be blank",
+        "email": "Must be a valid email address"
+      };
+
+      return messages[validation];
+    }
+  }]);
+
+  return Validator;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Validator);
 
 /***/ }),
 

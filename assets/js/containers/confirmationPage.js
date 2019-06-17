@@ -4,12 +4,10 @@ import ConfirmationPage from "../components/confirmationPage.js";
 
 const mapStateToProps = (state) => ({ data: state, csrfToken: state.csrfToken });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    moveBackward: (payload) => dispatch({ type: MOVE_BACKWARD, payload }),
-    resetSteps: () => dispatch({ type: RESET_STEPS }),
-    clearListings: () => dispatch({ type: CLEAR_LISTINGS })
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  moveBackward: (payload) => dispatch({ type: MOVE_BACKWARD, payload }),
+  resetSteps: () => dispatch({ type: RESET_STEPS }),
+  clearListings: () => dispatch({ type: CLEAR_LISTINGS })
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationPage)

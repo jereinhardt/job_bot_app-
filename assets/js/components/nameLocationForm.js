@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { loginPath } from "../routes.js";
-import Validator from "../containers/validator.js";
+import Validator from "../utils/validator.js";
 
 export default class NameLocationForm extends React.Component {
   constructor(props) {
