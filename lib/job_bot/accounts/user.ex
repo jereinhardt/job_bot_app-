@@ -2,9 +2,7 @@ defmodule JobBot.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias JobBot.Accounts.UserListing
-  alias Ecto
 
-  @derive {Poison.Encoder, only: [:name, :email, :id, :token, :user_listings]}
   schema "users" do
     field :name, :string
     field :email, :string

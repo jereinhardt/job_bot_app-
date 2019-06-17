@@ -86,7 +86,7 @@ defmodule JobBot.Crawler do
       @doc """
         Once all of the urls have been crawled, the process stops itself
       """
-      def handle_info(:crawl_next, []), do: GenServer.call(self(), :stop)
+      def handle_info(:crawl_next, []), do: {:stop, :normal, []}
 
       @doc """
         If the setup has not been completed yet, queue another delayed scraper.
