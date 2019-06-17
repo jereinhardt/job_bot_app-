@@ -2,9 +2,7 @@ import { connect } from "react-redux";
 import { CLEAR_LISTINGS, MOVE_BACKWARD, RESET_STEPS } from "../actionTypes.js";
 import ConfirmationPage from "../components/confirmationPage.js";
 
-const mapStateToProps = (state) => {
-  return { data: state };
-}
+const mapStateToProps = (state) => ({ data: state, csrfToken: state.csrfToken });
 
 const mapDispatchToProps = (dispatch) => {
   return {

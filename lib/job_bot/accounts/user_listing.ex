@@ -40,5 +40,11 @@ defimpl Poison.Encoder, for: JobBot.Accounts.UserListing do
     |> Poison.Encoder.Map.encode(options)
   end
 
+  def encode(user_listing, options) do
+    user_listing
+    |> Map.take(encoded_properties())
+    |> Poison.Encoder.Map.encode(options)
+  end
+
   def encoded_properties, do: [:id, :listing_id, :searched_for_at, :applied_to_at]
 end

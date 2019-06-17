@@ -15,7 +15,6 @@ export default class ConfirmationPage extends React.Component {
       map(({ name, crawler, applier }) => {
         return { name, crawler, applier }
       });
-    const token = $("#app").data("js-csrf-token")
     const params = {
       sources: sources,
       name: data.name,
@@ -24,7 +23,7 @@ export default class ConfirmationPage extends React.Component {
       location: data.location,
       resume_path: data.resumePath,
       user_id: data.user.id,
-      _csrf_token: token
+      _csrf_token: this.props.csrfToken
     };
     $.post("/data/job_searches", params, () => {
       this.props.clearListings();

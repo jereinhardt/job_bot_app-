@@ -1,16 +1,31 @@
 import React from "react";
 import { Socket } from "phoenix";
+import { joinUserListingsChannel } from "../utils/userListingsChannel.js";
 import BlankSlate from "../containers/blankSlate.js";
-import UserSocket from "../userSocket.js";
 import Listing from "../containers/listing.js";
 
 export default class ListingsList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
     
-    if ( this.props.user.id && this.props.user.token ) {
-      new UserSocket(this.props.user).joinChannel();
+    if ( this.props.user.id && this.props.user.token && !this.props.listingsChannel ) {
+      joinUserListingsChannel(this.props.user, this.props.addListingsChannel);
     }
+  }
+
+  static getDerivedStateFromProps(nextProps, _prevState) {
+    if ( nextProps.listingsChannel && nextProps.listingsChannel.state == "closed" ) {
+      nextProps.listingsChannel.join().receive("ok", (res) => {
+        if ( nextProps.listings.length == 0 ) {
+          nextProps.updateListings(res.listings);       
+        }
+      });
+      nextProps.listingsChannel.on("new_listing", (payload) => {
+        nextProps.addListing(payload.listing);
+      })
+    }
+    return null;
   }
 
   render() {

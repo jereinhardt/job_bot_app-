@@ -18,10 +18,9 @@ export default class Listing extends React.Component {
 
   toggleApplied(event) {
     event.preventDefault();
-    const token = $("#app").data("js-csrf-token");
     const params = {
       user_listing: {toggle_applied_to_at: true},
-      _csrf_token: token
+      _csrf_token: this.props.csrfToken
     };
     $.ajax({
       url: `/data/user_listings/${this.props.id}`,

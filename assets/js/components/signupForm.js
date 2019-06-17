@@ -2,7 +2,7 @@ import $ from "jquery";
 import React from "react";
 import { Link } from "react-router-dom";
 import { loginPath } from "../routes.js";
-import UserSocket from "../userSocket.js";
+import { joinUserListingsChannel } from "../utils/userListingsChannel.js";
 
 export default class SignupForm extends React.Component {
   constructor(props) {
@@ -16,18 +16,17 @@ export default class SignupForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const url = "/data/users";
-    const token = $("#app").data("js-csrf-token")
     const params = {
       user: {
         name: this.props.name,
         email: this.state.email,
         password: this.state.password 
       },
-      "_csrf_token": token
+      "_csrf_token": this.props.csrfToken
     };
     $.post("/data/users", params, (res) => {
       this.props.updateUser(res.data.user);
-      new UserSocket(res.data.user).joinChannel();
+      joinUserListingsChannel(res.data.user, this.props.addListingsChannel);
       if ( this.props.submitCallback ) {
         this.props.submitCallback();
       }

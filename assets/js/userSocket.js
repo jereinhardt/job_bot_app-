@@ -1,5 +1,4 @@
 import { Socket } from "phoenix";
-import { store } from "./store.js";
 import { ADD_LISTING, UPDATE_LISTINGS } from "./actionTypes.js";
 
 export default class UserSocket {
