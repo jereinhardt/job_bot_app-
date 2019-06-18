@@ -1,5 +1,11 @@
 # JobBot
 
+JobBot is an automated job finder.  It uses details you provide to search the internet's biggest job boards for listings that match what you are looking for.  Through React, Redux, and Websockets, it keeps its findings updated in real-time until it has exhausted all of its sources.
+
+You can see JobBot in action [here](https://bruised-distant-joey.gigalixirapp.com/).
+
+# Development
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
