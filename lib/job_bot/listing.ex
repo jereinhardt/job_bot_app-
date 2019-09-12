@@ -3,6 +3,7 @@ defmodule JobBot.Listing do
   import Ecto.Query, warn: false
   import Ecto.Changeset
   alias JobBot.{Repo, Source}
+  alias JobBot.Accounts.JobSearch
 
   @derive {Poison.Encoder, except: [:__meta__]}
   schema "listings" do
@@ -17,6 +18,7 @@ defmodule JobBot.Listing do
     field :skills, {:array, :string}
     field :title, :string
     field :source, :string
+    belongs_to :job_search, JobSearch
 
     timestamps()
   end

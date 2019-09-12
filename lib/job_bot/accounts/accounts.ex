@@ -1,7 +1,7 @@
 defmodule JobBot.Accounts do
   import Ecto.Query, warn: false
   alias JobBot.Repo
-  alias JobBot.Accounts.{User, UserListing}
+  alias JobBot.Accounts.{User, JobSearch}
   alias Comeonin.Bcrypt
 
   def get_user!(id) do
@@ -24,8 +24,7 @@ defmodule JobBot.Accounts do
   def authenticate_user(email, given_password) do
     query = 
       from u in User,
-      where: u.email == ^email,
-      preload: [:user_listings]
+      where: u.email == ^email
 
     Repo.one(query)
     |> check_password(given_password)
@@ -40,36 +39,6 @@ defmodule JobBot.Accounts do
   def logout(conn) do
     conn
     |> JobBot.Accounts.Guardian.Plug.sign_out()
-  end
-
-  def get_user_listing!(%User{id: id}, user_listing_id) do
-    get_user_listing!(id, user_listing_id)
-  end
-  
-  def get_user_listing!(user_id, user_listing_id) do
-    query =
-      from ul in UserListing,
-      where: ul.user_id == ^user_id,
-      where: ul.id == ^user_listing_id
-
-    Repo.one!(query)
-  end
-
-  def create_user_listing(attrs \\ %{}) do
-    %UserListing{}
-    |> create_user_listing(attrs)
-  end
-
-  def create_user_listing(%UserListing{} = user_listing, attrs) do
-    user_listing
-    |> UserListing.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  def update_user_listing(%UserListing{} = user_listing, attrs) do
-    user_listing
-    |> UserListing.changeset(attrs)
-    |> Repo.update()
   end
 
   def listings_from_latest_search(%User{id: id}) do
