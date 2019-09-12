@@ -4,14 +4,6 @@ defmodule JobBotWeb.UserSocket do
   ## Channels
   channel "users:*", JobBotWeb.UserChannel
 
-  ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket,
-    check_origin: [
-      "//bruised-distant-joey.gigalixirapp.com",
-      "//localhost:4000"
-    ]
-  # transport :longpoll, Phoenix.Transports.LongPoll
-
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
   # verification, you can put default assigns into

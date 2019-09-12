@@ -1,5 +1,7 @@
 defmodule JobBot.Repo do
-  use Ecto.Repo, otp_app: :job_bot
+  use Ecto.Repo,
+    otp_app: :job_bot,
+    adapter: Ecto.Adapters.Postgres
 
   @doc """
   Dynamically loads the repository url from the

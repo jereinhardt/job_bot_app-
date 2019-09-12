@@ -1,7 +1,8 @@
 defmodule JobBotWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :job_bot
 
-  socket "/socket", JobBotWeb.UserSocket
+  socket "/socket", JobBotWeb.UserSocket,
+    websocket: [check_origin: ["//bruised-distant-joey.gigalixirapp.com", "//localhost:4000"]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
