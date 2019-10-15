@@ -4,6 +4,8 @@ defmodule JobBotWeb.Endpoint do
   socket "/socket", JobBotWeb.UserSocket,
     websocket: [check_origin: ["//bruised-distant-joey.gigalixirapp.com", "//localhost:4000"]]
 
+  socket "/live", Phoenix.LiveView.Socket
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest

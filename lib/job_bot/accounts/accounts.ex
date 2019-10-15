@@ -5,8 +5,7 @@ defmodule JobBot.Accounts do
   alias Comeonin.Bcrypt
 
   def get_user!(id) do
-    User
-    |> Repo.get!(id)
+    Repo.get!(User, id)
   end
 
   def create_user(attrs \\ %{}) do
@@ -41,29 +40,28 @@ defmodule JobBot.Accounts do
     |> JobBot.Accounts.Guardian.Plug.sign_out()
   end
 
-  def listings_from_latest_search(%User{id: id}) do
-    listings_from_latest_search(id)
+  def create_job_search(attrs \\ %{}) do
+    %JobSearch{}
+    |> JobSearch.changeset(attrs)
+    |> Repo.insert()
   end
 
-  def listings_from_latest_search(user_id) do
+  def get_job_search!(id) do
+    Repo.get!(JobSearch, id)
+  end
+
+  def most_recent_job_search(%User{id: id}) do
+    most_recent_job_search(id)
+  end
+
+  def most_recent_job_search(user_id) do
     latest_search_query =
-      from ul in UserListing,
-      select: max(ul.searched_for_at),
-      where: ul.user_id == ^user_id
+      from s in JobSearch,
+      select: max(s.created_at),
+      where: s.user_id == ^user_id,
+      preload: [:listings]
 
-    latest_search_at = Repo.one(latest_search_query)
-
-    if is_nil(latest_search_at) do
-      []
-    else
-      query =
-        from ul in UserListing,
-        where: ul.searched_for_at == ^latest_search_at,
-        where: ul.user_id == ^user_id,
-        preload: [:listing]
-
-      Repo.all(query)
-    end
+    Repo.one(latest_search_query)
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect email or password"}

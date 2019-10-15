@@ -28,11 +28,3 @@ defmodule JobBot.Accounts.User do
     end
   end
 end
-
-defimpl Poison.Encoder, for: JobBot.Accounts.User do
-  def encode(user, options) do
-    user
-    |> Map.take([:name, :email, :id, :token])
-    |> Poison.Encoder.Map.encode(options)
-  end
-end

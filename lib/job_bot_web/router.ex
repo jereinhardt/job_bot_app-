@@ -11,6 +11,11 @@ defmodule JobBotWeb.Router do
     plug :put_user_token
   end
 
+  pipeline :live_browser do
+    plug Phoenix.LiveView.Flash
+    plug :put_layout, {JobBotWeb.LayoutView, :app}    
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -28,7 +33,15 @@ defmodule JobBotWeb.Router do
   end
 
   scope "/", JobBotWeb do
+    pipe_through [:browser, :live_browser]
+
+    get "/search", JobSearchesController, :new, as: :new_job_search
+  end
+
+  scope "/", JobBotWeb do
     pipe_through :browser
+
+    get "/results", JobSearchesController, :show, as: :most_recent_search_results
 
     get "/", PageController, :index
     get "/signup", PageController, :index, as: :signup
@@ -36,8 +49,8 @@ defmodule JobBotWeb.Router do
     get "/logout", SessionController, :delete
     delete "/session", SessionController, :delete
     resources "/session", SessionController, only: [:create]
-    get "/search", PageController, :index
-    get "/results", PageController, :index
+    get "/search/old", PageController, :index
+    get "/results/old", PageController, :index
   end
 
   scope "/data", JobBotWeb do
@@ -51,7 +64,6 @@ defmodule JobBotWeb.Router do
     pipe_through [:data, :auth]
 
     get "/users", UsersController, :show
-    resources "/user_listings", UserListingsController, only: [:index, :update]
     resources "/job_searches", JobSearchesController, only: [:create]
   end
 

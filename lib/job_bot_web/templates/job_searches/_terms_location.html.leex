@@ -1,0 +1,19 @@
+<div class="step__title">
+  What are you looking for?
+</div>
+<div class="field">
+  <div class="control">
+    <%= label :terms, "What search terms would you like to use?", class: "label" %>
+    <%= decorated_text_input @f, :terms, placeholder: "e.g. 'Hospitality Management'"%>
+    <%= input_error @f, :terms %>
+  </div>
+</div>
+
+<div class="field">
+  <%= label :location, "Where are you looking for a job?", class: "label" %>
+  <%= decorated_text_input @f, :location, placeholder: "e.g. 'Kansas City, MO'" %>
+</div>
+
+<%= step_navigation do %>
+  <%= next_step_button %>
+<% end %>

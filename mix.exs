@@ -48,6 +48,7 @@ defmodule JobBot.Mixfile do
       {:floki, "~> 0.20.1"},
       {:hound, "~> 1.0"},
       {:httpoison, "~> 1.4"},
+      {:jason, "~> 1.0"},
       {:distillery, "~> 2.0", runtime: false},
       {:mock, "~> 0.3.2", only: :test},
       {:ex_machina, "~> 2.2", only: :test},

@@ -4,8 +4,7 @@ defmodule JobBotWeb.UserChannel do
 
   def join("users:" <> user_id, _params, socket) do
     if authorized?(socket, user_id) do
-      listings = Accounts.listings_from_latest_search(user_id)
-      {:ok, %{listings: listings}, socket}
+      {:ok, %{}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end

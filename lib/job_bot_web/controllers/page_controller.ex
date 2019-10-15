@@ -23,8 +23,7 @@ defmodule JobBotWeb.PageController do
   defp current_user_name(%{current_user: current_user}), do: current_user.name
   defp current_user_listings(%{current_user: nil}), do: []
   defp current_user_listings(%{current_user: current_user}) do
-    current_user
-    |> Map.get(:id)
-    |> Accounts.listings_from_latest_search()
+    {:ok, job_search} = Accounts.most_recent_job_search(current_user)
+    job_search.listings
   end
 end

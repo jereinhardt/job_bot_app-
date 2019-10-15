@@ -1,0 +1,27 @@
+<div class="step__title">
+  Create Your Account
+</div>
+
+<div class="field">
+  <div class="control">
+    <%= label :name, "Name" %>
+    <%= decorated_text_input @user, :name %>
+    <%= input_error @user, :name %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <%= label :email, "email" %>
+    <%= decorated_text_input @user, :email %>
+    <%= input_error @user, :email %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <%= label :password, "Password" %>
+    <%= decorated_password_input @user, :password %>
+    <%= input_error @user, :password %>
+  </div>
+</div>
