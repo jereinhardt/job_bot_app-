@@ -2,7 +2,7 @@ defmodule JobBot.Crawler do
   @callback get_job_urls(map) :: list
   @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t}
 
-  alias JobBot.Listing
+  alias JobBot.JobSearches.Listing
 
   @doc """
     returns the formatted tuple to register the the process as a Genserver

@@ -1,9 +1,9 @@
-defmodule JobBot.Listing do
+defmodule JobBot.JobSearches.Listing do
   use Ecto.Schema
   import Ecto.Query, warn: false
   import Ecto.Changeset
   alias JobBot.{Repo, Source}
-  alias JobBot.Accounts.JobSearch
+  alias JobBot.JobSearches.JobSearch
 
   @derive {Poison.Encoder, except: [:__meta__]}
   schema "listings" do

@@ -1,0 +1,22 @@
+<div class="step__title">
+  Sign In To Your Account
+</div>
+
+<div class="field">
+  <div class="control">
+    <%= label :email, "Email" %>
+    <%= text_input @user, :email, class: "input" %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <%= label :password, "Password" %>
+    <%= password_input @user, :password, value: "", class: "input" %>
+    <% if assigns[:login_error] do %>
+      <p class="help is-danger">
+        <%= @login_error %>
+      </p>
+    <% end %>
+  </div>
+</div>

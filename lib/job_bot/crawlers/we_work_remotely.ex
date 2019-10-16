@@ -3,8 +3,9 @@ defmodule JobBot.Crawler.WeWorkRemotely do
 
   import JobBot.Crawler.Helper
 
-  alias HTTPoison.{Response, Error}
-  alias JobBot.{Listing, Source}
+  alias HTTPoison.{Error, Response}
+  alias JobBot.JobSearches.Listing
+  alias JobBot.Source
 
   @base_url "https://weworkremotely.com"
 

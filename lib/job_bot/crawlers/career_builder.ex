@@ -4,8 +4,9 @@ defmodule JobBot.Crawler.CareerBuilder do
   import JobBot.Crawler.Helper
 
   alias HTTPoison.{Error, Response}
-  alias JobBot.{Listing, Source}
-
+  alias JobBot.JobSearches.Listing
+  alias JobBot.Source
+  
   @base_url "https://www.careerbuilder.com"
 
   def get_job_urls(%{terms: terms} = opts) do

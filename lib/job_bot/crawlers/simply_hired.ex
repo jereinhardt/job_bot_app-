@@ -4,7 +4,8 @@ defmodule JobBot.Crawler.SimplyHired do
   import JobBot.Crawler.Helper
 
   alias HTTPoison.{Error, Response}
-  alias JobBot.{Listing, Source}
+  alias JobBot.JobSearches.Listing
+  alias JobBot.Source
 
   @base_url "https://www.simplyhired.com"
 

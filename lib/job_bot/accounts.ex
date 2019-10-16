@@ -4,6 +4,10 @@ defmodule JobBot.Accounts do
   alias JobBot.Accounts.{User, JobSearch}
   alias Comeonin.Bcrypt
 
+  def new_user(params \\ %{}) do
+    User.changeset(%User{}, params)
+  end
+
   def get_user!(id) do
     Repo.get!(User, id)
   end
@@ -38,12 +42,6 @@ defmodule JobBot.Accounts do
   def logout(conn) do
     conn
     |> JobBot.Accounts.Guardian.Plug.sign_out()
-  end
-
-  def create_job_search(attrs \\ %{}) do
-    %JobSearch{}
-    |> JobSearch.changeset(attrs)
-    |> Repo.insert()
   end
 
   def get_job_search!(id) do

@@ -1,4 +1,4 @@
-defmodule JobBot.Accounts.JobSearch do
+defmodule JobBot.JobSearches.JobSearch do
   use Ecto.Schema
   import Ecto.Changeset
   alias JobBot.Accounts.User

@@ -1,7 +1,7 @@
 defmodule JobBot.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias JobBot.Accounts.JobSearch
+  alias JobBot.JobSearches.JobSearch
 
   schema "users" do
     field :name, :string

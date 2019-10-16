@@ -23,34 +23,3 @@
     </div>
   </div>
 </section>
-
-
-<%# 
-  
-  notice that source.action is :revise
-
-  f = %Phoenix.HTML.Form{
-    errors: [
-      location: {"can't be blank", [validation: :required]},
-      sources: {"can't be blank", [validation: :required]},
-      terms: {"can't be blank", [validation: :required]}
-    ],
-    source: %Prospero.FormData{
-      action: :revise,
-      active_step: 1,
-      changeset: #Ecto.Changeset<
-        action: nil,
-        changes: %{},
-        errors: [
-          location: {"can't be blank", [validation: :required]},
-          sources: {"can't be blank", [validation: :required]},
-          terms: {"can't be blank", [validation: :required]}
-        ],
-        data: #JobBot.Accounts.JobSearch<>,
-        valid?: false
-      >,
-      store: %{"terms" => ""}
-    }  
-  }
-
-%>

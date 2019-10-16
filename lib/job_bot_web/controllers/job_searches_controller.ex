@@ -4,14 +4,9 @@ defmodule JobBotWeb.JobSearchesController do
   alias JobBot.Accounts
 
   def new(conn, _) do
-    user_id =
-      if current_user = Map.get(conn.assigns, :current_user) do
-        current_user.id
-      else
-        nil
-      end
+    user = Map.get(conn.assigns, :current_user)
       
-    live_render(conn, JobBotWeb.JobSearchesLive.New, session: %{user_id: user_id})
+    live_render(conn, JobBotWeb.JobSearchesLive.New, session: %{user: user})
   end
 
   def show(conn, %{"id" => id}) do
@@ -24,6 +19,10 @@ defmodule JobBotWeb.JobSearchesController do
       
     {:ok, job_search} = Accounts.most_recent_job_search(user)
     render(conn, "show.html", job_search: job_search)
+  end
+
+  def create(conn, %{"job_search" => params}) do
+    
   end
 
 

@@ -3,7 +3,7 @@ defmodule JobBot.Accounts.UserListing do
   import Ecto.Changeset
 
   alias JobBot.Accounts.User
-  alias JobBot.Listing
+  alias JobBot.JobSearches.Listing
 
   schema "user_listings" do
     field :searched_for_at, :naive_datetime
@@ -23,7 +23,7 @@ defmodule JobBot.Accounts.UserListing do
 end
 
 defimpl Poison.Encoder, for: JobBot.Accounts.UserListing do
-  def encode(%{listing: %JobBot.Listing{}} = user_listing, options) do
+  def encode(%{listing: %JobBot.JobSearches.Listing{}} = user_listing, options) do
     attrs = Map.take(user_listing, encoded_properties())
     user_listing
     |> Map.get(:listing)

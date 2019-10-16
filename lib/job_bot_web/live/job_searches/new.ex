@@ -1,7 +1,13 @@
 defmodule JobBotWeb.JobSearchesLive.New do
   alias JobBot.Accounts
-  alias JobBot.Accounts.{JobSearch, User}
+  alias JobBot.Accounts.User
+  alias JobBot.JobSearches
+  alias JobBot.JobSearches.JobSearch
   alias JobBotWeb.Router.Helpers, as: Routes
+
+  @confirm_step "confirm"
+  @signup_step "signup"
+  @login_step "login"
 
   use Prospero.LiveForm, schema: JobSearch, steps: 4
 
@@ -10,14 +16,18 @@ defmodule JobBotWeb.JobSearchesLive.New do
   end
 
   def mount(session, socket) do
-    user_id = Map.get(session, :user_id)
-    final_step = if user_id, do: "confirm", else: "signup"
+    user = Map.get(session, :user)
+    final_step =
+      case user do
+        %User{} -> @confirm_step
+        nil     -> @signup_step
+      end
 
     prepared_socket =
       socket
-      |> prepare_live_form(%{user_id: user_id})
+      |> prepare_live_form()
       |> assign(final_step: final_step)
-      |> assign(user: User.changeset(%User{}))
+      |> assign(user: user)
     {:ok, prepared_socket}
   end
 
@@ -29,27 +39,43 @@ defmodule JobBotWeb.JobSearchesLive.New do
     {:noreply, assign(socket, final_step: "signup")}
   end
 
-  def handle_event("submit_active_step", %{"user" => user_params} = params, %{assigns: %{final_step: "signup"}} = socket) do
-    # handle submission of signup
+  def handle_event("submit_active_step", %{"user" => user_params} = params, %{assigns: %{final_step: @signup_step}} = socket) do
     case Accounts.create_user(user_params) do
       {:ok, user} -> 
-        updated_form = update_form(socket.assigns.live_form, %{"user_id" => user.id})
-        {:noreply, assign(socket, live_form: updated_form, final_step: "confirm")}
+        socket = 
+          socket
+          |> assign(final_step: @confirm_step)
+          |> assign(user: user)
+
+        {:noreply, socket}
+
       {:error, changeset} ->
         {:noreply, assign(socket, user: changeset)}
     end
   end
 
-  def handle_event("submit_active_step", %{"user" => user_params}, %{assigns: %{final_step: "login"}} = socket) do
-    # handle login
+  def handle_event("submit_active_step", %{"user" => user_params}, %{assigns: %{final_step: @login_step}} = socket) do
+    email = Map.get(user_params, "email")
+    password = Map.get(user_params, "password")
+    case Accounts.authenticate_user(email, password) do
+      {:ok, user} ->
+        socket =
+          socket
+          |> assign(final_step: @confirm_step)
+          |> assign(user: user)
+
+        {:noreply, socket}
+
+      {:error, reason} ->
+        {:noreply, assign(socket, login_error: reason)}
+    end
   end
 
   @impl true
   def submit_form(params, socket) do
-    IO.puts("FINAL FORM IS SUBMITTING")
-    case Accounts.create_job_search(params) do
+    user = socket.assigns.user
+    case JobSearches.create(user, params) do
       {:ok, _job_search} ->
-        # TODO start search processing here
         {
           :stop,
           socket
@@ -63,5 +89,10 @@ defmodule JobBotWeb.JobSearchesLive.New do
           |> put_flash(:error, "Something went wrong! Please try again later.")
         }
     end
+  end
+
+  defp user_id_token(user) do
+    salt = Application.get_env(:job_bot, JobBotWeb.Endpoint)[:secret_key_base]
+    Phoenix.Token.sign(JobBotWeb.Endpoint, salt, user.id)
   end
 end

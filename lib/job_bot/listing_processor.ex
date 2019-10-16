@@ -1,5 +1,6 @@
 defmodule JobBot.ListingProcessor do
-  alias JobBot.{Accounts, Listing, Repo, UserRegistry}
+  alias JobBot.{Accounts, Repo, UserRegistry}
+  alias JobBot.JobSearches.Listing
 
   def process(%Listing{id: id} = listing, user_id) when is_integer(id) do
     with {:ok, user_listing} <- create_user_listing(listing, user_id) do
