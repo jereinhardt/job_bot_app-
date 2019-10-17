@@ -2,18 +2,22 @@
   Sign In To Your Account
 </div>
 
+<p>
+  Don't have an account? <%= link("Sign up here", to: "#", "phx-click": "toggle_signup") %>
+</p>
+
 <div class="field">
   <div class="control">
     <%= label :email, "Email" %>
-    <%= text_input @user, :email, class: "input" %>
+    <%= login_email_input @user %>
   </div>
 </div>
 
 <div class="field">
   <div class="control">
     <%= label :password, "Password" %>
-    <%= password_input @user, :password, value: "", class: "input" %>
-    <% if assigns[:login_error] do %>
+    <%= login_password_input @user %>
+    <%= if Map.get(assigns, :login_error) do %>
       <p class="help is-danger">
         <%= @login_error %>
       </p>

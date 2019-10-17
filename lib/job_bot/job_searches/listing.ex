@@ -1,8 +1,11 @@
 defmodule JobBot.JobSearches.Listing do
   use Ecto.Schema
+
   import Ecto.Query, warn: false
   import Ecto.Changeset
-  alias JobBot.{Repo, Source}
+
+  alias JobBot.Repo
+  alias JobBot.Source
   alias JobBot.JobSearches.JobSearch
 
   @derive {Poison.Encoder, except: [:__meta__]}

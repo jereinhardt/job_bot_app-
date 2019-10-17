@@ -1,13 +1,19 @@
 defmodule JobBot.JobSearches.JobSearch do
   use Ecto.Schema
+
   import Ecto.Changeset
+
   alias JobBot.Accounts.User
+  alias JobBot.JobSearches.Listing
 
   schema "job_searches" do
     field :location, :string
     field :sources, {:array, :string}
     field :terms, :string
+
     belongs_to :user, User
+
+    has_many :listings, Listing
 
     timestamps()
   end

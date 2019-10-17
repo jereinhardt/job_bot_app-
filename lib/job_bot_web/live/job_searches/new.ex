@@ -10,7 +10,7 @@ defmodule JobBotWeb.JobSearchesLive.New do
   @signup_step "signup"
   @login_step "login"
 
-  use Prospero.LiveForm, schema: JobSearch, steps: 4
+  use Prospero.LiveForm, schema: JobSearch, steps: 3
 
   def render(assigns) do
     JobBotWeb.JobSearchesView.render("new.html", assigns)
@@ -71,12 +71,6 @@ defmodule JobBotWeb.JobSearchesLive.New do
   @impl true
   def submit_form(params, socket) do
     %{user: user, login_user: login_user} = socket.assigns
-    redirect_params = if login_user
-        token = Guardian.signed_token(user)
-        [user_token: token]
-      else
-        []
-      end
 
     case JobSearches.create(user, params) do
       {:ok, _job_search} ->
@@ -106,9 +100,9 @@ defmodule JobBotWeb.JobSearchesLive.New do
   defp submission_redirect_path(socket, user, login_user) do
     if login_user do
       token = Guardian.signed_token(user)
-      Route.most_recent_search_results_path(socket, :show, user_token: token)
+      Routes.most_recent_search_results_path(socket, :show, user_token: token)
     else
-      Route.most_recent_search_results_path(socket, :show)
+      Routes.most_recent_search_results_path(socket, :show)
     end
   end
 end

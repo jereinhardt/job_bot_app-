@@ -43,25 +43,7 @@ defmodule JobBot.Accounts do
     conn
     |> JobBot.Accounts.Guardian.Plug.sign_out()
   end
-
-  def get_job_search!(id) do
-    Repo.get!(JobSearch, id)
-  end
-
-  def most_recent_job_search(%User{id: id}) do
-    most_recent_job_search(id)
-  end
-
-  def most_recent_job_search(user_id) do
-    latest_search_query =
-      from s in JobSearch,
-      select: max(s.created_at),
-      where: s.user_id == ^user_id,
-      preload: [:listings]
-
-    Repo.one(latest_search_query)
-  end
-
+  
   defp check_password(nil, _), do: {:error, "Incorrect email or password"}
   defp check_password(user, given_password) do
     case Bcrypt.checkpw(given_password, user.password) do

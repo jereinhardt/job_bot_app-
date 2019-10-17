@@ -8,7 +8,6 @@ defmodule JobBotWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug JobBot.Accounts.Pipeline
-    plug :put_user_token
   end
 
   pipeline :live_browser do
@@ -25,7 +24,6 @@ defmodule JobBotWeb.Router do
     plug :fetch_session
     plug :protect_from_forgery
     plug JobBot.Accounts.Pipeline
-    plug :put_user_token
   end
 
   pipeline :auth do
@@ -65,15 +63,5 @@ defmodule JobBotWeb.Router do
 
     get "/users", UsersController, :show
     resources "/job_searches", JobSearchesController, only: [:create]
-  end
-
-  defp put_user_token(conn, _params) do
-    case Map.get(conn.assigns, :current_user, nil) do
-      nil -> conn
-      _ ->
-        user_id = conn.assigns[:current_user].id
-        token = Phoenix.Token.sign(conn, "user socket", user_id)
-        assign(conn, :user_token, token)
-    end
   end
 end

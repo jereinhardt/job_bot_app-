@@ -37,6 +37,18 @@ defmodule JobBotWeb.JobSearchesView do
     password_input(form, name, merged_opts)
   end
 
+  def login_email_input(changeset, opts \\ []) do
+    merged_opts = Keyword.merge(opts, [class: "input"])
+    form = FormData.to_form(changeset, [])
+    text_input(form, :email, merged_opts)
+  end
+
+  def login_password_input(changeset, opts \\ []) do
+    merged_opts = Keyword.merge(opts, [class: "input", value: ""])
+    form = FormData.to_form(changeset, [])
+    password_input(form, :password, merged_opts)
+  end
+
   def input_error(%Form{source: %Prospero.FormData{action: :revise}, errors: errors}, name) do
     case Keyword.get(errors, name) do
       {message, _} -> content_tag(:p, message, class: "help is-danger")
