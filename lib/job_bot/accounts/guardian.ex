@@ -18,4 +18,18 @@ defmodule JobBot.Accounts.Guardian do
   end
 
   def resource_from_claims(_claims), do: {:error, :reason_for_error}
+
+  def signed_token(user) do
+    Phoenix.Token.sign(JobBotWeb.Endpoint, token_salt(), user.id)
+  end
+
+  def verify_signed_token(token) do
+    Phoenix.Token.verify(JobBotWeb.Endpoint, token_salt(), token, max_age: 3600)
+  end
+
+  defp token_salt do
+    :job_bot
+    |> Application.get_env(JobBotWeb.Endpoint)
+    |> Keyword.get(:secret_key_base)    
+  end
 end

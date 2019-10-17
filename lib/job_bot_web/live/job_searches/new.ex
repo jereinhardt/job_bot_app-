@@ -1,5 +1,6 @@
 defmodule JobBotWeb.JobSearchesLive.New do
   alias JobBot.Accounts
+  alias JobBot.Accounts.Guardian
   alias JobBot.Accounts.User
   alias JobBot.JobSearches
   alias JobBot.JobSearches.JobSearch
@@ -16,18 +17,14 @@ defmodule JobBotWeb.JobSearchesLive.New do
   end
 
   def mount(session, socket) do
-    user = Map.get(session, :user)
-    final_step =
-      case user do
-        %User{} -> @confirm_step
-        nil     -> @signup_step
-      end
+    {user, final_step, login_user} = get_initial_state(session)
 
     prepared_socket =
       socket
       |> prepare_live_form()
       |> assign(final_step: final_step)
       |> assign(user: user)
+      |> assign(login_user: login_user)
     {:ok, prepared_socket}
   end
 
@@ -73,14 +70,21 @@ defmodule JobBotWeb.JobSearchesLive.New do
 
   @impl true
   def submit_form(params, socket) do
-    user = socket.assigns.user
+    %{user: user, login_user: login_user} = socket.assigns
+    redirect_params = if login_user
+        token = Guardian.signed_token(user)
+        [user_token: token]
+      else
+        []
+      end
+
     case JobSearches.create(user, params) do
       {:ok, _job_search} ->
         {
           :stop,
           socket
           |> put_flash(:info, "Searching for jobs...")
-          |> redirect(to: Routes.most_recent_search_results_path(socket, :show))
+          |> redirect(to: submission_redirect_path(socket, user, login_user))
         }
       {:error, _} ->
         {
@@ -91,8 +95,20 @@ defmodule JobBotWeb.JobSearchesLive.New do
     end
   end
 
-  defp user_id_token(user) do
-    salt = Application.get_env(:job_bot, JobBotWeb.Endpoint)[:secret_key_base]
-    Phoenix.Token.sign(JobBotWeb.Endpoint, salt, user.id)
+  defp get_initial_state(session) do
+    if user = Map.get(session, :user) do
+      {user, @confirm_step, false}
+    else
+      {Accounts.new_user(), @signup_step, true}
+    end
+  end
+
+  defp submission_redirect_path(socket, user, login_user) do
+    if login_user do
+      token = Guardian.signed_token(user)
+      Route.most_recent_search_results_path(socket, :show, user_token: token)
+    else
+      Route.most_recent_search_results_path(socket, :show)
+    end
   end
 end

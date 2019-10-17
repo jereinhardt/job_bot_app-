@@ -2,6 +2,9 @@ defmodule JobBotWeb.JobSearchesController do
   use JobBotWeb, :controller
 
   alias JobBot.Accounts
+  alias JobBot.Accounts.Guardian
+
+  plug :create_user_session
 
   def new(conn, _) do
     user = Map.get(conn.assigns, :current_user)
@@ -9,9 +12,26 @@ defmodule JobBotWeb.JobSearchesController do
     live_render(conn, JobBotWeb.JobSearchesLive.New, session: %{user: user})
   end
 
+  def show(conn, %{"user_token" => token} = params) do
+    case Guardian.verify_signed_token(token) do
+      {:ok, user_id} ->
+        user = Accounts.get_user!(user_id)
+        params = Map.delete(params, "user_token")
+        conn
+        |> Accounts.login(user)
+        |> show(params)
+      {:error, _} ->
+        # TODO render unauthorized response
+    end
+  end
+
   def show(conn, %{"id" => id}) do
     job_search = Accounts.get_job_search!(id)
     render(conn, "show.html", job_search: job_search)
+  end
+
+  def show(conn, %{"id" => id}) do
+    # TODO Show a specific search
   end
 
   def show(conn, _) do
@@ -19,10 +39,6 @@ defmodule JobBotWeb.JobSearchesController do
       
     {:ok, job_search} = Accounts.most_recent_job_search(user)
     render(conn, "show.html", job_search: job_search)
-  end
-
-  def create(conn, %{"job_search" => params}) do
-    
   end
 
 
