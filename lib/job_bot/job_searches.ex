@@ -14,11 +14,17 @@ defmodule JobBot.JobSearches do
   end
 
   def get!(id) do
-    Repo.get!(JobSearch, id)
+    JobSearch
+    |> Repo.get!(id)
+    |> Repo.preload([:listings, :user])
   end
 
-  def get(id) do
-    Repo.get(JobSearch, id)
+  def get(user, id) do
+    user
+    |> Ecto.assoc(:job_searches)
+    |> where([j], j.id == ^id)
+    |> preload([:listings])
+    |> Repo.one()
   end
 
   def get_most_recent!(user) do
@@ -28,7 +34,7 @@ defmodule JobBot.JobSearches do
       where: s.user_id == ^user_id,
       order_by: [desc: s.inserted_at],
       limit: 1,
-      preload: [:listings, :user]
+      preload: [:listings]
 
     Repo.one(query)    
   end
