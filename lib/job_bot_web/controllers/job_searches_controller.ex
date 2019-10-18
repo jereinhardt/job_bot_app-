@@ -6,11 +6,13 @@ defmodule JobBotWeb.JobSearchesController do
   alias JobBot.Accounts.User
   alias JobBot.JobSearches
   alias JobBot.JobSearches.JobSearch
+  alias JobBotWeb.JobSearchesLive.New
+  alias JobBotWeb.JobSearchesLive.Show
 
   def new(conn, _) do
     user = Map.get(conn.assigns, :current_user)
       
-    live_render(conn, JobBotWeb.JobSearchesLive.New, session: %{user: user})
+    live_render(conn, New, session: %{user: user})
   end
 
   def show(conn, %{"user_token" => token} = params) do
@@ -27,21 +29,28 @@ defmodule JobBotWeb.JobSearchesController do
   end
 
   def show(conn, %{"id" => id}) do
-    case JobSearches.get(id) do
-      {:ok, job_search} -> render(conn, "show.html", job_search: job_search)
+    user = conn.assigns.current_user
+
+    with {:ok, job_search} <- JobSearches.get(user, id) do
+      live_render(
+        conn,
+        Show,
+        session: %{job_search: job_search, current_user: user}
+      )
+    else
       _ -> # TODO: RENDER 404
     end    
-  end
-
-  def show(conn, %{"id" => id}) do
-    # TODO Show a specific search
   end
 
   def show(conn, _) do
     with %User{} = user <- Map.get(conn.assigns, :current_user),
       %JobSearch{} = job_search <- JobSearches.get_most_recent!(user)
     do
-      render(conn, "show.html", job_search: job_search)
+      live_render(
+        conn,
+        Show,
+        session: %{job_search: job_search, current_user: user}
+      )
     else
       nil -> redirect(conn, to: new_job_search_path(conn, :new))
     end

@@ -1,0 +1,53 @@
+<li class="listing card">
+  <div class="card-content">
+    <div class="listing--title">
+      <span class="listing--job-title has-text-weight-semibold">
+        <%= @listing.title %>
+      </span>
+      <span class="listing--company-name">
+        <%= @listing.company_name %>
+      </span>
+    </div>
+
+     <!-- .expanded if expanded -->
+    <div 
+      class="listing--description"
+    >
+      <p>
+        <%= raw(@listing.description) %>
+      </p>
+      <!-- onClick=toggleDescription -->
+      <a 
+        class="listing--description-toggle has-text-centered"
+        href="#"
+      >
+        <!-- class="hidden" if not toggled -->
+        <span class="">
+          Show More
+        </span>
+        <!-- class="hidden" if toggled -->
+        <span class="hidden">
+          See Less
+        </span>
+      </a>
+    </div>
+    <div class="listing--actions has-text-right">
+      <%= link("View Listsing", to: @listing.listing_url, target: "_blank") %>
+      <!-- onClick=toggle applied to -->
+      <a
+        class="listing--action button"
+        href="#"
+      >
+        <%= if @listing.applied_to_at, do: "Unmark as Applied", else: "Mark as Applied" %>
+      </a>
+<%#       <a
+        class={`listing--action${applyClassName}`}
+        target="_blank"
+        href={applyHref}
+        onClick={this.apply}
+      >
+        {this.props.applied_to_at ? "Applied!" : "Apply"}
+      </a> %>
+    </div>
+  </div>
+</li>

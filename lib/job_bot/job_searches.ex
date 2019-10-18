@@ -39,6 +39,12 @@ defmodule JobBot.JobSearches do
     Repo.one(query)    
   end
 
+  def get_listings(job_search) do
+    job_search
+    |> Ecto.assoc(:listings)
+    |> Repo.all()  
+  end
+
   def create_listing(job_search, attrs) do
     job_search
     |> Ecto.build_assoc(:listings)

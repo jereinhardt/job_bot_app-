@@ -9,6 +9,7 @@ defmodule JobBot.JobSearches.Listing do
   alias JobBot.JobSearches.JobSearch
 
   @casted_attrs [
+    :applied_to_at,
     :title,
     :description,
     :city,
@@ -31,6 +32,7 @@ defmodule JobBot.JobSearches.Listing do
 
   @derive {Poison.Encoder, except: [:__meta__]}
   schema "listings" do
+    field :applied_to_at, :naive_datetime
     field :application_url, :string
     field :city, :string
     field :company_name, :string

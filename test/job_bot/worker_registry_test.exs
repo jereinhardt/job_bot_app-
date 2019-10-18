@@ -13,9 +13,9 @@ defmodule JobBot.WorkerRegistryTest do
   end
 
   test "register/2 adds a process to the registry", %{worker: worker} do
-    user_id = 1
-    item = {worker, Crawler, user_id}
-    Registry.register({:global, {Crawler, user_id}}, worker)
+    job_search_id = 1
+    item = {worker, Crawler, job_search_id}
+    Registry.register({:global, {Crawler, job_search_id}}, worker)
     retrieved = Agent.
       get(Registry, fn state -> Enum.find(state, &(&1 == item)) end)
 
@@ -24,34 +24,31 @@ defmodule JobBot.WorkerRegistryTest do
 
 
   test "unregister/1 removes the process", %{worker: worker} do
-    with_mock(JobBot.UserRegistry, [unregister: fn(_id) -> nil end]) do
-      user_id = 1
-      item = {worker, Crawler, user_id}
-      Registry.register({:global, {Crawler, user_id}}, worker)
+    job_search_id = 1
+    item = {worker, Crawler, job_search_id}
+    Registry.register({:global, {Crawler, job_search_id}}, worker)
 
-      retrieved = Agent.
-        get(Registry, fn state -> Enum.find(state, &(&1 == item)) end)
+    retrieved = 
+      Agent.get(Registry, fn state -> Enum.find(state, &(&1 == item)) end)
 
-      assert retrieved == item
+    assert retrieved == item
 
-      Registry.unregister(worker)
+    Registry.unregister(worker)
 
-      retrieved = Agent.
-        get(Registry, fn state -> Enum.find(state, &(&1 == item)) end)
+    retrieved =
+      Agent.get(Registry, fn state -> Enum.find(state, &(&1 == item)) end)
 
-      assert retrieved == nil
-      assert called(JobBot.UserRegistry.unregister(user_id))
-    end 
+    assert retrieved == nil
   end
 
 
   test(
-    "user_id/1 returns the user id associated with the process",
+    "job_search_id/1 returns the job search id associated with the process",
     %{worker: worker}
   ) do
-    user_id = 1
-    Registry.register({:global, {Crawler, user_id}}, worker)
+    job_search_id = 1
+    Registry.register({:global, {Crawler, job_search_id}}, worker)
 
-    assert Registry.user_id(worker) == user_id
+    assert Registry.job_search_id(worker) == job_search_id
   end
 end
