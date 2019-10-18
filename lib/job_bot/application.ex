@@ -8,8 +8,7 @@ defmodule JobBot.Application do
       supervisor(JobBot.Repo, []),
       supervisor(JobBotWeb.Endpoint, []),
       supervisor(JobBot.CrawlerSupervisor, []),
-      worker(JobBot.WorkerRegistry, []),
-      worker(JobBot.UserRegistry, [])
+      worker(JobBot.WorkerRegistry, [])
     ]
 
     opts = [strategy: :one_for_one, name: JobBot.Supervisor]

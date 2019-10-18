@@ -1,42 +1,24 @@
 defmodule JobBot.ListingProcessor do
-  alias JobBot.{Accounts, Repo, UserRegistry}
-  alias JobBot.JobSearches.Listing
+  alias JobBot.Accounts
+  alias JobBot.JobSearches
+  alias JobBot.JobSearches.JobSearch
 
-  def process(%Listing{id: id} = listing, user_id) when is_integer(id) do
-    with {:ok, user_listing} <- create_user_listing(listing, user_id) do
-      JobBotWeb.Endpoint.broadcast(
-        "users:#{user_id}",
-        "new_listing",
-        %{"listing" => user_listing}
-      )
-    end      
-  end
+  def process(listing, job_search_id) do
+    listing_attrs = Map.from_struct(listing)
+    job_search = JobSearches.get!(job_search_id)
 
-  def process(listing, user_id) do
-    with {:ok, listing} <- Listing.find_or_create(listing),
-      {:ok, user_listing} <- create_user_listing(listing, user_id)
-    do
-      JobBotWeb.Endpoint.broadcast(
-        "users:#{user_id}",
-        "new_listing",
-        %{"listing" => user_listing}
-      )      
+    case JobSearches.create_listing(job_search, listing_attrs) do
+      {:ok, listing} -> nil # TODO: see if it is possible to push this to a liveview socket
     end
-  end
 
-  defp create_user_listing(listing, user_id) do
-    search_for_at = UserRegistry.get_user_data(user_id, :searched_for_at)
-    attrs = %{
-      searched_for_at: search_for_at,
-      user_id: user_id,
-      listing_id: listing.id
-    }
-    case Accounts.create_user_listing(attrs) do
-      {:ok, user_listing} ->
-        user_listing_with_data = Repo.preload(user_listing, :listing)
-        {:ok, user_listing_with_data}
-      {:error, message} ->
-        {:error, message}
-    end
+    # with {:ok, listing} <- Listing.find_or_create(listing),
+    #   {:ok, user_listing} <- create_user_listing(listing, user_id)
+    # do
+    #   JobBotWeb.Endpoint.broadcast(
+    #     "users:#{user_id}",
+    #     "new_listing",
+    #     %{"listing" => user_listing}
+    #   )      
+    # end
   end
 end

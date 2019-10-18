@@ -8,14 +8,11 @@ defmodule JobBot.Crawler.Monster do
   alias JobBot.Source
 
   @base_url "https://www.monster.com"
+  @source_name "Monster"
 
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{
-        q: Map.get(opts, :terms),
-        where: Map.get(opts, :location)
-      }
-    ]
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
+    http_opts = [params: %{q: terms, where: location}]
 
     @base_url <> "/jobs/search/"
     |> HTTPoison.get([], http_opts)
@@ -62,7 +59,7 @@ defmodule JobBot.Crawler.Monster do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Monster")
+      source: @source_name
     }    
   end
 

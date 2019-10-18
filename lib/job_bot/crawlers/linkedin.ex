@@ -8,14 +8,11 @@ defmodule JobBot.Crawler.Linkedin do
   alias JobBot.Source
 
   @base_url "https://www.linkedin.com"
+  @source_name "Linkedin"
 
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{
-        keywords: Map.get(opts, :terms),
-        location: Map.get(opts, :location)
-      }
-    ]
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
+    http_opts = [params: %{keywords: terms, location: location}]
 
     @base_url <> "/jobs/search"
     |> HTTPoison.get([], http_opts)
@@ -62,7 +59,7 @@ defmodule JobBot.Crawler.Linkedin do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Linkedin")
+      source: @source_name
     }    
   end
 

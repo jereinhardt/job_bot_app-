@@ -2,6 +2,7 @@ defmodule JobBotWeb.JobSearchesLive.New do
   alias JobBot.Accounts
   alias JobBot.Accounts.Guardian
   alias JobBot.Accounts.User
+  alias JobBot.CrawlerSupervisor
   alias JobBot.JobSearches
   alias JobBot.JobSearches.JobSearch
   alias JobBotWeb.Router.Helpers, as: Routes
@@ -73,7 +74,9 @@ defmodule JobBotWeb.JobSearchesLive.New do
     %{user: user, login_user: login_user} = socket.assigns
 
     case JobSearches.create(user, params) do
-      {:ok, _job_search} ->
+      {:ok, job_search} ->
+        IO.inspect job_search
+        CrawlerSupervisor.start_crawlers(job_search)
         {
           :stop,
           socket

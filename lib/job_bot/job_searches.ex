@@ -1,6 +1,7 @@
 defmodule JobBot.JobSearches do
   alias JobBot.Accounts.User
   alias JobBot.JobSearches.JobSearch
+  alias JobBot.JobSearches.Listing
   alias JobBot.Repo
 
   import Ecto.Query
@@ -30,5 +31,12 @@ defmodule JobBot.JobSearches do
       preload: [:listings, :user]
 
     Repo.one(query)    
+  end
+
+  def create_listing(job_search, attrs) do
+    job_search
+    |> Ecto.build_assoc(:listings)
+    |> Listing.changeset(attrs)
+    |> Repo.insert()
   end
 end

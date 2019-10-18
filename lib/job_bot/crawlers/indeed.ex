@@ -8,15 +8,12 @@ defmodule JobBot.Crawler.Indeed do
   alias JobBot.Source
 
   @base_url "https://www.indeed.com"
+  @source_name "Indeed"
 
   def get_job_urls(%{location: nil}), do: []
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{
-        q: Map.get(opts, :terms),
-        l: Map.get(opts, :location)
-      }
-    ]
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
+    http_opts = [params: %{q: terms, l: location}]
 
     @base_url <> "/jobs"
     |> HTTPoison.get([], http_opts)
@@ -63,7 +60,7 @@ defmodule JobBot.Crawler.Indeed do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Indeed")
+      source: @source_name
     }
   end
 

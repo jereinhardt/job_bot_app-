@@ -8,9 +8,10 @@ defmodule JobBot.Crawler.CareerBuilder do
   alias JobBot.Source
   
   @base_url "https://www.careerbuilder.com"
+  @source_name "CareerBuilder"
 
-  def get_job_urls(%{terms: terms} = opts) do
-    location = Map.get(opts, :location)
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
     http_opts = [params: %{ keywords: terms, location: location }]
 
     @base_url <> "/jobs"
@@ -57,7 +58,7 @@ defmodule JobBot.Crawler.CareerBuilder do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("CareerBuilder")
+      source: @source_name
     }
   end
 

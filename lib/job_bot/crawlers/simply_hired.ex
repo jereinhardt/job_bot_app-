@@ -8,11 +8,11 @@ defmodule JobBot.Crawler.SimplyHired do
   alias JobBot.Source
 
   @base_url "https://www.simplyhired.com"
+  @source_name "Simply Hired"
 
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{q: Map.get(opts, :terms), l: Map.get(opts, :location)}
-    ]
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
+    http_opts = [params: %{q: terms, l: location}]
 
     @base_url <> "/search"
     |> HTTPoison.get([], http_opts)
@@ -58,7 +58,7 @@ defmodule JobBot.Crawler.SimplyHired do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Simply Hired")
+      source: @source_name
     }
   end
 

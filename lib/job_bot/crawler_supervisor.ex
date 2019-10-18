@@ -1,4 +1,6 @@
 defmodule JobBot.CrawlerSupervisor do
+  alias JobBot.Source
+
   use DynamicSupervisor
 
   def start_link do
@@ -17,20 +19,17 @@ defmodule JobBot.CrawlerSupervisor do
   end
 
   @doc """
-    First registers the user.  Then, starts a crawler process for each selected
-    source for which the user provided information.
+  Start a crawler processes to create listings for a job search
   """
-  def start_crawlers(opts) do
-    user_id = Map.get(opts, :user_id)
-    searched_for_at = NaiveDateTime.utc_now()
-    data =
-      opts
-      |> Map.drop([:user_id])
-      |> Map.put(:searched_for_at, searched_for_at)
-    JobBot.UserRegistry.register(user_id, data)
+  def start_crawlers(job_search) do
+    Enum.each(job_search.sources, fn (source) ->
+      normalized_source =
+        case source do
+          %Source{} -> source
+          source_name -> Source.find_by_name(source_name)
+        end
 
-    opts
-    |> Map.get(:sources, [])
-    |> Enum.each(fn (source) -> start_child(source.crawler, opts) end)
+      start_child(normalized_source.crawler, job_search)
+    end)
   end
 end

@@ -8,13 +8,17 @@ defmodule JobBot.Crawler.WeWorkRemotely do
   alias JobBot.Source
 
   @base_url "https://weworkremotely.com"
+  @source_name "We Work Remotely"
 
-  def get_job_urls(opts) do
-    http_opts = if Map.get(opts, :terms) do
-      [params: %{terms: Map.get(opts, :terms)}]
-    else
-      []      
-    end
+  def get_job_urls(job_search) do
+    %{terms: terms} = job_search
+    http_opts = 
+      if terms do
+        [params: %{terms: terms}]
+      else
+        []      
+      end
+    
     url = @base_url <> "/remote-jobs/search"
     HTTPoison.get(url, [], http_opts) |> extract_urls_from_index()  
   end
@@ -51,7 +55,7 @@ defmodule JobBot.Crawler.WeWorkRemotely do
       remote: true,
       email: extract_email(parsed),
       company_name: extract_company_name(parsed),
-      source: Source.find_by_name("We Work Remotely"),
+      source: @source_name,
       application_url: extract_application_url(parsed)
     }    
   end
