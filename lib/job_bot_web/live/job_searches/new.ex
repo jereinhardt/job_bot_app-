@@ -75,7 +75,6 @@ defmodule JobBotWeb.JobSearchesLive.New do
 
     case JobSearches.create(user, params) do
       {:ok, job_search} ->
-        IO.inspect job_search
         CrawlerSupervisor.start_crawlers(job_search)
         {
           :stop,

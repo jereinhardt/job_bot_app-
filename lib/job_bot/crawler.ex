@@ -79,9 +79,9 @@ defmodule JobBot.Crawler do
         url
         |> crawl_url_for_listing()
         |> process_listing()
-        
+
         schedule_next_crawl()
-        
+
         {:noreply, state}
       end
 

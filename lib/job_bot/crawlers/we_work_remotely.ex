@@ -12,13 +12,13 @@ defmodule JobBot.Crawler.WeWorkRemotely do
 
   def get_job_urls(job_search) do
     %{terms: terms} = job_search
-    http_opts = 
+    http_opts =
       if terms do
         [params: %{terms: terms}]
       else
-        []      
+        []
       end
-    
+
     url = @base_url <> "/remote-jobs/search"
     HTTPoison.get(url, [], http_opts) |> extract_urls_from_index()  
   end
