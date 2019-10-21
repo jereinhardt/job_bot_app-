@@ -31,7 +31,9 @@ defmodule JobBotWeb.JobSearchesController do
   def show(conn, %{"id" => id}) do
     user = conn.assigns.current_user
 
-    with {:ok, job_search} <- JobSearches.get(user, id) do
+    with %User{} = user <- conn.assigns.current_user,
+      {:ok, job_search} <- JobSearches.get(user, id)
+    do
       live_render(
         conn,
         Show,

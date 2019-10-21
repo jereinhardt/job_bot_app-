@@ -1,7 +1,11 @@
 defmodule JobBotWeb.JobSearchesView do
   use JobBotWeb, :view
+
   import Prospero.View
-  alias Phoenix.HTML.{Form, FormData}
+  
+  alias JobBotWeb.LivePaginationView, as: Pagination
+  alias Phoenix.HTML.Form
+  alias Phoenix.HTML.FormData
   
   def render("create.json", _params), do: %{}
 

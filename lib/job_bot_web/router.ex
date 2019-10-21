@@ -34,12 +34,12 @@ defmodule JobBotWeb.Router do
     pipe_through [:browser, :live_browser]
 
     get "/search", JobSearchesController, :new, as: :new_job_search
+    get "/results", JobSearchesController, :show, as: :most_recent_search_results
+    resources "/search", JobSearchesController, only: [:show]
   end
 
   scope "/", JobBotWeb do
     pipe_through :browser
-
-    get "/results", JobSearchesController, :show, as: :most_recent_search_results
 
     get "/", PageController, :index
     get "/signup", PageController, :index, as: :signup

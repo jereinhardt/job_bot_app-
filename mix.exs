@@ -20,7 +20,7 @@ defmodule JobBot.Mixfile do
   def application do
     [
       mod: {JobBot.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :scrivener_ecto]
     ]
   end
 
@@ -50,6 +50,7 @@ defmodule JobBot.Mixfile do
       {:httpoison, "~> 1.4"},
       {:jason, "~> 1.0"},
       {:distillery, "~> 2.0", runtime: false},
+      {:scrivener_ecto, "~> 2.0"},
       {:mock, "~> 0.3.2", only: :test},
       {:ex_machina, "~> 2.2", only: :test},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},

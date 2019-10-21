@@ -34,20 +34,21 @@
     <div class="listing--actions has-text-right">
       <%= link("View Listsing", to: @listing.listing_url, target: "_blank") %>
       <!-- onClick=toggle applied to -->
-      <a
+      <button
         class="listing--action button"
-        href="#"
+        phx-click="<%= if @listing.applied_to_at, do: 'unmark_as_applied', else: 'mark_as_applied' %>"
+        phx-value-listing-id="<%= @listing.id %>"
       >
         <%= if @listing.applied_to_at, do: "Unmark as Applied", else: "Mark as Applied" %>
-      </a>
-<%#       <a
-        class={`listing--action${applyClassName}`}
+      </button>
+
+      <a
+        href="<%= @listing.application_url %>"
+        class="listing--action button <%= if @listing.applied_to_at, do: 'is-success', else: 'is-link' %>"
         target="_blank"
-        href={applyHref}
-        onClick={this.apply}
       >
-        {this.props.applied_to_at ? "Applied!" : "Apply"}
-      </a> %>
+        <%= if @listing.applied_to_at, do: "Applied!", else: "Apply" %>
+      </a>
     </div>
   </div>
 </li>

@@ -39,10 +39,17 @@ defmodule JobBot.JobSearches do
     Repo.one(query)    
   end
 
-  def get_listings(job_search) do
+  def get_listings(job_search, opts \\ []) do
+    opts = Enum.into(opts, %{})
+    
     job_search
     |> Ecto.assoc(:listings)
-    |> Repo.all()  
+    |> order_by(asc: :inserted_at)
+    |> JobBot.Repo.paginate(opts)
+  end
+
+  def get_listing(id) do
+    Repo.get(Listing, id)
   end
 
   def create_listing(job_search, attrs) do
@@ -50,5 +57,11 @@ defmodule JobBot.JobSearches do
     |> Ecto.build_assoc(:listings)
     |> Listing.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def update_listing(listing, attrs) do
+    listing
+    |> Listing.changeset(attrs)
+    |> Repo.update()
   end
 end
