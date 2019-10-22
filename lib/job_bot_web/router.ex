@@ -19,13 +19,6 @@ defmodule JobBotWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :data do
-    plug :accepts, ["json"]
-    plug :fetch_session
-    plug :protect_from_forgery
-    plug JobBot.Accounts.Pipeline
-  end
-
   pipeline :auth do
     plug Guardian.Plug.EnsureAuthenticated
   end
@@ -46,24 +39,8 @@ defmodule JobBotWeb.Router do
     get "/signup", UsersController, :new, as: :signup
     resources "/users", UsersController, only: [:create]
     
-    get "/login", PageController, :index, as: :login
+    get "/login", SessionController, :new
     get "/logout", SessionController, :delete
     resources "/session", SessionController, only: [:create, :delete]
-    # get "/search/old", PageController, :index
-    # get "/results/old", PageController, :index
-  end
-
-  scope "/data", JobBotWeb do
-    pipe_through :data
-
-    resources "/users", UsersController, only: [:create]
-    resources "/sources", SourceController, only: [:index]
-  end
-
-  scope "/data", JobBotWeb do
-    pipe_through [:data, :auth]
-
-    get "/users", UsersController, :show
-    resources "/job_searches", JobSearchesController, only: [:create]
   end
 end

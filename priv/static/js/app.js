@@ -1577,6 +1577,18 @@ var toggleNavigation = function toggleNavigation(event) {
 
 navToggle.addEventListener("click", toggleNavigation);
 
+var flashCloseButtons = document.querySelectorAll("[data-flash-remove]");
+var removeFlashMessage = function removeFlashMessage(event) {
+  event.preventDefault();
+  var button = event.target;
+  var flashName = button.dataset.flashRemove;
+  var flashMessage = document.querySelector("[data-flash-message=\"" + flashName + "\"]").remove();
+};
+
+flashCloseButtons.forEach(function (elem) {
+  return elem.addEventListener("click", removeFlashMessage);
+});
+
 /***/ }),
 
 /***/ "./node_modules/phoenix_live_view/priv/static/phoenix_live_view.js":

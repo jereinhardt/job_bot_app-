@@ -11471,6 +11471,11 @@ label.panel-block {
 .hero.is-fullheight {
   min-height: calc(100vh - $navbar-height); }
 
+/* line 1, css/components/flash.scss */
+.flash-message__container {
+  padding-bottom: 0;
+  padding-top: 1.25rem; }
+
 /* line 2, css/components/landing_page.scss */
 .landing-page__hero-image-container {
   display: none; }

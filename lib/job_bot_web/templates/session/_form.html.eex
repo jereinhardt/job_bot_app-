@@ -1,0 +1,6 @@
+<%= form_for @changeset, session_path(@conn, :create), fn f -> %>
+  <%= FormView.text_field(f, :email) %>
+  <%= FormView.password_field(f, :password) %>
+
+  <%= submit "Log In", class: "button is-primary" %>
+<% end %>

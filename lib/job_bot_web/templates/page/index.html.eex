@@ -1,1 +1,20 @@
-<%= main_app(@state) %>
+<div class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-tablet">
+        <figure class="landing-page__hero-image-container column is-one-third-tablet">
+          <img src="<%= static_path(@conn, "/images/avatar.png") %>" />
+        </figure>
+        <div class="column">
+          <div class="landing-page__hero-text-container">
+            <div>
+              <h1 class="title">Hi! I'm Job-Bot</h1>
+              <h3 class="subtitle">And I can check the most popular job boards on the internet to find the job that's right for you!</h3>
+              <%= link("Get Started Now", to: job_searches_path(@conn, :new), class: "button is-primary is-medium") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

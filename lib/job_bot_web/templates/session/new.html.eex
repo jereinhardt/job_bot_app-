@@ -1,6 +1,6 @@
 <div class="section">
   <div class="container">
-    <h1 class="title">Sign Up for JobBot</h1>
+    <h1 class="title">Log In To Your Account</h1>
 
     <%= render("_form.html", conn: @conn, changeset: @changeset) %>
   </div>

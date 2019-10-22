@@ -2,5 +2,5 @@
   <%= link("Create New Search", to: job_searches_path(@conn, :new), class: "button is-primary") %>
 </div>
 <div class="navbar-item">
-  <!-- login link class="button is-light" -->
+  <%= link("Log In", to: session_path(@conn, :new), class: "button is-light") %>
 </div>
