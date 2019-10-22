@@ -54,7 +54,7 @@ defmodule JobBotWeb.JobSearchesController do
         session: %{job_search: job_search, current_user: user}
       )
     else
-      nil -> redirect(conn, to: new_job_search_path(conn, :new))
+      nil -> redirect(conn, to: job_searches_path(conn, :new))
     end
   end
 end

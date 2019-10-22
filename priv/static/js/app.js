@@ -1561,6 +1561,22 @@ __webpack_require__.r(__webpack_exports__);
 var liveSocket = new phoenix_live_view__WEBPACK_IMPORTED_MODULE_1___default.a("/live", phoenix__WEBPACK_IMPORTED_MODULE_0__["Socket"]);
 liveSocket.connect();
 
+var navToggle = document.querySelector("[data-navigation-toggle]");
+
+var toggleNavigation = function toggleNavigation(event) {
+  console.log(event);
+  event.preventDefault();
+  var itemsContainer = document.querySelector("[data-navigation-items-container]");
+  itemsContainer.classList.toggle("expanded");
+  if (navToggle.getAttribute("aria-expanded") === "true") {
+    navToggle.setAttribute("aria-expanded", false);
+  } else {
+    navToggle.setAttribute("aria-expanded", true);
+  }
+};
+
+navToggle.addEventListener("click", toggleNavigation);
+
 /***/ }),
 
 /***/ "./node_modules/phoenix_live_view/priv/static/phoenix_live_view.js":

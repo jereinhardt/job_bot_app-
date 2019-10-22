@@ -1,0 +1,13 @@
+<div class="section">
+  <div class="container">
+    <h1 class="title">Sign Up for JobBot</h1>
+
+    <%= form_for @changeset, users_path(@conn, :create), fn f -> %>
+      <%= FormView.text_field(f, :name) %>
+      <%= FormView.text_field(f, :email) %>
+      <%= FormView.password_field(f, :password) %>
+
+      <%= submit "Submit", class: "button is-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -33,7 +33,7 @@ defmodule JobBotWeb.Router do
   scope "/", JobBotWeb do
     pipe_through [:browser, :live_browser]
 
-    get "/search", JobSearchesController, :new, as: :new_job_search
+    get "/search", JobSearchesController, :new
     get "/results", JobSearchesController, :show, as: :most_recent_search_results
     resources "/search", JobSearchesController, only: [:show]
   end
@@ -42,13 +42,15 @@ defmodule JobBotWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/signup", PageController, :index, as: :signup
+
+    get "/signup", UsersController, :new, as: :signup
+    resources "/users", UsersController, only: [:create]
+    
     get "/login", PageController, :index, as: :login
     get "/logout", SessionController, :delete
-    delete "/session", SessionController, :delete
-    resources "/session", SessionController, only: [:create]
-    get "/search/old", PageController, :index
-    get "/results/old", PageController, :index
+    resources "/session", SessionController, only: [:create, :delete]
+    # get "/search/old", PageController, :index
+    # get "/results/old", PageController, :index
   end
 
   scope "/data", JobBotWeb do
