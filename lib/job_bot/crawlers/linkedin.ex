@@ -47,7 +47,7 @@ defmodule JobBot.Crawler.Linkedin do
   defp extract_urls_from_index({:ok, %Response{status_code: 200, body: body}}) do
     body
     |> Floki.parse()
-    |> Floki.attribute("a.listed-job-posting--is-link", "href")
+    |> Floki.attribute("a.result-card__full-card-link", "href")
     |> Enum.map(&relative_to_absolute_url(@base_url, &1))
   end
   defp extract_urls_from_index(_), do: []
