@@ -10,12 +10,6 @@ defmodule JobBot.Crawler.IndeedTest do
   @base_url "https://www.indeed.com"
   
   describe "get_job_urls/1" do
-    test "returns an empty list when no location is given" do
-      urls = Crawler.get_job_urls(%{terms: "Robotics Expert", location: nil})
-
-      assert urls == []
-    end
-
     test "crawls the index for all jobs when a location is given" do
       with_mock(HTTPoison, mocks()) do
         terms = "Robotics Expert"

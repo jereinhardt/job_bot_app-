@@ -10,9 +10,10 @@ defmodule JobBot.Crawler.Indeed do
   @base_url "https://www.indeed.com"
   @source_name "Indeed"
 
-  def get_job_urls(%{location: nil}), do: []
   def get_job_urls(job_search) do
-    %{terms: terms, location: location} = job_search
+    terms = job_search.terms
+    location = job_search.location || ""
+
     http_opts = [params: %{q: terms, l: location}]
 
     @base_url <> "/jobs"
