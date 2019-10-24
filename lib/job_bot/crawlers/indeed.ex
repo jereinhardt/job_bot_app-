@@ -80,11 +80,21 @@ defmodule JobBot.Crawler.Indeed do
   end
 
   defp extract_company_name(parsed) do
-    parsed
-    |> Floki.find(".jobsearch-InlineCompanyRating")
-    |> Floki.text()
-    |> String.split("-")
-    |> Enum.at(0)    
+    data = 
+      parsed
+      |> Floki.find(".jobsearch-InlineCompanyRating")
+
+    case Floki.find(data, "a") do
+      [] ->
+        data
+        |> Floki.text()
+        |> String.split("-")
+        |> Enum.at(0)
+      links -> 
+        links
+        |> Enum.at(0)
+        |> Floki.text()
+    end   
   end
 
   defp extract_description(parsed) do
