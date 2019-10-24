@@ -2,6 +2,7 @@ defmodule JobBotWeb.JobSearchesController do
   use JobBotWeb, :controller
 
   alias JobBot.Accounts
+  alias JobBot.Accounts.ErrorHandler
   alias JobBot.Accounts.Guardian
   alias JobBot.Accounts.User
   alias JobBot.JobSearches
@@ -24,15 +25,17 @@ defmodule JobBotWeb.JobSearchesController do
         |> Accounts.login(user)
         |> redirect(to: conn.request_path)
       {:error, _} ->
-        # TODO render unauthorized response
+        conn
+        |> ErrorHandler.auth_error(
+          {:unauthorized, "You don't have permission to view this page"},
+          []
+        )
     end
   end
 
   def show(conn, %{"id" => id}) do
-    user = conn.assigns.current_user
-
-    with %User{} = user <- conn.assigns.current_user,
-      {:ok, job_search} <- JobSearches.get(user, id)
+    with %User{} = user <- Map.get(conn.assigns, :current_user),
+      %JobSearch{} = job_search <- JobSearches.get(user, id)
     do
       live_render(
         conn,
@@ -40,8 +43,8 @@ defmodule JobBotWeb.JobSearchesController do
         session: %{job_search: job_search, current_user: user}
       )
     else
-      _ -> # TODO: RENDER 404
-    end    
+      _ -> render(conn, JobBotWeb.ErrorView, "404.html")
+    end
   end
 
   def show(conn, _) do

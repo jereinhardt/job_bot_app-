@@ -11,10 +11,10 @@ defmodule JobBot.CrawlerSupervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-  def start_child(module, opts) do
-    user_id = Map.get(opts, :user_id)
-    ref = JobBot.Crawler.ref(user_id, module)
-    spec = Supervisor.Spec.worker(module, [opts], restart: :temporary, id: ref)
+  def start_child(module, job_search) do
+    job_search_id = Map.get(job_search, :id)
+    ref = JobBot.Crawler.ref(job_search_id, module)
+    spec = Supervisor.Spec.worker(module, [job_search], restart: :temporary, id: ref)
     DynamicSupervisor.start_child(__MODULE__, spec)
   end
 

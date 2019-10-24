@@ -1,67 +1,55 @@
 defmodule JobBot.CrawlerSupervisorTest do
   use ExUnit.Case
+  use JobBotWeb.FactoryCase
 
   alias JobBot.Crawler.WeWorkRemotely, as: Crawler
 
   import Mock
 
-  test "start_child/2 starts the given crawler with the given opts" do
-    with_mock(DynamicSupervisor, [start_child: fn (_mod, _child) -> nil end]) do
-      ref = JobBot.Crawler.ref(user_id(), Crawler)
+  setup do
+    job_search = insert(:job_search, sources: ["We Work Remotely"])
+    %{job_search: job_search}
+  end
+
+  test(
+    "start_child/2 starts the given crawler with the given opts",
+    %{job_search: job_search}
+  ) do
+    with_mock(DynamicSupervisor, [start_child: fn (_, _) -> nil end]) do
+      ref = JobBot.Crawler.ref(job_search.id, Crawler)
       spec = Supervisor.Spec.worker(
         Crawler,
-        [opts()],
+        [job_search],
         restart: :temporary,
         id: ref
       )
 
-      JobBot.CrawlerSupervisor.start_child(Crawler, opts())
+      JobBot.CrawlerSupervisor.start_child(Crawler, job_search)
 
-      assert called(DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec))
+      assert_called(
+        DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec)
+      )
     end
   end
 
-  test "start_crawlers/1 starts crawlers for sources and registers user" do
-    with_mocks([{
-      DynamicSupervisor, [], [start_child: fn(_mod, _child) -> nil end]
-    }, {
-      JobBot.UserRegistry, [], [register: fn(_id, _data) -> nil end]
-    }, {
-      NaiveDateTime, [], [utc_now: fn() -> time_now() end]
-    }]) do
-      data = Map.drop(opts(), [:user_id])
-      ref = JobBot.Crawler.ref(user_id(), Crawler)
+  test(
+    "start_crawlers/1 starts crawlers for sources and registers user",
+    %{job_search: job_search}
+  ) do
+    with_mock(DynamicSupervisor, [start_child: fn(_, _) -> nil end]) do
+      ref = JobBot.Crawler.ref(job_search.id, Crawler)
       spec = Supervisor.Spec.worker(
         Crawler,
-        [opts()],
+        [job_search],
         restart: :temporary,
-        id: ref,
-        searched_for_at: time_now()
+        id: ref
       )
 
-      JobBot.CrawlerSupervisor.start_crawlers(opts())
+      JobBot.CrawlerSupervisor.start_crawlers(job_search)
 
-      assert called(DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec))
-      assert called(JobBot.UserRegistry.register(1, data))
+      assert_called(
+        DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec)
+      )
     end
   end
-
-  defp user_id, do: 1
-
-  defp opts do
-    %{
-      user_id: user_id(),
-      sources: [source()],
-      name: "name",
-      searched_for_at: time_now()
-    }
-  end
-
-  defp time_now do
-    "placeholder time now"
-  end
-
-  defp source do
-    %JobBot.Source{crawler: Crawler}
-  end 
 end

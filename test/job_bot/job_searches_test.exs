@@ -3,7 +3,6 @@ defmodule JobBot.JobSearchesTest do
   use JobBotWeb.FactoryCase
 
   alias JobBot.JobSearches
-  alias JobBot.Repo
 
   describe "get/2" do
     test "returns the user's job search" do
@@ -21,7 +20,7 @@ defmodule JobBot.JobSearchesTest do
       datetime = 
         NaiveDateTime.utc_now()
         |> NaiveDateTime.add(-200000)
-      old_job_search = insert(:job_search, user: user, inserted_at: datetime)
+      insert(:job_search, user: user, inserted_at: datetime)
       new_job_search = insert(:job_search, user: user)
 
       assert JobSearches.get_most_recent!(user).id == new_job_search.id

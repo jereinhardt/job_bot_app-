@@ -4,21 +4,19 @@ defmodule JobBotWeb.UsersControllerTest do
   import JobBot.Factory
   import JobBot.Accounts.Guardian
 
-  alias JobBot.Accounts
-
   describe "create/2" do
-    test "logs in the user and returns user data on success", %{conn: conn} do
+    test "logs in the user and redirects them to search", %{conn: conn} do
       {name, email, password} = {"John Doe", "john@doe.com", "password"}
       params = %{
         "user" => %{"name" => name, "email" => email, "password" => password}
       }
 
-      response_redirect = 
+      redirect_response = 
         conn 
         |> post("/users", params)
         |> redirected_to()
-
-      assert response_redirect == "/search"
+        
+      assert redirect_response == job_searches_path(conn, :new)
     end
 
     test "returns errors on failure", %{conn: conn} do

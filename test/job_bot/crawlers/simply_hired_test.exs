@@ -2,8 +2,8 @@ defmodule JobBot.Crawler.SimplyHiredTest do
   use JobBot.CrawlerCase
 
   alias HTTPoison.Error
-  alias JobBot.Listing
   alias JobBot.Crawler.SimplyHired, as: Crawler
+  alias JobBot.JobSearches.Listing
 
   import Mock
 

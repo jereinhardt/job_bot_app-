@@ -2,8 +2,8 @@ defmodule JobBot.Crawler.IndeedTest do
   use JobBot.CrawlerCase
 
   alias HTTPoison.Error
-  alias JobBot.Listing
   alias JobBot.Crawler.Indeed, as: Crawler
+  alias JobBot.JobSearches.Listing
 
   import Mock
 

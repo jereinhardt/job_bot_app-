@@ -8,8 +8,8 @@ defmodule JobBot.WorkerRegistryTest do
 
   setup do
     Agent.update(Registry, fn (_) -> [] end)
-    {:ok, worker} = Agent.start_link(fn -> [] end)
-    %{worker: worker}
+    process = spawn(fn -> nil end)
+    %{worker: process}
   end
 
   test "register/2 adds a process to the registry", %{worker: worker} do

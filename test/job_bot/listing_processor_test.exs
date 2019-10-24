@@ -3,31 +3,24 @@ defmodule JobBot.ListingProcessorTest do
   use JobBotWeb.FactoryCase
 
   import Ecto.Query, warn: false
+  import JobBot.Factory
   import Mock
 
-  alias JobBot.{ListingProcessor, Repo, UserRegistry}
-  alias JobBot.Accounts.UserListing
-  alias JobBotWeb.Endpoint
+  alias JobBot.JobSearches.Listing
+  alias JobBot.JobSearches.LiveUpdates
+  alias JobBot.ListingProcessor
+  alias JobBot.Repo
 
   describe "process/2" do
     test "creates a user listing and broadcasts the listing" do
-      with_mock(Endpoint, [broadcast: fn(_, _, _) -> nil end]) do
-        user = insert(:user)
-        listing = insert(:listing)
-        UserRegistry.register(user.id, %{searched_for_at: DateTime.utc_now()})
+      with_mock(LiveUpdates, [broadcast_new_listing: fn(_, _) -> nil end]) do
+        job_search = insert(:job_search) |> Repo.preload([:listings])
+        listing = build(:listing)
 
-        ListingProcessor.process(listing, user.id)
-        query = from ul in UserListing,
-          order_by: [desc: ul.inserted_at],
-          preload: [:listing],
-          limit: 1
-        user_listing = Repo.one(query)
+        ListingProcessor.process(listing, job_search.id)
+        listing = Repo.all(Listing) |> List.last()
 
-        assert called Endpoint.broadcast(
-          "users:#{user.id}",
-          "new_listing",
-          %{"listing" => user_listing}
-        )
+        assert called LiveUpdates.broadcast_new_listing(job_search, listing)
       end
     end
   end

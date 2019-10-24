@@ -65,7 +65,6 @@ defmodule JobBotWeb.Router do
   scope "/", JobBotWeb do
     pipe_through [:browser, :auth]
 
-    get "/logout", SessionController, :delete
-    resources "/session", SessionController, only: [:delete]
+    resources "/session", SessionController, only: [:delete], singleton: true
   end
 end

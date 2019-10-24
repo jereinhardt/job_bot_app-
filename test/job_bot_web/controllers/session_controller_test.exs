@@ -1,44 +1,47 @@
 defmodule JobBotWeb.SessionControllerTest do
-  use JobBotWeb.ConnCase
   use JobBotWeb.AuthCase
 
-  import Mock
+  describe "create/2" do
+    test "logs the user in with valid credentials", %{conn: conn} do
+      user = insert(:user)
+      params = %{"user" => %{"email" => user.email, "password" => "password"}}
+      path = session_path(conn, :create)
 
-  describe "create session" do
-    test "successful json requests return the user", %{conn: conn} do
-      with_mock( Phoenix.Token, [sign: fn(_, _, _) -> "token" end]) do
-        user = insert(:user)
-        json_user = %{
-          "id" => user.id,
-          "name" => user.name,
-          "email" => user.email,
-          "token" => "token",
-          "userListings" => []
-        }
-        data = %{"data" => %{"user" => json_user}}
+      response =
+        conn
+        |> post(path, params)
 
-        params = 
-          %{"session" => %{"email" => user.email, "password" => "password"}}
-        response = 
-          conn
-          |> post("/session", params)
-          |> json_response(200)
+      refute response.assigns.current_user == nil
+      assert redirected_to(response) == page_path(conn, :index)
+    end
 
-        assert response == data
-      end
+    test "renders errors with invalid credentials", %{conn: conn} do
+      params = %{"user" => %{"email" => "", "password" => ""}}
+      path = session_path(conn, :create)
+
+      response =
+        conn
+        |> post(path, params)
+
+      assert get_flash(response, :error) == "Incorrect email or password"
+      assert redirected_to(response) == session_path(conn, :new)
     end
   end
 
-  describe "delete session" do
+  describe "delete/2" do
     setup do
       user = insert(:user)
       log_in_user(user)
     end
 
     test "redirects to the home page", %{conn: conn} do
-      response = delete(conn, "/session")
+      path = session_path(conn, :delete)
+      response = 
+        conn
+        |> delete(path)
+        |> redirected_to()
 
-      assert redirected_to(response) == page_path(response, :index)
+      assert response == page_path(conn, :index)
     end
   end
 end

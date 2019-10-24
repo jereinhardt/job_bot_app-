@@ -12,6 +12,7 @@ defmodule JobBotWeb.UsersController do
   def create(conn, %{"user" => user_params}) do
     with {:ok, user} <- Accounts.create_user(user_params) do
       conn
+      |> Accounts.login(user)
       |> put_flash(:success, "Welcome to JobBot!")
       |> redirect(to: job_searches_path(conn, :new))
     else

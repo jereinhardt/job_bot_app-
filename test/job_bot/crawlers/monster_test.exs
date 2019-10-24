@@ -2,8 +2,8 @@ defmodule JobBot.Crawler.MonsterTest do
   use JobBot.CrawlerCase
 
   alias HTTPoison.Error
-  alias JobBot.Listing
   alias JobBot.Crawler.Monster, as: Crawler
+  alias JobBot.JobSearches.Listing
 
   import Mock
 

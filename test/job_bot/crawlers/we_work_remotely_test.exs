@@ -2,8 +2,8 @@ defmodule JobBot.Crawler.WeWorkRemotelyTest do
   use JobBot.CrawlerCase
 
   alias HTTPoison.{Error, Response}
-  alias JobBot.Listing
   alias JobBot.Crawler.WeWorkRemotely, as: Crawler
+  alias JobBot.JobSearches.Listing
 
   import Mock
 
