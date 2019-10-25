@@ -1631,6 +1631,27 @@ class Timer {
 
 /***/ }),
 
+/***/ "./js/flash.js":
+/*!*********************!*\
+  !*** ./js/flash.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var flashCloseButtons = document.querySelectorAll("[data-flash-remove]");
+var removeFlashMessage = function removeFlashMessage(event) {
+  event.preventDefault();
+  var button = event.target;
+  var flashName = button.dataset.flashRemove;
+  var flashMessage = document.querySelector("[data-flash-message=\"" + flashName + "\"]").remove();
+};
+
+flashCloseButtons.forEach(function (elem) {
+  return elem.addEventListener("click", removeFlashMessage);
+});
+
+/***/ }),
+
 /***/ "./js/index.js":
 /*!*********************!*\
   !*** ./js/index.js ***!
@@ -1645,12 +1666,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var phoenix_live_view__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(phoenix_live_view__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _deps_phoenix_html_priv_static_phoenix_html__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../deps/phoenix_html/priv/static/phoenix_html */ "../deps/phoenix_html/priv/static/phoenix_html.js");
 /* harmony import */ var _deps_phoenix_html_priv_static_phoenix_html__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_deps_phoenix_html_priv_static_phoenix_html__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _flash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./flash */ "./js/flash.js");
+/* harmony import */ var _flash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_flash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _listingToggle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./listingToggle */ "./js/listingToggle.js");
+/* harmony import */ var _listingToggle__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_listingToggle__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _navToggle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./navToggle */ "./js/navToggle.js");
+/* harmony import */ var _navToggle__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_navToggle__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
 
 
 
 
 var liveSocket = new phoenix_live_view__WEBPACK_IMPORTED_MODULE_1___default.a("/live", phoenix__WEBPACK_IMPORTED_MODULE_0__["Socket"]);
 liveSocket.connect();
+
+/***/ }),
+
+/***/ "./js/listingToggle.js":
+/*!*****************************!*\
+  !*** ./js/listingToggle.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var listingToggles = document.querySelectorAll("[data-toggle-listing]");
+listingToggles.forEach(function (toggle) {
+  var toggleListing = function toggleListing(event) {
+    var listingId = event.target.dataset.toggleListing;
+    event.preventDefault();
+    var description = document.querySelector("[data-listing-description='" + listingId + "']");
+    if (description.classList.contains("expanded")) {
+      toggle.textCotnent = "Show Less";
+    } else {
+      toggle.textContent = "Show More";
+    }
+    description.classList.toggle("expanded");
+  };
+
+  toggle.addEventListener("click", toggleListing);
+});
+
+/***/ }),
+
+/***/ "./js/navToggle.js":
+/*!*************************!*\
+  !*** ./js/navToggle.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 var navToggle = document.querySelector("[data-navigation-toggle]");
 
@@ -1667,18 +1732,6 @@ var toggleNavigation = function toggleNavigation(event) {
 };
 
 navToggle.addEventListener("click", toggleNavigation);
-
-var flashCloseButtons = document.querySelectorAll("[data-flash-remove]");
-var removeFlashMessage = function removeFlashMessage(event) {
-  event.preventDefault();
-  var button = event.target;
-  var flashName = button.dataset.flashRemove;
-  var flashMessage = document.querySelector("[data-flash-message=\"" + flashName + "\"]").remove();
-};
-
-flashCloseButtons.forEach(function (elem) {
-  return elem.addEventListener("click", removeFlashMessage);
-});
 
 /***/ }),
 

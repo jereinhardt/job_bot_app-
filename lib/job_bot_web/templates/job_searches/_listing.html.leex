@@ -12,6 +12,7 @@
      <!-- .expanded if expanded -->
     <div 
       class="listing--description"
+      data-listing-description="<%= @listing.id %>"
     >
       <p>
         <%= raw(@listing.description) %>
@@ -20,15 +21,10 @@
       <a 
         class="listing--description-toggle has-text-centered"
         href="#"
+        data-toggle-listing="<%= @listing.id %>"
       >
         <!-- class="hidden" if not toggled -->
-        <span class="">
-          Show More
-        </span>
-        <!-- class="hidden" if toggled -->
-        <span class="hidden">
-          See Less
-        </span>
+        Show More
       </a>
     </div>
     <div class="listing--actions has-text-right">
