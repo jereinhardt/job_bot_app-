@@ -1691,22 +1691,20 @@ liveSocket.connect();
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var listingToggles = document.querySelectorAll("[data-toggle-listing]");
-listingToggles.forEach(function (toggle) {
-  var toggleListing = function toggleListing(event) {
-    var listingId = event.target.dataset.toggleListing;
-    event.preventDefault();
-    var description = document.querySelector("[data-listing-description='" + listingId + "']");
-    if (description.classList.contains("expanded")) {
-      toggle.textCotnent = "Show Less";
-    } else {
-      toggle.textContent = "Show More";
-    }
-    description.classList.toggle("expanded");
-  };
+var toggleListing = function toggleListing(event) {
+  var toggle = event.target;
+  var listingId = toggle.dataset.toggleListing;
+  event.preventDefault();
+  var description = document.querySelector("[data-listing-description='" + listingId + "']");
+  if (description.classList.contains("expanded")) {
+    toggle.textCotnent = "Show Less";
+  } else {
+    toggle.textContent = "Show More";
+  }
+  description.classList.toggle("expanded");
+};
 
-  toggle.addEventListener("click", toggleListing);
-});
+window.toggleListing = toggleListing;
 
 /***/ }),
 

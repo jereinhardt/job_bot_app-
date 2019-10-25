@@ -9,7 +9,6 @@
       </span>
     </div>
 
-     <!-- .expanded if expanded -->
     <div 
       class="listing--description"
       data-listing-description="<%= @listing.id %>"
@@ -17,19 +16,17 @@
       <p>
         <%= raw(@listing.description) %>
       </p>
-      <!-- onClick=toggleDescription -->
       <a 
         class="listing--description-toggle has-text-centered"
+        onclick="toggleListing(event)"
         href="#"
         data-toggle-listing="<%= @listing.id %>"
       >
-        <!-- class="hidden" if not toggled -->
         Show More
       </a>
     </div>
     <div class="listing--actions has-text-right">
       <%= link("View Listsing", to: @listing.listing_url, target: "_blank") %>
-      <!-- onClick=toggle applied to -->
       <button
         class="listing--action button"
         phx-click="<%= if @listing.applied_to_at, do: 'unmark_as_applied', else: 'mark_as_applied' %>"
