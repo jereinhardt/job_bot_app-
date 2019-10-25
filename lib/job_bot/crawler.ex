@@ -54,7 +54,6 @@ defmodule JobBot.Crawler do
         state =
           Task.async(fn -> get_job_urls(job_search) end)
           |> Task.await(30000)
-          |> Enum.take(10)
 
         schedule_next_crawl()
 
@@ -65,7 +64,12 @@ defmodule JobBot.Crawler do
         Waits 5 seconds before crawling the next url
       """
       def schedule_next_crawl do
-        Process.send_after(self(), :crawl_next, 5000)
+        case check_rate_limit() do
+          :ok ->
+            Process.send(self(), :crawl_next, [])
+          {:wait, wait_time} ->
+            Process.send_after(self(), :crawl_next, wait_time)
+        end
       end
 
       @doc """
@@ -91,7 +95,7 @@ defmodule JobBot.Crawler do
       def handle_info(:crawl_next, []), do: {:stop, :normal, []}
 
       @doc """
-        If the setup has not been completed yet, queue another delayed scraper.
+      If the setup has not been completed yet, queue another delayed scraper.
       """
       def handle_info(:crawl_next, nil) do
         Logger.info(
@@ -118,6 +122,18 @@ defmodule JobBot.Crawler do
 
       defp process_listing({:error, message}) do
         Logger.info IO.ANSI.red <> message <> IO.ANSI.reset
+      end
+
+      defp check_rate_limit() do
+        bucket_name = Atom.to_string(__MODULE__)
+        
+        case ExRated.check_rate(bucket_name, 10_000, 5) do
+          {:ok, _} -> :ok
+          {:error, _} ->
+            {_, _, wait_time, _, _} =
+              ExRated.inspect_bucket(bucket_name, 10_000, 5)
+            {:wait, wait_time}
+        end
       end
     end
   end

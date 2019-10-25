@@ -48,6 +48,7 @@ defmodule JobBot.Mixfile do
       {:bcrypt_elixir, "~> 0.12"},
       {:floki, "~> 0.20.1"},
       {:hound, "~> 1.0"},
+      {:ex_rated, "~> 1.2"},
       {:httpoison, "~> 1.4"},
       {:jason, "~> 1.0"},
       {:distillery, "~> 2.0", runtime: false},
