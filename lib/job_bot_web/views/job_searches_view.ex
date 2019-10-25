@@ -4,6 +4,7 @@ defmodule JobBotWeb.JobSearchesView do
   import Prospero.View
   
   alias JobBotWeb.LivePaginationView, as: Pagination
+  alias JobBot.JobSearches.JobSearch
   alias Phoenix.HTML.Form
   alias Phoenix.HTML.FormData
   
@@ -19,6 +20,10 @@ defmodule JobBotWeb.JobSearchesView do
 
   def next_step_button do
     submit("continue", class: "step__action step__action--forward")
+  end
+
+  def next_step_button(text) do
+    submit(text, class: "step__action step__action--forward")
   end
 
   def decorated_text_input(%Form{} = form, name, opts \\ []) do
@@ -93,7 +98,12 @@ defmodule JobBotWeb.JobSearchesView do
   end
 
   def render_final_step(form, %{final_step: final_step} = assigns) do
-    merged_assigns = Map.merge(assigns, %{f: form})
+    job_search_attrs =
+      form.source.store
+      |> Enum.map(fn ({k, v}) -> {String.to_atom(k), v} end)
+      |> Enum.into(%{})
+    job_search = JobSearch.__struct__(job_search_attrs)
+    merged_assigns = Map.merge(assigns, %{f: form, job_search: job_search})
     case final_step do
       "confirm" -> render("_confirm.html", merged_assigns)
       "signup" -> render("_signup.html", merged_assigns)
