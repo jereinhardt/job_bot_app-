@@ -2,7 +2,7 @@ defmodule JobBot.WorkerRegistryTest do
   use ExUnit.Case, async: true
 
   alias JobBot.WorkerRegistry, as: Registry
-  alias JobBot.Crawler.WeWorkRemotely, as: Crawler
+  alias JobBot.Crawler.Monster, as: Crawler
 
   import Mock
 

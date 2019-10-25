@@ -20,7 +20,7 @@ defmodule JobBot.Factory do
       company_name: sequence(:company_name, &"comapny-#{&1}"),
       description: "We are in need of a worker",
       listing_url: sequence(:listing_url, &"www.app#{&1}.com"),
-      source: "We Work Remotely",
+      source: "Monster",
       title: sequence(:title, &"Job Title #{&1}"),
       job_search: build(:job_search)
     }
@@ -29,7 +29,7 @@ defmodule JobBot.Factory do
   def job_search_factory do
     %JobSearch{
       location: nil,
-      sources: ["We Work Remotely"],
+      sources: ["Monster"],
       terms: "Elixir Developer",
       user: build(:user),
     }

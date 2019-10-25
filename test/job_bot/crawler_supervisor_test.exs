@@ -2,12 +2,12 @@ defmodule JobBot.CrawlerSupervisorTest do
   use ExUnit.Case
   use JobBotWeb.FactoryCase
 
-  alias JobBot.Crawler.WeWorkRemotely, as: Crawler
+  alias JobBot.Crawler.Monster, as: Crawler
 
   import Mock
 
   setup do
-    job_search = insert(:job_search, sources: ["We Work Remotely"])
+    job_search = insert(:job_search, sources: ["Monster"])
     %{job_search: job_search}
   end
 
