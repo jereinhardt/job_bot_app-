@@ -4,12 +4,14 @@ defmodule JobBot.Crawler.CareerBuilder do
   import JobBot.Crawler.Helper
 
   alias HTTPoison.{Error, Response}
-  alias JobBot.{Listing, Source}
-
+  alias JobBot.JobSearches.Listing
+  alias JobBot.Source
+  
   @base_url "https://www.careerbuilder.com"
+  @source_name "CareerBuilder"
 
-  def get_job_urls(%{terms: terms} = opts) do
-    location = Map.get(opts, :location)
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
     http_opts = [params: %{ keywords: terms, location: location }]
 
     @base_url <> "/jobs"
@@ -44,7 +46,7 @@ defmodule JobBot.Crawler.CareerBuilder do
   defp extract_urls_from_index({:ok, %Response{status_code: 200, body: body}}) do
     body
     |> Floki.parse()
-    |> Floki.attribute(".job-title.hide-for-medium-up a", "href")
+    |> Floki.attribute("a.job-listing-item", "href")
     |> Enum.map(&relative_to_absolute_url(@base_url, &1))
   end
   defp extract_urls_from_index({_, _}), do: []
@@ -56,14 +58,14 @@ defmodule JobBot.Crawler.CareerBuilder do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("CareerBuilder")
+      source: @source_name
     }
   end
 
   defp extract_application_url(parsed) do
     href =
       parsed
-      |> Floki.attribute("#apply-now-top", "href")
+      |> Floki.attribute(".data-display-header_info-apply a", "href")
       |> Enum.at(0)
     if String.starts_with?(href, "http") do
       href
@@ -73,37 +75,28 @@ defmodule JobBot.Crawler.CareerBuilder do
   end
 
   defp extract_city(parsed) do
-    regex = ~r/\•/
-    text = parsed |> Floki.find("#job-company-name") |> Floki.text()
-    if Regex.match?(regex, text) do
-      text
-      |> String.split("•")
-      |> Enum.at(1)
-      |> String.trim
-    else
-      String.trim(text)
-    end
+    parsed
+    |> Floki.find(".data-display-header_info-content .data-details span")
+    |> Enum.at(1)
+    |> Floki.text()
   end
 
   defp extract_company_name(parsed) do
-    regex = ~r/(?<company_name>.+)\s\•\s.+/
-    text = parsed |> Floki.find("#job-company-name") |> Floki.text()
-
-    case Regex.named_captures(regex, text) do
-      %{"company_name" => company_name} -> String.trim(company_name)
-      _ -> "View Listing For Company Name"
-    end
+    parsed
+    |> Floki.find(".data-display-header_info-content .data-details span")
+    |> Enum.at(0)
+    |> Floki.text()
   end
 
   defp extract_description(parsed) do
     parsed
-    |> Floki.find(".description")
+    |> Floki.find("#jdp_description > .col-2 > .col.big.col-mobile-full")
     |> Floki.raw_html()
   end
 
   defp extract_title(parsed) do
     parsed
-    |> Floki.find(".card .item h1")
+    |> Floki.find(".data-display-header_info-content h1:not(.loading)")
     |> Floki.text()
     |> String.trim()
   end

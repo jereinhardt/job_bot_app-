@@ -2,8 +2,8 @@ defmodule JobBot.Crawler.LinkedinTest do
   use JobBot.CrawlerCase
 
   alias HTTPoison.Error
-  alias JobBot.Listing
   alias JobBot.Crawler.Linkedin, as: Crawler
+  alias JobBot.JobSearches.Listing
 
   import Mock
 

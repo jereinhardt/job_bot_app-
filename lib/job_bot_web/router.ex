@@ -8,60 +8,63 @@ defmodule JobBotWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug JobBot.Accounts.Pipeline
-    plug :put_user_token
+  end
+
+  pipeline :live_browser do
+    plug Phoenix.LiveView.Flash
+    plug :put_layout, {JobBotWeb.LayoutView, :app}    
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  pipeline :data do
-    plug :accepts, ["json"]
-    plug :fetch_session
-    plug :protect_from_forgery
-    plug JobBot.Accounts.Pipeline
-    plug :put_user_token
-  end
-
   pipeline :auth do
     plug Guardian.Plug.EnsureAuthenticated
+  end
+
+  pipeline :logged_in do
+    plug JobBot.Plug.EnsureLoggedIn
+  end
+
+  pipeline :logged_out do
+    plug JobBot.Plug.EnsureLoggedOut
+  end
+
+
+
+  scope "/", JobBotWeb do
+    pipe_through [:browser, :live_browser]
+
+    get "/search", JobSearchesController, :new
+    get "/results", JobSearchesController, :show, as: :most_recent_search_results
+  end
+
+  scope "/", JobBotWeb do
+    pipe_through [:browser, :live_browser, :logged_in]
+
+    resources "/searches", JobSearchesController, only: [:show]
   end
 
   scope "/", JobBotWeb do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/signup", PageController, :index, as: :signup
-    get "/login", PageController, :index, as: :login
-    get "/logout", SessionController, :delete
-    delete "/session", SessionController, :delete
-    resources "/session", SessionController, only: [:create]
-    get "/search", PageController, :index
-    get "/results", PageController, :index
   end
 
-  scope "/data", JobBotWeb do
-    pipe_through :data
+  scope "/", JobBotWeb do
+    pipe_through [:browser, :logged_out]
 
+    get "/signup", UsersController, :new, as: :signup
     resources "/users", UsersController, only: [:create]
-    resources "/sources", SourceController, only: [:index]
+    
+    get "/login", SessionController, :new
+    resources "/session", SessionController, only: [:create]
   end
 
-  scope "/data", JobBotWeb do
-    pipe_through [:data, :auth]
+  scope "/", JobBotWeb do
+    pipe_through [:browser, :auth]
 
-    get "/users", UsersController, :show
-    resources "/user_listings", UserListingsController, only: [:index, :update]
-    resources "/job_searches", JobSearchesController, only: [:create]
-  end
-
-  defp put_user_token(conn, _params) do
-    case Map.get(conn.assigns, :current_user, nil) do
-      nil -> conn
-      _ ->
-        user_id = conn.assigns[:current_user].id
-        token = Phoenix.Token.sign(conn, "user socket", user_id)
-        assign(conn, :user_token, token)
-    end
+    resources "/session", SessionController, only: [:delete], singleton: true
   end
 end

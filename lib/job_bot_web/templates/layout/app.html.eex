@@ -12,8 +12,10 @@
   </head>
 
   <body>
-
+    <%= render(JobBotWeb.SharedView, "_nav.html", assigns) %>
+    
     <main role="main">
+      <%= render(JobBotWeb.SharedView, "_flashes.html", conn: @conn) %>
       <%= render @view_module, @view_template, assigns %>
     </main>
 

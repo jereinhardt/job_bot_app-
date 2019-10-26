@@ -3,15 +3,18 @@ defmodule JobBotWeb.AuthCase do
 
   defmacro __using__(_opts) do
     quote do
+
+      use JobBotWeb.ConnCase
       import JobBot.Accounts.Guardian
       import JobBot.Factory
-
 
       defp log_in_user(%Plug.Conn{} = conn, %User{} = user) do
         {:ok, token, _} = encode_and_sign(user, %{}, token_type: :access)
 
         conn = conn
         |> put_req_header("authorization", "bearer: " <> token)
+
+        {:ok, conn: conn}
       end
 
 
@@ -31,7 +34,7 @@ defmodule JobBotWeb.AuthCase do
         conn = build_conn()
         |> put_req_header("authorization", "bearer: " <> token)
 
-        {:ok, conn: conn}
+        {:ok, conn: conn, user: user}
       end
       
       defp build_conn_with_logged_in_user do

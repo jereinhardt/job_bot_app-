@@ -4,6 +4,10 @@ $fa-font-path: "~font-awesome/fonts";
 @import "~bulma/bulma.sass";
 
 $color-white: #ffffff;
+
+$xsmall-spacing: 0.25rem;
+$small-spacing: 0.6rem;
+$medium-spacing: 1rem;
 $base-spacing: 1.25rem;
 $large-spacing: 1.6rem;
 $larger-spacing: 2rem;
@@ -58,6 +62,36 @@ $navbar-height: 3.25rem;
 
 .hero.is-fullheight {
   min-height: calc(100vh - $navbar-height);
+}
+
+$spacings: (
+  1: $xsmall-spacing,
+  2: $small-spacing,
+  3: $medium-spacing,
+  4: $base-spacing,
+  5: $large-spacing,
+  6: $larger-spacing
+);
+$directions: (t: top, b: bottom, l: left, r: right);
+
+@each $i, $spacing-val in $spacings {
+  .m-#{$i} {
+    margin: $spacing-val;
+  }
+
+  .p-#{$i} {
+    padding: $spacing-val;
+  }
+  
+  @each $direction-initial, $direction in $directions {
+    .m-#{$direction-initial}-#{$i} {
+      margin-#{$direction}: $spacing-val;
+    }
+
+    .p-#{$direction-initial}-#{$i} {
+      padding-#{$direction}: $spacing-val;
+    }
+  }
 }
 
 @import "components/components";

@@ -1,0 +1,7 @@
+<%= form_for @changeset, users_path(@conn, :create), fn f -> %>
+  <%= FormView.text_field(f, :name) %>
+  <%= FormView.text_field(f, :email) %>
+  <%= FormView.password_field(f, :password) %>
+
+  <%= submit "Submit", class: "button is-primary" %>
+<% end %>

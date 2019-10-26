@@ -1,23 +1,28 @@
 defmodule JobBotWeb.SessionController do
   use JobBotWeb, :controller
+
+  alias JobBot.Accounts
+
   plug Guardian.Plug.EnsureAuthenticated when action in [:delete]
 
-  def create(conn, %{"session" => %{"email" => email, "password" => password}}) do
+  def new(conn, _params) do
+    changeset = Accounts.new_user()
+
+    render(conn, "new.html", changeset: changeset)
+  end
+
+  def create(conn, %{"user" => user_params}) do
+    %{"email" => email, "password" => password} = user_params
+
     case JobBot.Accounts.authenticate_user(email, password) do
       {:ok, user} ->
-        token = Phoenix.Token.sign(conn, "user socket", user.id)
         conn
         |> JobBot.Accounts.login(user)
-        |> render("create.json", user: user, token: token)
-
-      {:error, _reason} ->
+        |> redirect(to: page_path(conn, :index))
+      {:error, reason} ->
         conn
-        |> put_status(401)
-        |> render(
-            JobBotWeb.ErrorView,
-            "401.json",
-            message: "We couldn't find that email and password."
-          )
+        |> put_flash(:error, reason)
+        |> redirect(to: session_path(conn, :new))
     end
   end
 

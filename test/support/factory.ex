@@ -1,10 +1,14 @@
 defmodule JobBot.Factory do
   use ExMachina.Ecto, repo: JobBot.Repo
 
+  alias JobBot.Accounts.User
+  alias JobBot.JobSearches.JobSearch
+  alias JobBot.JobSearches.Listing
+
   def user_factory do
     name = sequence(:name, &"User Guy/Gal#{&1}")
     email = sequence(:email, &"email#{&1}@gmail.com")
-    %JobBot.Accounts.User{
+    %User{
       name: name,
       email: email,
       password: Bcrypt.hash_pwd_salt("password")
@@ -12,20 +16,22 @@ defmodule JobBot.Factory do
   end
 
   def listing_factory do
-    %JobBot.Listing{
+    %Listing{
       company_name: sequence(:company_name, &"comapny-#{&1}"),
       description: "We are in need of a worker",
       listing_url: sequence(:listing_url, &"www.app#{&1}.com"),
-      source: "We Work Remotely",
+      source: "Monster",
       title: sequence(:title, &"Job Title #{&1}"),
+      job_search: build(:job_search)
     }
   end
 
-  def user_listing_factory do
-    %JobBot.Accounts.UserListing{
-      user: insert(:user),
-      listing: insert(:listing),
-      searched_for_at: DateTime.utc_now()
+  def job_search_factory do
+    %JobSearch{
+      location: nil,
+      sources: ["Monster"],
+      terms: "Elixir Developer",
+      user: build(:user),
     }
   end
 end

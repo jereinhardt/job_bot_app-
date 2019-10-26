@@ -4,18 +4,17 @@ defmodule JobBot.Crawler.Indeed do
   import JobBot.Crawler.Helper
 
   alias HTTPoison.{Error, Response}
-  alias JobBot.{Listing, Source}
+  alias JobBot.JobSearches.Listing
+  alias JobBot.Source
 
   @base_url "https://www.indeed.com"
+  @source_name "Indeed"
 
-  def get_job_urls(%{location: nil}), do: []
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{
-        q: Map.get(opts, :terms),
-        l: Map.get(opts, :location)
-      }
-    ]
+  def get_job_urls(job_search) do
+    terms = job_search.terms
+    location = job_search.location || ""
+
+    http_opts = [params: %{q: terms, l: location}]
 
     @base_url <> "/jobs"
     |> HTTPoison.get([], http_opts)
@@ -62,7 +61,7 @@ defmodule JobBot.Crawler.Indeed do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Indeed")
+      source: @source_name
     }
   end
 
@@ -81,11 +80,21 @@ defmodule JobBot.Crawler.Indeed do
   end
 
   defp extract_company_name(parsed) do
-    parsed
-    |> Floki.find(".jobsearch-InlineCompanyRating")
-    |> Floki.text()
-    |> String.split("-")
-    |> Enum.at(0)    
+    data = 
+      parsed
+      |> Floki.find(".jobsearch-InlineCompanyRating")
+
+    case Floki.find(data, "a") do
+      [] ->
+        data
+        |> Floki.text()
+        |> String.split("-")
+        |> Enum.at(0)
+      links -> 
+        links
+        |> Enum.at(0)
+        |> Floki.text()
+    end   
   end
 
   defp extract_description(parsed) do

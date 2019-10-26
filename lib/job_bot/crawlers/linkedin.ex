@@ -4,17 +4,15 @@ defmodule JobBot.Crawler.Linkedin do
   import JobBot.Crawler.Helper
 
   alias HTTPoison.{Error, Response}
-  alias JobBot.{Listing, Source}
+  alias JobBot.JobSearches.Listing
+  alias JobBot.Source
 
   @base_url "https://www.linkedin.com"
+  @source_name "Linkedin"
 
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{
-        keywords: Map.get(opts, :terms),
-        location: Map.get(opts, :location)
-      }
-    ]
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
+    http_opts = [params: %{keywords: terms, location: location}]
 
     @base_url <> "/jobs/search"
     |> HTTPoison.get([], http_opts)
@@ -49,7 +47,7 @@ defmodule JobBot.Crawler.Linkedin do
   defp extract_urls_from_index({:ok, %Response{status_code: 200, body: body}}) do
     body
     |> Floki.parse()
-    |> Floki.attribute("a.listed-job-posting--is-link", "href")
+    |> Floki.attribute("a.result-card__full-card-link", "href")
     |> Enum.map(&relative_to_absolute_url(@base_url, &1))
   end
   defp extract_urls_from_index(_), do: []
@@ -61,7 +59,7 @@ defmodule JobBot.Crawler.Linkedin do
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Linkedin")
+      source: @source_name
     }    
   end
 

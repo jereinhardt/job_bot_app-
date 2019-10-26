@@ -2,8 +2,8 @@ defmodule JobBot.Crawler.SimplyHiredTest do
   use JobBot.CrawlerCase
 
   alias HTTPoison.Error
-  alias JobBot.Listing
   alias JobBot.Crawler.SimplyHired, as: Crawler
+  alias JobBot.JobSearches.Listing
 
   import Mock
 
@@ -28,7 +28,6 @@ defmodule JobBot.Crawler.SimplyHiredTest do
     test "returns a tuple with a listing when the request is good" do
       with_mock(HTTPoison, [get: fn("/job_1") -> get_fixture_response("job_1.html") end]) do
         expected_listing = %Listing{
-          application_url: "#{@base_url}/apply_here.html",
           city: "Kansas City, MO",
           company_name: "Bottastic",
           title: "Bot Expert"
@@ -38,7 +37,7 @@ defmodule JobBot.Crawler.SimplyHiredTest do
         assert listing_matches_response?(
           expected_listing,
           response,
-          [:application_url, :city, :company_name, :title]
+          [:city, :company_name, :title]
         )
       end
     end

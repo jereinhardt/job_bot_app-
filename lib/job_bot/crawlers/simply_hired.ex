@@ -4,14 +4,15 @@ defmodule JobBot.Crawler.SimplyHired do
   import JobBot.Crawler.Helper
 
   alias HTTPoison.{Error, Response}
-  alias JobBot.{Listing, Source}
+  alias JobBot.JobSearches.Listing
+  alias JobBot.Source
 
   @base_url "https://www.simplyhired.com"
+  @source_name "Simply Hired"
 
-  def get_job_urls(opts) do
-    http_opts = [
-      params: %{q: Map.get(opts, :terms), l: Map.get(opts, :location)}
-    ]
+  def get_job_urls(job_search) do
+    %{terms: terms, location: location} = job_search
+    http_opts = [params: %{q: terms, l: location}]
 
     @base_url <> "/search"
     |> HTTPoison.get([], http_opts)
@@ -31,6 +32,7 @@ defmodule JobBot.Crawler.SimplyHired do
           |> Floki.parse()
           |> extract_listing_data_from_parsed_body()
           |> Map.put(:listing_url, url)
+          |> Map.put(:application_url, url)
 
         {:ok, listing}        
       {:error, %Error{reason: reason}} ->
@@ -45,39 +47,30 @@ defmodule JobBot.Crawler.SimplyHired do
   defp extract_urls_from_index({:ok, %Response{status_code: 200, body: body}}) do
     body
     |> Floki.parse()
-    |> Floki.attribute("a.card-link.js-job-link", "href")
+    |> Floki.attribute(".jobposting-title a.card-link", "href")
     |> Enum.map(&relative_to_absolute_url(@base_url, &1))
   end
   defp extract_urls_from_index(_), do: []
 
   defp extract_listing_data_from_parsed_body(parsed) do
     %Listing{
-      application_url: extract_application_url(parsed),
       city: extract_city(parsed),
       company_name: extract_company_name(parsed),
       description: extract_description(parsed),
       title: extract_title(parsed),
-      source: Source.find_by_name("Simply Hired")
+      source: @source_name
     }
-  end
-
-  defp extract_application_url(parsed) do
-    url =
-      parsed
-      |> Floki.attribute(".viewjob-controls .apply a", "href")
-      |> Enum.at(0)
-    relative_to_absolute_url(@base_url, url)
   end
 
   defp extract_city(parsed) do
     parsed
-    |> Floki.find(".job-info .location")
+    |> Floki.find(".viewjob-header .location")
     |> Floki.text()  
   end
 
   defp extract_company_name(parsed) do
     parsed
-    |> Floki.find(".job-info .company")
+    |> Floki.find(".viewjob-header .company")
     |> Floki.text()
   end
 
@@ -89,7 +82,7 @@ defmodule JobBot.Crawler.SimplyHired do
 
   defp extract_title(parsed) do
     parsed
-    |> Floki.find("h1.viewjob-header-title")
+    |> Floki.find(".viewjob-header h1")
     |> Floki.text()
   end
 end

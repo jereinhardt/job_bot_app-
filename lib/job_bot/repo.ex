@@ -1,5 +1,8 @@
 defmodule JobBot.Repo do
-  use Ecto.Repo, otp_app: :job_bot
+  use Ecto.Repo,
+    otp_app: :job_bot,
+    adapter: Ecto.Adapters.Postgres
+  use Scrivener, page_size: 10
 
   @doc """
   Dynamically loads the repository url from the

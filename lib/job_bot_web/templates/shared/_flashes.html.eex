@@ -1,0 +1,32 @@
+<%= if message = get_flash(@conn, :success) do %>
+  <div class="section flash-message__container" data-flash-message="success">
+    <div class="container">
+      <div class="flash-message notification is-success">
+        <button class="delete" data-flash-remove="success"></button>
+        <%= message %>
+      </div>      
+    </div>
+  </div>
+<% end %>
+
+<%= if message = get_flash(@conn, :info) do %>
+  <div class="section flash-message__container" data-flash-message="info">
+    <div class="container">
+      <div class="flash-message notification is-info">
+        <button class="delete" data-flash-remove="info"></button>
+        <%= message %>
+      </div>    
+    </div>
+  </div>
+<% end %>
+
+<%= if message = get_flash(@conn, :error) do %>
+  <div class="section flash-message__container" data-flash-message="error">
+    <div class="container">
+      <div class="flash-message notification is-warning">
+        <button class="delete" data-flash-remove="error"></button>
+        <%= message %>
+      </div>      
+    </div>
+  </div>
+<% end %>

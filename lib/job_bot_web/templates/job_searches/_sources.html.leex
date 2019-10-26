@@ -1,0 +1,19 @@
+<div class="step__title">
+  Where would you like me to look?
+</div>
+<p class="step__description">
+  Please select at least one job board where you would like to look for jobs.
+</p>
+
+<%= for source <- JobBot.Source.all() do %>
+  <div>
+    <%= source_checkbox @f, source.name %>
+  </div>
+<% end %>
+
+<%= input_error @f, :sources %>
+
+<%= step_navigation do %>
+  <%= previous_step_button %>
+  <%= next_step_button %>
+<% end %>

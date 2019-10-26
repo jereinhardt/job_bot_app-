@@ -1,0 +1,19 @@
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <%= form_for @live_form, "#", fn f -> %>
+        <%= form_step f, 1 do %>
+          <%= render JobBotWeb.JobSearchesView, "_terms_location.html", Map.merge(assigns, %{f: f}) %>        
+        <% end %>
+
+        <%= form_step f, 2 do %>
+          <%= render JobBotWeb.JobSearchesView, "_sources.html", Map.merge(assigns, %{f: f}) %>
+        <% end %>
+
+        <%= form_step f, 3 do %>
+          <%= render_final_step f, assigns %>
+        <% end %>
+      <% end %>  
+    </div>
+  </div>
+</section>

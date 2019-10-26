@@ -1,0 +1,6 @@
+<div class="navbar-item">
+  <%= link("Create New Search", to: job_searches_path(@conn, :new), class: "button is-primary") %>
+</div>
+<div class="navbar-item">
+  <%= link("Logout", to: session_path(@conn, :delete), method: :delete, class: "button is-light") %>
+</div>

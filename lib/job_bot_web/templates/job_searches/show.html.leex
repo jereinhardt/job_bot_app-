@@ -1,0 +1,11 @@
+<section class="section">
+  <div class="container">
+    <ul class="listings--list">
+      <%= for listing <- @listings.entries do %>
+        <%= render("_listing.html", listing: listing) %>
+      <% end %>
+    </ul>
+
+    <%= Pagination.pagination_links(@listings) %>
+  </div>
+</section>

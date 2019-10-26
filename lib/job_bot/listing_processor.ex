@@ -1,41 +1,15 @@
 defmodule JobBot.ListingProcessor do
-  alias JobBot.{Accounts, Listing, Repo, UserRegistry}
+  alias JobBot.Accounts
+  alias JobBot.JobSearches
+  alias JobBot.JobSearches.JobSearch
+  alias JobBot.JobSearches.LiveUpdates
 
-  def process(%Listing{id: id} = listing, user_id) when is_integer(id) do
-    with {:ok, user_listing} <- create_user_listing(listing, user_id) do
-      JobBotWeb.Endpoint.broadcast(
-        "users:#{user_id}",
-        "new_listing",
-        %{"listing" => user_listing}
-      )
-    end      
-  end
+  def process(listing, job_search_id) do
+    listing_attrs = Map.from_struct(listing)
+    job_search = JobSearches.get!(job_search_id)
 
-  def process(listing, user_id) do
-    with {:ok, listing} <- Listing.find_or_create(listing),
-      {:ok, user_listing} <- create_user_listing(listing, user_id)
-    do
-      JobBotWeb.Endpoint.broadcast(
-        "users:#{user_id}",
-        "new_listing",
-        %{"listing" => user_listing}
-      )      
-    end
-  end
-
-  defp create_user_listing(listing, user_id) do
-    search_for_at = UserRegistry.get_user_data(user_id, :searched_for_at)
-    attrs = %{
-      searched_for_at: search_for_at,
-      user_id: user_id,
-      listing_id: listing.id
-    }
-    case Accounts.create_user_listing(attrs) do
-      {:ok, user_listing} ->
-        user_listing_with_data = Repo.preload(user_listing, :listing)
-        {:ok, user_listing_with_data}
-      {:error, message} ->
-        {:error, message}
+    with {:ok, listing} <- JobSearches.create_listing(job_search, listing_attrs) do
+      LiveUpdates.broadcast_new_listing(job_search, listing)
     end
   end
 end

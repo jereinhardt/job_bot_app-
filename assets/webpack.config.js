@@ -45,8 +45,11 @@ module.exports = {
     }, {
       test: /\.(js|jsx)$/,
       include: /js/,
+      exclude: /(deps|node_modules)/,
       use: [
-        { loader: 'babel-loader' }
+        {
+          loader: 'babel-loader',
+        }
       ]
     }, {
       test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,

@@ -1,7 +1,10 @@
 defmodule JobBotWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :job_bot
 
-  socket "/socket", JobBotWeb.UserSocket
+  socket "/live", Phoenix.LiveView.Socket
+    # this may or may not be required in order for this to run in production
+    # if there are any issues when deploying to prod, uncomment the line below
+    # ,websocket: [check_origin: ["//bruised-distant-joey.gigalixirapp.com", "//localhost:4000"]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #

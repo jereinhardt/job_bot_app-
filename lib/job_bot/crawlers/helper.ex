@@ -16,7 +16,7 @@ defmodule JobBot.Crawler.Helper do
 
   def find_final_request_response({:error, _} = response), do: response
 
-  defp follow_redirect_response(%Response{headers: headers}) do
+  defp follow_redirect_response(%Response{headers: headers} = response) do
     {"Location", url} = 
       headers
       |> Enum.find(fn({k, _}) -> k == "Location" end)
@@ -25,8 +25,18 @@ defmodule JobBot.Crawler.Helper do
       {:error, %Error{reason: "Couldn't follow bad redirect"}}
     else
       url
+      |> build_absolute_url(response)
       |> HTTPoison.get()
       |> find_final_request_response()
+    end
+  end
+
+  defp build_absolute_url(url, response) do
+    if String.starts_with?(url, "http") do
+      url
+    else
+      uri = URI.parse(response.request_url)
+      uri.scheme <> "://" <> uri.host <> url
     end
   end
 end

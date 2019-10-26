@@ -20,7 +20,7 @@ defmodule JobBot.Mixfile do
   def application do
     [
       mod: {JobBot.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :scrivener_ecto]
     ]
   end
 
@@ -33,23 +33,28 @@ defmodule JobBot.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix, "~> 1.4.9"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.10"},
+      {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:plug_cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 0.12"},
       {:floki, "~> 0.20.1"},
       {:hound, "~> 1.0"},
       {:httpoison, "~> 1.4"},
+      {:jason, "~> 1.0"},
       {:distillery, "~> 2.0", runtime: false},
+      {:scrivener_ecto, "~> 2.0"},
       {:mock, "~> 0.3.2", only: :test},
       {:ex_machina, "~> 2.2", only: :test},
+      {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
+      {:prospero, github: "jereinhardt/prospero"}
     ]
   end
 
