@@ -1668,11 +1668,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _deps_phoenix_html_priv_static_phoenix_html__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_deps_phoenix_html_priv_static_phoenix_html__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _flash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./flash */ "./js/flash.js");
 /* harmony import */ var _flash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_flash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _listingToggle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./listingToggle */ "./js/listingToggle.js");
-/* harmony import */ var _listingToggle__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_listingToggle__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _navToggle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./navToggle */ "./js/navToggle.js");
-/* harmony import */ var _navToggle__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_navToggle__WEBPACK_IMPORTED_MODULE_5__);
-
+/* harmony import */ var _navToggle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./navToggle */ "./js/navToggle.js");
+/* harmony import */ var _navToggle__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_navToggle__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -1681,30 +1678,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var liveSocket = new phoenix_live_view__WEBPACK_IMPORTED_MODULE_1___default.a("/live", phoenix__WEBPACK_IMPORTED_MODULE_0__["Socket"]);
 liveSocket.connect();
-
-/***/ }),
-
-/***/ "./js/listingToggle.js":
-/*!*****************************!*\
-  !*** ./js/listingToggle.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var toggleListing = function toggleListing(event) {
-  var toggle = event.target;
-  var listingId = toggle.dataset.toggleListing;
-  event.preventDefault();
-  var description = document.querySelector("[data-listing-description='" + listingId + "']");
-  if (description.classList.contains("expanded")) {
-    toggle.textCotnent = "Show Less";
-  } else {
-    toggle.textContent = "Show More";
-  }
-  description.classList.toggle("expanded");
-};
-
-window.toggleListing = toggleListing;
 
 /***/ }),
 

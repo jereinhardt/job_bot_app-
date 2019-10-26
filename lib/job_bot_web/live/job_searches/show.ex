@@ -14,6 +14,7 @@ defmodule JobBotWeb.JobSearchesLive.Show do
       socket
       |> assign(job_search: job_search)
       |> assign(current_user: current_user)
+      |> assign(toggled_listings: [])
       |> assign(listings: listings)
     {:ok, socket}
   end
@@ -45,6 +46,23 @@ defmodule JobBotWeb.JobSearchesLive.Show do
     else
       {:error, _} -> {:noreply, socket}
     end
+  end
+
+  def handle_event("toggle_listing", %{"listing-id" => listing_id}, socket) when is_binary(listing_id) do
+    handle_event("toggle_listing", %{"listing-id" => String.to_integer(listing_id)}, socket)
+  end
+
+  def handle_event("toggle_listing", %{"listing-id" => listing_id}, socket) do
+    toggled_listings =
+      if listing_id in socket.assigns.toggled_listings do
+        socket.assigns.toggled_listings
+        |> Enum.reject(&(&1 == listing_id))
+      else
+        socket.assigns.toggled_listings
+        |> Enum.concat([listing_id])
+      end
+
+    {:noreply, assign(socket, toggled_listings: toggled_listings)}
   end
 
   def handle_event("view_page", %{"page" => page}, socket) do
