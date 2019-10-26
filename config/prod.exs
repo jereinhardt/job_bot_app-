@@ -18,7 +18,9 @@ config :job_bot, JobBotWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
-  secret_key_base: "${SECRET_KEY_BASE}"
+  secret_key_base: "${SECRET_KEY_BASE}",
+  live_view: [signing_salt: "${LIVEVIEW_SIGNING_SALT}"],
+  check_origin: ["//bruised-distant-joey.gigalixirapp.com", "//localhost:4000"]
 
 config :job_bot, JobBot.Repo,
   adapter: Ecto.Adapters.Postgres,
