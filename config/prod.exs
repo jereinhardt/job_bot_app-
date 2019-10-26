@@ -27,7 +27,7 @@ config :job_bot, JobBot.Repo,
   url: "${DATABASE_URL}",
   database: "",
   ssl: true,
-  pool_size: 1
+  pool_size: 2
 
 config :job_bot, JobBot.Accounts.Guardian,
        issuer: "job_bot",

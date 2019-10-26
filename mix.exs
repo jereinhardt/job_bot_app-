@@ -4,7 +4,7 @@ defmodule JobBot.Mixfile do
   def project do
     [
       app: :job_bot,
-      version: "0.0.1",
+      version: "0.2.0",
       elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
