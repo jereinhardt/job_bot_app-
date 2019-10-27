@@ -10,7 +10,8 @@ defmodule JobBot.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :transitive]
     ]
   end
 
@@ -51,6 +52,7 @@ defmodule JobBot.Mixfile do
       {:jason, "~> 1.0"},
       {:distillery, "~> 2.0", runtime: false},
       {:scrivener_ecto, "~> 2.0"},
+      {:dialyxir, "~> 0.5.0", only: [:dev], runtime: false},
       {:mock, "~> 0.3.2", only: :test},
       {:ex_machina, "~> 2.2", only: :test},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
