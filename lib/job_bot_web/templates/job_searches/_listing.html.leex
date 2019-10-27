@@ -10,19 +10,17 @@
     </div>
 
     <div 
-      class="listing--description"
-      data-listing-description="<%= @listing.id %>"
+      class="listing--description <%= if @toggled, do: "expanded" %>"
     >
       <p>
         <%= raw(@listing.description) %>
       </p>
-      <a 
+      <a
         class="listing--description-toggle has-text-centered"
-        onclick="toggleListing(event)"
-        href="#"
-        data-toggle-listing="<%= @listing.id %>"
+        phx-click="toggle_listing"
+        phx-value-listing-id="<%= @listing.id %>"
       >
-        Show More
+        <%= if @toggled, do: "Show Less", else: "Show More" %>
       </a>
     </div>
     <div class="listing--actions has-text-right">

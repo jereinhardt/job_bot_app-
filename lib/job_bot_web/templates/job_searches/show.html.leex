@@ -2,7 +2,7 @@
   <div class="container">
     <ul class="listings--list">
       <%= for listing <- @listings.entries do %>
-        <%= render("_listing.html", listing: listing) %>
+        <%= render("_listing.html", listing: listing, toggled: listing.id in @toggled_listings) %>
       <% end %>
     </ul>
 
