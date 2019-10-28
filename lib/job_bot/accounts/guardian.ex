@@ -4,6 +4,8 @@ defmodule JobBot.Accounts.Guardian do
   alias JobBot.Accounts
   alias JobBot.Accounts.User
 
+  @dialyzer {:nowarn_function, resource_from_claims: 1}
+
   def subject_for_token(%User{} = user, _claims) do
     {:ok, to_string(user.id)}
   end
@@ -17,7 +19,7 @@ defmodule JobBot.Accounts.Guardian do
     {:ok, user}
   end
 
-  def resource_from_claims(_claims), do: {:error, :reason_for_error}
+  def resource_from_claims(_), do: {:error, :reason_for_error}
 
   def signed_token(user) do
     Phoenix.Token.sign(JobBotWeb.Endpoint, token_salt(), user.id)
