@@ -2,6 +2,6 @@
   <div class="container">
     <h1 class="title">Sign Up for JobBot</h1>
 
-    <%= render("_form.html", conn: @conn, changeset: @changeset) %>
+    <%= render("_form.html", conn: @conn, changeset: @changeset, path: users_path(@conn, :create)) %>
   </div>
 </div>

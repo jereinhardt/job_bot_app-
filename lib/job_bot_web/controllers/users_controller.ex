@@ -22,4 +22,26 @@ defmodule JobBotWeb.UsersController do
         |> render("new.html", changeset: changeset)
     end
   end
+
+  def edit(conn, _params) do
+    changeset = Accounts.edit_user(conn.assigns.current_user)
+
+    conn
+    |> render("edit.html", changeset: changeset)
+  end
+
+  def update(conn, %{"user" => user_params}) do
+    user = conn.assigns.current_user
+
+    with {:ok, user} <- Accounts.update_user(user, user_params) do
+      conn
+      |> put_flash(:success, "Your profile has been updated")
+      |> redirect(to: users_path(conn, :edit))
+    else
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Please make sure your information is valid")
+        |> render("edit.html", changeset: changeset)
+    end
+  end
 end

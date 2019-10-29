@@ -53,6 +53,12 @@ defmodule JobBotWeb.Router do
   end
 
   scope "/", JobBotWeb do
+    pipe_through [:browser, :logged_in]
+
+    resources "/account", UsersController, only: [:edit, :update], singleton: true
+  end
+
+  scope "/", JobBotWeb do
     pipe_through [:browser, :logged_out]
 
     get "/signup", UsersController, :new, as: :signup
