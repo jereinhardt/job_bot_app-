@@ -2,5 +2,8 @@
   <%= link("Create New Search", to: job_searches_path(@conn, :new), class: "button is-primary") %>
 </div>
 <div class="navbar-item">
+  <%= link("Account", to: users_path(@conn, :edit), class: "button is-light") %>
+</div>
+<div class="navbar-item">
   <%= link("Logout", to: session_path(@conn, :delete), method: :delete, class: "button is-light") %>
 </div>
