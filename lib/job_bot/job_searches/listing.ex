@@ -8,6 +8,21 @@ defmodule JobBot.JobSearches.Listing do
   alias JobBot.Source
   alias JobBot.JobSearches.JobSearch
 
+  @type t :: %__MODULE__{
+    title: String.t,
+    company_name: String.t,
+    listing_url: String.t,
+    source: String.t,
+    applied_to_at: NaiveDateTime.t | nil,
+    description: String.t | nil,
+    city: String.t | nil,
+    remote: boolean | nil,
+    salary: String.t | nil,
+    email: String.t | nil,
+    application_url: String.t | nil,
+    skills: list(String.t) | nil
+  }
+
   @casted_attrs [
     :applied_to_at,
     :title,

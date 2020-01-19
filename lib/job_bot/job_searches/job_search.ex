@@ -6,6 +6,12 @@ defmodule JobBot.JobSearches.JobSearch do
   alias JobBot.Accounts.User
   alias JobBot.JobSearches.Listing
 
+  @type t :: %__MODULE__{
+    location: String.t | nil,
+    sources: list(String.t),
+    terms: String.t
+  }
+
   schema "job_searches" do
     field :location, :string
     field :sources, {:array, :string}

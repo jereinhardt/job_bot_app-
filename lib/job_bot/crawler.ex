@@ -1,8 +1,8 @@
 defmodule JobBot.Crawler do
-  @callback get_job_urls(map) :: list
-  @callback crawl_url_for_listing(String.t) :: {:ok, map} | {:error, String.t}
+  alias JobBot.JobSearches.{JobSearch, Listing}
 
-  alias JobBot.JobSearches.Listing
+  @callback crawl_job_search_index(JobSearch.t) :: list(Listing.t)
+  @callback crawl_listing(Listing.t) :: {:ok, Listing.t} | {:error, String.t}
 
   @doc """
   returns the formatted tuple to register the the process as a Genserver
@@ -10,13 +10,20 @@ defmodule JobBot.Crawler do
   """
   def ref(job_search_id, module), do: {:global, {module, job_search_id}}
 
-  defmacro __using__(_) do
+  defmacro __using__(opts) do
+    base_url = Keyword.get(opts, :base_url)
+    source_name = Keyword.get(opts, :source_name)
+
     quote do
       use GenServer
       require Logger
       import JobBot.Crawler
+      import JobBot.Crawler.Request
 
       @behaviour JobBot.Crawler
+
+      @base_url unquote(base_url)
+      @source_name unquote(source_name)
 
       def start_link(job_search) do
         GenServer.start_link(__MODULE__, {:ok, job_search}, name: ref(job_search.id))
@@ -38,9 +45,15 @@ defmodule JobBot.Crawler do
       @doc """
       Performs the following setup steps before crawling:
         1. Register the process with the WorkerRegistry
-        2. Send an asyncronous call to self to schedule the first crawl job
-        3. Crawl the index of the source for the listing urls, and set those
-           urls as the initial state of the process
+        2. Crawl the index of search results and parse a list of listings.  This is
+           generate an initial list of listings that can be parsed from whatever
+           information is available from the index.  Later, the crawler will try
+           to search each individual listing to get more information, and update the
+           listing if possible.  However, if the site's ROBOTS.txt does not allow
+           crawling of some or all listings, those crawls will be skipped, and the
+           initial listing that was parsed from the index will be saved.
+        3. Send an asyncronous call to self to schedule the worker to crawl the
+           first listing returned from crawl_job_search_index/1
 
       Right now, the amount of links the crawler is allowed to return from the
       index is limitted to the first 10.  This is to prevent an overload of
@@ -52,7 +65,7 @@ defmodule JobBot.Crawler do
         |> JobBot.WorkerRegistry.register(self())
 
         state =
-          Task.async(fn -> get_job_urls(job_search) end)
+          Task.async(fn -> crawl_job_search_index(job_search) end)
           |> Task.await(30000)
 
         schedule_next_crawl()
@@ -61,7 +74,7 @@ defmodule JobBot.Crawler do
       end
 
       @doc """
-        Waits 5 seconds before crawling the next url
+      Waits 5 seconds before crawling the next url
       """
       def schedule_next_crawl do
         case check_rate_limit() do
@@ -79,10 +92,16 @@ defmodule JobBot.Crawler do
       listing.  Once the listing information is returned, it sends the listing
       to the Processor, then schedules the next crawl job.
       """
-      def handle_info(:crawl_next, [url|state]) do
-        url
-        |> crawl_url_for_listing()
-        |> process_listing()
+      def handle_info(:crawl_next, [listing|state]) do
+        with {:ok, response} <- find_final_request_response(listing.listing_url),
+          true <- crawlable?(response.request_url)
+        do
+          listing
+          |> crawl_listing()
+          |> process_listing()
+        else
+          _ -> process_listing(listing)
+        end
 
         schedule_next_crawl()
 
@@ -94,14 +113,19 @@ defmodule JobBot.Crawler do
       """
       def handle_info(:crawl_next, []), do: {:stop, :normal, []}
 
+
       @doc """
-      If the setup has not been completed yet, queue another delayed scraper.
+      Checks to see if the crawl rate has been reached.  If it has, it waits the
+      appropriate amount of time before starting the next crawl.  Otherwise, the
+      next crawl is started immediately.
       """
-      def handle_info(:crawl_next, nil) do
-        Logger.info(
-          IO.ANSI.green <> "no initial state yet.  Resetting inittial crawl" <> IO.ANSI.reset
-        )
-        schedule_next_crawl()
+      def schedule_next_crawl do
+        case check_rate_limit() do
+          :ok ->
+            Process.send(self(), :crawl_next, [])
+          {:wait, wait_time} ->
+            Process.send_after(self(), :crawl_next, wait_time)
+        end
       end
 
       @doc """
@@ -115,6 +139,52 @@ defmodule JobBot.Crawler do
       defp ref(job_search_id), do: ref(job_search_id, __MODULE__)
       
       defp job_search_id, do: JobBot.WorkerRegistry.job_search_id(self())
+
+      defp check_rate_limit() do
+        bucket_name = Atom.to_string(__MODULE__)
+        
+        case ExRated.check_rate(bucket_name, 10_000, 5) do
+          {:ok, _} -> :ok
+          {:error, _} ->
+            {_, _, wait_time, _, _} =
+              ExRated.inspect_bucket(bucket_name, 10_000, 5)
+            {:wait, wait_time}
+        end
+      end
+
+      defp crawlable?(url) do
+        %{path: path, query: query} = URI.parse(url)
+
+        disallowed_path_found =
+          parsed_robots_txt
+          |> Enum.filter(fn ({key, _}) -> key == "Disallow" end)
+          |> Enum.find(fn ({_, disallowed_path}) ->
+            crawl_path = if query, do: "#{path}?", else: path
+            crawl_path == disallowed_path
+          end)
+
+        !disallowed_path_found
+      end
+
+      defp parsed_robots_txt do
+        {:ok, res} = HTTPoison.get("#{@base_url}/robots.txt")
+        if res.status_code == 404 do
+          []
+        else
+          res.body
+          |> String.split("\n\n")
+          |> Enum.find(&String.starts_with?(&1, "User-agent: *"))
+          |> String.split("\n")
+          |> Enum.map(fn (string) ->
+            [key, value] = String.split(string, ":")
+            {key, String.trim(value)}
+          end)
+        end
+      end
+
+      defp process_listing(%Listing{} = listing) do
+        JobBot.ListingProcessor.process(listing, job_search_id())
+      end
 
       defp process_listing({:ok, listing}) do
         JobBot.ListingProcessor.process(listing, job_search_id())

@@ -1,8 +1,14 @@
-defmodule JobBot.Crawler.Helper do
+defmodule JobBot.Crawler.Request do
   alias HTTPoison.{Error, Response}
 
   def relative_to_absolute_url(base_url, url) do
     URI.merge(base_url, url) |> URI.to_string()
+  end
+
+  def find_final_request_response(url) when is_binary(url) do
+    url
+    |> HTTPoison.get()
+    |> find_final_request_response()
   end
 
   def find_final_request_response({:ok, %Response{status_code: status_code} = response}) do
