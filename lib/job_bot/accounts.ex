@@ -8,6 +8,10 @@ defmodule JobBot.Accounts do
     User.changeset(%User{}, params)
   end
 
+  def edit_user(user, params \\ %{}) do
+    User.changeset(user, params)
+  end
+
   def get_user!(id) do
     Repo.get!(User, id)
   end

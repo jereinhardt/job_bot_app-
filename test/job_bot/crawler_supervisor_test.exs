@@ -12,40 +12,20 @@ defmodule JobBot.CrawlerSupervisorTest do
   end
 
   test(
-    "start_child/2 starts the given crawler with the given opts",
+    "start_child/2 starts the given crawler with the given job search",
     %{job_search: job_search}
   ) do
     with_mock(DynamicSupervisor, [start_child: fn (_, _) -> nil end]) do
       ref = JobBot.Crawler.ref(job_search.id, Crawler)
-      spec = Supervisor.Spec.worker(
-        Crawler,
-        [job_search],
+      
+      spec = %{
+        id: ref,
+        start: {Crawler, :start_link, [job_search]},
         restart: :temporary,
-        id: ref
-      )
+        type: :worker
+      }
 
       JobBot.CrawlerSupervisor.start_child(Crawler, job_search)
-
-      assert_called(
-        DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec)
-      )
-    end
-  end
-
-  test(
-    "start_crawlers/1 starts crawlers for sources and registers user",
-    %{job_search: job_search}
-  ) do
-    with_mock(DynamicSupervisor, [start_child: fn(_, _) -> nil end]) do
-      ref = JobBot.Crawler.ref(job_search.id, Crawler)
-      spec = Supervisor.Spec.worker(
-        Crawler,
-        [job_search],
-        restart: :temporary,
-        id: ref
-      )
-
-      JobBot.CrawlerSupervisor.start_crawlers(job_search)
 
       assert_called(
         DynamicSupervisor.start_child(JobBot.CrawlerSupervisor, spec)

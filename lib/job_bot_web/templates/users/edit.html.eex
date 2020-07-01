@@ -1,0 +1,7 @@
+<div class="section">
+  <div class="container">
+    <h1 class="title">Edit your account</h1>
+
+    <%= render("_form.html", conn: @conn, changeset: @changeset, path: users_path(@conn, :update)) %>
+  </div>
+</div>
