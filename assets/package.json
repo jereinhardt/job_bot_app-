@@ -31,7 +31,7 @@
     "fstream": "1.0.12",
     "image-webpack-loader": "^4.6.0",
     "js-yaml": "3.13.1",
-    "lodash": "4.17.13",
+    "lodash": "4.17.21",
     "lodash.mergewith": "4.6.2",
     "mem": "4.0.0",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
